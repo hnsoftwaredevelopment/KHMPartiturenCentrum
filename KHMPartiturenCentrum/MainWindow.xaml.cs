@@ -64,83 +64,105 @@ public partial class MainWindow : Window
     #endregion
 
     #region MenuLeft PopupButton
-    #region Run Menu
-    private void btnRun_Click(object sender, RoutedEventArgs e)
+    #region Score Menu
+    #region On Click
+    private void btnScores_Click(object sender, RoutedEventArgs e)
     {
-        fContainer.Navigate(new System.Uri("Views/Run.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate(new System.Uri("Views/Scores.xaml", UriKind.RelativeOrAbsolute));
     }
-    private void btnRun_MouseEnter(object sender, MouseEventArgs e)
+    #endregion
+
+    #region On Mouse Enter
+    private void btnScores_MouseEnter(object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
         {
             Popup.PlacementTarget = btnRun;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Generate Alure Factsheets";
+            Header.PopupText.Text = "Partituren overzicht";
         }
     }
+    #endregion
 
-    private void btnRun_MouseLeave(object sender, MouseEventArgs e)
+    #region On Mouse Leave
+    private void btnScores_MouseLeave(object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
     }
     #endregion
+    #endregion
 
-    #region Factsheets
-    private void btnFactsheets_Click(object sender, RoutedEventArgs e)
+    #region Free numbers Menu
+    #region On Click
+    private void btnFreeNumbers_Click(object sender, RoutedEventArgs e)
     {
         fContainer.Navigate(new System.Uri("Views/Factsheets.xaml", UriKind.RelativeOrAbsolute));
     }
+    #endregion
 
-    private void btnFactsheets_MouseEnter(object sender, MouseEventArgs e)
+    #region On Mouse Enter
+    private void btnFreeNumbers_MouseEnter(object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
         {
             Popup.PlacementTarget = btnFactsheets;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Maintain Alure Factsheets";
+            Header.PopupText.Text = "Beschikbare partituurnummers";
         }
     }
+    #endregion
 
-    private void btnFactsheets_MouseLeave(object sender, MouseEventArgs e)
+    #region On Mouse Leave
+    private void btnFreeNumbers_MouseLeave(object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
     }
     #endregion
+    #endregion
 
-    #region History
-    private void btnHistory_Click(object sender, RoutedEventArgs e)
+    #region Licenses Menu
+    #region On Click
+    private void btnLicenses_Click(object sender, RoutedEventArgs e)
     {
         fContainer.Navigate(new System.Uri("Views/History.xaml", UriKind.RelativeOrAbsolute));
     }
+    #endregion
 
-    private void btnHistory_MouseEnter(object sender, MouseEventArgs e)
+    #region On Mouse Enter
+    private void btnLicenses_MouseEnter(object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
         {
             Popup.PlacementTarget = btnHistory;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Show History of generated Factsheets";
+            Header.PopupText.Text = "Toon de aangeschafte partituren per per partituur";
         }
     }
+    #endregion
 
-    private void btnHistory_MouseLeave(object sender, MouseEventArgs e)
+    #region On Mouse Leave
+    private void btnLicenses_MouseLeave(object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
     }
     #endregion
+    #endregion
 
     #region Settings
+    #region On Click
     private void btnSettings_Click(object sender, RoutedEventArgs e)
     {
         fContainer.Navigate(new System.Uri("Views/Settings.xaml", UriKind.RelativeOrAbsolute));
     }
+    #endregion
 
+    #region On Mouse Enter
     private void btnSettings_MouseEnter(object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
@@ -148,15 +170,18 @@ public partial class MainWindow : Window
             Popup.PlacementTarget = btnSettings;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Settings for Factsheets";
+            Header.PopupText.Text = "Gebruikers instellingen";
         }
     }
+    #endregion
 
+    #region On Mouse Leave
     private void btnSettings_MouseLeave(object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
     }
+    #endregion
     #endregion
     #endregion
 }

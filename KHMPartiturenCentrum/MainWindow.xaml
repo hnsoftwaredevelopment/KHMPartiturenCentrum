@@ -55,39 +55,39 @@
                     <!--#region MenuItem-->
                     <StackPanel Grid.Row="1" Margin="-1,40,0,20">
                         <Button
-                            x:Name="btnRun"
-                            Click="btnRun_Click"
-                            MouseEnter="btnRun_MouseEnter"
-                            MouseLeave="btnRun_MouseLeave"
+                            x:Name="btnScores"
+                            Click="btnScores_Click"
+                            MouseEnter="btnScores_MouseEnter"
+                            MouseLeave="btnScores_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
-                            <ctls:MenuItem VerticalAlignment="Center" GroupName="MenuItem" Icon="{DynamicResource start}" IconWidth="16" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Text="Partituren" />
+                            <ctls:MenuItem VerticalAlignment="Center" GroupName="MenuItem" Icon="{DynamicResource scores}" IconWidth="16" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Text="Partituren" />
                         </Button>
 
                         <Button
-                            x:Name="btnFactsheets"
-                            Click="btnFactsheets_Click"
-                            MouseEnter="btnFactsheets_MouseEnter"
-                            MouseLeave="btnFactsheets_MouseLeave"
+                            x:Name="btnFreNumbers"
+                            Click="btnFreeNumbers_Click"
+                            MouseEnter="btnFreeNumbers_MouseEnter"
+                            MouseLeave="btnFreeNumbers_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
                             <ctls:MenuItem
                                 VerticalAlignment="Center"
                                 GroupName="MenuItem"
-                                Icon="{DynamicResource edit}"
+                                Icon="{DynamicResource freenumbers}"
                                 IconWidth="16"
                                 IndicatorBrush="{DynamicResource PrimaryBlueColor}"
                                 Text="Vrije nummers" />
                         </Button>
 
                         <Button
-                            x:Name="btnHistory"
-                            Click=" btnHistory_Click"
-                            MouseEnter="btnHistory_MouseEnter"
-                            MouseLeave="btnHistory_MouseLeave"
+                            x:Name="btnLicenses"
+                            Click="btnLicenses_Click"
+                            MouseEnter="btnLicenses_MouseEnter"
+                            MouseLeave="btnLicenses_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
                             <ctls:MenuItem
                                 VerticalAlignment="Center"
                                 GroupName="MenuItem"
-                                Icon="{DynamicResource logfiles}"
+                                Icon="{DynamicResource license}"
                                 IconWidth="16"
                                 IndicatorBrush="{DynamicResource PrimaryBlueColor}"
                                 Text="Gebruikers" />
