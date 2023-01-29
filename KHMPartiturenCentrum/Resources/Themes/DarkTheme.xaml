@@ -1,0 +1,173 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Background Colors  -->
+    <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#131725" />
+    <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="#1d2335" />
+
+    <!--  Primary Colors  -->
+    <SolidColorBrush x:Key="PrimaryBlueColor" Color="#3772FF" />
+
+    <!--  Typograhy Colors  -->
+    <SolidColorBrush x:Key="PrimaryTextColor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="TextSecundaryColor" Color="#B0B7C3" />
+    <SolidColorBrush x:Key="TextTertiaryColor" Color="#8A94A6" />
+    <SolidColorBrush x:Key="TextFourthColor" Color="#4B5D78" />
+
+    <!--  Icon Colors  -->
+    <SolidColorBrush x:Key="PrimaryIconColor" Color="#B0B7C3" />
+    <SolidColorBrush x:Key="SecundaryIconColor" Color="#8A94A6" />
+    <SolidColorBrush x:Key="TertiarIconyColor" Color="#4B5D78" />
+    <SolidColorBrush x:Key="FourthIconColor" Color="#323B4B" />
+
+    <SolidColorBrush x:Key="btnClose" Color="#F72626" />
+
+    <!--  DataGrid Colors  -->
+    <Color x:Key="DataGrid.Row.Selected.BackgroundColor">#2690F6</Color>
+    <Color x:Key="DataGrid.Row.Selected.ForegroundColor">White</Color>
+    <Color x:Key="DataGrid.Row.NotSelected.ForegroundColor">Gray</Color>
+    <SolidColorBrush x:Key="DataGrid.AlternateRow.Background" Color="#e1f1f6" />
+    <SolidColorBrush x:Key="DataGrid.BorderBrush" Color="#FF688CAF" />
+    <SolidColorBrush x:Key="DataGrid.RowDetail.BorderBrush" Color="#65B1FA" />
+    <SolidColorBrush x:Key="DataGrid.Column.Header.Background" Color="DarkSlateBlue" />
+    <SolidColorBrush x:Key="DataGrid.Column.Header.Foreground" Color="White" />
+    <SolidColorBrush x:Key="DataGrid.Column.Header.Icon.Static" Color="DodgerBlue" />
+    <SolidColorBrush x:Key="DataGrid.Grid.HorizontalLineBrush" Color="Silver" />
+    <SolidColorBrush x:Key="DataGrid.Row.NotSelected.Text" Color="{DynamicResource DataGrid.Row.NotSelected.ForegroundColor}" />
+    <SolidColorBrush x:Key="DataGrid.Row.NotSelected.Stroke" Color="{DynamicResource DataGrid.Row.NotSelected.ForegroundColor}" />
+    <SolidColorBrush x:Key="DataGrid.Row.Selected.Text" Color="{DynamicResource DataGrid.Row.Selected.ForegroundColor}" />
+    <SolidColorBrush x:Key="DataGrid.Row.Selected.Stroke" Color="{DynamicResource DataGrid.Row.Selected.ForegroundColor}" />
+    <SolidColorBrush x:Key="DataGrid.Row.Selected.Background" Color="{DynamicResource DataGrid.Row.Selected.BackgroundColor}" />
+    
+    <!-- Settings Colors -->
+    <Color x:Key="Settings.Textbox.BackgroundColor.Base">#FFEBEBEB</Color>
+    <Color x:Key="Settings.Textbox.BorderBrushColor.Base">White</Color>
+    <Color x:Key="Settings.Textbox.ForegroundColor.Base">White</Color>
+    <SolidColorBrush x:Key="Settings.BackgroundColor" Color="{DynamicResource Settings.Textbox.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="Settings.BorderbrushColor" Color="{DynamicResource Settings.Textbox.BorderBrushColor.Base}" />
+    <SolidColorBrush x:Key="Settings.ForegroundColor" Color="{DynamicResource Settings.Textbox.ForegroundColor.Base}" />
+
+    <!--  Details view colors  -->
+    <Color x:Key="Details.Label.ForeGroundColor.Base">DarkBlue</Color>
+    <Color x:Key="Details.ForegroundColor.Base">Black</Color>
+    <Color x:Key="Details.BackgroundColor.Base">Beige</Color>
+    <Color x:Key="Details.ComboBox.TextBox.Background.Base">#707db2</Color>
+    <SolidColorBrush x:Key="Details.TextColor" Color="{DynamicResource Details.ForegroundColor.Base}" />
+    <SolidColorBrush x:Key="Details.Label.TextColor" Color="{DynamicResource Details.Label.ForeGroundColor.Base}" />
+    <SolidColorBrush x:Key="Details.BackgroundColor" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="Details.BorderbrushColor" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="Details.PlaceholderTextColor" Color="#626262" />
+    <SolidColorBrush x:Key="Detail.MouseOver.BorderColor" Color="#FF7EB4EA" />
+    <SolidColorBrush x:Key="Detail.Focus.BorderColor" Color="#FF569DE5" />
+    <SolidColorBrush x:Key="Details.Required.TextColor" Color="Red" />
+
+    <!-- Navigation buton colors -->
+    <SolidColorBrush x:Key="Navigation.Button.Static.Background" Color="#FFDDDDDD" />
+    <SolidColorBrush x:Key="Navigation.Button.Static.Border" Color="#C6C6C6" />
+    <SolidColorBrush x:Key="Navigation.Button.MouseOver.Background" Color="#FFBEE6FD" />
+    <SolidColorBrush x:Key="Navigation.Button.MouseOver.Border" Color="#FF3C7FB1" />
+    <SolidColorBrush x:Key="Navigation.Button.Pressed.Background" Color="#FFC4E5F6" />
+    <SolidColorBrush x:Key="Navigation.Button.Pressed.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="Navigation.Button.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Navigation.Button.Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Navigation.Button.Disabled.Foreground" Color="#FF838383" />
+
+    <!--#region Detail view ComboBox Colors-->
+    <SolidColorBrush x:Key="Details.ComboBox.TextBox.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="Details.ComboBox.TextBox.Foreground" Color="White" />
+    <SolidColorBrush x:Key="Details.ComboBox.Dropdown.Arrow" Color="#27387A" />
+    <SolidColorBrush x:Key="Details.ComboBox.DropdownList.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="Details.ComboBox.DropdownList.Foreground" Color="#7388AE" />
+    <SolidColorBrush x:Key="Details.ComboBox.DropdownList.BorderBrush" Color="#27387A" />
+    <SolidColorBrush x:Key="Details.ComboBox.DisabledForeground" Color="#888" />
+    <SolidColorBrush x:Key="Details.ComboBox.DisabledBackground" Color="#EEE" />
+    <SolidColorBrush x:Key="Details.ComboBox.DisabledBorderBrush" Color="#AAA" />
+    
+
+
+    <LinearGradientBrush x:Key="Details.ComboBox.Dropdown.Background" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Offset="0.0" Color="#FFF" />
+                <GradientStop Offset="1.0" Color="#BCCAF1" />
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Details.ComboBox.BorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Offset="0.0" Color="#BCCAF1" />
+                <GradientStop Offset="1.0" Color="#27387A" />
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Details.ComboBox.DropDown.IsMouseOver" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Offset="0.0" Color="White" />
+                <GradientStop Offset="1.0" Color="#707db2" />
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Details.ComboBox.DropDown.IsPressed" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Offset="0.0" Color="#707db2" />
+                <GradientStop Offset="0.1" Color="#BCCAF1" />
+                <GradientStop Offset="0.9" Color="#BCCAF1" />
+                <GradientStop Offset="1.0" Color="White" />
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <!--  Header Colors  -->
+    <SolidColorBrush x:Key="Header.BorderBrush" Color="DarkBlue" />
+    <SolidColorBrush x:Key="Header.BackGround" Color="#FFFFFFF5" />
+    <SolidColorBrush x:Key="Header.Title.TextColor" Color="#FF000086" />
+
+    <!--  Button Colors  -->
+    <SolidColorBrush x:Key="Button.Add.BorderBrush" Color="#FF1625E9" />
+    <SolidColorBrush x:Key="Button.Add.BackGround" Color="Beige" />
+    <SolidColorBrush x:Key="Button.Add.TextColor" Color="White" />
+    <SolidColorBrush x:Key="Button.Add.MouseOver.Background" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Add.MouseOver.Border" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Add.Pressed.Background" Color="#4C548E" />
+    <SolidColorBrush x:Key="Button.Add.Pressed.Border" Color="#4C548E" />
+    <SolidColorBrush x:Key="Button.Edit.BorderBrush" Color="#FF47B847" />
+    <SolidColorBrush x:Key="Button.Edit.BackGround" Color="Beige" />
+    <SolidColorBrush x:Key="Button.Edit.TextColor" Color="White" />
+    <SolidColorBrush x:Key="Button.Edit.MouseOver.Background" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Edit.MouseOver.Border" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Edit.Pressed.Background" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Edit.Pressed.Border" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Delete.BorderBrush" Color="#f70606" />
+    <SolidColorBrush x:Key="Button.Delete.BackGround" Color="Beige" />
+    <SolidColorBrush x:Key="Button.Delete.TextColor" Color="white" />
+    <SolidColorBrush x:Key="Button.Delete.MouseOver.Background" Color="#f76906" />
+    <SolidColorBrush x:Key="Button.Delete.MouseOver.Border" Color="#f76906" />
+    <SolidColorBrush x:Key="Button.Delete.Pressed.Background" Color="#6d0505" />
+    <SolidColorBrush x:Key="Button.Delete.Pressed.Border" Color="#6d0505" />
+    <SolidColorBrush x:Key="Button.Generate.BorderBrush" Color="DarkOliveGreen" />
+    <SolidColorBrush x:Key="Button.Generate.BackGround" Color="LightGreen" />
+    <SolidColorBrush x:Key="Button.Generate.TextColor" Color="White" />
+    <SolidColorBrush x:Key="Button.Generate.MouseOver.Background" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Generate.MouseOver.Border" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Generate.Pressed.Background" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Generate.Pressed.Border" Color="#FF446A39" />
+
+
+
+    <SolidColorBrush x:Key="Settings.Button.Text.Foreground" Color="#FF1C2EC6"/>
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF34AE0E" />
+    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF34AE0E" />
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
+
+</ResourceDictionary>

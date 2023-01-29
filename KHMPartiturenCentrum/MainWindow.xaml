@@ -1,0 +1,250 @@
+﻿<Window x:Class="KHMPartiturenCentrum.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctls="clr-namespace:KHMPartiturenCentrum.Controls"
+        xmlns:local="clr-namespace:KHMPartiturenCentrum"
+            AllowsTransparency="True"
+    Background="Transparent"
+    FontFamily="Poppins"
+    MouseDown="Window_MouseDown"
+    ResizeMode="CanResizeWithGrip"
+    WindowStyle="None" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="1400">
+    <Border Background="{DynamicResource PrimaryBackgroundColor}" CornerRadius="8">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Background="{DynamicResource SecundaryBackgroundColor}"
+                CornerRadius="8 0 0 8">
+                <Grid x:Name="GridNav" Width="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border
+                            Width="32"
+                            Height="24"
+                            Margin="14,0,0,0"
+                            HorizontalAlignment="Left">
+                            <Border.Background>
+                                <ImageBrush ImageSource="Resources/Images/logo.png" Stretch="Uniform"/>
+                            </Border.Background>
+                        </Border>
+
+                        <Label
+                            Margin="60,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="Alure Factsheets"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource PrimaryTextColor}" />
+                    </Grid>
+
+                    <!--#region MenuItem-->
+                    <StackPanel Grid.Row="1" Margin="-1,40,0,20">
+                        <Button
+                            x:Name="btnRun"
+                            Click="btnRun_Click"
+                            MouseEnter="btnRun_MouseEnter"
+                            MouseLeave="btnRun_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}">
+                            <ctls:MenuItem VerticalAlignment="Center" GroupName="MenuItem" Icon="{DynamicResource start}" IconWidth="16" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Text="Partituren" />
+                        </Button>
+
+                        <Button
+                            x:Name="btnFactsheets"
+                            Click="btnFactsheets_Click"
+                            MouseEnter="btnFactsheets_MouseEnter"
+                            MouseLeave="btnFactsheets_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}">
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource edit}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Vrije nummers" />
+                        </Button>
+
+                        <Button
+                            x:Name="btnHistory"
+                            Click=" btnHistory_Click"
+                            MouseEnter="btnHistory_MouseEnter"
+                            MouseLeave="btnHistory_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}">
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource logfiles}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Gebruikers" />
+                        </Button>
+
+                        <Button
+                            x:Name="btnSettings"
+                            Click="btnSettings_Click"
+                            MouseEnter="btnSettings_MouseEnter"
+                            MouseLeave="btnSettings_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}"
+                            Visibility="Visible">
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource settings}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Instellingen" />
+                        </Button>
+
+                        <ContentControl>
+                            <ContentControl.Content>
+                                <Binding Path="CurrentViewModel">
+                                    <Binding.TargetNullValue>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            Text="Select anything from menu..." />
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </ContentControl.Content>
+                        </ContentControl>
+                    </StackPanel>
+                    <!--#endregion MenuItem-->
+
+                    <!--#region Popup User Control-->
+                    <Popup
+                        x:Name="Popup"
+                        AllowsTransparency="True"
+                        HorizontalOffset="0"
+                        VerticalOffset="10">
+                        <ctls:UserPopup x:Name="Header" Foreground="{DynamicResource PrimaryTextColor}" />
+                    </Popup>
+                    <!--#endregion Popup User Control-->
+
+                    <Label
+                        x:Name="txtVersion"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="3,0,0,2"
+                        Content=""
+                        Foreground="White" />
+
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ToggleButton
+                    x:Name="Tg_Btn"
+                    Grid.Column="1"
+                    Width="30"
+                    Height="30"
+                    Margin="10,15,0,15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Style="{DynamicResource iToggleButtonStyle}">
+                    <ToggleButton.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="HideStackPanel">
+                                    <DoubleAnimation
+                                        BeginTime="0:0:0"
+                                        Storyboard.TargetName="GridNav"
+                                        Storyboard.TargetProperty="Width"
+                                        From="210"
+                                        To="60"
+                                        Duration="0:0:0.5" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="ShowStackPanel">
+                                    <DoubleAnimation
+                                        BeginTime="0:0:0"
+                                        Storyboard.TargetName="GridNav"
+                                        Storyboard.TargetProperty="Width"
+                                        From="60"
+                                        To="210"
+                                        Duration="0:0:0.5" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                </ToggleButton>
+
+                <!--#region Button Close | Restore | Minimize-->
+                <DockPanel
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    LastChildFill="True">
+                    <Grid HorizontalAlignment="Right" DockPanel.Dock="Right">
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Height="30"
+                            Margin="0,5,10,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            FlowDirection="RightToLeft"
+                            Orientation="Horizontal">
+                            <Button
+                                x:Name="btnClose"
+                                Click="btnClose_Click"
+                                Content="{DynamicResource close}"
+                                Style="{StaticResource IconButtonsStyle}"
+                                Tag="IsCloseButton" />
+                            <Button
+                                x:Name="btnRestore"
+                                Margin="5,0"
+                                Click="btnRestore_Click">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource IconButtonsStyle}" TargetType="{x:Type Button}">
+                                        <Setter Property="Content" Value="{DynamicResource maximize}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                                <Setter Property="Content" Value="{DynamicResource restore}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button
+                                x:Name="btnMinimize"
+                                Click="btnMinimize_Click"
+                                Content="{DynamicResource minimize}"
+                                Style="{DynamicResource IconButtonsStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </DockPanel>
+                <!--#endregion Button Close | Restore | Minimize-->
+
+                <Frame
+                    Name="fContainer"
+                    Grid.Row="1"
+                    Margin="20"
+                    NavigationUIVisibility="Hidden" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
