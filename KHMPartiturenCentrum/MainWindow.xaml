@@ -1,18 +1,22 @@
-﻿<Window x:Class="KHMPartiturenCentrum.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ctls="clr-namespace:KHMPartiturenCentrum.Controls"
-        xmlns:local="clr-namespace:KHMPartiturenCentrum"
-            AllowsTransparency="True"
+﻿<Window
+    x:Class="KHMPartiturenCentrum.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctls="clr-namespace:KHMPartiturenCentrum.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KHMPartiturenCentrum"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1400"
+    Height="650"
+    AllowsTransparency="True"
     Background="Transparent"
     FontFamily="Poppins"
     MouseDown="Window_MouseDown"
     ResizeMode="CanResizeWithGrip"
-    WindowStyle="None" WindowStartupLocation="CenterScreen"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1400">
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <Border Background="{DynamicResource PrimaryBackgroundColor}" CornerRadius="8">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -38,7 +42,7 @@
                             Margin="14,0,0,0"
                             HorizontalAlignment="Left">
                             <Border.Background>
-                                <ImageBrush ImageSource="Resources/Images/logo.png" Stretch="Uniform"/>
+                                <ImageBrush ImageSource="Resources/Images/logo.png" Stretch="Uniform" />
                             </Border.Background>
                         </Border>
 
@@ -60,11 +64,17 @@
                             MouseEnter="btnScores_MouseEnter"
                             MouseLeave="btnScores_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
-                            <ctls:MenuItem VerticalAlignment="Center" GroupName="MenuItem" Icon="{DynamicResource scores}" IconWidth="16" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Text="Partituren" />
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource scores}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Partituren" />
                         </Button>
 
                         <Button
-                            x:Name="btnFreNumbers"
+                            x:Name="btnFreeNumbers"
                             Click="btnFreeNumbers_Click"
                             MouseEnter="btnFreeNumbers_MouseEnter"
                             MouseLeave="btnFreeNumbers_MouseLeave"

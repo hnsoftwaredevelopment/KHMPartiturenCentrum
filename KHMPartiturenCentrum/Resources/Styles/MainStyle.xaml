@@ -101,7 +101,7 @@
     <!--#endregion-->
     
     <!--region Add Button -->
-    <Style x:Key="Factsheets.DataGrid.Button.Add" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
+    <Style x:Key="DataGrid.Button.Add" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
         <Setter Property="Background" Value="{DynamicResource Button.Add.BackGround}"/>
         <Setter Property="Margin" Value="0, 0, 0, 0"/>
         <Setter Property="Content" Value="Add"/>
@@ -131,11 +131,11 @@
     </Style>
     <!--#endregion-->
     
-    <!--#region Edit Button -->
-    <Style x:Key="Factsheets.DataGrid.Button.Edit" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
+    <!--#region Save Button -->
+    <Style x:Key="DataGrid.Button.Save" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
         <Setter Property="Background" Value="{DynamicResource Button.Edit.BackGround}"/>
         <Setter Property="Margin" Value="10, 0, 0, 0"/>
-        <Setter Property="Content" Value="Edit"/>
+        <Setter Property="Content" Value="Save"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -160,9 +160,42 @@
         </Setter>
     </Style>
     <!--#endregion-->
-    
+
+    <!--#region Navigation Button -->
+    <Style x:Key="DataGrid.Button.Navigate" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
+        <Setter Property="Background" Value="{DynamicResource Button.Add.BackGround}"/>
+        <Setter Property="Margin" Value="10, 0, 0, 0"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Content" Value="Navigate"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Navigate.BackGround}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Navigate.BorderBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Navigate.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Navigate.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Navigate.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Navigate.Pressed.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
     <!--#region Delete Button -->
-    <Style x:Key="Factsheets.DataGrid.Button.Delete" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
+    <Style x:Key="DataGrid.Button.Delete" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
         <Setter Property="Background" Value="{DynamicResource Button.Delete.BackGround}"/>
         <Setter Property="Margin" Value="10, 0, 0, 0"/>
         <Setter Property="Content" Value="Delete"/>
@@ -191,7 +224,7 @@
     </Style>    <!--#endregion-->
 
     <!--#region Generate Button -->
-    <Style x:Key="Factsheets.DataGrid.Button.Generate" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
+    <Style x:Key="DataGrid.Button.Generate" TargetType="{x:Type Button}" BasedOn="{StaticResource Factsheets.DataGrid.Button.Base}">
         <Setter Property="Background" Value="{DynamicResource Button.Generate.BackGround}"/>
         <Setter Property="Margin" Value="5, 0, 0, 0"/>
         <Setter Property="Content" Value="Generate"/>

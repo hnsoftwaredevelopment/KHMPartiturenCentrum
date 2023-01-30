@@ -77,7 +77,7 @@ public partial class MainWindow : Window
     {
         if (Tg_Btn.IsChecked == false)
         {
-            Popup.PlacementTarget = btnRun;
+            Popup.PlacementTarget = btnScores;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
             Header.PopupText.Text = "Partituren overzicht";
@@ -107,7 +107,7 @@ public partial class MainWindow : Window
     {
         if (Tg_Btn.IsChecked == false)
         {
-            Popup.PlacementTarget = btnFactsheets;
+            Popup.PlacementTarget = btnFreeNumbers;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
             Header.PopupText.Text = "Beschikbare partituurnummers";
@@ -137,7 +137,7 @@ public partial class MainWindow : Window
     {
         if (Tg_Btn.IsChecked == false)
         {
-            Popup.PlacementTarget = btnHistory;
+            Popup.PlacementTarget = btnLicenses;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
             Header.PopupText.Text = "Toon de aangeschafte partituren per per partituur";

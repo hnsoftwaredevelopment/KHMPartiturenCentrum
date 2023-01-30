@@ -142,6 +142,13 @@
     <SolidColorBrush x:Key="Button.Edit.MouseOver.Border" Color="#FF53FB1F" />
     <SolidColorBrush x:Key="Button.Edit.Pressed.Background" Color="#FF446A39" />
     <SolidColorBrush x:Key="Button.Edit.Pressed.Border" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Save.BorderBrush" Color="#4C548E" />
+    <SolidColorBrush x:Key="Button.Save.BackGround" Color="Beige" />
+    <SolidColorBrush x:Key="Button.Save.TextColor" Color="White" />
+    <SolidColorBrush x:Key="Button.Save.MouseOver.Background" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Save.MouseOver.Border" Color="#FF53FB1F" />
+    <SolidColorBrush x:Key="Button.Save.Pressed.Background" Color="#FF446A39" />
+    <SolidColorBrush x:Key="Button.Save.Pressed.Border" Color="#FF446A39" />
     <SolidColorBrush x:Key="Button.Delete.BorderBrush" Color="#f70606" />
     <SolidColorBrush x:Key="Button.Delete.BackGround" Color="Beige" />
     <SolidColorBrush x:Key="Button.Delete.TextColor" Color="white" />
@@ -156,7 +163,15 @@
     <SolidColorBrush x:Key="Button.Generate.MouseOver.Border" Color="#FF53FB1F" />
     <SolidColorBrush x:Key="Button.Generate.Pressed.Background" Color="#FF446A39" />
     <SolidColorBrush x:Key="Button.Generate.Pressed.Border" Color="#FF446A39" />
-
+    <SolidColorBrush x:Key="Button.Navigate.BorderBrush" Color="#FF1625E9" />
+    <SolidColorBrush x:Key="Button.Navigate.BackGround" Color="Beige" />
+    <SolidColorBrush x:Key="Button.Navigate.TextColor" Color="White" />
+    <SolidColorBrush x:Key="Button.Navigate.MouseOver.Background" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Navigate.MouseOver.Border" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Navigate.Pressed.Background" Color="#4C548E" />
+    <SolidColorBrush x:Key="Button.Navigate.Pressed.Border" Color="#4C548E" />
+    <SolidColorBrush x:Key="TabItem.Icon.BorderBrush" Color="#4C548E" />
+    <SolidColorBrush x:Key="TabItem.Icon.FillBrush" Color="#4C548E" />
 
 
     <SolidColorBrush x:Key="Settings.Button.Text.Foreground" Color="#FF1C2EC6"/>
