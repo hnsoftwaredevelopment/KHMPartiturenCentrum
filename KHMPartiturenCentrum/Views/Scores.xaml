@@ -807,8 +807,13 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="390"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
                         <GroupBox
-                            Grid.Row="0"
+                            Grid.Row="0" Grid.Column="0"
                             Header="Aangeschafte partiturem"
                             Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
                             <Grid Margin="7">
@@ -819,11 +824,14 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="250" />
                                 </Grid.ColumnDefinitions>
 
                                 <!--#region Grid Header-->
@@ -844,18 +852,20 @@
                                     VerticalAlignment="Top"
                                     Stroke="DarkBlue"
                                     StrokeThickness="2"
-                                    X2="270"
+                                    X2="350"
                                     Y1="0"
                                     Y2="0" />
-
+<!--#endregion-->
+                                
+                                <!--#region Supplier 1 row-->
                                 <TextBox
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
-                                    VerticalContentAlignment="Center"
+                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                    Text="{Binding ScoreNumber}" />
+                                    Text="{Binding NumberScoresSupplier1}" />
 
                                 <StackPanel
                                     Grid.Row="2"
@@ -864,9 +874,117 @@
                                     <ComboBox
                                         Width="120"
                                         HorizontalAlignment="Left"
-                                        Text="{Binding Supplier1}" />
+                                        Text="{Binding SupplierList}" />
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier1Id}" />
                                 </StackPanel>
+                                <!--#endregion-->
+                                
+                                <!--#region Supplier 2 row-->
+                                <TextBox
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Width="70"
+                                    Margin="0,5"
+                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding NumberScoresSupplier2}" />
+
+                                <StackPanel
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Orientation="Horizontal">
+                                    <ComboBox
+                                        Width="120"
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding SupplierList}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier2Id}" />
+                                </StackPanel>
+                                <!--#endregion-->
+
+                                <!--#region Supplier 3 row-->
+                                <TextBox
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Width="70"
+                                    Margin="0,5"
+                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding NumberScoresSupplier3}" />
+
+                                <StackPanel
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Orientation="Horizontal">
+                                    <ComboBox
+                                        Width="120"
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding SupplierList}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier3Id}" />
+                                </StackPanel>
+                                <!--#endregion-->
+
+                                <!--#region Supplier 4 row-->
+                                <TextBox
+                                    Grid.Row="5"
+                                    Grid.Column="0"
+                                    Width="70"
+                                    Margin="0,5"
+                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding NumberScoresSupplier4}" />
+
+                                <StackPanel
+                                    Grid.Row="5"
+                                    Grid.Column="1"
+                                    Orientation="Horizontal">
+                                    <ComboBox
+                                        Width="120"
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding SupplierList}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier4Id}" />
+                                </StackPanel>
+                                <!--#endregion-->
+                             
+                                <!--#region Total row-->
+                                <Line
+                                    Grid.Row="6"
+                                    Grid.Column="0"
+                                    Margin="0,2,0,4"
+                                    VerticalAlignment="Center"
+                                    Stroke="Black"
+                                    StrokeThickness="2"
+                                    X2="70"
+                                    Y1="0"
+                                    Y2="0" />
+
+                                <TextBox
+                                    Grid.Row="7"
+                                    Grid.Column="0"
+                                    Width="70"
+                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding NumberScoresTotal}" />
+                                <TextBlock Grid.Row="7" Grid.Column="1" Text="Totaal aantal aangeschafte partituren" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <Line
+                                    Grid.Row="8"
+                                    Grid.Column="0"
+                                    Margin="0,1,0,1"
+                                    VerticalAlignment="Top"
+                                    Stroke="Black"
+                                    StrokeThickness="1"
+                                    X2="70"
+                                    Y1="0"
+                                    Y2="0" />
+                                <Line
+                                    Grid.Row="8"
+                                    Grid.Column="0"
+                                    Margin="0,4,0,1"
+                                    VerticalAlignment="Top"
+                                    Stroke="Black"
+                                    StrokeThickness="2"
+                                    X2="70"
+                                    Y1="2"
+                                    Y2="2" />
                                 <!--#endregion-->
 
                             </Grid>
