@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:KHMPartiturenCentrum.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Scores"
-    d:DesignHeight="650"
+    d:DesignHeight="700"
     d:DesignWidth="1600"
     mc:Ignorable="d">
 
@@ -275,45 +275,503 @@
                             </Label>
                         </StackPanel>
                     </TabItem.Header>
-                    <Grid Margin="7" >
+
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="290" />
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="160" />
                         </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <!--#region Score Information Section-->
+                        <GroupBox
+                            Grid.Row="0"
+                            Header="Partituur gegevens"
+                            Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                            <Grid Margin="7">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                        <!--#region Score Number -->
-                        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" Margin="0,0,0,7">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Partituur"  />
-                            <TextBox Style="{DynamicResource TabItem.Page.TextBox.Style}" Width="70" Text="{Binding ScoreNumber}"/>
-                        </StackPanel>
+                                <!--#region Grid Row 0 (Scorenumber, Repertoire and Archive)-->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--#region Score Number-->
+                                    <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Partituur" />
+                                        <TextBox
+                                            Width="70"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding ScoreNumber}" />
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Repertoire-->
+                                    <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Repertoire" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="120"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding RepertoireName}" />
+                                            <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding RepertoireId}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Archive-->
+                                    <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Archief" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="120"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding ArchiveName}" />
+                                            <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding ArchiveId}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--#endregion-->
+                                </Grid>
+                                <!--#endregion-->
+
+                                <!--#region Grid Row 1 (Title and Subtitle)-->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--#region Score Title-->
+                                    <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
+                                        <TextBox
+                                            Width="450"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding ScoreNumber}" />
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Score SubTitle-->
+                                    <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Ondertitel" />
+                                        <TextBox
+                                            Width="450"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding ScoreNumber}" />
+                                    </StackPanel>
+                                    <!--#endregion-->
+                                </Grid>
+                                <!--#endregion-->
+
+                                <!--#region Grid Row 2 (Composer, Textwriter and Arrangement)-->
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--#region Composer-->
+                                    <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Componist" />
+                                        <TextBox
+                                            Width="340"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding Composer}" />
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Score Textwriter-->
+                                    <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Textschrijver" />
+                                        <TextBox
+                                            Width="340"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding TextWriter}" />
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Score Arranger-->
+                                    <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Arrangement" />
+                                        <TextBox
+                                            Width="340"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding Arranger}" />
+                                    </StackPanel>
+                                    <!--#endregion-->
+                                </Grid>
+                                <!--#endregion-->
+
+                                <!--#region Grid Row 3 (Genre, Accompaniment and Begeleiding)-->
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--#region Genre-->
+                                    <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Genre" />
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="220"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding GenreName}" />
+                                            <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding GenreId}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Accompaniment-->
+                                    <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Begeleiding" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="220"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding AccompanimentName}" />
+                                            <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding AccompanimentId}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Language-->
+                                    <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Taal" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <ComboBox
+                                                Width="220"
+                                                HorizontalAlignment="Left"
+                                                Text="{Binding LanguageName}" />
+                                            <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding LanguageId}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <!--#endregion-->
+                                </Grid>
+                                <!--#endregion-->
+                            </Grid>
+                        </GroupBox>
                         <!--#endregion-->
 
-                        <!--#region Score Title -->
-                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="0,0,0,7">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel"  />
-                            <TextBox Style="{DynamicResource TabItem.Page.TextBox.Style}" Width="350" Text="{Binding ScoreNumber}"/>
-                        </StackPanel>
+                        <!--#region Score Digtizing Section-->
+                        <GroupBox
+                            Grid.Row="1"
+                            Header="Digitalisatie informatie"
+                            Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                            <Grid Margin="7">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--#region Digitalized-->
+                                <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                    <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gedigitaliseerd" />
+                                    <DatePicker Margin="0,0,50,7" SelectedDate="{Binding DateCreated}" />
+                                </StackPanel>
+                                <!--#endregion-->
+
+                                <!--#region Modified-->
+                                <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                    <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Laatste aanpassing" />
+                                    <DatePicker Margin="0,0,50,7" SelectedDate="{Binding DateModified}" />
+                                </StackPanel>
+                                <!--#endregion-->
+
+                                <!--#region Checked-->
+                                <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                    <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gecontroleerd" />
+                                    <CheckBox IsChecked="{Binding Checked}" />
+                                </StackPanel>
+                                <!--#endregion-->
+                            </Grid>
+                        </GroupBox>
                         <!--#endregion-->
 
-                        <!--#region Score SubTitle -->
-                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Margin="0,0,0,7">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Ondertitel"  />
-                            <TextBox Style="{DynamicResource TabItem.Page.TextBox.Style}" Width="350" Text="{Binding ScoreNumber}"/>
-                        </StackPanel>
-                        <!--#endregion-->
+                        <!--#region Available Files Section-->
+                        <GroupBox
+                            Grid.Row="2"
+                            Header="Beschikbare bestanden"
+                            Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                            <Grid Margin="7">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="76" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="76" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="76" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="76" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--#region MuseScore files-->
+                                <!--#region Filetype Logo-->
+                                <Image
+                                    Grid.Column="0"
+                                    Source="..\Resources\Images\filetypemscx.png"
+                                    Style="{DynamicResource TabItem.Page.Image.Style}" />
+                                <!--#endregion-->
+
+                                <!--#region MuseScore ORP-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="ORP (Totaal)" />
+                                <CheckBox
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    IsChecked="{Binding MuseScoreORP}" />
+                                <!--#endregion-->
+
+                                <!--#region MuseScore ORK-->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="ORK (Koor)" />
+                                <CheckBox
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    IsChecked="{Binding MuseScoreORK}" />
+                                <!--#endregion-->
+
+                                <!--#region MuseScore TOP-->
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="TOP (Totaal)" />
+                                <CheckBox
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    IsChecked="{Binding MuseScoreTOP}" />
+                                <!--#endregion-->
+
+                                <!--#region MuseScore TOK-->
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="TOK (Koor)" />
+                                <CheckBox
+                                    Grid.Row="3"
+                                    Grid.Column="2"
+                                    IsChecked="{Binding MuseScoreTOK}" />
+                                <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region PDF files-->
+                                <!--#region Filetype Logo-->
+                                <Image
+                                    Grid.Column="4"
+                                    Source="..\Resources\Images\filetypepdf.png"
+                                    Style="{DynamicResource TabItem.Page.Image.Style}" />
+                                <!--#endregion-->
+
+                                <!--#region PDF ORP-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="5"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="ORP (Totaal)" />
+                                <CheckBox
+                                    Grid.Row="0"
+                                    Grid.Column="6"
+                                    IsChecked="{Binding PDFORP}" />
+                                <!--#endregion-->
+
+                                <!--#region PDF ORK-->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="ORK (Koor)" />
+                                <CheckBox
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    IsChecked="{Binding PDFORK}" />
+                                <!--#endregion-->
+
+                                <!--#region PDF TOP-->
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="5"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="TOP (Totaal)" />
+                                <CheckBox
+                                    Grid.Row="2"
+                                    Grid.Column="6"
+                                    IsChecked="{Binding PDFTOP}" />
+                                <!--#endregion-->
+
+                                <!--#region PDF TOK-->
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="5"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="TOK (Koor)" />
+                                <CheckBox
+                                    Grid.Row="3"
+                                    Grid.Column="6"
+                                    IsChecked="{Binding PDFTOK}" />
+                                <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region MP3 files-->
+                                <!--#region Filetype Logo-->
+                                <Image
+                                    Grid.Column="8"
+                                    Source="..\Resources\Images\filetypemp3.png"
+                                    Style="{DynamicResource TabItem.Page.Image.Style}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 B1-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="9"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="B1" />
+                                <CheckBox
+                                    Grid.Row="0"
+                                    Grid.Column="10"
+                                    IsChecked="{Binding MP3B1}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 B2-->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="9"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="B2" />
+                                <CheckBox
+                                    Grid.Row="1"
+                                    Grid.Column="10"
+                                    IsChecked="{Binding MP3B2}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 T1-->
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="9"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="T1" />
+                                <CheckBox
+                                    Grid.Row="2"
+                                    Grid.Column="10"
+                                    IsChecked="{Binding MP3T1}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 T2-->
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="9"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="T2" />
+                                <CheckBox
+                                    Grid.Row="3"
+                                    Grid.Column="10"
+                                    IsChecked="{Binding MP3T2}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 Solo-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="12"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="SOL" />
+                                <CheckBox
+                                    Grid.Row="0"
+                                    Grid.Column="13"
+                                    IsChecked="{Binding MP3SOL}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 TOT-->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="12"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="TOT" />
+                                <CheckBox
+                                    Grid.Row="1"
+                                    Grid.Column="13"
+                                    IsChecked="{Binding MP3TOT}" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 PIA-->
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="12"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="PIA" />
+                                <CheckBox
+                                    Grid.Row="2"
+                                    Grid.Column="13"
+                                    IsChecked="{Binding MP3PIA}" />
+                                <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region MuseScore Online-->
+                                <!--#region Filetype Logo-->
+                                <Image
+                                    Grid.Column="15"
+                                    Source="..\Resources\Images\filetypemscxonline.png"
+                                    Style="{DynamicResource TabItem.Page.Image.Style}" />
+                                <!--#endregion-->
+
+                                <!--#region MuseScore Online-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="16"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Online" />
+                                <CheckBox
+                                    Grid.Row="0"
+                                    Grid.Column="17"
+                                    IsChecked="{Binding MuseScoreOnline}" />
+                                <!--#endregion-->
+                                <!--#endregion-->
+                            </Grid>
+                        </GroupBox>
+                        <!--#endregion-->
                     </Grid>
                 </TabItem>
                 <!--#endregion-->
-                
+
                 <!--#region TAB: Lyrics-->
                 <TabItem>
                     <TabItem.Header>
@@ -343,6 +801,77 @@
                             <Label Content="Aankopen" />
                         </StackPanel>
                     </TabItem.Header>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <GroupBox
+                            Grid.Row="0"
+                            Header="Aangeschafte partiturem"
+                            Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                            <Grid Margin="7">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="120" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--#region Grid Header-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Aantal" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Uitgever" />
+                                <Line
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,3,0,6"
+                                    VerticalAlignment="Top"
+                                    Stroke="DarkBlue"
+                                    StrokeThickness="2"
+                                    X2="270"
+                                    Y1="0"
+                                    Y2="0" />
+
+                                <TextBox
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Width="70"
+                                    Margin="0,5"
+                                    VerticalContentAlignment="Center"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding ScoreNumber}" />
+
+                                <StackPanel
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Orientation="Horizontal">
+                                    <ComboBox
+                                        Width="120"
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding Supplier1}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier1Id}" />
+                                </StackPanel>
+                                <!--#endregion-->
+
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
                 </TabItem>
                 <!--#endregion-->
             </TabControl>

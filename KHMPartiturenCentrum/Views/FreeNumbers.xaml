@@ -9,6 +9,15 @@
       Title="FreeNumbers">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="TEest1">
+            <Grid>
+                
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Test2"/>
     </Grid>
 </Page>
