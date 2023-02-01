@@ -30,48 +30,84 @@ public class DBNames
     public static readonly string Database = "AlureFactsheets";
     #endregion
 
-    #region Table/View Factsheets
-    public static readonly string FactsheetsTable= "Factsheets";
-    public static readonly string FactsheetsFieldNameId = "Id";
-    public static readonly string FactsheetsFieldNameFactsheetName = "FactsheetName";
-    public static readonly string FactsheetsFieldNameDocumentName = "DocumentName";
-    public static readonly string FactsheetsFieldNameStartRelease = "StartRelease";
-    public static readonly string FactsheetsFieldNameEndRelease = "EndRelease";
+    #region Table/View Accompaniment
+    public static readonly string AccompanimentsTable = "Begeleiding";
+    public static readonly string AccompanimentsFieldNameId = "Id";
+    public static readonly string AccompanimentsFieldNameName = "Begeleiding";
 
-    public static readonly string FactsheetsFieldTypeId = "int";
-    public static readonly string FactsheetsFieldTypeFactsheetName = "varchar";
-    public static readonly string FactsheetsFieldTypeDocumentName = "varchar";
-    public static readonly string FactsheetsFieldTypeStartRelease = "int";
-    public static readonly string FactsheetsFieldTypeEndRelease = "int";
+    public static readonly string AccompanimentsFieldTypeId = "int";
+    public static readonly string AccompanimentsFieldTypeName = "varchar";
     #endregion
 
-    #region Table/View Generated Factsheets
-    public static readonly string GeneratedFactsheetsTable= "GeneratedFactsheets";
-    public static readonly string GeneratedFactsheetsFieldNameId = "Id";
-    public static readonly string GeneratedFactsheetsFieldNameReleaseId = "ReleaseId";
-    public static readonly string GeneratedFactsheetsFieldNameFactsheetId = "FactsheetId";
-    public static readonly string GeneratedFactsheetsFieldNameGenerated = "Generated";
+    #region Table/View Genre
+    public static readonly string GenresTable = "Genre";
+    public static readonly string GenresFieldNameId = "Id";
+    public static readonly string GenresFieldNameName = "Genre";
 
-    public static readonly string GeneratedFactsheetsFieldTypeId = "int";
-    public static readonly string GeneratedFactsheetsFieldTypeReleaseId = "int";
-    public static readonly string GeneratedFactsheetsFieldTypeFactsheetId = "int";
-    public static readonly string GeneratedFactsheetsFieldTypeGenerated = "date";
+    public static readonly string GenresFieldTypeId = "int";
+    public static readonly string GenresFieldTypeName = "varchar";
     #endregion
 
-    #region Table/View Releases
-    public static readonly string ReleasesTable= "Releases";
-    public static readonly string ReleasesFieldNameId = "Id";
-    public static readonly string ReleasesFieldNameName = "Release";
-    public static readonly string ReleasesFieldNameYear = "Year";
-    public static readonly string ReleasesFieldNameMonth = "Month";
-    public static readonly string ReleasesFieldNameSubVersion = "SubVersion";
+    #region Table/View Repertoire
+    public static readonly string RepertoiresTable = "Genre";
+    public static readonly string RepertoiresFieldNameId = "Id";
+    public static readonly string RepertoiresFieldNameName = "Repertoire";
 
-    public static readonly string ReleasesFieldTypeId = "int";
-    public static readonly string ReleasesFieldTypeName = "varchar";
-    public static readonly string ReleasesFieldTypeYear = "varchar";
-    public static readonly string ReleasesFieldTypeMonth = "varchar";
-    public static readonly string ReleasesFieldTypeSubVersion = "varchar";
+    public static readonly string repertoiresFieldTypeId = "int";
+    public static readonly string repertoiresFieldTypeName = "varchar";
     #endregion
+
+    #region Table/View Languages
+    public static readonly string LanguagesTable = "Taal";
+    public static readonly string LanguagesFieldNameId = "Id";
+    public static readonly string LanguagesFieldNameName = "Taal";
+
+    public static readonly string LanguagesFieldTypeId = "int";
+    public static readonly string LanguagesFieldTypeName = "varchar";
+    #endregion
+
+    #region Table/View Publisher
+    public static readonly string PublishersTable = "Uitgever";
+    public static readonly string PublishersFieldNameId = "Id";
+    public static readonly string PublishersFieldNameName = "Naam";
+    public static readonly string PublishersFieldNameAddress1 = "Adres1";
+    public static readonly string PublishersFieldNameAddress2 = "Adres2";
+    public static readonly string PublishersFieldNameZip = "Postcode";
+    public static readonly string PublishersFieldNameCity = "Plaats";
+    public static readonly string PublishersFieldNamePhone = "Telefoon";
+    public static readonly string PublishersFieldNameURL = "Website";
+    public static readonly string PublishersFieldNameCustomerNumber = "Klantnummer";
+    public static readonly string PublishersFieldNameMemo = "Notities";
+
+    public static readonly string PublishersFieldTypeId = "int";
+    public static readonly string PublishersFieldTypeName = "varchar";
+    public static readonly string PublishersFieldTypeAddress1 = "varchar";
+    public static readonly string PublishersFieldTypeAddress2 = "varchar";
+    public static readonly string PublishersFieldTypeZip = "varchar";
+    public static readonly string PublishersFieldTypeCity = "varchar";
+    public static readonly string PublishersFieldTypePhone = "varchar";
+    public static readonly string PublishersFieldTypeURL = "varchar";
+    public static readonly string PublishersFieldTypeCustomerNumber = "varchar";
+    public static readonly string PublishersFieldTypeMemo = "mediumtext";
+    #endregion
+
+    #region Table/View Scores
+    public static readonly string ScoresTable = "Bibliotheek";
+    public static readonly string ScoresFieldNameId = "Id";
+    public static readonly string ScoresFieldNameArchiveId = "ArchiefId";
+    public static readonly string ScoresFieldNameRepertoireId = "RepertoireId";
+    public static readonly string ScoresFieldNameScoreNumber = "Partituur";
+    public static readonly string ScoresFieldNameScoreTitle = "Titel";
+    public static readonly string ScoresFieldNameScoreSubTitle = "Ondertitel";
+
+    public static readonly string ScoresFieldTypeId = "int";
+    public static readonly string ScoresFieldTypeArchiveId = "int";
+    public static readonly string ScoresFieldTypeRepertoireId = "int";
+    public static readonly string ScoresFieldTypeScoreNumber = "varchar";
+    public static readonly string ScoresFieldTypeScoreTitle = "varchar";
+    public static readonly string ScoresFieldTypeScoreSubTitle = "varchar";
+    #endregion
+
 
     #region Table/View Settings
     public static readonly string SettingsTable= "Settings";

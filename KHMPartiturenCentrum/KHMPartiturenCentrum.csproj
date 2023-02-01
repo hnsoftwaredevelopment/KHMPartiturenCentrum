@@ -12,6 +12,10 @@
     <None Remove="Resources\Images\close.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\filetypemp3.png" />
+    <None Remove="Resources\Images\filetypemscx.png" />
+    <None Remove="Resources\Images\filetypemscxonline.png" />
+    <None Remove="Resources\Images\filetypepdf.png" />
     <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\next.png" />
     <None Remove="Resources\Images\openfolder.png" />
@@ -22,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="MySql.Data" Version="8.0.32" />
   </ItemGroup>
 
@@ -36,6 +41,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filetypemp3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filetypemscx.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filetypemscxonline.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filetypepdf.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\logo.png">

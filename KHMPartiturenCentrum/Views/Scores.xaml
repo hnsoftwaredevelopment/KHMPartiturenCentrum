@@ -118,20 +118,408 @@
                 ItemsSource="{Binding}"
                 Style="{DynamicResource CustomDataGrid}">
                 <DataGrid.Columns>
-                    <!--  Score Number  -->
+                    <!--#region Column definitions-->
+                    <!--#region Id (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="id"
+                        Width="Auto"
+                        Binding="{Binding Id}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region  Score Number-->
                     <DataGridTextColumn
                         x:Name="ScoreNumber"
                         Width="1*"
                         Binding="{Binding ScoreNumber}"
                         Header="Partituur" />
+                    <!--#endregion-->
 
-                    <!--  Title  -->
+                    <!--#region  Title-->
                     <DataGridTextColumn
                         x:Name="ScoreName"
                         Width="2.5*"
-                        Binding="{Binding ScoreName}"
+                        Binding="{Binding ScoreTitle}"
                         Header="Titel" />
+                    <!--#endregion-->
+
+                    <!--#region SubTitle (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="ScoreSubTitle"
+                        Width="Auto"
+                        Binding="{Binding ScoreSubTitle}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Composer (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Composer"
+                        Width="Auto"
+                        Binding="{Binding Composer}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region textWriter (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="TextWriter"
+                        Width="Auto"
+                        Binding="{Binding TextWriter}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Arranger (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Arranger"
+                        Width="Auto"
+                        Binding="{Binding Arranger}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region RepertoireId (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="RepertoireId"
+                        Width="Auto"
+                        Binding="{Binding RepertoireId}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region RepertoireName (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="RepertoireName"
+                        Width="Auto"
+                        Binding="{Binding RepertoireName}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region ArchiveId (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="ArchiveId"
+                        Width="Auto"
+                        Binding="{Binding ArchiveId}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region ArchiveName (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="ArchiveName"
+                        Width="Auto"
+                        Binding="{Binding ArchiveName}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region GenreId (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="GenreId"
+                        Width="Auto"
+                        Binding="{Binding GenreId}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region GenreName (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="GenreName"
+                        Width="Auto"
+                        Binding="{Binding GenreName}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region AccompanimentId (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="AccompanimentId"
+                        Width="Auto"
+                        Binding="{Binding AccompanimentId}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region AccompanimentName (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="AccompanimentName"
+                        Width="Auto"
+                        Binding="{Binding AccompanimentName}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region LanguageId (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="LanguageId"
+                        Width="Auto"
+                        Binding="{Binding LanguageId}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region LanguageName (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="LanguageName"
+                        Width="Auto"
+                        Binding="{Binding LanguageName}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region DateCreated (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="DateCreated"
+                        Width="Auto"
+                        Binding="{Binding DateCreated}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region DateModified (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="DateModified"
+                        Width="Auto"
+                        Binding="{Binding DateModified}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Checked (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="Checked"
+                        Width="Auto"
+                        Binding="{Binding Check}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MuseScoreORP (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MuseScoreORP"
+                        Width="Auto"
+                        Binding="{Binding MuseScoreORP}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MuseScoreORK (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MuseScoreORK"
+                        Width="Auto"
+                        Binding="{Binding MuseScoreORK}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MuseScoreTOP (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MuseScoreTOP"
+                        Width="Auto"
+                        Binding="{Binding MuseScoreTOP}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MuseScoreTOK (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MuseScoreTOK"
+                        Width="Auto"
+                        Binding="{Binding MuseScoreTOK}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region PDFORP (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="PDFORP"
+                        Width="Auto"
+                        Binding="{Binding PDFORP}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region PDFORK (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="PDFORK"
+                        Width="Auto"
+                        Binding="{Binding PDFORK}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region PDFTOP (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="PDFTOP"
+                        Width="Auto"
+                        Binding="{Binding PDFTOP}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region PDFTOK (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="PDFTOK"
+                        Width="Auto"
+                        Binding="{Binding PDFTOK}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3B1 (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3B1"
+                        Width="Auto"
+                        Binding="{Binding MP3B1}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3B2 (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3B2"
+                        Width="Auto"
+                        Binding="{Binding MP3B2}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3T1 (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3T1"
+                        Width="Auto"
+                        Binding="{Binding MP3T1}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3T2 (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3T2"
+                        Width="Auto"
+                        Binding="{Binding MP3T2}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3SOL (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3SOL"
+                        Width="Auto"
+                        Binding="{Binding MP3SOL}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3TOT (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3TOT"
+                        Width="Auto"
+                        Binding="{Binding MP3TOT}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MP3PIA (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MP3PIA"
+                        Width="Auto"
+                        Binding="{Binding MP3PIA}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region MuseScoreOnline (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="MuseScoreOnline"
+                        Width="Auto"
+                        Binding="{Binding MuseScoreOnline}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Lyrics (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Lyrics"
+                        Width="Auto"
+                        Binding="{Binding Lyrics}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region NumberScoresSupplier1 (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="NumberScoresSupplier1"
+                        Width="Auto"
+                        Binding="{Binding NumberScoresSupplier1}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier1Id (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier1Id"
+                        Width="Auto"
+                        Binding="{Binding Supplier1Id}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier1Name (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier1Name"
+                        Width="Auto"
+                        Binding="{Binding Supplier1Name}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region NumberScoresSupplier2 (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="NumberScoresSupplier2"
+                        Width="Auto"
+                        Binding="{Binding NumberScoresSupplier2}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier2Id (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier2Id"
+                        Width="Auto"
+                        Binding="{Binding Supplier2Id}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier2Name (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier2Name"
+                        Width="Auto"
+                        Binding="{Binding Supplier2Name}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region NumberScoresSupplier3 (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="NumberScoresSupplier3"
+                        Width="Auto"
+                        Binding="{Binding NumberScoresSupplier3}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier3Id (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier3Id"
+                        Width="Auto"
+                        Binding="{Binding Supplier3Id}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier3Name (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier3Name"
+                        Width="Auto"
+                        Binding="{Binding Supplier3Name}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region NumberScoresSupplier4 (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="NumberScoresSupplier4"
+                        Width="Auto"
+                        Binding="{Binding NumberScoresSupplier4}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier4Id (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier4Id"
+                        Width="Auto"
+                        Binding="{Binding Supplier4Id}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Supplier4Name (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Supplier4Name"
+                        Width="Auto"
+                        Binding="{Binding Supplier4Name}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region NumberScoresTotal (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="NumberScoresTotal"
+                        Width="Auto"
+                        Binding="{Binding NumberScoresTotal}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
                 </DataGrid.Columns>
+                <!--#endregion-->
             </DataGrid>
             <!--#endregion-->
 
@@ -355,7 +743,7 @@
                                         <TextBox
                                             Width="450"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding ScoreNumber}" />
+                                            Text="{Binding ScoreTitle}" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -365,7 +753,7 @@
                                         <TextBox
                                             Width="450"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding ScoreNumber}" />
+                                            Text="{Binding ScoreSubTitel}" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -497,7 +885,7 @@
                                 <!--#region Checked-->
                                 <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gecontroleerd" />
-                                    <CheckBox IsChecked="{Binding Checked}" />
+                                    <CheckBox IsChecked="{Binding Check}" />
                                 </StackPanel>
                                 <!--#endregion-->
                             </Grid>
@@ -785,6 +1173,190 @@
                             <Label Content="Lied teksten" />
                         </StackPanel>
                     </TabItem.Header>
+
+                    <Grid>
+                        <!--#region Toolbar memo field-->
+                        <ToolBarTray Margin="5,5,5,0" Style="{DynamicResource RichText.ToolBar.Tray}">
+                            <ToolBar Style="{DynamicResource RichText.ToolBar}">
+                                <!--#region General buttons-->
+                                <Button
+                                    Margin="-2,0,2,0"
+                                    Command="ApplicationCommands.Cut"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Knippen">
+                                    <Path Data="{DynamicResource editor.cut}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <Button
+                                    Command="ApplicationCommands.Copy"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Kopieer">
+                                    <Path Data="{DynamicResource editor.copy}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <Button
+                                    Command="ApplicationCommands.Paste"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Plak">
+                                    <Path Data="{DynamicResource editor.paste}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <Button
+                                    Command="ApplicationCommands.Undo"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Ongedaan maken">
+                                    <Path Data="{DynamicResource editor.undo}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <Button
+                                    Command="ApplicationCommands.Redo"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Opnieuw">
+                                    <Path Data="{DynamicResource editor.redo}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                <!--#region Font style buttons-->
+                                <Button
+                                    Command="EditingCommands.ToggleBold"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Vet">
+                                    <Path Data="{DynamicResource editor.bold}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <Button
+                                    Command="EditingCommands.ToggleItalic"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Cursief">
+                                    <Path Data="{DynamicResource editor.italic}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.ToggleUnderline"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Onderstreept">
+                                    <Path Data="{DynamicResource editor.underline}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.ToggleSubscript"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Subscript (klein teken boven)">
+                                    <Path Data="{DynamicResource editor.subscript}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.ToggleSuperscript"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Superscript (klein teken onder)">
+                                    <Path Data="{DynamicResource editor.superscript}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                <!--#region main font style buttons-->
+                                <Button
+                                    Command="EditingCommands.IncreaseFontSize"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Lettertype vergroten">
+                                    <Path Data="{DynamicResource editor.growfont}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.DecreaseFontSize"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Lettertype verkleinen">
+                                    <Path Data="{DynamicResource editor.shrinkfont}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                <!--#region Lists buttons-->
+                                <Button
+                                    Command="EditingCommands.ToggleBullets"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Punten lijst">
+                                    <Path Data="{DynamicResource editor.bulletlist}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.ToggleNumbering"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Genummerde lijst">
+                                    <Path Data="{DynamicResource editor.numberlist}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                <!--#region Indent buttons-->
+                                <Button
+                                    Command="EditingCommands.IncreaseIndentation"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Inspringen">
+                                    <Path Data="{DynamicResource editor.increaseindent}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.DecreaseIndentation"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Terugspringen">
+                                    <Path Data="{DynamicResource editor.decreaseindent}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                <!--#region Alignment buttons-->
+                                <Button
+                                    Command="EditingCommands.AlignLeft"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Tekst links uitlijnen">
+                                    <Path Data="{DynamicResource editor.alignleft}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.AlignCenter"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Tekst centreren">
+                                    <Path Data="{DynamicResource editor.aligncenter}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.AlignRight"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Tekst rechts uitlijnen">
+                                    <Path Data="{DynamicResource editor.alignright}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+
+                                <Button
+                                    Command="EditingCommands.AlignJustify"
+                                    Style="{DynamicResource EditorButtonsStyle}"
+                                    ToolTip="Tekst links en rechts uitlijnen">
+                                    <Path Data="{DynamicResource editor.alignjustify}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                </Button>
+                                <!--#endregion-->
+                            </ToolBar>
+                        </ToolBarTray>
+                        <!--#endregion-->
+
+                        <!--#region Memo field-->
+                        <RichTextBox
+                            x:Name="memoLyrics"
+                            Width="Auto"
+                            Height="520"
+                            Margin="5,45,5,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto">
+                            <FlowDocument x:Name="inpProductMemoFD">
+                                <Paragraph>
+                                    <Run Text="{Binding Lyrics}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                        <!--#endregion-->
+                    </Grid>
                 </TabItem>
                 <!--#endregion-->
 
@@ -808,12 +1380,13 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="390"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="390" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <GroupBox
-                            Grid.Row="0" Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.Column="0"
                             Header="Aangeschafte partiturem"
                             Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
                             <Grid Margin="7">
@@ -855,15 +1428,16 @@
                                     X2="350"
                                     Y1="0"
                                     Y2="0" />
-<!--#endregion-->
-                                
+                                <!--#endregion-->
+
                                 <!--#region Supplier 1 row-->
                                 <TextBox
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
-                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    HorizontalContentAlignment="Right"
+                                    VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     Text="{Binding NumberScoresSupplier1}" />
 
@@ -878,14 +1452,15 @@
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier1Id}" />
                                 </StackPanel>
                                 <!--#endregion-->
-                                
+
                                 <!--#region Supplier 2 row-->
                                 <TextBox
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
-                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    HorizontalContentAlignment="Right"
+                                    VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     Text="{Binding NumberScoresSupplier2}" />
 
@@ -907,7 +1482,8 @@
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
-                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    HorizontalContentAlignment="Right"
+                                    VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     Text="{Binding NumberScoresSupplier3}" />
 
@@ -929,7 +1505,8 @@
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
-                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    HorizontalContentAlignment="Right"
+                                    VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     Text="{Binding NumberScoresSupplier4}" />
 
@@ -944,7 +1521,7 @@
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier4Id}" />
                                 </StackPanel>
                                 <!--#endregion-->
-                             
+
                                 <!--#region Total row-->
                                 <Line
                                     Grid.Row="6"
@@ -961,10 +1538,16 @@
                                     Grid.Row="7"
                                     Grid.Column="0"
                                     Width="70"
-                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                    HorizontalContentAlignment="Right"
+                                    VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     Text="{Binding NumberScoresTotal}" />
-                                <TextBlock Grid.Row="7" Grid.Column="1" Text="Totaal aantal aangeschafte partituren" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock
+                                    Grid.Row="7"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"
+                                    Text="Totaal aantal aangeschafte partituren" />
                                 <Line
                                     Grid.Row="8"
                                     Grid.Column="0"

@@ -24,10 +24,5 @@ namespace KHMPartiturenCentrum.Views
         {
             InitializeComponent();
         }
-
-        private void PageLoaded ( object sender, RoutedEventArgs e )
-        {
-
-        }
     }
 }

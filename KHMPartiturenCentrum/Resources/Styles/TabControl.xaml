@@ -108,6 +108,37 @@
         <Setter Property="Orientation" Value="Vertical" />
     </Style>
 
+    <Style x:Key="TabItem.Page.GroupBox.Header.Style" TargetType="{x:Type GroupBox}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="FontFamily" Value="Bahnschrift SemiBold" />
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
 
+    <Style x:Key="TabItem.Page.Image.Style" TargetType="{x:Type Image}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Width" Value="70"/>
+        <Setter Property="Grid.Row" Value="0"/>
+        <Setter Property="Grid.RowSpan" Value="4"/>
+    </Style>
+
+    <!--#region Rich Text Format Toolbar -->
+    <Style x:Key="RichText.ToolBar.Tray" TargetType="ToolBarTray">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <Style x:Key="RichText.ToolBar" TargetType="ToolBar">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="ToolBarTray.IsLocked" Value="True" />
+    </Style>
+    <!--#endregion-->
 
 </ResourceDictionary>

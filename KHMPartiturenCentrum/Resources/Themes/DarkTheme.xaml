@@ -37,8 +37,8 @@
     <SolidColorBrush x:Key="DataGrid.Row.Selected.Text" Color="{DynamicResource DataGrid.Row.Selected.ForegroundColor}" />
     <SolidColorBrush x:Key="DataGrid.Row.Selected.Stroke" Color="{DynamicResource DataGrid.Row.Selected.ForegroundColor}" />
     <SolidColorBrush x:Key="DataGrid.Row.Selected.Background" Color="{DynamicResource DataGrid.Row.Selected.BackgroundColor}" />
-    
-    <!-- Settings Colors -->
+
+    <!--  Settings Colors  -->
     <Color x:Key="Settings.Textbox.BackgroundColor.Base">#FFEBEBEB</Color>
     <Color x:Key="Settings.Textbox.BorderBrushColor.Base">White</Color>
     <Color x:Key="Settings.Textbox.ForegroundColor.Base">White</Color>
@@ -60,7 +60,7 @@
     <SolidColorBrush x:Key="Detail.Focus.BorderColor" Color="#FF569DE5" />
     <SolidColorBrush x:Key="Details.Required.TextColor" Color="Red" />
 
-    <!-- Navigation buton colors -->
+    <!--  Navigation buton colors  -->
     <SolidColorBrush x:Key="Navigation.Button.Static.Background" Color="#FFDDDDDD" />
     <SolidColorBrush x:Key="Navigation.Button.Static.Border" Color="#C6C6C6" />
     <SolidColorBrush x:Key="Navigation.Button.MouseOver.Background" Color="#FFBEE6FD" />
@@ -81,7 +81,7 @@
     <SolidColorBrush x:Key="Details.ComboBox.DisabledForeground" Color="#888" />
     <SolidColorBrush x:Key="Details.ComboBox.DisabledBackground" Color="#EEE" />
     <SolidColorBrush x:Key="Details.ComboBox.DisabledBorderBrush" Color="#AAA" />
-    
+
 
 
     <LinearGradientBrush x:Key="Details.ComboBox.Dropdown.Background" StartPoint="0,0" EndPoint="0,1">
@@ -174,7 +174,7 @@
     <SolidColorBrush x:Key="TabItem.Icon.FillBrush" Color="#4C548E" />
 
 
-    <SolidColorBrush x:Key="Settings.Button.Text.Foreground" Color="#FF1C2EC6"/>
+    <SolidColorBrush x:Key="Settings.Button.Text.Foreground" Color="#FF1C2EC6" />
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FF34AE0E" />
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF34AE0E" />
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF53FB1F" />
@@ -184,5 +184,17 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
+
+
+    <SolidColorBrush x:Key="Button.Editor.Static.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="Button.Editor.Static.Border" Color="#28349B" />
+    <SolidColorBrush x:Key="Button.Editor.MouseOver.Background" Color="#66B6F1" />
+    <SolidColorBrush x:Key="Button.Editor.MouseOver.Border" Color="#66B6F1" />
+    <SolidColorBrush x:Key="Button.Editor.Pressed.Background" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Editor.Pressed.Border" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Editor.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Button.Editor.Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Button.Editor.Disabled.Foreground" Color="#FF838383" />
+
 
 </ResourceDictionary>
