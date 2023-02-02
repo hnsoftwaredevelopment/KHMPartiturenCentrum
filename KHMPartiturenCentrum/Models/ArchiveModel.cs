@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace KHMPartiturenCentrum.Models;
 
-public class RepertoireModel
+public class ArchiveModel
 {
-    public int RepertoireId { get; set; }
-    public string? RepertoireName { get; set; }
+    public int ArchiveId { get; set; }
+    public string? ArchiveName { get; set; }
 }

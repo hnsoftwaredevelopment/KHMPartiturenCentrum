@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Security.Principal;
+using System.Text;
+using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
 using Google.Protobuf.WellKnownTypes;
@@ -25,7 +27,7 @@ public class DBCommands
     #region GetData unsorted
     public static DataTable GetData ( string _table )
     {
-        string selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlOrder + DBNames.EpicsFieldNameEpicName;
+        string selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table;
         MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ();
         DataTable table = new();
@@ -60,6 +62,130 @@ public class DBCommands
     #endregion
     #endregion
 
+    #region
+    public static ObservableCollection<ScoreModel> GetScores ( string _table, string OrderByFieldName )
+    {
+        ObservableCollection<ScoreModel> Scores = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber);
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                // Set the bools
+                bool check = false;
+                bool pdfORP = false, pdfORK = false, pdfTOP = false, pdfTOK = false;
+                bool mscORP = false, mscORK = false, mscTOP = false, mscTOK = false, mscOnline = false;
+                bool mp3B1 = false, mp3B2 = false, mp3T1 = false, mp3T2 = false, mp3SOL = false, mp3TOT = false, mp3PIA = false;
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 16 ].ToString () ) == 0 ) { check = false; } else { check = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 21 ].ToString () ) == 0 ) { pdfORP = false; } else { pdfORP = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 22 ].ToString () ) == 0 ) { pdfORK = false; } else { pdfORK = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 23 ].ToString () ) == 0 ) { pdfTOP = false; } else { pdfTOP = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 24 ].ToString () ) == 0 ) { pdfTOK = false; } else { pdfTOK = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 25 ].ToString () ) == 0 ) { mscORP = false; } else { mscORP = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 26 ].ToString () ) == 0 ) { mscORK = false; } else { mscORK = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString () ) == 0 ) { mscTOP = false; } else { mscTOP = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString () ) == 0 ) { mscTOK = false; } else { mscTOK = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString () ) == 0 ) { mp3TOT = false; } else { mp3TOT = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString () ) == 0 ) { mp3T1 = false; } else { mp3T1 = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString () ) == 0 ) { mp3T2 = false; } else { mp3T2 = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString () ) == 0 ) { mp3B1 = false; } else { mp3B1 = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString () ) == 0 ) { mp3B2 = false; } else { mp3B2 = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString () ) == 0 ) { mp3SOL = false; } else { mp3SOL = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString () ) == 0 ) { mp3PIA = false; } else { mp3PIA = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString () ) == 0 ) { mscOnline = false; } else { mscOnline = true; }
+
+                // Set total
+                var total = 0;
+
+                total = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString () ) + int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString () ) + int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString () ) + int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString () );
+
+                // Set the datestrings
+                string[] _tempCreated = dataTable.Rows [ i ].ItemArray [17].ToString().Split(" ");
+                string? dateCreated = _tempCreated[0];
+
+                string[] _tempModified = dataTable.Rows [ i ].ItemArray [18].ToString().Split(" ");
+                string? dateModified = _tempModified[0];
+
+                Scores.Add ( new ScoreModel
+                {
+                    ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    ArchiveId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 1 ].ToString () ),
+                    ArchiveName = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
+                    RepertoireId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 3 ].ToString () ),
+                    RepertoireName = dataTable.Rows [ i ].ItemArray [ 4 ].ToString (),
+                    ScoreNumber = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
+                    ScoreTitle = dataTable.Rows [ i ].ItemArray [ 6 ].ToString (),
+                    ScoreSubTitle = dataTable.Rows [ i ].ItemArray [ 7 ].ToString (),
+                    Composer = dataTable.Rows [ i ].ItemArray [ 8 ].ToString (),
+                    TextWriter = dataTable.Rows [ i ].ItemArray [ 9 ].ToString (),
+                    Arranger = dataTable.Rows [ i ].ItemArray [ 10 ].ToString (),
+                    LanguageId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 11 ].ToString () ),
+                    LanguageName = dataTable.Rows [ i ].ItemArray [ 12 ].ToString (),
+                    GenreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 13 ].ToString () ),
+                    GenreName = dataTable.Rows [ i ].ItemArray [ 14 ].ToString (),
+                    Lyrics = dataTable.Rows [ i ].ItemArray [ 15 ].ToString (),
+                    CheckInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 16 ].ToString () ),
+                    Check = check,
+                    DateCreatedString = dateCreated,
+                    DateModifiedString = dateModified,
+                    AccompanimentId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 19 ].ToString () ),
+                    AccompanimentName = dataTable.Rows [ i ].ItemArray [ 20 ].ToString (),
+                    PDFORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 21 ].ToString () ),
+                    PDFORP = pdfORP,
+                    PDFORKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 22 ].ToString () ),
+                    PDFORK = pdfORK,
+                    PDFTOPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 23 ].ToString () ),
+                    PDFTOP = pdfTOP,
+                    PDFTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 24 ].ToString () ),
+                    PDFTOK = pdfTOK,
+                    MuseScoreORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 25 ].ToString () ),
+                    MuseScoreORP = mscORP,
+                    MuseScoreORKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 26 ].ToString () ),
+                    MuseScoreORK = mscORK,
+                    MuseScoreTOPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString () ),
+                    MuseScoreTOP = mscTOP,
+                    MuseScoreTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString () ),
+                    MuseScoreTOK = mscTOK,
+                    MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString () ),
+                    MP3TOT = mp3TOT,
+                    MP3T1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString () ),
+                    MP3T1 = mp3T1,
+                    MP3T2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString () ),
+                    MP3T2 = mp3T2,
+                    MP3B1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString () ),
+                    MP3B1 = mp3B1,
+                    MP3B2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString () ),
+                    MP3B2 = mp3B2,
+                    MP3SOLInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString () ),
+                    MP3SOL = mp3SOL,
+                    MP3PIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString () ),
+                    MP3PIA = mp3PIA,
+                    MuseScoreOnlineInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString () ),
+                    MuseScoreOnline = mscOnline,
+                    NumberScoresSupplier1 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString () ),
+                    NumberScoresSupplier2 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString () ),
+                    NumberScoresSupplier3 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString () ),
+                    NumberScoresSupplier4 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString () ),
+                    NumberScoresTotal = total,
+                    Supplier1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString () ),
+                    Supplier1Name = dataTable.Rows [ i ].ItemArray [ 42 ].ToString (),
+                    Supplier2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 43 ].ToString () ),
+                    Supplier2Name = dataTable.Rows [ i ].ItemArray [ 44 ].ToString (),
+                    Supplier3Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString () ),
+                    Supplier3Name = dataTable.Rows [ i ].ItemArray [ 46 ].ToString (),
+                    Supplier4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 47 ].ToString () ),
+                    Supplier4Name = dataTable.Rows [ i ].ItemArray [ 48 ].ToString ()
+                } ); ;
+            }
+        }
+
+        return Scores;
+    }
+    #endregion
+
     #region GetAccompaniments
     public static ObservableCollection<AccompanimentModel> GetAccompaniments ()
     {
@@ -72,12 +198,33 @@ public class DBCommands
             {
                 Accompaniments.Add ( new AccompanimentModel
                 {
-                    Id = int.Parse(dataTable.Rows [ i ].ItemArray [ 0 ].ToString ()),
+                    AccompanimentId = int.Parse(dataTable.Rows [ i ].ItemArray [ 0 ].ToString ()),
                     AccompanimentName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
         }
         return Accompaniments;
+    }
+    #endregion
+
+    #region GetArchives
+    public static ObservableCollection<ArchiveModel> GetArchives ()
+    {
+        ObservableCollection<ArchiveModel> Archives = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.ArchivesTable, "NoSort");
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                Archives.Add ( new ArchiveModel
+                {
+                    ArchiveId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    ArchiveName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
+                } );
+            }
+        }
+        return Archives;
     }
     #endregion
 
@@ -93,7 +240,7 @@ public class DBCommands
             {
                 Genres.Add ( new GenreModel
                 {
-                    Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    GenreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
                     GenreName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
@@ -114,7 +261,7 @@ public class DBCommands
             {
                 Languages.Add ( new LanguageModel
                 {
-                    Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    LanguageId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
                     LanguageName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
@@ -135,7 +282,7 @@ public class DBCommands
             {
                 Publishers.Add ( new PublisherModel
                 {
-                    Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    PublisherId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
                     PublisherName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
@@ -156,7 +303,7 @@ public class DBCommands
             {
                 Repertoires.Add ( new RepertoireModel
                 {
-                    Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    RepertoireId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
                     RepertoireName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
@@ -166,7 +313,7 @@ public class DBCommands
     #endregion
 
     #region GetScores
-    public static ObservableCollection<ScoreModel> GetScores ()
+    public static ObservableCollection<ScoreModel> GetScores1 ()
     {
         ObservableCollection<ScoreModel> Scores = new();
 
@@ -177,7 +324,7 @@ public class DBCommands
             {
                 Scores.Add ( new ScoreModel
                 {
-                    Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
                     ScoreTitle = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
@@ -185,7 +332,6 @@ public class DBCommands
         return Scores;
     }
     #endregion
-
 
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.

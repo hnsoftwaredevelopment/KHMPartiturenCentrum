@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
+using KHMPartiturenCentrum.Views;
 
 namespace KHMPartiturenCentrum.ViewModels;
 
 public partial class ScoreViewModel: ObservableObject
 {
-    //[ObservableProperty]
-    //public int id = 0;
     [ObservableProperty]
     public int id = 0 ;
 
@@ -223,19 +222,22 @@ public partial class ScoreViewModel: ObservableObject
 
     public ObservableCollection<AccompanimentModel>? Accompaniments { get; set; }
     public ObservableCollection<GenreModel>? Genres { get; set; }
+    public ObservableCollection<ArchiveModel>? Archives { get; set; }
     public ObservableCollection<LanguageModel>? Languages { get; set; }
     public ObservableCollection<PublisherModel>? Publishers { get; set; }
     public ObservableCollection<RepertoireModel>? Repertoires { get; set; }
-    public ObservableCollection<ScoreModel>? Scores { get; set; }
+    public ObservableCollection<ScoreModel> Scores { get; set; }
 
     public ScoreViewModel ()
     {
+        //Scores = new ObservableCollection<ScoreModel> ();
         Accompaniments = DBCommands.GetAccompaniments ();
+        Archives = DBCommands.GetArchives ();
         Genres = DBCommands.GetGenres ();
         Languages = DBCommands.GetLanguages ();
         Publishers = DBCommands.GetPublishers ();
         Repertoires = DBCommands.GetRepertoires ();
-        Scores = DBCommands.GetScores ();
+        Scores = DBCommands.GetScores (DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber);
     }
 
 

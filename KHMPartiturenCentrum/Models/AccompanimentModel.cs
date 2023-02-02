@@ -8,6 +8,6 @@ namespace KHMPartiturenCentrum.Models;
 
 public class AccompanimentModel
 {
-    public int Id { get; set; }
+    public int AccompanimentId { get; set; }
     public string? AccompanimentName { get; set; }
 }

@@ -71,20 +71,26 @@
     <SolidColorBrush x:Key="Navigation.Button.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Navigation.Button.Disabled.Foreground" Color="#FF838383" />
 
-    <!--#region Detail view ComboBox Colors-->
-    <SolidColorBrush x:Key="Details.ComboBox.TextBox.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
-    <SolidColorBrush x:Key="Details.ComboBox.TextBox.Foreground" Color="White" />
-    <SolidColorBrush x:Key="Details.ComboBox.Dropdown.Arrow" Color="#27387A" />
-    <SolidColorBrush x:Key="Details.ComboBox.DropdownList.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
-    <SolidColorBrush x:Key="Details.ComboBox.DropdownList.Foreground" Color="#7388AE" />
-    <SolidColorBrush x:Key="Details.ComboBox.DropdownList.BorderBrush" Color="#27387A" />
-    <SolidColorBrush x:Key="Details.ComboBox.DisabledForeground" Color="#888" />
-    <SolidColorBrush x:Key="Details.ComboBox.DisabledBackground" Color="#EEE" />
-    <SolidColorBrush x:Key="Details.ComboBox.DisabledBorderBrush" Color="#AAA" />
+    <!--#region ComboBox Colors-->
+    <SolidColorBrush x:Key="ComboBox.TextBox.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="ComboBox.TextBox.Foreground" Color="White" />
+    <SolidColorBrush x:Key="ComboBox.Dropdown.Arrow" Color="#27387A" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.Foreground" Color="#7388AE" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.BorderBrush" Color="#27387A" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.Selected.Background" Color="#FFC4E5F6" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.Selected.Foreground" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.Selected.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.MouseOver.Background" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.MouseOver.Foreground" Color="{DynamicResource Details.BackgroundColor.Base}" />
+    <SolidColorBrush x:Key="ComboBox.DropdownList.MouseOver.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="ComboBox.DisabledForeground" Color="#888" />
+    <SolidColorBrush x:Key="ComboBox.DisabledBackground" Color="#EEE" />
+    <SolidColorBrush x:Key="ComboBox.DisabledBorderBrush" Color="#AAA" />
 
 
 
-    <LinearGradientBrush x:Key="Details.ComboBox.Dropdown.Background" StartPoint="0,0" EndPoint="0,1">
+    <LinearGradientBrush x:Key="ComboBox.Dropdown.Background" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
             <GradientStopCollection>
                 <GradientStop Offset="0.0" Color="#FFF" />
@@ -93,7 +99,7 @@
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="Details.ComboBox.BorderBrush" StartPoint="0,0" EndPoint="0,1">
+    <LinearGradientBrush x:Key="ComboBox.BorderBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
             <GradientStopCollection>
                 <GradientStop Offset="0.0" Color="#BCCAF1" />
@@ -102,7 +108,7 @@
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="Details.ComboBox.DropDown.IsMouseOver" StartPoint="0,0" EndPoint="0,1">
+    <LinearGradientBrush x:Key="ComboBox.DropDown.IsMouseOver" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
             <GradientStopCollection>
                 <GradientStop Offset="0.0" Color="White" />
@@ -111,7 +117,7 @@
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="Details.ComboBox.DropDown.IsPressed" StartPoint="0,0" EndPoint="0,1">
+    <LinearGradientBrush x:Key="ComboBox.DropDown.IsPressed" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
             <GradientStopCollection>
                 <GradientStop Offset="0.0" Color="#707db2" />

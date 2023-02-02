@@ -8,6 +8,6 @@ namespace KHMPartiturenCentrum.Models;
 
 public class LanguageModel
 {
-    public int Id { get; set; }
+    public int LanguageId { get; set; }
     public string? LanguageName { get; set; }
 }

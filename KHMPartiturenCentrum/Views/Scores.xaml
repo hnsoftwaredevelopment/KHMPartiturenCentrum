@@ -5,10 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:KHMPartiturenCentrum.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:KHMPartiturenCentrum.Views"
+    xmlns:viewmodel="clr-namespace:KHMPartiturenCentrum.ViewModels"
     Title="Scores"
     d:DesignHeight="700"
     d:DesignWidth="1600"
+    DataContext="viewmodel:ScoreViewModel"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <viewmodel:ScoreViewModel x:Key="ScoresData"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -113,7 +120,7 @@
                 Padding="5,0,5,0"
                 AlternationCount="1"
                 AutoGenerateColumns="false"
-                DataContext="models:Factsheet"
+                DataContext="viewmodel:ScoreViewModel"
                 IsReadOnly="true"
                 ItemsSource="{Binding}"
                 Style="{DynamicResource CustomDataGrid}">
@@ -527,6 +534,7 @@
             <TabControl
                 Grid.Column="1"
                 Margin="5"
+                DataContext="viewmodel:ScoreViewModel"
                 Style="{DynamicResource TabControlStyle}"
                 TabStripPlacement="Right">
                 <TabControl.Resources>
@@ -707,9 +715,49 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Repertoire" />
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
+                                                x:Name="comRepertoire"
                                                 Width="120"
-                                                HorizontalAlignment="Left"
-                                                Text="{Binding RepertoireName}" />
+                                                HorizontalAlignment="Left">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Margin="2" Text="{Binding RepertoireName}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate>
+                                                                    <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="0" />
+                                                                            <ColumnDefinition />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Margin="5"
+                                                                            Text="{Binding RepertoireId}" />
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            Margin="5"
+                                                                            Text="{Binding RepertoireName}" />
+                                                                    </Grid>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
                                             <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding RepertoireId}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -720,9 +768,50 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Archief" />
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
+                                                x:Name="comArchive"
                                                 Width="120"
-                                                HorizontalAlignment="Left"
-                                                Text="{Binding ArchiveName}" />
+                                                HorizontalAlignment="Left">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Margin="2" Text="{Binding ArchiveName}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate>
+                                                                    <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="0" />
+                                                                            <ColumnDefinition />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Margin="5"
+                                                                            Text="{Binding ArchiveId}" />
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            Margin="5"
+                                                                            Text="{Binding ArchiveName}" />
+                                                                    </Grid>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
+
                                             <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding ArchiveId}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -813,9 +902,49 @@
 
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
+                                                x:Name="comGenre"
                                                 Width="220"
-                                                HorizontalAlignment="Left"
-                                                Text="{Binding GenreName}" />
+                                                HorizontalAlignment="Left">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Margin="2" Text="{Binding GenreName}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate>
+                                                                    <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="0" />
+                                                                            <ColumnDefinition />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Margin="5"
+                                                                            Text="{Binding GenreId}" />
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            Margin="5"
+                                                                            Text="{Binding GenreName}" />
+                                                                    </Grid>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
                                             <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding GenreId}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -826,9 +955,49 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Begeleiding" />
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
+                                                x:Name="comAccompaniment"
                                                 Width="220"
-                                                HorizontalAlignment="Left"
-                                                Text="{Binding AccompanimentName}" />
+                                                HorizontalAlignment="Left">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Margin="2" Text="{Binding AccompanimentName}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate>
+                                                                    <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="0" />
+                                                                            <ColumnDefinition />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Margin="5"
+                                                                            Text="{Binding AccompanimentId}" />
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            Margin="5"
+                                                                            Text="{Binding AccompanimentName}" />
+                                                                    </Grid>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
                                             <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding AccompanimentId}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -839,9 +1008,49 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Taal" />
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
+                                                x:Name="comLanguage"
                                                 Width="220"
-                                                HorizontalAlignment="Left"
-                                                Text="{Binding LanguageName}" />
+                                                HorizontalAlignment="Left">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Margin="2" Text="{Binding LanguageName}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate>
+                                                                    <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="0" />
+                                                                            <ColumnDefinition />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Margin="5"
+                                                                            Text="{Binding LanguageId}" />
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            Margin="5"
+                                                                            Text="{Binding LanguageName}" />
+                                                                    </Grid>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                            <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                            <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
                                             <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding LanguageId}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -1446,9 +1655,49 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
+                                        x:Name="comSupplier1"
                                         Width="120"
-                                        HorizontalAlignment="Left"
-                                        Text="{Binding SupplierList}" />
+                                        HorizontalAlignment="Left">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="0" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
+                                                                    Grid.Column="0"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierId}" />
+                                                                <TextBlock
+                                                                    Grid.Column="1"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierName}" />
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                </Trigger>
+                                                                <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier1Id}" />
                                 </StackPanel>
                                 <!--#endregion-->
@@ -1469,9 +1718,49 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
+                                        x:Name="comSupplier2"
                                         Width="120"
-                                        HorizontalAlignment="Left"
-                                        Text="{Binding SupplierList}" />
+                                        HorizontalAlignment="Left">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="0" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
+                                                                    Grid.Column="0"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierId}" />
+                                                                <TextBlock
+                                                                    Grid.Column="1"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierName}" />
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                </Trigger>
+                                                                <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier2Id}" />
                                 </StackPanel>
                                 <!--#endregion-->
@@ -1492,9 +1781,49 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
+                                        x:Name="comSupplier3"
                                         Width="120"
-                                        HorizontalAlignment="Left"
-                                        Text="{Binding SupplierList}" />
+                                        HorizontalAlignment="Left">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="0" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
+                                                                    Grid.Column="0"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierId}" />
+                                                                <TextBlock
+                                                                    Grid.Column="1"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierName}" />
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                </Trigger>
+                                                                <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier3Id}" />
                                 </StackPanel>
                                 <!--#endregion-->
@@ -1515,9 +1844,49 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
+                                        x:Name="comSupplier4"
                                         Width="120"
-                                        HorizontalAlignment="Left"
-                                        Text="{Binding SupplierList}" />
+                                        HorizontalAlignment="Left">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Grid x:Name="cb" TextElement.Foreground="{DynamicResource ComboBox.DropdownList.Foreground}">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="0" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
+                                                                    Grid.Column="0"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierId}" />
+                                                                <TextBlock
+                                                                    Grid.Column="1"
+                                                                    Margin="5"
+                                                                    Text="{Binding SupplierName}" />
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.Selected.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.Selected.Foreground}" />
+                                                                </Trigger>
+                                                                <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                                                    <Setter TargetName="cb" Property="Background" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Background}" />
+                                                                    <Setter TargetName="cb" Property="TextElement.Foreground" Value="{DynamicResource ComboBox.DropdownList.MouseOver.Foreground}" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
                                     <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier4Id}" />
                                 </StackPanel>
                                 <!--#endregion-->

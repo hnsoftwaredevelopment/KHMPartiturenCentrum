@@ -497,7 +497,7 @@
                                 <Condition Property="Tag" Value="IsCloseButton" />
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" Value="{DynamicResource btnClose}" />
-                            <Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTexColor}" />
+                            <Setter TargetName="ico" Property="Fill" Value="{DynamicResource  PrimaryTextColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTexColor}" />
@@ -571,7 +571,7 @@
     </Style>
 
     <Style x:Key="EditorToolbarSeparatorStyle" TargetType="{x:Type Separator}">
-        <Setter Property="Margin" Value="10,-2,10,-3s" />
+        <Setter Property="Margin" Value="10,-2,10,-3" />
         <Setter Property="Background" Value="{StaticResource Button.Editor.Static.Border}" />
     </Style>
 
@@ -733,16 +733,16 @@
             <Border
                 x:Name="Border"
                 Grid.ColumnSpan="2"
-                Background="{StaticResource Details.ComboBox.Dropdown.Background}"
-                BorderBrush="{StaticResource Details.ComboBox.BorderBrush}"
+                Background="{StaticResource ComboBox.Dropdown.Background}"
+                BorderBrush="{StaticResource ComboBox.BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="5" />
             <!--  TextBox area of the ComboBox  -->
             <Border
                 Grid.Column="0"
                 Margin="1"
-                Background="{StaticResource Details.ComboBox.TextBox.Background}"
-                BorderBrush="{StaticResource Details.ComboBox.BorderBrush}"
+                Background="{StaticResource ComboBox.TextBox.Background}"
+                BorderBrush="{StaticResource ComboBox.BorderBrush}"
                 BorderThickness="0,0,1,0"
                 CornerRadius="5" />
             <!--  Arrow definition  -->
@@ -752,21 +752,21 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Data="M 7 3 L 6 2 L 5 2 L 4 1 L 3 1 L 2 0 L 0 0 L 0 1 L 1 2 L 1 3 L 2 4 L 2 5 L 3 6 L 4 7 L 4 8 L 5 9 L 5 10 L 6 11 L 7 12 L 8 11 L 9 10 L 9 9 L 10 8 L 10 7 L 11 6 L 12 5 L 12 4 L 13 3 L 13 2 L 14 1 L 14 0 L 12 0 L 11 1 L 10 1 L 9 2 L 8 2 L 7 3 Z"
-                Fill="{StaticResource Details.ComboBox.Dropdown.Arrow}" />
+                Fill="{StaticResource ComboBox.Dropdown.Arrow}" />
         </Grid>
 
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource Details.ComboBox.DropDown.IsMouseOver}" />
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource ComboBox.DropDown.IsMouseOver}" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource Details.ComboBox.DropDown.IsPressed}" />
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource ComboBox.DropDown.IsPressed}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource Details.ComboBox.TextBox.Background}" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Details.ComboBox.DisabledBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource Details.ComboBox.DisabledForeground}" />
-                <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource Details.ComboBox.DisabledForeground}" />
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource ComboBox.TextBox.Background}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ComboBox.DisabledBorderBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource ComboBox.DisabledForeground}" />
+                <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource ComboBox.DisabledForeground}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -787,7 +787,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Foreground" Value="{DynamicResource Details.ComboBox.DropdownList.Foreground}" />
+        <Setter Property="Foreground" Value="{DynamicResource ComboBox.DropdownList.Foreground}" />
         <Setter Property="MinWidth" Value="20" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="Template">
@@ -819,7 +819,7 @@
                             Focusable="True"
                             FontSize="12"
                             FontWeight="Normal"
-                            Foreground="{DynamicResource Details.ComboBox.TextBox.Foreground}"
+                            Foreground="{DynamicResource ComboBox.TextBox.Foreground}"
                             IsReadOnly="{TemplateBinding IsReadOnly}"
                             Style="{x:Null}"
                             Template="{StaticResource ComboBoxTextBox}"
@@ -839,8 +839,8 @@
                                 SnapsToDevicePixels="True">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    Background="{DynamicResource Details.ComboBox.DropdownList.Background}"
-                                    BorderBrush="{DynamicResource Details.ComboBox.DropdownList.BorderBrush}"
+                                    Background="{DynamicResource ComboBox.DropdownList.Background}"
+                                    BorderBrush="{DynamicResource ComboBox.DropdownList.BorderBrush}"
                                     BorderThickness="1" />
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -853,7 +853,7 @@
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource Details.ComboBox.DisabledForeground}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ComboBox.DisabledForeground}" />
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false" />

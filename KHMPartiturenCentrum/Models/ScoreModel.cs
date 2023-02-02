@@ -8,7 +8,7 @@ namespace KHMPartiturenCentrum.Models;
 
 public class ScoreModel
 {
-    public int Id { get; set; }
+    public int ScoreId { get; set; }
     public string? ScoreNumber { get; set; }
     public string? ScoreTitle { get; set; }
     public string? ScoreSubTitle { get; set; }
