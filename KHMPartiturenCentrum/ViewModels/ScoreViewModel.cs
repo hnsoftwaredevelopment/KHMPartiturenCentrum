@@ -4,7 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
+
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
 using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.Views;
@@ -219,6 +224,9 @@ public partial class ScoreViewModel: ObservableObject
 
     [ObservableProperty]
     public int numberScoresTotal = 0 ;
+
+    [ObservableProperty]
+    public object selectedItem ="";
 
     public ObservableCollection<AccompanimentModel>? Accompaniments { get; set; }
     public ObservableCollection<GenreModel>? Genres { get; set; }
