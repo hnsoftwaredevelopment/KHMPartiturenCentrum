@@ -6,9 +6,9 @@
     xmlns:local="clr-namespace:KHMPartiturenCentrum.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:KHMPartiturenCentrum.Views"
-    xmlns:viewmodel="clr-namespace:KHMPartiturenCentrum.ViewModels" 
-    d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"
+    xmlns:viewmodel="clr-namespace:KHMPartiturenCentrum.ViewModels"
     Title="Scores"
+    d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"
     d:DesignHeight="700"
     d:DesignWidth="1600"
     DataContext="viewmodel:ScoreViewModel"
@@ -114,12 +114,15 @@
             <DataGrid
                 x:Name="ScoresDataGrid"
                 Grid.Column="0"
+                Margin="0,4,0,-4"
                 Padding="5,0,5,0"
                 AlternationCount="1"
                 AutoGenerateColumns="false"
                 IsReadOnly="true"
-                ItemsSource="{Binding Scores}" SelectionMode="Single" SelectionChanged="SelectedScoreChanged"
-                Style="{DynamicResource CustomDataGrid}" Margin="0,4,0,-4">
+                ItemsSource="{Binding Scores}"
+                SelectionChanged="SelectedScoreChanged"
+                SelectionMode="Single"
+                Style="{DynamicResource CustomDataGrid}">
                 <DataGrid.Columns>
                     <!--#region Column definitions-->
                     <!--#region Id (Hidden)-->
@@ -700,6 +703,7 @@
                                     <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Partituur" />
                                         <TextBox
+                                            x:Name="tbScoreNumber"
                                             Width="70"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             Text="{Binding SelectedItem.ScoreNumber}" />
@@ -826,9 +830,9 @@
                                     <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
                                         <TextBox
+                                            x:Name="tbTitle"
                                             Width="450"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding ScoreTitle}" />
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -836,9 +840,9 @@
                                     <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Ondertitel" />
                                         <TextBox
+                                            x:Name="tbSubTitle"
                                             Width="450"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding ScoreSubTitel}" />
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -856,9 +860,9 @@
                                     <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Componist" />
                                         <TextBox
+                                            x:Name="tbComposer"
                                             Width="340"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding Composer}" />
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -866,9 +870,9 @@
                                     <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Textschrijver" />
                                         <TextBox
+                                            x:Name="tbTextwriter"
                                             Width="340"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding TextWriter}" />
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -876,9 +880,9 @@
                                     <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Arrangement" />
                                         <TextBox
+                                            x:Name="tbArranger"
                                             Width="340"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding Arranger}" />
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -1076,21 +1080,21 @@
                                 <!--#region Digitalized-->
                                 <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gedigitaliseerd" />
-                                    <DatePicker Margin="0,0,50,7" SelectedDate="{Binding DateCreated}" />
+                                    <DatePicker x:Name="dpDigitized" Margin="0,0,50,7" />
                                 </StackPanel>
                                 <!--#endregion-->
 
                                 <!--#region Modified-->
                                 <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Laatste aanpassing" />
-                                    <DatePicker Margin="0,0,50,7" SelectedDate="{Binding DateModified}" />
+                                    <DatePicker x:Name="dpModified" Margin="0,0,50,7" />
                                 </StackPanel>
                                 <!--#endregion-->
 
                                 <!--#region Checked-->
                                 <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gecontroleerd" />
-                                    <CheckBox IsChecked="{Binding Check}" />
+                                    <CheckBox x:Name="chkChecked" />
                                 </StackPanel>
                                 <!--#endregion-->
                             </Grid>
@@ -1146,9 +1150,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORP (Totaal)" />
                                 <CheckBox
+                                    x:Name="chkMSCORP"
                                     Grid.Row="0"
-                                    Grid.Column="2"
-                                    IsChecked="{Binding MuseScoreORP}" />
+                                    Grid.Column="2" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore ORK-->
@@ -1158,9 +1162,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORK (Koor)" />
                                 <CheckBox
+                                    x:Name="chkMSCORK"
                                     Grid.Row="1"
-                                    Grid.Column="2"
-                                    IsChecked="{Binding MuseScoreORK}" />
+                                    Grid.Column="2" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore TOP-->
@@ -1170,9 +1174,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOP (Totaal)" />
                                 <CheckBox
+                                    x:Name="chkMSCTOP"
                                     Grid.Row="2"
-                                    Grid.Column="2"
-                                    IsChecked="{Binding MuseScoreTOP}" />
+                                    Grid.Column="2" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore TOK-->
@@ -1182,9 +1186,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOK (Koor)" />
                                 <CheckBox
+                                    x:Name="chkMSCTOK"
                                     Grid.Row="3"
-                                    Grid.Column="2"
-                                    IsChecked="{Binding MuseScoreTOK}" />
+                                    Grid.Column="2" />
                                 <!--#endregion-->
                                 <!--#endregion-->
 
@@ -1203,9 +1207,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORP (Totaal)" />
                                 <CheckBox
+                                    x:Name="chkPDFORP"
                                     Grid.Row="0"
-                                    Grid.Column="6"
-                                    IsChecked="{Binding PDFORP}" />
+                                    Grid.Column="6" />
                                 <!--#endregion-->
 
                                 <!--#region PDF ORK-->
@@ -1215,9 +1219,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORK (Koor)" />
                                 <CheckBox
+                                    x:Name="chkPDFORK"
                                     Grid.Row="1"
-                                    Grid.Column="6"
-                                    IsChecked="{Binding PDFORK}" />
+                                    Grid.Column="6" />
                                 <!--#endregion-->
 
                                 <!--#region PDF TOP-->
@@ -1227,9 +1231,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOP (Totaal)" />
                                 <CheckBox
+                                    x:Name="chkPDFTOP"
                                     Grid.Row="2"
-                                    Grid.Column="6"
-                                    IsChecked="{Binding PDFTOP}" />
+                                    Grid.Column="6" />
                                 <!--#endregion-->
 
                                 <!--#region PDF TOK-->
@@ -1239,9 +1243,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOK (Koor)" />
                                 <CheckBox
+                                    x:Name="chkPDFTOK"
                                     Grid.Row="3"
-                                    Grid.Column="6"
-                                    IsChecked="{Binding PDFTOK}" />
+                                    Grid.Column="6" />
                                 <!--#endregion-->
                                 <!--#endregion-->
 
@@ -1260,9 +1264,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="B1" />
                                 <CheckBox
+                                    x:Name="chkMP3B1"
                                     Grid.Row="0"
-                                    Grid.Column="10"
-                                    IsChecked="{Binding MP3B1}" />
+                                    Grid.Column="10" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 B2-->
@@ -1272,9 +1276,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="B2" />
                                 <CheckBox
+                                    x:Name="chkMP3B2"
                                     Grid.Row="1"
-                                    Grid.Column="10"
-                                    IsChecked="{Binding MP3B2}" />
+                                    Grid.Column="10" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 T1-->
@@ -1284,9 +1288,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="T1" />
                                 <CheckBox
+                                    x:Name="chkMP3T1"
                                     Grid.Row="2"
-                                    Grid.Column="10"
-                                    IsChecked="{Binding MP3T1}" />
+                                    Grid.Column="10" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 T2-->
@@ -1296,9 +1300,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="T2" />
                                 <CheckBox
+                                    x:Name="chkMP3T2"
                                     Grid.Row="3"
-                                    Grid.Column="10"
-                                    IsChecked="{Binding MP3T2}" />
+                                    Grid.Column="10" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 Solo-->
@@ -1308,9 +1312,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="SOL" />
                                 <CheckBox
+                                    x:Name="chkMP3SOL"
                                     Grid.Row="0"
-                                    Grid.Column="13"
-                                    IsChecked="{Binding MP3SOL}" />
+                                    Grid.Column="13" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 TOT-->
@@ -1320,9 +1324,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOT" />
                                 <CheckBox
+                                    x:Name="chkMP3TOT"
                                     Grid.Row="1"
-                                    Grid.Column="13"
-                                    IsChecked="{Binding MP3TOT}" />
+                                    Grid.Column="13" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 PIA-->
@@ -1332,9 +1336,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="PIA" />
                                 <CheckBox
+                                    x:Name="chkMP3PIA"
                                     Grid.Row="2"
-                                    Grid.Column="13"
-                                    IsChecked="{Binding MP3PIA}" />
+                                    Grid.Column="13" />
                                 <!--#endregion-->
                                 <!--#endregion-->
 
@@ -1353,9 +1357,9 @@
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="Online" />
                                 <CheckBox
+                                    x:Name="chkMSCOnline"
                                     Grid.Row="0"
-                                    Grid.Column="17"
-                                    IsChecked="{Binding MuseScoreOnline}" />
+                                    Grid.Column="17" />
                                 <!--#endregion-->
                                 <!--#endregion-->
                             </Grid>
@@ -1637,14 +1641,14 @@
 
                                 <!--#region Supplier 1 row-->
                                 <TextBox
+                                    x:Name="tbAmountSupplier1"
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                    Text="{Binding NumberScoresSupplier1}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
 
                                 <StackPanel
                                     Grid.Row="2"
@@ -1700,14 +1704,14 @@
 
                                 <!--#region Supplier 2 row-->
                                 <TextBox
+                                    x:Name="tbAmountSupplier2"
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                    Text="{Binding NumberScoresSupplier2}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
 
                                 <StackPanel
                                     Grid.Row="3"
@@ -1763,14 +1767,14 @@
 
                                 <!--#region Supplier 3 row-->
                                 <TextBox
+                                    x:Name="tbAmountSupplier3"
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                    Text="{Binding NumberScoresSupplier3}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
 
                                 <StackPanel
                                     Grid.Row="4"
@@ -1826,14 +1830,14 @@
 
                                 <!--#region Supplier 4 row-->
                                 <TextBox
+                                    x:Name="tbAmountSupplier4"
                                     Grid.Row="5"
                                     Grid.Column="0"
                                     Width="70"
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                    Text="{Binding NumberScoresSupplier4}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
 
                                 <StackPanel
                                     Grid.Row="5"
@@ -1900,13 +1904,13 @@
                                     Y2="0" />
 
                                 <TextBox
+                                    x:Name="tbAmountSupplierTotal"
                                     Grid.Row="7"
                                     Grid.Column="0"
                                     Width="70"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                    Text="{Binding NumberScoresTotal}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                 <TextBlock
                                     Grid.Row="7"
                                     Grid.Column="1"
