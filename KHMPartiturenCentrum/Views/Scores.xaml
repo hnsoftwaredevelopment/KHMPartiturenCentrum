@@ -9,7 +9,7 @@
     xmlns:viewmodel="clr-namespace:KHMPartiturenCentrum.ViewModels"
     Title="Scores"
     d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"
-    d:DesignHeight="700"
+    d:DesignHeight="750"
     d:DesignWidth="1600"
     DataContext="viewmodel:ScoreViewModel"
     mc:Ignorable="d">
@@ -60,6 +60,7 @@
                     Width="30"
                     Height="30"
                     Padding="5"
+                    Click="BtnPreviousClick"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Vorige partituur"
@@ -75,6 +76,7 @@
                     Width="30"
                     Height="30"
                     Padding="5"
+                    Click="BtnNextClick"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Vorige partituur"
@@ -114,7 +116,7 @@
             <DataGrid
                 x:Name="ScoresDataGrid"
                 Grid.Column="0"
-                Margin="0,4,0,-4"
+                Margin="0,5,0,4"
                 Padding="5,0,5,0"
                 AlternationCount="1"
                 AutoGenerateColumns="false"
@@ -133,11 +135,29 @@
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region  Score Number-->
+                    <!--#region  Score Number (Hidden)-->
                     <DataGridTextColumn
                         x:Name="ScoreNumber"
                         Width="1*"
                         Binding="{Binding ScoreNumber}"
+                        Header="PartituurNummer"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region  Score SubNumber (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="ScoreSubNumber"
+                        Width="1*"
+                        Binding="{Binding ScoreSubNumber}"
+                        Header="Partituur"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region  Score Number-->
+                    <DataGridTextColumn
+                        x:Name="Score"
+                        Width="1*"
+                        Binding="{Binding Score}"
                         Header="Partituur" />
                     <!--#endregion-->
 
@@ -165,7 +185,7 @@
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region textWriter (Hidden)-->
+                    <!--#region TextWriter (Hidden)-->
                     <DataGridTextColumn
                         x:Name="TextWriter"
                         Width="Auto"
@@ -282,6 +302,14 @@
                         x:Name="Checked"
                         Width="Auto"
                         Binding="{Binding Check}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Sing By Heart (Hidden)-->
+                    <DataGridCheckBoxColumn
+                        x:Name="BYHEART"
+                        Width="Auto"
+                        Binding="{Binding ByHeart}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
@@ -421,99 +449,115 @@
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region NumberScoresSupplier1 (Hidden)-->
+                    <!--#region Music Piece (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="NumberScoresSupplier1"
+                        x:Name="MusinPiece"
                         Width="Auto"
-                        Binding="{Binding NumberScoresSupplier1}"
+                        Binding="{Binding MusicPiece}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier1Id (Hidden)-->
+                    <!--#region Notes (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier1Id"
+                        x:Name="Notes"
                         Width="Auto"
-                        Binding="{Binding Supplier1Id}"
+                        Binding="{Binding Notes}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier1Name (Hidden)-->
+                    <!--#region NumberScoresPublisher1 (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier1Name"
+                        x:Name="NumberScoresPublisher1"
                         Width="Auto"
-                        Binding="{Binding Supplier1Name}"
+                        Binding="{Binding NumberScoresPublisher1}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region NumberScoresSupplier2 (Hidden)-->
+                    <!--#region Publisher1Id (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="NumberScoresSupplier2"
+                        x:Name="Publisher1Id"
                         Width="Auto"
-                        Binding="{Binding NumberScoresSupplier2}"
+                        Binding="{Binding Publisher1Id}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier2Id (Hidden)-->
+                    <!--#region Publisher1Name (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier2Id"
+                        x:Name="Publisher1Name"
                         Width="Auto"
-                        Binding="{Binding Supplier2Id}"
+                        Binding="{Binding Publisher1Name}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier2Name (Hidden)-->
+                    <!--#region NumberScoresPublisher2 (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier2Name"
+                        x:Name="NumberScoresPublisher2"
                         Width="Auto"
-                        Binding="{Binding Supplier2Name}"
+                        Binding="{Binding NumberScoresPublisher2}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region NumberScoresSupplier3 (Hidden)-->
+                    <!--#region Publisher2Id (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="NumberScoresSupplier3"
+                        x:Name="Publisher2Id"
                         Width="Auto"
-                        Binding="{Binding NumberScoresSupplier3}"
+                        Binding="{Binding Publisher2Id}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier3Id (Hidden)-->
+                    <!--#region Publisher2Name (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier3Id"
+                        x:Name="Publisher2Name"
                         Width="Auto"
-                        Binding="{Binding Supplier3Id}"
+                        Binding="{Binding Publisher2Name}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier3Name (Hidden)-->
+                    <!--#region NumberScoresPublisher3 (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier3Name"
+                        x:Name="NumberScoresPublisher3"
                         Width="Auto"
-                        Binding="{Binding Supplier3Name}"
+                        Binding="{Binding NumberScoresPublisher3}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region NumberScoresSupplier4 (Hidden)-->
+                    <!--#region Publisher3Id (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="NumberScoresSupplier4"
+                        x:Name="Publisher3Id"
                         Width="Auto"
-                        Binding="{Binding NumberScoresSupplier4}"
+                        Binding="{Binding Publisher3Id}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier4Id (Hidden)-->
+                    <!--#region Publisher3Name (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier4Id"
+                        x:Name="Publisher3Name"
                         Width="Auto"
-                        Binding="{Binding Supplier4Id}"
+                        Binding="{Binding Publisher3Name}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
-                    <!--#region Supplier4Name (Hidden)-->
+                    <!--#region NumberScoresPublisher4 (Hidden)-->
                     <DataGridTextColumn
-                        x:Name="Supplier4Name"
+                        x:Name="NumberScoresPublisher4"
                         Width="Auto"
-                        Binding="{Binding Supplier4Name}"
+                        Binding="{Binding NumberScoresPublisher4}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Publisher4Id (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Publisher4Id"
+                        Width="Auto"
+                        Binding="{Binding Publisher4Id}"
+                        Visibility="Collapsed" />
+                    <!--#endregion-->
+
+                    <!--#region Publisher4Name (Hidden)-->
+                    <DataGridTextColumn
+                        x:Name="Publisher4Name"
+                        Width="Auto"
+                        Binding="{Binding Publisher4Name}"
                         Visibility="Collapsed" />
                     <!--#endregion-->
 
@@ -673,7 +717,7 @@
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="290" />
+                            <RowDefinition Height="335" />
                             <RowDefinition Height="120" />
                             <RowDefinition Height="160" />
                         </Grid.RowDefinitions>
@@ -689,14 +733,16 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <!--#region Grid Row 0 (Scorenumber, Repertoire and Archive)-->
+                                <!--#region Grid Row 0 (Scorenumber, Repertoire, Archive and Sing By Heart)-->
                                 <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width=".75*" />
+                                        <ColumnDefinition Width="1.5*" />
+                                        <ColumnDefinition Width="1.5*" />
+                                        <ColumnDefinition Width=".5*" />
                                     </Grid.ColumnDefinitions>
 
                                     <!--#region Score Number-->
@@ -705,8 +751,9 @@
                                         <TextBox
                                             x:Name="tbScoreNumber"
                                             Width="70"
+                                            IsEnabled="False"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding SelectedItem.ScoreNumber}" />
+                                            Text="{Binding SelectedItem.Score}" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -716,7 +763,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
                                                 x:Name="comRepertoire"
-                                                Width="120"
+                                                Width="220"
                                                 HorizontalAlignment="Left">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -769,7 +816,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
                                                 x:Name="comArchive"
-                                                Width="120"
+                                                Width="220"
                                                 HorizontalAlignment="Left">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -814,6 +861,13 @@
 
                                             <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding ArchiveId}" />
                                         </StackPanel>
+                                    </StackPanel>
+                                    <!--#endregion-->
+
+                                    <!--#region Sing by Heart-->
+                                    <StackPanel Grid.Column="3" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Uit het hoofd" />
+                                        <CheckBox x:Name="chkByHeart" IsChecked="{Binding ByHeart}" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -1055,6 +1109,19 @@
                                         </StackPanel>
                                     </StackPanel>
                                     <!--#endregion-->
+                                </Grid>
+                                <!--#endregion-->
+
+                                <!--#region Grid Row 4 (Music piece)-->
+                                <Grid Grid.Row="4">
+                                    <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                        <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Muziekstuk" />
+                                        <TextBox
+                                            x:Name="tbMusicPiece"
+                                            Width="1000"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            Text="{Binding MusicPiece}" />
+                                    </StackPanel>
                                 </Grid>
                                 <!--#endregion-->
                             </Grid>
@@ -1558,13 +1625,216 @@
                             VerticalAlignment="Top"
                             HorizontalScrollBarVisibility="Auto"
                             VerticalScrollBarVisibility="Auto">
-                            <FlowDocument x:Name="inpProductMemoFD">
+                            <FlowDocument x:Name="inpLyricsFD">
                                 <Paragraph>
                                     <Run Text="{Binding Lyrics}" />
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
                         <!--#endregion-->
+                    </Grid>
+                </TabItem>
+                <!--#endregion-->
+
+                <!--#region TAB: Notes-->
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Vertical">
+                            <Path
+                                Data="{StaticResource extrainfo}"
+                                Fill="{StaticResource TabItem.Icon.FillBrush}"
+                                Stretch="Uniform"
+                                Stroke="{StaticResource TabItem.Icon.BorderBrush}"
+                                StrokeThickness="0.1" />
+                            <Label Content="Notities" />
+                        </StackPanel>
+                    </TabItem.Header>
+
+                    <Grid>
+                        <Grid>
+                            <!--#region Toolbar memo field-->
+                            <ToolBarTray Margin="5,5,5,0" Style="{DynamicResource RichText.ToolBar.Tray}">
+                                <ToolBar Style="{DynamicResource RichText.ToolBar}">
+                                    <!--#region General buttons-->
+                                    <Button
+                                        Margin="-2,0,2,0"
+                                        Command="ApplicationCommands.Cut"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Knippen">
+                                        <Path Data="{DynamicResource editor.cut}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <Button
+                                        Command="ApplicationCommands.Copy"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Kopieer">
+                                        <Path Data="{DynamicResource editor.copy}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <Button
+                                        Command="ApplicationCommands.Paste"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Plak">
+                                        <Path Data="{DynamicResource editor.paste}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <Button
+                                        Command="ApplicationCommands.Undo"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Ongedaan maken">
+                                        <Path Data="{DynamicResource editor.undo}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <Button
+                                        Command="ApplicationCommands.Redo"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Opnieuw">
+                                        <Path Data="{DynamicResource editor.redo}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <!--#endregion-->
+
+                                    <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                    <!--#region Font style buttons-->
+                                    <Button
+                                        Command="EditingCommands.ToggleBold"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Vet">
+                                        <Path Data="{DynamicResource editor.bold}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <Button
+                                        Command="EditingCommands.ToggleItalic"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Cursief">
+                                        <Path Data="{DynamicResource editor.italic}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.ToggleUnderline"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Onderstreept">
+                                        <Path Data="{DynamicResource editor.underline}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.ToggleSubscript"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Subscript (klein teken boven)">
+                                        <Path Data="{DynamicResource editor.subscript}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.ToggleSuperscript"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Superscript (klein teken onder)">
+                                        <Path Data="{DynamicResource editor.superscript}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <!--#endregion-->
+
+                                    <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                    <!--#region main font style buttons-->
+                                    <Button
+                                        Command="EditingCommands.IncreaseFontSize"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Lettertype vergroten">
+                                        <Path Data="{DynamicResource editor.growfont}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.DecreaseFontSize"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Lettertype verkleinen">
+                                        <Path Data="{DynamicResource editor.shrinkfont}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <!--#endregion-->
+
+                                    <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                    <!--#region Lists buttons-->
+                                    <Button
+                                        Command="EditingCommands.ToggleBullets"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Punten lijst">
+                                        <Path Data="{DynamicResource editor.bulletlist}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.ToggleNumbering"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Genummerde lijst">
+                                        <Path Data="{DynamicResource editor.numberlist}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <!--#endregion-->
+
+                                    <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                    <!--#region Indent buttons-->
+                                    <Button
+                                        Command="EditingCommands.IncreaseIndentation"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Inspringen">
+                                        <Path Data="{DynamicResource editor.increaseindent}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.DecreaseIndentation"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Terugspringen">
+                                        <Path Data="{DynamicResource editor.decreaseindent}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <!--#endregion-->
+
+                                    <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
+
+                                    <!--#region Alignment buttons-->
+                                    <Button
+                                        Command="EditingCommands.AlignLeft"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Tekst links uitlijnen">
+                                        <Path Data="{DynamicResource editor.alignleft}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.AlignCenter"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Tekst centreren">
+                                        <Path Data="{DynamicResource editor.aligncenter}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.AlignRight"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Tekst rechts uitlijnen">
+                                        <Path Data="{DynamicResource editor.alignright}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+
+                                    <Button
+                                        Command="EditingCommands.AlignJustify"
+                                        Style="{DynamicResource EditorButtonsStyle}"
+                                        ToolTip="Tekst links en rechts uitlijnen">
+                                        <Path Data="{DynamicResource editor.alignjustify}" Style="{DynamicResource EditorButtonPathStyle}" />
+                                    </Button>
+                                    <!--#endregion-->
+                                </ToolBar>
+                            </ToolBarTray>
+                            <!--#endregion-->
+
+                            <!--#region Memo field-->
+                            <RichTextBox
+                                x:Name="memoNotes"
+                                Width="Auto"
+                                Height="520"
+                                Margin="5,45,5,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto">
+                                <FlowDocument x:Name="inpNotesFD">
+                                    <Paragraph>
+                                        <Run Text="{Binding Notes}" />
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+                            <!--#endregion-->
+                        </Grid>
+
                     </Grid>
                 </TabItem>
                 <!--#endregion-->
@@ -1639,9 +1909,9 @@
                                     Y2="0" />
                                 <!--#endregion-->
 
-                                <!--#region Supplier 1 row-->
+                                <!--#region Publisher 1 row-->
                                 <TextBox
-                                    x:Name="tbAmountSupplier1"
+                                    x:Name="tbAmountPublisher1"
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Width="70"
@@ -1655,12 +1925,12 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
-                                        x:Name="comSupplier1"
-                                        Width="120"
+                                        x:Name="comPublisher1"
+                                        Width="240"
                                         HorizontalAlignment="Left">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                                <TextBlock Margin="2" Text="{Binding PublisherName}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                         <ComboBox.ItemContainerStyle>
@@ -1676,11 +1946,11 @@
                                                                 <TextBlock
                                                                     Grid.Column="0"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierId}" />
+                                                                    Text="{Binding PublisherId}" />
                                                                 <TextBlock
                                                                     Grid.Column="1"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierName}" />
+                                                                    Text="{Binding PublisherName}" />
                                                             </Grid>
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="ComboBoxItem.IsSelected" Value="True">
@@ -1698,13 +1968,13 @@
                                             </Style>
                                         </ComboBox.ItemContainerStyle>
                                     </ComboBox>
-                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier1Id}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding PublisherId}" />
                                 </StackPanel>
                                 <!--#endregion-->
 
-                                <!--#region Supplier 2 row-->
+                                <!--#region Publisher 2 row-->
                                 <TextBox
-                                    x:Name="tbAmountSupplier2"
+                                    x:Name="tbAmountPublisher2"
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Width="70"
@@ -1718,12 +1988,12 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
-                                        x:Name="comSupplier2"
-                                        Width="120"
+                                        x:Name="comPublisher2"
+                                        Width="240"
                                         HorizontalAlignment="Left">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                                <TextBlock Margin="2" Text="{Binding PublisherName}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                         <ComboBox.ItemContainerStyle>
@@ -1739,11 +2009,11 @@
                                                                 <TextBlock
                                                                     Grid.Column="0"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierId}" />
+                                                                    Text="{Binding PublisherId}" />
                                                                 <TextBlock
                                                                     Grid.Column="1"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierName}" />
+                                                                    Text="{Binding PublisherName}" />
                                                             </Grid>
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="ComboBoxItem.IsSelected" Value="True">
@@ -1761,13 +2031,13 @@
                                             </Style>
                                         </ComboBox.ItemContainerStyle>
                                     </ComboBox>
-                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier2Id}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding PublisherId}" />
                                 </StackPanel>
                                 <!--#endregion-->
 
-                                <!--#region Supplier 3 row-->
+                                <!--#region Publisher 3 row-->
                                 <TextBox
-                                    x:Name="tbAmountSupplier3"
+                                    x:Name="tbAmountPublisher3"
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Width="70"
@@ -1781,12 +2051,12 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
-                                        x:Name="comSupplier3"
-                                        Width="120"
+                                        x:Name="comPublisher3"
+                                        Width="240"
                                         HorizontalAlignment="Left">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                                <TextBlock Margin="2" Text="{Binding PublisherName}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                         <ComboBox.ItemContainerStyle>
@@ -1802,11 +2072,11 @@
                                                                 <TextBlock
                                                                     Grid.Column="0"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierId}" />
+                                                                    Text="{Binding PublisherId}" />
                                                                 <TextBlock
                                                                     Grid.Column="1"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierName}" />
+                                                                    Text="{Binding PublisherName}" />
                                                             </Grid>
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="ComboBoxItem.IsSelected" Value="True">
@@ -1824,11 +2094,11 @@
                                             </Style>
                                         </ComboBox.ItemContainerStyle>
                                     </ComboBox>
-                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier3Id}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding PublisherId}" />
                                 </StackPanel>
                                 <!--#endregion-->
 
-                                <!--#region Supplier 4 row-->
+                                <!--#region Publisher 4 row-->
                                 <TextBox
                                     x:Name="tbAmountSupplier4"
                                     Grid.Row="5"
@@ -1844,12 +2114,12 @@
                                     Grid.Column="1"
                                     Orientation="Horizontal">
                                     <ComboBox
-                                        x:Name="comSupplier4"
-                                        Width="120"
+                                        x:Name="comPublisher4"
+                                        Width="240"
                                         HorizontalAlignment="Left">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="2" Text="{Binding SupplierName}" />
+                                                <TextBlock Margin="2" Text="{Binding PublisherName}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                         <ComboBox.ItemContainerStyle>
@@ -1865,11 +2135,11 @@
                                                                 <TextBlock
                                                                     Grid.Column="0"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierId}" />
+                                                                    Text="{Binding PublisherId}" />
                                                                 <TextBlock
                                                                     Grid.Column="1"
                                                                     Margin="5"
-                                                                    Text="{Binding SupplierName}" />
+                                                                    Text="{Binding PublisherName}" />
                                                             </Grid>
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="ComboBoxItem.IsSelected" Value="True">
@@ -1887,7 +2157,7 @@
                                             </Style>
                                         </ComboBox.ItemContainerStyle>
                                     </ComboBox>
-                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding Supplier4Id}" />
+                                    <TextBox Style="{DynamicResource HiddenSettingsTextBox}" Text="{Binding PublisherId}" />
                                 </StackPanel>
                                 <!--#endregion-->
 

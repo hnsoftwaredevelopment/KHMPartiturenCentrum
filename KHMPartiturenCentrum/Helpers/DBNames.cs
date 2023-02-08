@@ -78,7 +78,7 @@ public class DBNames
 
     #region Table/View Publisher
     public static readonly string PublishersTable = "Uitgever";
-    public static readonly string PublishersFieldNameId = "ArchiveId";
+    public static readonly string PublishersFieldNameId = "Id";
     public static readonly string PublishersFieldNameName = "Naam";
     public static readonly string PublishersFieldNameAddress1 = "Adres1";
     public static readonly string PublishersFieldNameAddress2 = "Adres2";
@@ -103,19 +103,23 @@ public class DBNames
 
     #region Table/View Scores
     public static readonly string ScoresTable = "Bibliotheek";
-    public static readonly string ScoresFieldNameId = "ArchiveId";
-    public static readonly string ScoresFieldNameArchiveNaam = "ArchiefNaam";
-    public static readonly string ScoresFieldNameRepertoireNaam = "RepertoireNaam";
+    public static readonly string ScoresFieldNameId = "Id";
+    public static readonly string ScoresFieldNameArchiveId = "ArchiefId";
+    public static readonly string ScoresFieldNameRepertoireId = "RepertoireId";
     public static readonly string ScoresFieldNameScoreNumber = "Partituur";
+    public static readonly string ScoresFieldNameScoreSubNumber = "SubNummer";
     public static readonly string ScoresFieldNameTitle = "Titel";
     public static readonly string ScoresFieldNameSubTitle = "Ondertitel";
     public static readonly string ScoresFieldNameComposer = "Componist";
     public static readonly string ScoresFieldNameTextwriter = "Tekstschrijver";
     public static readonly string ScoresFieldNameArranger = "Arrangement";
-    public static readonly string ScoresFieldNameLanguageNaam = "TaalNaam";
-    public static readonly string ScoresFieldNameGenreNaam = "GenreNaam";
+    public static readonly string ScoresFieldNameLanguageId = "TaalId";
+    public static readonly string ScoresFieldNameGenreId = "GenreId";
     public static readonly string ScoresFieldNameLyrics = "Lyrics";
-    public static readonly string ScoresFieldNameAccompanimentNaam = "BegeleidingNaam";
+    public static readonly string ScoresFieldNameChecked = "Gecontroleerd";
+    public static readonly string ScoresFieldNameDigitized = "Gedigitaliseerd";
+    public static readonly string ScoresFieldNameModified = "Revisie";
+    public static readonly string ScoresFieldNameAccompanimentId = "BegeleidingId";
     public static readonly string ScoresFieldNamePDFORP = "PDFORP";
     public static readonly string ScoresFieldNamePDFORK = "PDFORK";
     public static readonly string ScoresFieldNamePDFTOP = "PDFTOP";
@@ -124,27 +128,31 @@ public class DBNames
     public static readonly string ScoresFieldNameMuseScoreORK = "MuseScoreORK";
     public static readonly string ScoresFieldNameMuseScoreTOP = "MuseScoreTOP";
     public static readonly string ScoresFieldNameMuseScoreTOK = "MuseScoreTOK";
-    public static readonly string ScoresFieldNameMP3B1 = "MP3B1";
-    public static readonly string ScoresFieldNameMP3B2 = "MP3B2";
+    public static readonly string ScoresFieldNameMP3TOT = "MP3TOT";
     public static readonly string ScoresFieldNameMP3T1 = "MP3T1";
     public static readonly string ScoresFieldNameMP3T2 = "MP3T2";
+    public static readonly string ScoresFieldNameMP3B1 = "MP3B1";
+    public static readonly string ScoresFieldNameMP3B2 = "MP3B2";
     public static readonly string ScoresFieldNameMP3SOL = "MP3SOL";
-    public static readonly string ScoresFieldNameMP3TOT = "MP3TOT";
     public static readonly string ScoresFieldNameMP3PIA = "MP3PIA";
     public static readonly string ScoresFieldNameOnline = "Online";
-    public static readonly string ScoresFieldNameAmountSuplier1 = "AantalUitgever1";
-    public static readonly string ScoresFieldNameAmountSuplier2 = "AantalUitgever2";
-    public static readonly string ScoresFieldNameAmountSuplier3 = "AantalUitgever3";
-    public static readonly string ScoresFieldNameAmountSuplier4 = "AantalUitgever4";
-    public static readonly string ScoresFieldNameSuplier1Naam = "Uitgever1Naam";
-    public static readonly string ScoresFieldNameSuplier2Naam = "Uitgever2Naam";
-    public static readonly string ScoresFieldNameSuplier3Naam = "Uitgever3Naam";
-    public static readonly string ScoresFieldNameSuplier4Naam = "Uitgever4Naam";
+    public static readonly string ScoresFieldNameByHeart = "UHH";
+    public static readonly string ScoresFieldNameMusicPiece = "Muziekstuk";
+    public static readonly string ScoresFieldNameNotes = "Opmerkingen";
+    public static readonly string ScoresFieldNameAmountPublisher1 = "AantalUitgever1";
+    public static readonly string ScoresFieldNameAmountPublisher2 = "AantalUitgever2";
+    public static readonly string ScoresFieldNameAmountPublisher3 = "AantalUitgever3";
+    public static readonly string ScoresFieldNameAmountPublisher = "AantalUitgever4";
+    public static readonly string ScoresFieldNamePublisher1Id = "Uitgever1Id";
+    public static readonly string ScoresFieldNamePublisher2Id = "Uitgever2Id";
+    public static readonly string ScoresFieldNamePublisher3Id = "Uitgever3Id";
+    public static readonly string ScoresFieldNamePublisher4Id = "Uitgever4Id";
 
     public static readonly string ScoresFieldTypeId = "int";
     public static readonly string ScoresFieldTypeArchiveNaam = "int";
     public static readonly string ScoresFieldTypeRepertoireNaam = "int";
     public static readonly string ScoresFieldTypeScoreNumber = "varchar";
+    public static readonly string ScoresFieldTypeScoreSubNumber = "varchar";
     public static readonly string ScoresFieldTypeTitle = "varchar";
     public static readonly string ScoresFieldTypeSubTitle = "varchar";
     public static readonly string ScoresFieldTypeComposer = "varchar";
@@ -153,6 +161,9 @@ public class DBNames
     public static readonly string ScoresFieldTypeLanguageNaam = "int";
     public static readonly string ScoresFieldTypeGenreNaam = "int";
     public static readonly string ScoresFieldTypeLyrics = "mediumtext";
+    public static readonly string ScoresFieldTypeChecked = "int";
+    public static readonly string ScoresFieldTypeDigitized = "date";
+    public static readonly string ScoresFieldTypeModified = "date";
     public static readonly string ScoresFieldTypeAccompanimentNaam = "int";
     public static readonly string ScoresFieldTypePDFORP = "int";
     public static readonly string ScoresFieldTypePDFORK = "int";
@@ -170,35 +181,40 @@ public class DBNames
     public static readonly string ScoresFieldTypeMP3TOT = "int";
     public static readonly string ScoresFieldTypeMP3PIA = "int";
     public static readonly string ScoresFieldTypeOnline = "int";
-    public static readonly string ScoresFieldTypeAmountSuplier1 = "int";
-    public static readonly string ScoresFieldTypeAmountSuplier2 = "int";
-    public static readonly string ScoresFieldTypeAmountSuplier3 = "int";
-    public static readonly string ScoresFieldTypeAmountSuplier4 = "int";
-    public static readonly string ScoresFieldTypeSuplier1Naam = "int";
-    public static readonly string ScoresFieldTypeSuplier2Naam = "int";
-    public static readonly string ScoresFieldTypeSuplier3Naam = "int";
-    public static readonly string ScoresFieldTypeSuplier4Naam = "int";
+    public static readonly string ScoresFieldTypeByHeart = "int";
+    public static readonly string ScoresFieldTypeMusicPiece = "varchar";
+    public static readonly string ScoresFieldTypeNotes = "mediumtext";
+    public static readonly string ScoresFieldTypeAmountPublisher1 = "int";
+    public static readonly string ScoresFieldTypeAmountPublisher2 = "int";
+    public static readonly string ScoresFieldTypeAmountPublisher3 = "int";
+    public static readonly string ScoresFieldTypeAmountPublisher4 = "int";
+    public static readonly string ScoresFieldTypePublisher1Naam = "int";
+    public static readonly string ScoresFieldTypePublisher2Naam = "int";
+    public static readonly string ScoresFieldTypePublisher3Naam = "int";
+    public static readonly string ScoresFieldTypePublisher4Naam = "int";
 
     public static readonly string ScoresView = "Bibliotheek_View";
+    public static readonly string ScoresViewFieldNameScore = "PartituurNummer";
     public static readonly string ScoresViewFieldNameArchiveName = "ArchiefNaam";
     public static readonly string ScoresViewFieldNameRepertoireName = "RepertoireNaam";
     public static readonly string ScoresViewFieldNameLanguageName = "TaalNaam";
     public static readonly string ScoresViewFieldNameGenreName = "GenreNaam";
     public static readonly string ScoresViewFieldNameAccompanimentName = "BegeleidingNaam";
-    public static readonly string ScoresViewFieldNameSuplier1Name = "Uitgever1Naam";
-    public static readonly string ScoresViewFieldNameSuplier2Name = "Uitgever2Naam";
-    public static readonly string ScoresViewFieldNameSuplier3Name = "Uitgever3Naam";
-    public static readonly string ScoresViewFieldNameSuplier4Name = "Uitgever4Naam";
+    public static readonly string ScoresViewFieldNamePublisher1Name = "Uitgever1Naam";
+    public static readonly string ScoresViewFieldNamePublisher2Name = "Uitgever2Naam";
+    public static readonly string ScoresViewFieldNamePublisher3Name = "Uitgever3Naam";
+    public static readonly string ScoresViewFieldNamePublisher4Name = "Uitgever4Naam";
 
+    public static readonly string ScoresViewFieldTypeScore = "varchar";
     public static readonly string ScoresViewFieldTypeArchiveName = "varchar";
     public static readonly string ScoresViewFieldTypeRepertoireName = "varchar";
     public static readonly string ScoresViewFieldTypeLanguageName = "varchar";
     public static readonly string ScoresViewFieldTypeGenreName = "varchar";
     public static readonly string ScoresViewFieldTypeAccompanimentName = "varchar";
-    public static readonly string ScoresViewFieldTypeSuplier1Name = "varchar";
-    public static readonly string ScoresViewFieldTypeSuplier2Name = "varchar";
-    public static readonly string ScoresViewFieldTypeSuplier3Name = "varchar";
-    public static readonly string ScoresViewFieldTypeSuplier4Name = "varchar";
+    public static readonly string ScoresViewFieldTypePublisher1Name = "varchar";
+    public static readonly string ScoresViewFieldTypePublisher2Name = "varchar";
+    public static readonly string ScoresViewFieldTypePublisher3Name = "varchar";
+    public static readonly string ScoresViewFieldTypePublisher4Name = "varchar";
     #endregion
 
     #region Table/View Users (From KHM User Database)

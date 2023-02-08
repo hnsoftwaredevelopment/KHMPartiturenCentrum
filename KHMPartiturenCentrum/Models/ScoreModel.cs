@@ -9,7 +9,9 @@ namespace KHMPartiturenCentrum.Models;
 public class ScoreModel
 {
     public int ScoreId { get; set; }
-    public string? ScoreNumber { get; set; }
+    public string? ScoreNumber { get; set; } // Only the number
+    public string? ScoreSubNumber { get; set; } // Only the SubNumber
+    public string? Score { get; set; } // ScoreNumber and SubNumber combined (XXX-YY Id SubNr exists else XXX)
     public string? ScoreTitle { get; set; }
     public string? ScoreSubTitle { get; set; }
     public string? Composer { get; set; }
@@ -63,18 +65,22 @@ public class ScoreModel
     public int MP3PIAInt { get; set; }
     public bool MuseScoreOnline { get; set; }
     public int MuseScoreOnlineInt { get; set; }
-    public int NumberScoresSupplier1 { get; set; }
+    public bool ByHeart { get; set; }
+    public int ByHeartInt { get; set; }
+    public string? MusicPiece { get; set; }
+    public string? Notes { get; set; }
+    public int NumberScoresPublisher1 { get; set; }
     public string? Lyrics { get; set; }
-    public int Supplier1Id { get; set; }
-    public string? Supplier1Name { get; set; }
-    public int NumberScoresSupplier2 { get; set; }
-    public int Supplier2Id { get; set; }
-    public string? Supplier2Name { get; set; }
-    public int NumberScoresSupplier3 { get; set; }
-    public int Supplier3Id { get; set; }
-    public string? Supplier3Name { get; set; }
-    public int NumberScoresSupplier4 { get; set; }
-    public int Supplier4Id { get; set; }
-    public string? Supplier4Name { get; set; }
+    public int Publisher1Id { get; set; }
+    public string? Publisher1Name { get; set; }
+    public int NumberScoresPublisher2 { get; set; }
+    public int Publisher2Id { get; set; }
+    public string? Publisher2Name { get; set; }
+    public int NumberScoresPublisher3 { get; set; }
+    public int Publisher3Id { get; set; }
+    public string? Publisher3Name { get; set; }
+    public int NumberScoresPublisher4 { get; set; }
+    public int Publisher4Id { get; set; }
+    public string? Publisher4Name { get; set; }
     public int NumberScoresTotal { get; set; }
 }

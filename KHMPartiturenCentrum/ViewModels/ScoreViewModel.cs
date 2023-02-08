@@ -25,7 +25,13 @@ public partial class ScoreViewModel: ObservableObject
     public string scoreNumber = "";
 
     [ObservableProperty]
-    public string coreTitle = "";
+    public string scoreSubNumber = "";
+
+    [ObservableProperty]
+    public string score = "";
+
+    [ObservableProperty]
+    public string scoreTitle = "";
 
     [ObservableProperty]
     public string scoreSubTitle = "" ;
@@ -184,43 +190,61 @@ public partial class ScoreViewModel: ObservableObject
     public int museScoreOnlineInt = 0 ;
 
     [ObservableProperty]
+    public bool byHeart = false ;
+
+    [ObservableProperty]
+    public int byHeartInt = 0 ;
+
+    [ObservableProperty]
     public string lyrics = "" ;
 
     [ObservableProperty]
-    public int numberScoresSupplier1 = 0 ;
+    public string musicPiece = "" ;
 
     [ObservableProperty]
-    public int supplier1Id = 0 ;
+    public string notes = "" ;
 
     [ObservableProperty]
-    public string supplier1Name = "" ;
+    public int numberScoresPublisher1 = 0 ;
 
     [ObservableProperty]
-    public int numberScoresSupplier2 = 0 ;
+    public int publisherId = 0 ;
 
     [ObservableProperty]
-    public int supplier2Id = 0 ;
+    public string publisherName = "" ;
 
     [ObservableProperty]
-    public string supplier2Name = "" ;
+    public int publisher1Id = 0 ;
 
     [ObservableProperty]
-    public int numberScoresSupplier3 = 0 ;
+    public string publisher1Name = "" ;
 
     [ObservableProperty]
-    public int supplier3Id = 0 ;
+    public int numberScoresPublisher2 = 0 ;
 
     [ObservableProperty]
-    public string supplier3Name = "" ;
+    public int publisher2Id = 0 ;
 
     [ObservableProperty]
-    public int numberScoresSupplier4 = 0 ;
+    public string publisher2Name = "" ;
 
     [ObservableProperty]
-    public int supplier4Id = 0 ;
+    public int numberScoresPublisher3 = 0 ;
 
     [ObservableProperty]
-    public string supplier4Name = "" ;
+    public int publisher3Id = 0 ;
+
+    [ObservableProperty]
+    public string publisher3Name = "" ;
+
+    [ObservableProperty]
+    public int numberScoresPublisher4 = 0 ;
+
+    [ObservableProperty]
+    public int publisher4Id = 0 ;
+
+    [ObservableProperty]
+    public string publisher4Name = "" ;
 
     [ObservableProperty]
     public int numberScoresTotal = 0 ;
@@ -233,18 +257,20 @@ public partial class ScoreViewModel: ObservableObject
     public ObservableCollection<ArchiveModel>? Archives { get; set; }
     public ObservableCollection<LanguageModel>? Languages { get; set; }
     public ObservableCollection<PublisherModel>? Publishers { get; set; }
+    public ObservableCollection<PublisherModel>? Publishers1 { get; set; }
     public ObservableCollection<RepertoireModel>? Repertoires { get; set; }
     public ObservableCollection<ScoreModel> Scores { get; set; }
 
     public ScoreViewModel ()
     {
         //Scores = new ObservableCollection<ScoreModel> ();
-        Accompaniments = DBCommands.GetAccompaniments ();
-        Archives = DBCommands.GetArchives ();
-        Genres = DBCommands.GetGenres ();
-        Languages = DBCommands.GetLanguages ();
-        Publishers = DBCommands.GetPublishers ();
-        Repertoires = DBCommands.GetRepertoires ();
+        //Accompaniments = DBCommands.GetAccompaniments ();
+        //Archives = DBCommands.GetArchives ();
+        //Genres = DBCommands.GetGenres ();
+        //Languages = DBCommands.GetLanguages ();
+        //Publishers = DBCommands.GetPublishers ();
+        //Publishers1 = DBCommands.GetPublishers ();
+        //Repertoires = DBCommands.GetRepertoires ();
         Scores = DBCommands.GetScores (DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber);
     }
 
