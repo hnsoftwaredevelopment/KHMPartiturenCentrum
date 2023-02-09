@@ -170,6 +170,19 @@
                 SelectionChanged="SelectedScoreChanged"
                 SelectionMode="Single"
                 Style="{DynamicResource CustomDataGrid}">
+                
+                <!--#region Context Menu-->
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Nieuwe partituur toevoegen"/>
+                        <MenuItem Header="Nieuwe Kerst partituur toevoegen"/>
+                        <Separator/>
+                        <MenuItem Header="Sub partituur voor geselecteerde partituur maken"/>
+                        <Separator/>
+                        <MenuItem Header="Verwijder geselecteerde partituur"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <!--#endregion-->
                 <DataGrid.Columns>
                     <!--#region Column definitions-->
                     <!--#region Id (Hidden)-->
