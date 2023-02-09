@@ -252,6 +252,13 @@ public partial class ScoreViewModel: ObservableObject
     [ObservableProperty]
     public object selectedItem ="";
 
+    public ScoreModel SelectedScoreModel { get; set; }
+
+    public void UpdateSelectedFactsheetsModel ( ScoreModel selectedScoreModel )
+    {
+        SelectedScoreModel = selectedScoreModel;
+    }
+
     public ObservableCollection<AccompanimentModel>? Accompaniments { get; set; }
     public ObservableCollection<GenreModel>? Genres { get; set; }
     public ObservableCollection<ArchiveModel>? Archives { get; set; }

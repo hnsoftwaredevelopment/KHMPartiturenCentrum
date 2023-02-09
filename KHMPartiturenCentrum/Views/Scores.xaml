@@ -54,7 +54,20 @@
             Grid.Row="1"
             Margin="25,0,25,0"
             Loaded="PageLoaded">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--#region Hidden fields section-->
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBox x:Name="valFirst" Width="Auto"/>
+                <TextBox x:Name="valCurrent" Width="Auto"/>
+                <TextBox x:Name="valLast" Width="Auto"/>
+            </StackPanel>
+            <!--#endregion-->
+            
+            <!--#region Button section-->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
                     x:Name="btnPrev"
                     Width="30"
@@ -103,6 +116,7 @@
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
             </StackPanel>
+            <!--#endregion-->
         </Grid>
         <!--#endregion-->
 

@@ -27,15 +27,16 @@ namespace KHMPartiturenCentrum.Views;
 /// </summary>
 public partial class Scores : Page
 {
-    public event Action<Scores>? NextScore;
-
-    public event Action<Scores>? PrevScore;
     public ScoreViewModel? scores;
     public Scores ()
     {
         InitializeComponent ();
         scores = new ScoreViewModel ();
         DataContext = scores;
+
+        //valFirst.Text = "0";
+        //valCurrent.Text = "0";
+        //valLast.Text = (ScoresDataGrid.Items.Count - 1).ToString();
     }
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
@@ -59,6 +60,7 @@ public partial class Scores : Page
         DataGrid dg = (DataGrid)sender;
 
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
+        //valCurrent.Text = dg.SelectedIndex.ToString ();
 
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
@@ -256,72 +258,53 @@ public partial class Scores : Page
         #endregion
     }
 
-    #region Jump to Previous Score
-    private void BtnPreviousClick ( object sender, RoutedEventArgs e )
-    {
-        //if ( cbChanged.IsChecked == false )
-        //{
-        //    PrevScore?.Invoke ( this );
-        //}
-        //else
-        //{
-        //    MessageBoxResult confirmClose = MessageBox.Show ( "Score info has been modified, would you like to save the changes?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question );
-        //    switch ( confirmClose )
-        //    {
-        //        case MessageBoxResult.Yes:
-        //            // Save changes
-        //            DBCommands.UpdateFactsheet ( tbFactsheetId.Text, tbFactsheetName.Text, tbDocumentName.Text, tbStartRelease.Text, tbOrgEndRelease.Text );
-        //            btnSave.IsEnabled = false;
-        //            PrevScore?.Invoke ( this );
-        //            return;
-
-        //        case MessageBoxResult.Cancel:
-        //            // Do Nothing
-        //            return;
-
-        //        case MessageBoxResult.No:
-        //            // Do not save the changes
-        //            PrevScore?.Invoke ( this );
-        //            return;
-        //    }
-        //}
-        PrevScore?.Invoke ( this );
-        return;
-    }
-    #endregion
-
-    #region Jump to Next Score
     private void BtnNextClick ( object sender, RoutedEventArgs e )
     {
-        //if ( cbChanged.IsChecked == false )
+        if ( ScoresDataGrid.SelectedIndex + 1 < ScoresDataGrid.Items.Count )
+        {
+            ScoresDataGrid.SelectedIndex += 1;
+        }
+        else
+        {
+            ScoresDataGrid.SelectedIndex = 0;
+        }
+
+        //var Score = ScoresDataGrid.SelectedItem as ScoreModel;
+
+        //if ( Score != null )
         //{
-        //    NextScore?.Invoke ( this );
+        //    ShowScore ( Score );
         //}
-        //else
-        //{
-        //    MessageBoxResult confirmClose = MessageBox.Show ( "Score info has been modified, would you like to save the changes?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question );
-        //    switch ( confirmClose )
-        //    {
-        //        case MessageBoxResult.Yes:
-        //            // Save changes
-        //            DBCommands.UpdateFactsheet ( tbFactsheetId.Text, tbFactsheetName.Text, tbDocumentName.Text, tbStartRelease.Text, tbOrgEndRelease.Text );
-        //            btnSave.IsEnabled = false;
-        //            NextScore?.Invoke ( this );
-        //            return;
-
-        //        case MessageBoxResult.Cancel:
-        //            // Do Nothing
-        //            return;
-
-        //        case MessageBoxResult.No:
-        //            // Do not save the changes
-        //            NextScore?.Invoke ( this );
-        //            return;
-        //    }
-        //}
-
-        NextScore?.Invoke ( this );
-        return;
     }
-    #endregion
+    private void BtnPreviousClick ( object sender, RoutedEventArgs e )
+    {
+        if ( ScoresDataGrid.SelectedIndex > 0 )
+        {
+            ScoresDataGrid.SelectedIndex -= 1;
+        }
+        else
+        {
+            ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
+        }
+        //var Score = ScoresDataGrid.SelectedItem as ScoreModel;
+
+        //if ( Score != null )
+        //{
+        //    ShowScore ( Score );
+        //}
+    }
+
+    public void ShowScore ( ScoreModel selectedScore )
+    {
+        //tbFactsheetId.Text = $"{selectedFactsheet.Id}";
+        //tbOrgFactsheetName.Text = $"{selectedFactsheet.FactsheetName}";
+        //tbOrgDocumentName.Text = $"{selectedFactsheet.DocumentName}";
+        //tbOrgStartRelease.Text = $"{selectedFactsheet.StartRelease}";
+        //tbOrgEndRelease.Text = $"{selectedFactsheet.EndRelease}";
+        //tbFactsheetName.Text = $"{selectedFactsheet.FactsheetName}";
+        //tbDocumentName.Text = $"{selectedFactsheet.DocumentName}";
+        //tbStartRelease.Text = $"{selectedFactsheet.StartRelease}";
+        //tbEndRelease.Text = $"{selectedFactsheet.EndRelease}";
+        //this.Show ();
+    }
 }
