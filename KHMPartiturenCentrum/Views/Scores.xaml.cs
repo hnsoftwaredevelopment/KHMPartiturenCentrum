@@ -33,17 +33,10 @@ public partial class Scores : Page
         InitializeComponent ();
         scores = new ScoreViewModel ();
         DataContext = scores;
-
-        //valFirst.Text = "0";
-        //valCurrent.Text = "0";
-        //valLast.Text = (ScoresDataGrid.Items.Count - 1).ToString();
     }
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
     {
-        //DataTable _dt = DBCommands.GetData(DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber );
-        //ScoresDataGrid.DataContext = _dt;
-
         comAccompaniment.ItemsSource = DBCommands.GetAccompaniments ();
         comArchive.ItemsSource = DBCommands.GetArchives ();
         comGenre.ItemsSource = DBCommands.GetGenres ();
@@ -60,7 +53,6 @@ public partial class Scores : Page
         DataGrid dg = (DataGrid)sender;
 
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
-        //valCurrent.Text = dg.SelectedIndex.ToString ();
 
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
@@ -268,13 +260,6 @@ public partial class Scores : Page
         {
             ScoresDataGrid.SelectedIndex = 0;
         }
-
-        //var Score = ScoresDataGrid.SelectedItem as ScoreModel;
-
-        //if ( Score != null )
-        //{
-        //    ShowScore ( Score );
-        //}
     }
     private void BtnPreviousClick ( object sender, RoutedEventArgs e )
     {
@@ -286,25 +271,15 @@ public partial class Scores : Page
         {
             ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
         }
-        //var Score = ScoresDataGrid.SelectedItem as ScoreModel;
-
-        //if ( Score != null )
-        //{
-        //    ShowScore ( Score );
-        //}
     }
 
-    public void ShowScore ( ScoreModel selectedScore )
+    private void BtnLastClick ( object sender, RoutedEventArgs e )
     {
-        //tbFactsheetId.Text = $"{selectedFactsheet.Id}";
-        //tbOrgFactsheetName.Text = $"{selectedFactsheet.FactsheetName}";
-        //tbOrgDocumentName.Text = $"{selectedFactsheet.DocumentName}";
-        //tbOrgStartRelease.Text = $"{selectedFactsheet.StartRelease}";
-        //tbOrgEndRelease.Text = $"{selectedFactsheet.EndRelease}";
-        //tbFactsheetName.Text = $"{selectedFactsheet.FactsheetName}";
-        //tbDocumentName.Text = $"{selectedFactsheet.DocumentName}";
-        //tbStartRelease.Text = $"{selectedFactsheet.StartRelease}";
-        //tbEndRelease.Text = $"{selectedFactsheet.EndRelease}";
-        //this.Show ();
+        ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
+    }
+
+    private void BtnFirstClick ( object sender, RoutedEventArgs e )
+    {
+        ScoresDataGrid.SelectedIndex = 0;
     }
 }

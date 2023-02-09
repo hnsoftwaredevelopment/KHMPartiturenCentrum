@@ -58,16 +58,31 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
             <!--#region Hidden fields section-->
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
-                <TextBox x:Name="valFirst" Width="Auto"/>
-                <TextBox x:Name="valCurrent" Width="Auto"/>
-                <TextBox x:Name="valLast" Width="Auto"/>
+
             </StackPanel>
             <!--#endregion-->
             
             <!--#region Button section-->
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    x:Name="btnFirst"
+                    Width="30"
+                    Height="30"
+                    Padding="5"
+                    Click="BtnFirstClick"
+                    IsEnabled="True"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    ToolTip="Eerste partituur"
+                    ToolTipService.ShowOnDisabled="True">
+                    <Path
+                        Data="{StaticResource first}"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource Button.Navigate.BorderBrush}" />
+                </Button>
+                
                 <Button
                     x:Name="btnPrev"
                     Width="30"
@@ -92,10 +107,26 @@
                     Click="BtnNextClick"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
-                    ToolTip="Vorige partituur"
+                    ToolTip="Volgende partituur"
                     ToolTipService.ShowOnDisabled="True">
                     <Path
-                        Data="{StaticResource next2}"
+                        Data="{StaticResource next}"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource Button.Navigate.BorderBrush}" />
+                </Button>
+                
+                <Button
+                    x:Name="btnLast"
+                    Width="30"
+                    Height="30"
+                    Padding="5"
+                    Click="BtnLastClick"
+                    IsEnabled="True"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    ToolTip="Laatste partituur"
+                    ToolTipService.ShowOnDisabled="True">
+                    <Path
+                        Data="{StaticResource last}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
@@ -105,10 +136,10 @@
                     Width="30"
                     Height="30"
                     Padding="4"
-                    CommandParameter="{Binding SelectedItem, ElementName=FactsheetsDataGrid}"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Save}"
-                    ToolTip="Edit the selected factsheet"
+                    ToolTip="Wijzigingen opslaan"
                     ToolTipService.ShowOnDisabled="True">
                     <Path
                         Data="{StaticResource save}"
