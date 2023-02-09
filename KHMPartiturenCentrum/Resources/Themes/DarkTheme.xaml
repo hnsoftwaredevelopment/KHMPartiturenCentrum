@@ -134,7 +134,7 @@
     <SolidColorBrush x:Key="Header.Title.TextColor" Color="#FF000086" />
 
     <!--  Button Colors  -->
-    <SolidColorBrush x:Key="Button.Add.BorderBrush" Color="#FF1625E9" />
+    <SolidColorBrush x:Key="Button.Add.BorderBrush" Color="#FF47B847" />
     <SolidColorBrush x:Key="Button.Add.BackGround" Color="Beige" />
     <SolidColorBrush x:Key="Button.Add.TextColor" Color="White" />
     <SolidColorBrush x:Key="Button.Add.MouseOver.Background" Color="#1690E9" />

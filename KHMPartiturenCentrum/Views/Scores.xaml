@@ -55,18 +55,22 @@
             Margin="25,0,25,0"
             Loaded="PageLoaded">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!--#region Hidden fields section-->
-            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
-
-            </StackPanel>
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal" />
             <!--#endregion-->
-            
+
             <!--#region Button section-->
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
                 <Button
                     x:Name="btnFirst"
                     Width="30"
@@ -82,7 +86,7 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
-                
+
                 <Button
                     x:Name="btnPrev"
                     Width="30"
@@ -114,7 +118,7 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
-                
+
                 <Button
                     x:Name="btnLast"
                     Width="30"
@@ -146,6 +150,56 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
+
+                <Button
+                    x:Name="btnAdd"
+                    Width="30"
+                    Height="30"
+                    Padding="4"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    IsEnabled="True"
+                    Style="{DynamicResource DataGrid.Button.Add}"
+                    ToolTip="Nieuwe partituur toevoegen"
+                    ToolTipService.ShowOnDisabled="True">
+                    <Path
+                        Data="{StaticResource car}"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource Button.Save.BorderBrush}" />
+                </Button>
+
+                <Button
+                    x:Name="btnAddChristmas"
+                    Width="30"
+                    Height="30"
+                    Padding="4"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    IsEnabled="True"
+                    Style="{DynamicResource DataGrid.Button.Add}"
+                    ToolTip="Nieuwe Kerst partituur toevoegen"
+                    ToolTipService.ShowOnDisabled="True">
+                    <Path
+                        Data="{StaticResource car}"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource Button.Save.BorderBrush}" />
+                </Button>
+
+                <Button
+                    x:Name="btnDelete"
+                    Width="30"
+                    Height="30"
+                    Padding="4"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    IsEnabled="True"
+                    Style="{DynamicResource DataGrid.Button.Add}"
+                    ToolTip="Nieuwe partituur toevoegen"
+                    ToolTipService.ShowOnDisabled="True">
+                    <Path
+                        Data="{StaticResource delete}"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource Button.Save.BorderBrush}" />
+                </Button>
+
+
             </StackPanel>
             <!--#endregion-->
         </Grid>
@@ -170,16 +224,16 @@
                 SelectionChanged="SelectedScoreChanged"
                 SelectionMode="Single"
                 Style="{DynamicResource CustomDataGrid}">
-                
+
                 <!--#region Context Menu-->
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Nieuwe partituur toevoegen"/>
-                        <MenuItem Header="Nieuwe Kerst partituur toevoegen"/>
-                        <Separator/>
-                        <MenuItem Header="Sub partituur voor geselecteerde partituur maken"/>
-                        <Separator/>
-                        <MenuItem Header="Verwijder geselecteerde partituur"/>
+                        <MenuItem Header="Nieuwe partituur toevoegen" />
+                        <MenuItem Header="Nieuwe Kerst partituur toevoegen" />
+                        <Separator />
+                        <MenuItem Header="Sub partituur voor geselecteerde partituur maken" />
+                        <Separator />
+                        <MenuItem Header="Verwijder geselecteerde partituur" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <!--#endregion-->
