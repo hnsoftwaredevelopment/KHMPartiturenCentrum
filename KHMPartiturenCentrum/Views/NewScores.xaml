@@ -1,15 +1,16 @@
 ﻿<Page
-    x:Class="KHMPartiturenCentrum.Views.Scores"
+    x:Class="KHMPartiturenCentrum.Views.NewScores"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KHMPartiturenCentrum.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:KHMPartiturenCentrum.ViewModels"
-    Title="Scores"
-    d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"
+    Title="New Scores"
+    d:DataContext="{d:DesignInstance Type=viewmodel:NewScoreViewModel}"
     d:DesignHeight="750"
     d:DesignWidth="1600"
-    DataContext="viewmodel:ScoreViewModel"
+    DataContext="viewmodel:NewScoreViewModel"
     mc:Ignorable="d">
 
     <Grid>
@@ -39,7 +40,7 @@
                 <Label
                     Margin="0,3"
                     HorizontalAlignment="Center"
-                    Content="Partituren overzicht"
+                    Content="Nieuwe partituren aanmaken"
                     FontSize="24"
                     FontWeight="Bold"
                     Foreground="{DynamicResource Header.Title.TextColor}" />
@@ -157,29 +158,12 @@
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Add}"
-                    ToolTip="Nieuwe Sub-partituur toevoegen"
+                    ToolTip="Nieuwe partituur toevoegen"
                     ToolTipService.ShowOnDisabled="True">
                     <Path
                         Data="{StaticResource newscore}"
-                        Fill="{StaticResource Button.Add.BorderBrush}"
-                        Stretch="Uniform"
+                        Stretch="Uniform" Fill="{StaticResource Button.Add.BorderBrush}"
                         Stroke="{StaticResource Button.Add.BorderBrush}" />
-                </Button>
-
-                <Button
-                    x:Name="btnDelete"
-                    Width="30"
-                    Height="30"
-                    Padding="4"
-                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Add}"
-                    ToolTip="Geselecteerde partituur verwijderen"
-                    ToolTipService.ShowOnDisabled="True">
-                    <Path
-                        Data="{StaticResource delete}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Delete.BorderBrush}" />
                 </Button>
 
 
@@ -256,11 +240,12 @@
                         Header="Partituur" />
                     <!--#endregion-->
 
-                    <!--#region  Title-->
+                    <!--#region  Title (Hidden)-->
                     <DataGridTextColumn
                         x:Name="ScoreName"
                         Width="2.5*"
                         Binding="{Binding ScoreTitle}"
+                        Visibility="Collapsed"
                         Header="Titel" />
                     <!--#endregion-->
 
@@ -301,7 +286,7 @@
                         x:Name="RepertoireId"
                         Width="Auto"
                         Binding="{Binding RepertoireId}"
-                        Visibility="Collapsed" />
+                        Visibility="Visible" />
                     <!--#endregion-->
 
                     <!--#region RepertoireName (Hidden)-->

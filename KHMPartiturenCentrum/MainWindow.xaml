@@ -75,9 +75,9 @@
 
                         <Button
                             x:Name="btnFreeNumbers"
-                            Click="btnFreeNumbers_Click"
-                            MouseEnter="btnFreeNumbers_MouseEnter"
-                            MouseLeave="btnFreeNumbers_MouseLeave"
+                            Click="btnNewScores_Click"
+                            MouseEnter="btnNewScores_MouseEnter"
+                            MouseLeave="btnNewScores_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
                             <ctls:MenuItem
                                 VerticalAlignment="Center"

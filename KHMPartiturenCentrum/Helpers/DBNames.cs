@@ -217,6 +217,11 @@ public class DBNames
     public static readonly string ScoresViewFieldTypePublisher4Name = "varchar";
     #endregion
 
+    #region Table/View Scores
+    public static readonly string NewScoresView = "NewScoresView";
+    // Fields and types are same as for the Score table/view
+    #endregion
+
     #region Table/View Available Scores (Non Christmas)
     public static readonly string AvailableScoresView = "AvailableScoresView";
     public static readonly string AvailableScoresFieldNameId = "Id";

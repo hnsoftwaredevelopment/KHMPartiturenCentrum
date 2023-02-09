@@ -109,11 +109,11 @@ public class DBCommands
     #endregion
 
     #region Get Scores
-    public static ObservableCollection<ScoreModel> GetScores ( string _table, string OrderByFieldName )
+    public static ObservableCollection<ScoreModel> GetScores ( string _table, string _orderByFieldName )
     {
         ObservableCollection<ScoreModel> Scores = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.ScoresView, DBNames.ScoresViewFieldNameScore);
+        DataTable dataTable = DBCommands.GetData(_table, _orderByFieldName);
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -240,6 +240,48 @@ public class DBCommands
                         Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ()
                     } );
                 }
+            }
+        }
+
+        return Scores;
+    }
+    #endregion
+
+    #region Get Empty Scores
+    public static ObservableCollection<ScoreModel> GetEmptyScores ( string _table, string _orderByFieldName )
+    {
+        ObservableCollection<ScoreModel> Scores = new();
+
+        DataTable dataTable = DBCommands.GetData(_table, _orderByFieldName);
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                Scores.Add ( new ScoreModel
+                {
+                    ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    Score = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
+                    ScoreNumber = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
+                    ArchiveId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 9 ].ToString () ),
+                    ArchiveName = dataTable.Rows [ i ].ItemArray [ 10 ].ToString (),
+                    RepertoireId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 11 ].ToString () ),
+                    RepertoireName = dataTable.Rows [ i ].ItemArray [ 12 ].ToString (),
+                    LanguageId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 13 ].ToString () ),
+                    LanguageName = dataTable.Rows [ i ].ItemArray [ 14 ].ToString (),
+                    GenreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 15 ].ToString () ),
+                    GenreName = dataTable.Rows [ i ].ItemArray [ 16 ].ToString (),
+                    AccompanimentId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 21 ].ToString () ),
+                    AccompanimentName = dataTable.Rows [ i ].ItemArray [ 22 ].ToString (),
+                    Publisher1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString () ),
+                    Publisher1Name = dataTable.Rows [ i ].ItemArray [ 47 ].ToString (),
+                    Publisher2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 48 ].ToString () ),
+                    Publisher2Name = dataTable.Rows [ i ].ItemArray [ 49 ].ToString (),
+                    Publisher3Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 50 ].ToString () ),
+                    Publisher3Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString (),
+                    Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString () ),
+                    Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ()
+                    } );
             }
         }
 

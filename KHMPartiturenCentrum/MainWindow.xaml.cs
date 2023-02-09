@@ -94,16 +94,16 @@ public partial class MainWindow : Window
     #endregion
     #endregion
 
-    #region Free numbers Menu
+    #region New scores Menu
     #region On Click
-    private void btnFreeNumbers_Click(object sender, RoutedEventArgs e)
+    private void btnNewScores_Click(object sender, RoutedEventArgs e)
     {
-        fContainer.Navigate(new System.Uri("Views/Factsheets.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate(new System.Uri("Views/NewScores.xaml", UriKind.RelativeOrAbsolute));
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnFreeNumbers_MouseEnter(object sender, MouseEventArgs e)
+    private void btnNewScores_MouseEnter(object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
         {
@@ -116,7 +116,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region On Mouse Leave
-    private void btnFreeNumbers_MouseLeave(object sender, MouseEventArgs e)
+    private void btnNewScores_MouseLeave(object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
