@@ -217,6 +217,33 @@ public class DBNames
     public static readonly string ScoresViewFieldTypePublisher4Name = "varchar";
     #endregion
 
+    #region Table/View Available Scores (Non Christmas)
+    public static readonly string AvailableScoresView = "AvailableScoresView";
+    public static readonly string AvailableScoresFieldNameId = "Id";
+    public static readonly string AvailableScoresFieldNameNumber = "Partituur";
+
+    public static readonly string AvailableScoresFieldTypeId = "int";
+    public static readonly string AvailableScoresFieldTypeNumber = "varchar";
+    #endregion
+
+    #region Table/View Available Scores (Christmas)
+    public static readonly string AvailableChristmasScoresView = "AvailableChristmasScoresView";
+    public static readonly string AvailableChristmasScoresFieldNameId = "Id";
+    public static readonly string AvailableChristmasScoresFieldNameNumber = "Partituur";
+
+    public static readonly string AvailableChristmasScoresFieldTypeId = "int";
+    public static readonly string AvailableChristmasScoresFieldTypeNumber = "varchar";
+    #endregion
+
+    #region Table/View Available Numbers (All available scores Christmas and Non Christmas)
+    public static readonly string AvailableNumbersView = "AvailableNumbersView";
+    public static readonly string AvailableNumbersFieldNameId = "Id";
+    public static readonly string AvailableNumbersFieldNameNumber = "Partituur";
+
+    public static readonly string AvailableNumbersFieldTypeId = "int";
+    public static readonly string AvailableNumbersFieldTypeNumber = "varchar";
+    #endregion
+
     #region Table/View Users (From KHM User Database)
     public static readonly string UsersTable = "Users";
     public static readonly string UsersFieldNameId = "ArchiveId";

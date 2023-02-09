@@ -252,12 +252,7 @@ public partial class ScoreViewModel: ObservableObject
     [ObservableProperty]
     public object selectedItem ="";
 
-    public ScoreModel SelectedScoreModel { get; set; }
-
-    public void UpdateSelectedFactsheetsModel ( ScoreModel selectedScoreModel )
-    {
-        SelectedScoreModel = selectedScoreModel;
-    }
+    public ScoreModel? SelectedScoreModel { get; set; }
 
     public ObservableCollection<AccompanimentModel>? Accompaniments { get; set; }
     public ObservableCollection<GenreModel>? Genres { get; set; }
@@ -267,6 +262,8 @@ public partial class ScoreViewModel: ObservableObject
     public ObservableCollection<PublisherModel>? Publishers1 { get; set; }
     public ObservableCollection<RepertoireModel>? Repertoires { get; set; }
     public ObservableCollection<ScoreModel> Scores { get; set; }
+    public ObservableCollection<ScoreModel> AvailableScores { get; set; }
+    public ObservableCollection<ScoreModel> AvailableChristmasScores { get; set; }
 
     public ScoreViewModel ()
     {
@@ -279,6 +276,8 @@ public partial class ScoreViewModel: ObservableObject
         //Publishers1 = DBCommands.GetPublishers ();
         //Repertoires = DBCommands.GetRepertoires ();
         Scores = DBCommands.GetScores (DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber);
+        AvailableScores = DBCommands.GetAvailableScores (  );
+        AvailableChristmasScores = DBCommands.GetAvailableChristmasScores (  );
     }
 
 

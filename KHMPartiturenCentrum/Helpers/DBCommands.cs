@@ -62,7 +62,53 @@ public class DBCommands
     #endregion
     #endregion
 
-    #region
+    #region Get Available Scores (non Christmas)
+    public static ObservableCollection<ScoreModel> GetAvailableScores (  )
+    {
+        ObservableCollection<ScoreModel> Scores = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.AvailableScoresView, DBNames.AvailableScoresFieldNameNumber);
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                Scores.Add ( new ScoreModel
+                {
+                    ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    ScoreNumber = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
+                } );
+            }
+        }
+
+        return Scores;
+    }
+    #endregion
+
+    #region Get Available Scores (Christmas)
+    public static ObservableCollection<ScoreModel> GetAvailableChristmasScores (  )
+    {
+        ObservableCollection<ScoreModel> Scores = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.AvailableChristmasScoresView, DBNames.AvailableChristmasScoresFieldNameNumber);
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                Scores.Add ( new ScoreModel
+                {
+                    ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    ScoreNumber = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
+                } );
+            }
+        }
+
+        return Scores;
+    }
+    #endregion
+
+    #region Get Scores
     public static ObservableCollection<ScoreModel> GetScores ( string _table, string OrderByFieldName )
     {
         ObservableCollection<ScoreModel> Scores = new();
@@ -324,27 +370,6 @@ public class DBCommands
             }
         }
         return Repertoires;
-    }
-    #endregion
-
-    #region GetScores
-    public static ObservableCollection<ScoreModel> GetScores1 ()
-    {
-        ObservableCollection<ScoreModel> Scores = new();
-
-        DataTable dataTable = DBCommands.GetData(DBNames.ScoresTable, "NoSort");
-        if ( dataTable.Rows.Count > 0 )
-        {
-            for ( int i = 0; i < dataTable.Rows.Count; i++ )
-            {
-                Scores.Add ( new ScoreModel
-                {
-                    ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
-                    ScoreTitle = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
-                } );
-            }
-        }
-        return Scores;
     }
     #endregion
 
