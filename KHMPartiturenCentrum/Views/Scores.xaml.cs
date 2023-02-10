@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace KHMPartiturenCentrum.Views;
 public partial class Scores : Page
 {
     public ScoreViewModel? scores;
+    public ScoreModel? SelectedScore;
     public Scores ()
     {
         InitializeComponent ();
@@ -53,6 +55,7 @@ public partial class Scores : Page
         DataGrid dg = (DataGrid)sender;
 
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
+        SelectedScore = selectedRow;
 
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
@@ -281,5 +284,88 @@ public partial class Scores : Page
     private void BtnFirstClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = 0;
+    }
+
+    private void TextBoxChanged(object sender, TextChangedEventArgs e)
+    {
+        var propertyName = ((TextBox)sender).Name;
+
+        switch ( propertyName)
+        {
+            case "tbTitle":
+                if (tbTitle.Text == SelectedScore.ScoreTitle) { cbTitle.IsChecked = false; } else { cbTitle.IsChecked = true; }
+                break;
+            case "tbSubTitle":
+                if (tbSubTitle.Text == SelectedScore.ScoreSubTitle) { cbSubTitle.IsChecked = false; } else { cbSubTitle.IsChecked = true; }
+                break;
+        }
+        CheckChanged();
+
+    }
+
+    private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var propertyName = ((ComboBox)sender).Name;
+    }
+
+    private void CheckChanged()
+    {
+        if(cbAcompaniment.IsChecked == true ||
+            cbRepertoire.IsChecked  ==  true ||
+            cbArchive.IsChecked  ==  true ||
+            cbByHeart.IsChecked  == true ||
+            cbTitle.IsChecked  == true ||
+            cbSubTitle.IsChecked  == true ||
+            cbComposer.IsChecked  == true ||
+            cbTextwriter.IsChecked  == true ||
+            cbArranger.IsChecked  == true ||
+            cbGenre.IsChecked  == true ||
+            cbAcompaniment.IsChecked  == true ||
+            cbLanguage.IsChecked  == true ||
+            cbMusicPiece.IsChecked  == true ||
+            cbDigitized.IsChecked  == true ||
+            cbModified.IsChecked  == true ||
+            cbChecked.IsChecked  == true ||
+            cbPDFORP.IsChecked  == true ||
+            cbPDFORK.IsChecked == true ||
+            cbPDFTOP.IsChecked == true ||
+            cbPDFTOK.IsChecked == true ||
+            cbMSCORP.IsChecked == true ||
+            cbMSCORK.IsChecked == true ||
+            cbMSCTOP.IsChecked == true ||
+            cbMSCTOK.IsChecked  == true ||
+            cbMP3B1.IsChecked == true ||
+            cbMP3B2.IsChecked == true ||
+            cbMP3T1.IsChecked == true ||
+            cbMP3T2.IsChecked  == true ||
+            cbMP3SOL.IsChecked == true ||
+            cbMP3TOT.IsChecked == true ||
+            cbMP3PIA.IsChecked == true ||
+            cbOnline.IsChecked == true ||
+            cbLyrics.IsChecked  == true ||
+            cbNotes.IsChecked  == true ||
+            cbNumberPublisher1.IsChecked == true ||
+            cbNumberPublisher2.IsChecked == true ||
+            cbNumberPublisher3.IsChecked == true ||
+            cbNumberPublisher4.IsChecked  == true ||
+            cbPublisher1.IsChecked == true ||
+            cbPublisher2.IsChecked == true ||
+            cbPublisher3.IsChecked == true ||
+            cbPublisher4.IsChecked  == true)
+        {
+            btnSave.IsEnabled = true;
+            btnSave.ToolTip = "Sla de gewijzigde gegevens op";
+        }
+        else
+        {
+            btnSave.IsEnabled = false;
+            btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
+        }
+
+    }
+
+    private void RichTextBoxChanged(object sender, TextChangedEventArgs e)
+    {
+
     }
 }

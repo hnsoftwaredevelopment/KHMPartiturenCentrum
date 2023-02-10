@@ -61,7 +61,50 @@
             <StackPanel
                 Grid.Column="0"
                 HorizontalAlignment="Left"
-                Orientation="Horizontal" />
+                Orientation="Horizontal" >
+                <TextBox x:Name="tbCurrentItem" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbRepertoire" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbArchive" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbByHeart" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbTitle" Visibility="Visible"/>
+                <CheckBox x:Name="cbSubTitle" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbComposer" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbTextwriter" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbArranger" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbGenre" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbAcompaniment" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbLanguage" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMusicPiece" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbDigitized" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbModified" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbChecked" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPDFORP" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPDFORK" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPDFTOP" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPDFTOK" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMSCORP" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMSCORK" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMSCTOP" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMSCTOK" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3B1" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3B2" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3T1" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3T2" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3SOL" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3TOT" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbMP3PIA" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbOnline" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbLyrics" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbNotes" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbNumberPublisher1" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbNumberPublisher2" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbNumberPublisher3" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbNumberPublisher4" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPublisher1" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPublisher2" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPublisher3" Visibility="Collapsed"/>
+                <CheckBox x:Name="cbPublisher4" Visibility="Collapsed"/>
+            </StackPanel>
             <!--#endregion-->
 
             <!--#region Button section-->
@@ -135,13 +178,13 @@
 
                 <Button
                     x:Name="btnSave"
-                    Width="30"
+                    Width="30" Margin="10,0,10,0"
                     Height="30"
                     Padding="4"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True"
+                    IsEnabled="False"
                     Style="{DynamicResource DataGrid.Button.Save}"
-                    ToolTip="Wijzigingen opslaan"
+                    ToolTip="Er zijn geen gegevens aangepast, opslaan niet mogelijk"
                     ToolTipService.ShowOnDisabled="True">
                     <Path
                         Data="{StaticResource save}"
@@ -152,7 +195,7 @@
                 <Button
                     x:Name="btnAdd"
                     Width="30"
-                    Height="30"
+                    Height="30" Margin="0,0,10,0"
                     Padding="4"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="True"
@@ -858,7 +901,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
                                                 x:Name="comRepertoire"
-                                                Width="220"
+                                                Width="220" SelectionChanged="ComboBoxChanged"
                                                 HorizontalAlignment="Left">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -980,7 +1023,7 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
                                         <TextBox
                                             x:Name="tbTitle"
-                                            Width="450"
+                                            Width="450" TextChanged="TextBoxChanged"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
@@ -990,7 +1033,7 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Ondertitel" />
                                         <TextBox
                                             x:Name="tbSubTitle"
-                                            Width="450"
+                                            Width="450" TextChanged="TextBoxChanged"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
@@ -1010,7 +1053,7 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Componist" />
                                         <TextBox
                                             x:Name="tbComposer"
-                                            Width="340"
+                                            Width="340" TextChanged="TextBoxChanged"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
@@ -1020,7 +1063,7 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Textschrijver" />
                                         <TextBox
                                             x:Name="tbTextwriter"
-                                            Width="340"
+                                            Width="340" TextChanged="TextBoxChanged"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
@@ -1030,7 +1073,7 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Arrangement" />
                                         <TextBox
                                             x:Name="tbArranger"
-                                            Width="340"
+                                            Width="340" TextChanged="TextBoxChanged"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                     </StackPanel>
                                     <!--#endregion-->
@@ -1213,7 +1256,7 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Muziekstuk" />
                                         <TextBox
                                             x:Name="tbMusicPiece"
-                                            Width="1000"
+                                            Width="1000" TextChanged="TextBoxChanged"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             Text="{Binding MusicPiece}" />
                                     </StackPanel>
@@ -1713,7 +1756,7 @@
                         <!--#region Memo field-->
                         <RichTextBox
                             x:Name="memoLyrics"
-                            Width="Auto"
+                            Width="Auto" TextChanged="RichTextBoxChanged"
                             Height="520"
                             Margin="5,45,5,0"
                             HorizontalAlignment="Center"
@@ -1914,7 +1957,7 @@
                             <!--#region Memo field-->
                             <RichTextBox
                                 x:Name="memoNotes"
-                                Width="Auto"
+                                Width="Auto" TextChanged="RichTextBoxChanged"
                                 Height="520"
                                 Margin="5,45,5,0"
                                 HorizontalAlignment="Center"
@@ -2010,7 +2053,7 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5"
+                                    Margin="0,5" TextChanged="TextBoxChanged"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}" />
@@ -2073,7 +2116,7 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5"
+                                    Margin="0,5" TextChanged="TextBoxChanged"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}" />
@@ -2136,7 +2179,7 @@
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5"
+                                    Margin="0,5" TextChanged="TextBoxChanged"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}" />
@@ -2199,7 +2242,7 @@
                                     Grid.Row="5"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5"
+                                    Margin="0,5" TextChanged="TextBoxChanged"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}" />
