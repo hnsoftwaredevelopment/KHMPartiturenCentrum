@@ -144,7 +144,6 @@ public class DBCommands
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString () ) == 0 ) { mscOnline = false; } else { mscOnline = true; }
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString () ) == 0 ) { byHeart = false; } else { byHeart = true; }
 
-
                 // Set total
                 var total = 0;
 
@@ -156,6 +155,7 @@ public class DBCommands
                 // Set the datestrings
                 string[] _tempCreated = dataTable.Rows [ i ].ItemArray [19].ToString().Split(" ");
                 string? dateCreated = _tempCreated[0];
+
 
                 string[] _tempModified = dataTable.Rows [ i ].ItemArray [20].ToString().Split(" ");
                 string? dateModified = _tempModified[0];
@@ -184,9 +184,9 @@ public class DBCommands
                         GenreName = dataTable.Rows [ i ].ItemArray [ 16 ].ToString (),
                         Lyrics = dataTable.Rows [ i ].ItemArray [ 17 ].ToString (),
                         CheckInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 18 ].ToString () ),
-                        Check = check,
                         DateCreatedString = dateCreated,
                         DateModifiedString = dateModified,
+                        Check = check,
                         AccompanimentId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 21 ].ToString () ),
                         AccompanimentName = dataTable.Rows [ i ].ItemArray [ 22 ].ToString (),
                         PDFORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 23 ].ToString () ),
@@ -238,11 +238,10 @@ public class DBCommands
                         Publisher3Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString (),
                         Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString () ),
                         Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ()
-                    } );
+                    } ) ;
                 }
             }
         }
-
         return Scores;
     }
     #endregion
@@ -414,7 +413,6 @@ public class DBCommands
         return Repertoires;
     }
     #endregion
-
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8604

@@ -66,6 +66,7 @@ public partial class Scores : Page
         comRepertoire.Text = selectedRow.RepertoireName;
         foreach ( RepertoireModel repertoire in comRepertoire.Items )
         {
+            if ( comRepertoire.Text == null ) { comRepertoire.Text = ""; }
             if ( repertoire.RepertoireName == comRepertoire.Text.ToString () )
             {
                 comRepertoire.SelectedItem = repertoire;
@@ -77,6 +78,7 @@ public partial class Scores : Page
         comArchive.Text = selectedRow.ArchiveName;
         foreach ( ArchiveModel archive in comArchive.Items )
         {
+            if ( comArchive.Text == null ) { comArchive.Text = ""; }
             if ( archive.ArchiveName == comArchive.Text.ToString () )
             {
                 comArchive.SelectedItem = archive;
@@ -101,6 +103,7 @@ public partial class Scores : Page
         comGenre.Text = selectedRow.GenreName;
         foreach ( GenreModel genre in comGenre.Items )
         {
+            if ( comGenre.Text == null ) { comGenre.Text = ""; }
             if ( genre.GenreName == comGenre.Text.ToString () )
             {
                 comGenre.SelectedItem = genre;
@@ -112,6 +115,7 @@ public partial class Scores : Page
         comAccompaniment.Text = selectedRow.AccompanimentName;
         foreach ( AccompanimentModel accompaniment in comAccompaniment.Items )
         {
+            if ( comAccompaniment.Text == null ) { comAccompaniment.Text = ""; }
             if ( accompaniment.AccompanimentName == comAccompaniment.Text.ToString () )
             {
                 comAccompaniment.SelectedItem = accompaniment;
@@ -123,6 +127,7 @@ public partial class Scores : Page
         comLanguage.Text = selectedRow.LanguageName;
         foreach ( LanguageModel language in comLanguage.Items )
         {
+            if ( comLanguage.Text == null ) { comLanguage.Text = ""; }
             if ( language.LanguageName == comLanguage.Text.ToString () )
             {
                 comLanguage.SelectedItem = language;
@@ -193,6 +198,7 @@ public partial class Scores : Page
         comPublisher1.Text = selectedRow.Publisher1Name;
         foreach ( PublisherModel publisher in comPublisher1.Items )
         {
+            if ( comPublisher1.Text == null ) { comPublisher1.Text = ""; }
             if ( publisher.PublisherName == comPublisher1.Text.ToString () )
             {
                 comPublisher1.SelectedItem = publisher;
@@ -208,6 +214,7 @@ public partial class Scores : Page
         comPublisher2.Text = selectedRow.Publisher2Name;
         foreach ( PublisherModel publisher in comPublisher2.Items )
         {
+            if ( comPublisher2.Text == null ) { comPublisher2.Text = ""; }
             if ( publisher.PublisherName == comPublisher2.Text.ToString () )
             {
                 comPublisher2.SelectedItem = publisher;
@@ -223,6 +230,7 @@ public partial class Scores : Page
         comPublisher3.Text = selectedRow.Publisher3Name;
         foreach ( PublisherModel publisher in comPublisher3.Items )
         {
+            if ( comPublisher3.Text == null ) { comPublisher3.Text = ""; }
             if ( publisher.PublisherName == comPublisher3.Text.ToString () )
             {
                 comPublisher3.SelectedItem = publisher;
@@ -232,12 +240,13 @@ public partial class Scores : Page
         #endregion
 
         #region Publisher 4
-        tbAmountSupplier4.Text = selectedRow.NumberScoresPublisher4.ToString ();
+        tbAmountPublisher4.Text = selectedRow.NumberScoresPublisher4.ToString ();
 
         #region Publisherr4 Combobox
         comPublisher4.Text = selectedRow.Publisher4Name;
         foreach ( PublisherModel publisher in comPublisher4.Items )
         {
+            if ( comPublisher4.Text == null ) { comPublisher4.Text = ""; }
             if ( publisher.PublisherName == comPublisher4.Text.ToString () )
             {
                 comPublisher4.SelectedItem = publisher;
@@ -290,27 +299,89 @@ public partial class Scores : Page
     {
         var propertyName = ((TextBox)sender).Name;
 
-        switch ( propertyName)
+
+        if ( SelectedScore != null )
         {
-            case "tbTitle":
-                if (tbTitle.Text == SelectedScore.ScoreTitle) { cbTitle.IsChecked = false; } else { cbTitle.IsChecked = true; }
-                break;
-            case "tbSubTitle":
-                if (tbSubTitle.Text == SelectedScore.ScoreSubTitle) { cbSubTitle.IsChecked = false; } else { cbSubTitle.IsChecked = true; }
-                break;
+            switch ( propertyName )
+            {
+                case "tbTitle":
+                    if ( tbTitle.Text == SelectedScore.ScoreTitle ) { cbTitle.IsChecked = false; } else { cbTitle.IsChecked = true; }
+                    break;
+                case "tbSubTitle":
+                    if ( tbSubTitle.Text == SelectedScore.ScoreSubTitle ) { cbSubTitle.IsChecked = false; } else { cbSubTitle.IsChecked = true; }
+                    break;
+                case "tbComposer":
+                    if ( tbComposer.Text == SelectedScore.Composer ) { cbComposer.IsChecked = false; } else { cbComposer.IsChecked = true; }
+                    break;
+                case "tbTextwriter":
+                    if ( tbTextwriter.Text == SelectedScore.TextWriter ) { cbTextwriter.IsChecked = false; } else { cbTextwriter.IsChecked = true; }
+                    break;
+                case "tbArranger":
+                    if ( tbArranger.Text == SelectedScore.Arranger ) { cbArranger.IsChecked = false; } else { cbArranger.IsChecked = true; }
+                    break;
+                case "tbMusicPiece":
+                    if ( tbMusicPiece.Text == SelectedScore.MusicPiece ) { cbMusicPiece.IsChecked = false; } else { cbMusicPiece.IsChecked = true; }
+                    break;
+                case "tbAmountPublisher1":
+                    if ( tbAmountPublisher1.Text == SelectedScore.NumberScoresPublisher1.ToString () ) { cbAmountPublisher1.IsChecked = false; } else { cbAmountPublisher1.IsChecked = true; }
+                    break;
+                case "tbAmountPublisher2":
+                    if ( tbAmountPublisher2.Text == SelectedScore.NumberScoresPublisher2.ToString () ) { cbAmountPublisher2.IsChecked = false; } else { cbAmountPublisher2.IsChecked = true; }
+                    break;
+                case "tbAmountPublisher3":
+                    if ( tbAmountPublisher3.Text == SelectedScore.NumberScoresPublisher3.ToString () ) { cbAmountPublisher3.IsChecked = false; } else { cbAmountPublisher3.IsChecked = true; }
+                    break;
+                case "tbAmountPublisher4":
+                    if ( tbAmountPublisher4.Text == SelectedScore.NumberScoresPublisher4.ToString () ) { cbAmountPublisher4.IsChecked = false; } else { cbAmountPublisher4.IsChecked = true; }
+                    break;
+            }
         }
         CheckChanged();
-
     }
 
     private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
     {
         var propertyName = ((ComboBox)sender).Name;
+
+        if ( SelectedScore != null )
+        {
+            switch ( propertyName )
+            {
+                case "comRepertoire":
+                    if ( ( ( RepertoireModel ) comRepertoire.SelectedItem ).RepertoireId == SelectedScore.RepertoireId) { cbRepertoire.IsChecked = false; } else { cbRepertoire.IsChecked = true; }
+                    break;
+                case "comArchive":
+                    if ( ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveId == SelectedScore.ArchiveId ) { cbArchive.IsChecked = false; } else { cbArchive.IsChecked = true; }
+                    break;
+                case "comGenre":
+                    if ( ( ( GenreModel ) comGenre.SelectedItem ).GenreId == SelectedScore.GenreId ) { cbGenre.IsChecked = false; } else { cbGenre.IsChecked = true; }
+                    break;
+                case "comAccompaniment":
+                    if ( ( ( AccompanimentModel ) comAccompaniment.SelectedItem ).AccompanimentId == SelectedScore.AccompanimentId ) { cbAccompaniment.IsChecked = false; } else { cbAccompaniment.IsChecked = true; }
+                    break;
+                case "comLanguage":
+                    if ( ( ( LanguageModel ) comLanguage.SelectedItem ).LanguageId == SelectedScore.LanguageId ) { cbLanguage.IsChecked = false; } else { cbLanguage.IsChecked = true; }
+                    break;
+                case "comPublisher1":
+                    if ( ( ( PublisherModel ) comPublisher1.SelectedItem ).PublisherId == SelectedScore.Publisher1Id ) { cbPublisher1.IsChecked = false; } else { cbPublisher1.IsChecked = true; }
+                    break;
+                case "comPublisher2":
+                    if ( ( ( PublisherModel ) comPublisher2.SelectedItem ).PublisherId == SelectedScore.Publisher2Id ) { cbPublisher2.IsChecked = false; } else { cbPublisher2.IsChecked = true; }
+                    break;
+                case "comPublisher3":
+                    if ( ( ( PublisherModel ) comPublisher3.SelectedItem ).PublisherId == SelectedScore.Publisher3Id ) { cbPublisher3.IsChecked = false; } else { cbPublisher3.IsChecked = true; }
+                    break;
+                case "comPublisher4":
+                    if ( ( ( PublisherModel ) comPublisher4.SelectedItem ).PublisherId == SelectedScore.Publisher4Id ) { cbPublisher4.IsChecked = false; } else { cbPublisher4.IsChecked = true; }
+                    break;
+            }
+        }
+        CheckChanged ();
     }
 
     private void CheckChanged()
     {
-        if(cbAcompaniment.IsChecked == true ||
+        if(cbAccompaniment.IsChecked == true ||
             cbRepertoire.IsChecked  ==  true ||
             cbArchive.IsChecked  ==  true ||
             cbByHeart.IsChecked  == true ||
@@ -320,7 +391,7 @@ public partial class Scores : Page
             cbTextwriter.IsChecked  == true ||
             cbArranger.IsChecked  == true ||
             cbGenre.IsChecked  == true ||
-            cbAcompaniment.IsChecked  == true ||
+            cbAccompaniment.IsChecked  == true ||
             cbLanguage.IsChecked  == true ||
             cbMusicPiece.IsChecked  == true ||
             cbDigitized.IsChecked  == true ||
@@ -344,10 +415,10 @@ public partial class Scores : Page
             cbOnline.IsChecked == true ||
             cbLyrics.IsChecked  == true ||
             cbNotes.IsChecked  == true ||
-            cbNumberPublisher1.IsChecked == true ||
-            cbNumberPublisher2.IsChecked == true ||
-            cbNumberPublisher3.IsChecked == true ||
-            cbNumberPublisher4.IsChecked  == true ||
+            cbAmountPublisher1.IsChecked == true ||
+            cbAmountPublisher2.IsChecked == true ||
+            cbAmountPublisher3.IsChecked == true ||
+            cbAmountPublisher4.IsChecked  == true ||
             cbPublisher1.IsChecked == true ||
             cbPublisher2.IsChecked == true ||
             cbPublisher3.IsChecked == true ||
@@ -366,6 +437,144 @@ public partial class Scores : Page
 
     private void RichTextBoxChanged(object sender, TextChangedEventArgs e)
     {
+        var propertyName = ((RichTextBox)sender).Name;
 
+        if ( SelectedScore != null )
+        {
+            //It is hard to check if the content of a richtextbox really differs, for that reason the changed is always set when triggered
+            switch ( propertyName )
+            {
+                case "memoLyrics":
+                    cbLyrics.IsChecked = true;
+                    break;
+                case "memoNotes":
+                    cbNotes.IsChecked = true;
+                    break;
+            }
+        }
     }
+
+    private void CheckBoxChanged ( object sender, RoutedEventArgs e )
+    {
+        var propertyName = ((CheckBox)sender).Name;
+
+        if ( SelectedScore != null )
+        {
+            switch ( propertyName )
+            {
+                case "chkByHeart":
+                    if ( chkByHeart.IsChecked == SelectedScore.ByHeart ) { cbByHeart.IsChecked = false; } else { cbByHeart.IsChecked = true; }
+                    break;
+                case "chkChecked":
+                    if ( chkChecked.IsChecked == SelectedScore.Check ) { cbChecked.IsChecked = false; } else { cbChecked.IsChecked = true; }
+                    break;
+                case "chkMSCORP":
+                    if ( chkMSCORP.IsChecked == SelectedScore.MuseScoreORP ) { cbMSCORP.IsChecked = false; } else { cbMSCORP.IsChecked = true; }
+                    break;
+                case "chkMSCORK":
+                    if ( chkMSCORK.IsChecked == SelectedScore.MuseScoreORK ) { cbMSCORK.IsChecked = false; } else { cbMSCORK.IsChecked = true; }
+                    break;
+                case "chkMSCTOP":
+                    if ( chkMSCTOP.IsChecked == SelectedScore.MuseScoreTOP ) { cbMSCTOP.IsChecked = false; } else { cbMSCTOP.IsChecked = true; }
+                    break;
+                case "chkMSCTOK":
+                    if ( chkMSCTOK.IsChecked == SelectedScore.MuseScoreTOK ) { cbMSCTOK.IsChecked = false; } else { cbMSCTOK.IsChecked = true; }
+                    break;
+                case "chkPDFORP":
+                    if ( chkPDFORP.IsChecked == SelectedScore.PDFORP ) { cbPDFORP.IsChecked = false; } else { cbPDFORP.IsChecked = true; }
+                    break;
+                case "chkPDFORK":
+                    if ( chkPDFORK.IsChecked == SelectedScore.PDFORK ) { cbPDFORK.IsChecked = false; } else { cbPDFORK.IsChecked = true; }
+                    break;
+                case "chkPDFTOP":
+                    if ( chkPDFTOP.IsChecked == SelectedScore.PDFTOP ) { cbPDFTOP.IsChecked = false; } else { cbPDFTOP.IsChecked = true; }
+                    break;
+                case "chkPDFTOK":
+                    if ( chkPDFTOK.IsChecked == SelectedScore.PDFTOK ) { cbPDFTOK.IsChecked = false; } else { cbPDFTOK.IsChecked = true; }
+                    break;
+                case "chkMP3B1":
+                    if ( chkMP3B1.IsChecked == SelectedScore.MP3B1 ) { cbMP3B1.IsChecked = false; } else { cbMP3B1.IsChecked = true; }
+                    break;
+                case "chkMP3B2":
+                    if ( chkMP3B2.IsChecked == SelectedScore.MP3B2 ) { cbMP3B2.IsChecked = false; } else { cbMP3B2.IsChecked = true; }
+                    break;
+                case "chkMP3T1":
+                    if ( chkMP3T1.IsChecked == SelectedScore.MP3T1 ) { cbMP3T1.IsChecked = false; } else { cbMP3T1.IsChecked = true; }
+                    break;
+                case "chkMP3T2":
+                    if ( chkMP3T2.IsChecked == SelectedScore.MP3T2 ) { cbMP3T2.IsChecked = false; } else { cbMP3T2.IsChecked = true; }
+                    break;
+                case "chkMP3SOL":
+                    if ( chkMP3SOL.IsChecked == SelectedScore.MP3SOL ) { cbMP3SOL.IsChecked = false; } else { cbMP3SOL.IsChecked = true; }
+                    break;
+                case "chkMP3TOT":
+                    if ( chkMP3TOT.IsChecked == SelectedScore.MP3TOT ) { cbMP3TOT.IsChecked = false; } else { cbMP3TOT.IsChecked = true; }
+                    break;
+                case "chkMP3PIA":
+                    if ( chkMP3PIA.IsChecked == SelectedScore.MP3PIA ) { cbMP3PIA.IsChecked = false; } else { cbMP3PIA.IsChecked = true; }
+                    break;
+                case "chkMSCOnline":
+                    if ( chkMSCOnline.IsChecked == SelectedScore.MuseScoreOnline ) { cbOnline.IsChecked = false; } else { cbOnline.IsChecked = true; }
+                    break;
+            }
+        }
+        CheckChanged ();
+    }
+
+    private void DatePickerChanged ( object sender, SelectionChangedEventArgs e )
+    {
+        var propertyName = ((DatePicker)sender).Name;
+
+        if ( SelectedScore != null )
+        {
+            switch ( propertyName )
+            {
+                case "dpDigitized":
+                    DateTime _CreatedDateTime = new ();
+
+                    // If the change event is triggered a data has been entered, this always differs if no date is in the database
+                    if(SelectedScore.DateCreatedString != "" )
+                    {
+                        var _selectedDateTime = SelectedScore.DateCreatedString.ToString () + " 00:00:00 AM";
+                        _CreatedDateTime = DateTime.Parse ( _selectedDateTime );
+
+                        if ( dpDigitized.SelectedDate == _CreatedDateTime ) { cbDigitized.IsChecked = false; } else { cbDigitized.IsChecked = true; }
+                    }
+                    else
+                    {
+                        if ( dpDigitized.SelectedDate.ToString () == "" )
+                        {
+                            // If the change event is triggered a data has been entered, this always differs if no date is in the database
+                            cbDigitized.IsChecked = false;
+                        }
+                        else
+                        {
+                            cbDigitized.IsChecked = true;
+                        }
+
+                        
+                    }
+                    break;
+                case "dpModified":
+                    DateTime _ModifiedDateTime = new ();
+
+                    // If the change event is triggered a data has been entered, this always differs if no date is in the database
+                    if ( SelectedScore.DateModifiedString != "" )
+                    {
+                        var _selectedDateTime = SelectedScore.DateModifiedString.ToString () + " 00:00:00 AM";
+                        _ModifiedDateTime = DateTime.Parse ( _selectedDateTime );
+
+                        if ( dpModified.SelectedDate == _ModifiedDateTime ) { cbModified.IsChecked = false; } else { cbModified.IsChecked = true; }
+                    }
+                    else
+                    {
+                        // If the change event is triggered a data has been entered, this always differs if no date is in the database
+                        cbModified.IsChecked = false;
+                    }
+                    break;
+            }
+        }
+        CheckChanged ();
+    }
+
 }

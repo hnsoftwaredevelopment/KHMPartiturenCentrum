@@ -61,49 +61,51 @@
             <StackPanel
                 Grid.Column="0"
                 HorizontalAlignment="Left"
-                Orientation="Horizontal" >
-                <TextBox x:Name="tbCurrentItem" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbRepertoire" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbArchive" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbByHeart" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbTitle" Visibility="Visible"/>
-                <CheckBox x:Name="cbSubTitle" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbComposer" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbTextwriter" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbArranger" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbGenre" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbAcompaniment" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbLanguage" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMusicPiece" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbDigitized" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbModified" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbChecked" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPDFORP" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPDFORK" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPDFTOP" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPDFTOK" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMSCORP" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMSCORK" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMSCTOP" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMSCTOK" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3B1" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3B2" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3T1" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3T2" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3SOL" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3TOT" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbMP3PIA" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbOnline" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbLyrics" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbNotes" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbNumberPublisher1" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbNumberPublisher2" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbNumberPublisher3" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbNumberPublisher4" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPublisher1" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPublisher2" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPublisher3" Visibility="Collapsed"/>
-                <CheckBox x:Name="cbPublisher4" Visibility="Collapsed"/>
+                Orientation="Horizontal">
+                <CheckBox x:Name="cbRepertoire" Visibility="Visible" />
+                <CheckBox x:Name="cbArchive" Visibility="Visible" />
+                <CheckBox x:Name="cbByHeart" Visibility="Visible" />
+                <CheckBox x:Name="cbTitle" Visibility="Visible" />
+                <CheckBox x:Name="cbSubTitle" Visibility="Visible" />
+                <CheckBox x:Name="cbComposer" Visibility="Visible" />
+                <CheckBox x:Name="cbTextwriter" Visibility="Visible" />
+                <CheckBox x:Name="cbArranger" Visibility="Visible" />
+                <CheckBox x:Name="cbGenre" Visibility="Visible" />
+                <CheckBox x:Name="cbAccompaniment" Visibility="Visible" />
+                <CheckBox x:Name="cbLanguage" Visibility="Visible" />
+                <CheckBox x:Name="cbMusicPiece" Visibility="Visible" />
+                <CheckBox
+                    x:Name="cbDigitized"
+                    ToolTip="Digitized"
+                    Visibility="Visible" IsChecked="False"/>
+                <CheckBox x:Name="cbModified" Visibility="Visible" />
+                <CheckBox x:Name="cbChecked" Visibility="Visible" />
+                <CheckBox x:Name="cbPDFORP" Visibility="Visible" />
+                <CheckBox x:Name="cbPDFORK" Visibility="Visible" />
+                <CheckBox x:Name="cbPDFTOP" Visibility="Visible" />
+                <CheckBox x:Name="cbPDFTOK" Visibility="Visible" />
+                <CheckBox x:Name="cbMSCORP" Visibility="Visible" />
+                <CheckBox x:Name="cbMSCORK" Visibility="Visible" />
+                <CheckBox x:Name="cbMSCTOP" Visibility="Visible" />
+                <CheckBox x:Name="cbMSCTOK" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3B1" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3B2" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3T1" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3T2" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3SOL" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3TOT" Visibility="Visible" />
+                <CheckBox x:Name="cbMP3PIA" Visibility="Visible" />
+                <CheckBox x:Name="cbOnline" Visibility="Visible" />
+                <CheckBox x:Name="cbLyrics" Visibility="Visible" />
+                <CheckBox x:Name="cbNotes" Visibility="Visible" />
+                <CheckBox x:Name="cbAmountPublisher1" Visibility="Visible" />
+                <CheckBox x:Name="cbAmountPublisher2" Visibility="Visible" />
+                <CheckBox x:Name="cbAmountPublisher3" Visibility="Visible" />
+                <CheckBox x:Name="cbAmountPublisher4" Visibility="Visible" />
+                <CheckBox x:Name="cbPublisher1" Visibility="Visible" />
+                <CheckBox x:Name="cbPublisher2" Visibility="Visible" />
+                <CheckBox x:Name="cbPublisher3" Visibility="Visible" />
+                <CheckBox x:Name="cbPublisher4" Visibility="Visible" />
             </StackPanel>
             <!--#endregion-->
 
@@ -178,8 +180,9 @@
 
                 <Button
                     x:Name="btnSave"
-                    Width="30" Margin="10,0,10,0"
+                    Width="30"
                     Height="30"
+                    Margin="10,0,10,0"
                     Padding="4"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="False"
@@ -195,7 +198,8 @@
                 <Button
                     x:Name="btnAdd"
                     Width="30"
-                    Height="30" Margin="0,0,10,0"
+                    Height="30"
+                    Margin="0,0,10,0"
                     Padding="4"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="True"
@@ -901,8 +905,9 @@
                                         <StackPanel Orientation="Horizontal">
                                             <ComboBox
                                                 x:Name="comRepertoire"
-                                                Width="220" SelectionChanged="ComboBoxChanged"
-                                                HorizontalAlignment="Left">
+                                                Width="220"
+                                                HorizontalAlignment="Left"
+                                                SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Margin="2" Text="{Binding RepertoireName}" />
@@ -955,7 +960,8 @@
                                             <ComboBox
                                                 x:Name="comArchive"
                                                 Width="220"
-                                                HorizontalAlignment="Left">
+                                                HorizontalAlignment="Left"
+                                                SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Margin="2" Text="{Binding ArchiveName}" />
@@ -1005,7 +1011,11 @@
                                     <!--#region Sing by Heart-->
                                     <StackPanel Grid.Column="3" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Uit het hoofd" />
-                                        <CheckBox x:Name="chkByHeart" IsChecked="{Binding ByHeart}" />
+                                        <CheckBox
+                                            x:Name="chkByHeart"
+                                            Checked="CheckBoxChanged"
+                                            IsChecked="{Binding ByHeart}"
+                                            Unchecked="CheckBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -1023,8 +1033,9 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
                                         <TextBox
                                             x:Name="tbTitle"
-                                            Width="450" TextChanged="TextBoxChanged"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                            Width="450"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            TextChanged="TextBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -1033,8 +1044,9 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Ondertitel" />
                                         <TextBox
                                             x:Name="tbSubTitle"
-                                            Width="450" TextChanged="TextBoxChanged"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                            Width="450"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            TextChanged="TextBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -1053,8 +1065,9 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Componist" />
                                         <TextBox
                                             x:Name="tbComposer"
-                                            Width="340" TextChanged="TextBoxChanged"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                            Width="340"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            TextChanged="TextBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -1063,8 +1076,9 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Textschrijver" />
                                         <TextBox
                                             x:Name="tbTextwriter"
-                                            Width="340" TextChanged="TextBoxChanged"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                            Width="340"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            TextChanged="TextBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
 
@@ -1073,8 +1087,9 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Arrangement" />
                                         <TextBox
                                             x:Name="tbArranger"
-                                            Width="340" TextChanged="TextBoxChanged"
-                                            Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                            Width="340"
+                                            Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                            TextChanged="TextBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
                                 </Grid>
@@ -1096,7 +1111,8 @@
                                             <ComboBox
                                                 x:Name="comGenre"
                                                 Width="220"
-                                                HorizontalAlignment="Left">
+                                                HorizontalAlignment="Left"
+                                                SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Margin="2" Text="{Binding GenreName}" />
@@ -1149,7 +1165,8 @@
                                             <ComboBox
                                                 x:Name="comAccompaniment"
                                                 Width="220"
-                                                HorizontalAlignment="Left">
+                                                HorizontalAlignment="Left"
+                                                SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Margin="2" Text="{Binding AccompanimentName}" />
@@ -1202,7 +1219,8 @@
                                             <ComboBox
                                                 x:Name="comLanguage"
                                                 Width="220"
-                                                HorizontalAlignment="Left">
+                                                HorizontalAlignment="Left"
+                                                SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Margin="2" Text="{Binding LanguageName}" />
@@ -1256,9 +1274,10 @@
                                         <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Muziekstuk" />
                                         <TextBox
                                             x:Name="tbMusicPiece"
-                                            Width="1000" TextChanged="TextBoxChanged"
+                                            Width="1000"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                            Text="{Binding MusicPiece}" />
+                                            Text="{Binding MusicPiece}"
+                                            TextChanged="TextBoxChanged" />
                                     </StackPanel>
                                 </Grid>
                                 <!--#endregion-->
@@ -1285,21 +1304,30 @@
                                 <!--#region Digitalized-->
                                 <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gedigitaliseerd" />
-                                    <DatePicker x:Name="dpDigitized" Margin="0,0,50,7" />
+                                    <DatePicker
+                                        x:Name="dpDigitized"
+                                        Margin="0,0,50,7"
+                                        SelectedDateChanged="DatePickerChanged" />
                                 </StackPanel>
                                 <!--#endregion-->
 
                                 <!--#region Modified-->
                                 <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Laatste aanpassing" />
-                                    <DatePicker x:Name="dpModified" Margin="0,0,50,7" />
+                                    <DatePicker
+                                        x:Name="dpModified"
+                                        Margin="0,0,50,7"
+                                        SelectedDateChanged="DatePickerChanged" />
                                 </StackPanel>
                                 <!--#endregion-->
 
                                 <!--#region Checked-->
                                 <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
                                     <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gecontroleerd" />
-                                    <CheckBox x:Name="chkChecked" />
+                                    <CheckBox
+                                        x:Name="chkChecked"
+                                        Checked="CheckBoxChanged"
+                                        Unchecked="CheckBoxChanged" />
                                 </StackPanel>
                                 <!--#endregion-->
                             </Grid>
@@ -1357,7 +1385,9 @@
                                 <CheckBox
                                     x:Name="chkMSCORP"
                                     Grid.Row="0"
-                                    Grid.Column="2" />
+                                    Grid.Column="2"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore ORK-->
@@ -1369,7 +1399,9 @@
                                 <CheckBox
                                     x:Name="chkMSCORK"
                                     Grid.Row="1"
-                                    Grid.Column="2" />
+                                    Grid.Column="2"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore TOP-->
@@ -1381,7 +1413,9 @@
                                 <CheckBox
                                     x:Name="chkMSCTOP"
                                     Grid.Row="2"
-                                    Grid.Column="2" />
+                                    Grid.Column="2"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore TOK-->
@@ -1393,7 +1427,9 @@
                                 <CheckBox
                                     x:Name="chkMSCTOK"
                                     Grid.Row="3"
-                                    Grid.Column="2" />
+                                    Grid.Column="2"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
 
@@ -1414,7 +1450,9 @@
                                 <CheckBox
                                     x:Name="chkPDFORP"
                                     Grid.Row="0"
-                                    Grid.Column="6" />
+                                    Grid.Column="6"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region PDF ORK-->
@@ -1426,7 +1464,9 @@
                                 <CheckBox
                                     x:Name="chkPDFORK"
                                     Grid.Row="1"
-                                    Grid.Column="6" />
+                                    Grid.Column="6"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region PDF TOP-->
@@ -1438,7 +1478,9 @@
                                 <CheckBox
                                     x:Name="chkPDFTOP"
                                     Grid.Row="2"
-                                    Grid.Column="6" />
+                                    Grid.Column="6"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region PDF TOK-->
@@ -1450,7 +1492,9 @@
                                 <CheckBox
                                     x:Name="chkPDFTOK"
                                     Grid.Row="3"
-                                    Grid.Column="6" />
+                                    Grid.Column="6"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
 
@@ -1471,7 +1515,9 @@
                                 <CheckBox
                                     x:Name="chkMP3B1"
                                     Grid.Row="0"
-                                    Grid.Column="10" />
+                                    Grid.Column="10"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 B2-->
@@ -1483,7 +1529,9 @@
                                 <CheckBox
                                     x:Name="chkMP3B2"
                                     Grid.Row="1"
-                                    Grid.Column="10" />
+                                    Grid.Column="10"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 T1-->
@@ -1495,7 +1543,9 @@
                                 <CheckBox
                                     x:Name="chkMP3T1"
                                     Grid.Row="2"
-                                    Grid.Column="10" />
+                                    Grid.Column="10"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 T2-->
@@ -1507,7 +1557,9 @@
                                 <CheckBox
                                     x:Name="chkMP3T2"
                                     Grid.Row="3"
-                                    Grid.Column="10" />
+                                    Grid.Column="10"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 Solo-->
@@ -1519,7 +1571,9 @@
                                 <CheckBox
                                     x:Name="chkMP3SOL"
                                     Grid.Row="0"
-                                    Grid.Column="13" />
+                                    Grid.Column="13"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 TOT-->
@@ -1531,7 +1585,9 @@
                                 <CheckBox
                                     x:Name="chkMP3TOT"
                                     Grid.Row="1"
-                                    Grid.Column="13" />
+                                    Grid.Column="13"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 PIA-->
@@ -1543,7 +1599,9 @@
                                 <CheckBox
                                     x:Name="chkMP3PIA"
                                     Grid.Row="2"
-                                    Grid.Column="13" />
+                                    Grid.Column="13"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
 
@@ -1564,7 +1622,9 @@
                                 <CheckBox
                                     x:Name="chkMSCOnline"
                                     Grid.Row="0"
-                                    Grid.Column="17" />
+                                    Grid.Column="17"
+                                    Checked="CheckBoxChanged"
+                                    Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
                             </Grid>
@@ -1756,12 +1816,13 @@
                         <!--#region Memo field-->
                         <RichTextBox
                             x:Name="memoLyrics"
-                            Width="Auto" TextChanged="RichTextBoxChanged"
+                            Width="Auto"
                             Height="520"
                             Margin="5,45,5,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             HorizontalScrollBarVisibility="Auto"
+                            TextChanged="RichTextBoxChanged"
                             VerticalScrollBarVisibility="Auto">
                             <FlowDocument x:Name="inpLyricsFD">
                                 <Paragraph>
@@ -1957,12 +2018,13 @@
                             <!--#region Memo field-->
                             <RichTextBox
                                 x:Name="memoNotes"
-                                Width="Auto" TextChanged="RichTextBoxChanged"
+                                Width="Auto"
                                 Height="520"
                                 Margin="5,45,5,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 HorizontalScrollBarVisibility="Auto"
+                                TextChanged="RichTextBoxChanged"
                                 VerticalScrollBarVisibility="Auto">
                                 <FlowDocument x:Name="inpNotesFD">
                                     <Paragraph>
@@ -2053,10 +2115,11 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5" TextChanged="TextBoxChanged"
+                                    Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    TextChanged="TextBoxChanged" />
 
                                 <StackPanel
                                     Grid.Row="2"
@@ -2065,7 +2128,8 @@
                                     <ComboBox
                                         x:Name="comPublisher1"
                                         Width="240"
-                                        HorizontalAlignment="Left">
+                                        HorizontalAlignment="Left"
+                                        SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Margin="2" Text="{Binding PublisherName}" />
@@ -2116,10 +2180,11 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5" TextChanged="TextBoxChanged"
+                                    Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    TextChanged="TextBoxChanged" />
 
                                 <StackPanel
                                     Grid.Row="3"
@@ -2128,7 +2193,8 @@
                                     <ComboBox
                                         x:Name="comPublisher2"
                                         Width="240"
-                                        HorizontalAlignment="Left">
+                                        HorizontalAlignment="Left"
+                                        SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Margin="2" Text="{Binding PublisherName}" />
@@ -2179,10 +2245,11 @@
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5" TextChanged="TextBoxChanged"
+                                    Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    TextChanged="TextBoxChanged" />
 
                                 <StackPanel
                                     Grid.Row="4"
@@ -2191,7 +2258,8 @@
                                     <ComboBox
                                         x:Name="comPublisher3"
                                         Width="240"
-                                        HorizontalAlignment="Left">
+                                        HorizontalAlignment="Left"
+                                        SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Margin="2" Text="{Binding PublisherName}" />
@@ -2238,14 +2306,15 @@
 
                                 <!--#region Publisher 4 row-->
                                 <TextBox
-                                    x:Name="tbAmountSupplier4"
+                                    x:Name="tbAmountPublisher4"
                                     Grid.Row="5"
                                     Grid.Column="0"
                                     Width="70"
-                                    Margin="0,5" TextChanged="TextBoxChanged"
+                                    Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
-                                    Style="{DynamicResource TabItem.Page.TextBox.Style}" />
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    TextChanged="TextBoxChanged" />
 
                                 <StackPanel
                                     Grid.Row="5"
@@ -2254,7 +2323,8 @@
                                     <ComboBox
                                         x:Name="comPublisher4"
                                         Width="240"
-                                        HorizontalAlignment="Left">
+                                        HorizontalAlignment="Left"
+                                        SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Margin="2" Text="{Binding PublisherName}" />
