@@ -59,7 +59,7 @@
 
             <!--#region Hidden fields section-->
             <StackPanel
-                Grid.Column="0" Visibility="Visible"
+                Grid.Column="0"
                 HorizontalAlignment="Left"
                 Orientation="Horizontal">
                 <CheckBox x:Name="cbRepertoire" Visibility="Visible" />

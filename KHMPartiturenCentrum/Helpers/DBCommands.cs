@@ -153,12 +153,19 @@ public class DBCommands
                         int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString () );
 
                 // Set the datestrings
-                string[] _tempCreated = dataTable.Rows [ i ].ItemArray [19].ToString().Split(" ");
-                string? dateCreated = _tempCreated[0];
+                string dateCreated = "";
+                if (dataTable.Rows[i].ItemArray[19].ToString() != "")
+                {
+                    string[] _tempCreated = dataTable.Rows[i].ItemArray[19].ToString().Split(" ");
+                    dateCreated = _tempCreated[0];
+                }
 
-
-                string[] _tempModified = dataTable.Rows [ i ].ItemArray [20].ToString().Split(" ");
-                string? dateModified = _tempModified[0];
+                string dateModified = "";
+                if (dataTable.Rows[i].ItemArray[20].ToString() != "")
+                {
+                    string[] _tempModified = dataTable.Rows[i].ItemArray[20].ToString().Split(" ");
+                    dateModified = _tempModified[0];
+                }
 
                 // When Title is empty don't add that row to the list
                 if ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString () != string.Empty )

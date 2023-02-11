@@ -13,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KHMPartiturenCentrum.Helpers;
@@ -58,15 +57,11 @@ public partial class Scores : Page
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
         SelectedScore = selectedRow;
 
-        //DisableChangeEvents();
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
         tbScoreNumber.Text = selectedRow.Score;
         chkByHeart.IsChecked = selectedRow.ByHeart;
 
-        //tbTitle.TextChanged -= TextBox_TextChanged;
-        comRepertoire.SelectionChanged -= ComboBoxChanged;
-        comArchive.SelectionChanged -= ComboBoxChanged;
         #region Repertoire Combobox
         comRepertoire.Text = selectedRow.RepertoireName;
         foreach ( RepertoireModel repertoire in comRepertoire.Items )
@@ -78,7 +73,6 @@ public partial class Scores : Page
             }
         }
         #endregion
-        comRepertoire.SelectionChanged += ComboBoxChanged;
 
         #region Archive Combobox
         comArchive.Text = selectedRow.ArchiveName;
@@ -147,17 +141,11 @@ public partial class Scores : Page
         #endregion
 
         #region 6th Row (Date created, Date Modified and Checked)
-        if (selectedRow.DateCreatedString != "")
-        {
-            dpDigitized.SelectedDate = selectedRow.DateCreated.ToDateTime(TimeOnly.Parse("00:00 AM"));
-            dpDigitized.Text = selectedRow.DateCreatedString;
-        }
+        dpDigitized.SelectedDate = selectedRow.DateCreated.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) );
+        dpDigitized.Text = selectedRow.DateCreatedString;
 
-        if (selectedRow.DateModifiedString != "")
-        {
-            dpModified.SelectedDate = selectedRow.DateModified.ToDateTime(TimeOnly.Parse("00:00 AM"));
-            dpModified.Text = selectedRow.DateModifiedString;
-        }
+        dpModified.SelectedDate = selectedRow.DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) );
+        dpModified.Text = selectedRow.DateModifiedString;
 
         chkChecked.IsChecked = selectedRow.Check;
         #endregion
@@ -272,7 +260,6 @@ public partial class Scores : Page
         tbAmountSupplierTotal.Text = Total.ToString ();
         #endregion
         #endregion
-        EnableChangeEvents();
     }
 
     private void BtnNextClick ( object sender, RoutedEventArgs e )
@@ -555,17 +542,17 @@ public partial class Scores : Page
                     }
                     else
                     {
-                        //if ( dpDigitized.SelectedDate.ToString () == "" )
-                        //{
-                        //    // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                        //    cbDigitized.IsChecked = false;
-                        //}
-                        //else
-                        //{
-                        //    cbDigitized.IsChecked = true;
-                        //}
-                        cbDigitized.IsChecked = false;
+                        if ( dpDigitized.SelectedDate.ToString () == "" )
+                        {
+                            // If the change event is triggered a data has been entered, this always differs if no date is in the database
+                            cbDigitized.IsChecked = false;
+                        }
+                        else
+                        {
+                            cbDigitized.IsChecked = true;
+                        }
 
+                        
                     }
                     break;
                 case "dpModified":
@@ -590,23 +577,4 @@ public partial class Scores : Page
         CheckChanged ();
     }
 
-    private void DisableChangeEvents()
-    {
-        comRepertoire.SelectionChanged -= ComboBox_SelectionChanged;
-        comArchive.SelectionChanged -= ComboBox_SelectionChanged;
-    }
-    private void EnableChangeEvents()
-    {
-        comRepertoire.SelectionChanged += ComboBox_SelectionChanged;
-        comArchive.SelectionChanged += ComboBox_SelectionChanged;
-    }
-
-    private void TextBox_TextChanged(object sender, TextChangedEventArgs e) 
-    { 
-        // Used to enable or disable the change event
-    }
-    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-    {
-        // Used to enable or disable the change event
-    }
 }
