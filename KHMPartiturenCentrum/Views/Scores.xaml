@@ -184,6 +184,7 @@
                     Height="30"
                     Margin="10,0,10,0"
                     Padding="4"
+                    Click="BtnSaveClick"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="False"
                     Style="{DynamicResource DataGrid.Button.Save}"
@@ -194,7 +195,22 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
-
+                
+                <Button
+                    x:Name="btnRenumber"
+                    Width="30"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Padding="4"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    IsEnabled="False"
+                    Style="{DynamicResource DataGrid.Button.Save}"
+                    ToolTip="Geef de geselecteerde partituur een ander partituurnummer" >
+                    <Path
+                        Data="{StaticResource renumber}"
+                        Stretch="Uniform" Fill="{DynamicResource Button.Save.BorderBrush}"
+                        Stroke="{StaticResource Button.Save.BorderBrush}" />
+                </Button>
                 <Button
                     x:Name="btnAdd"
                     Width="30"

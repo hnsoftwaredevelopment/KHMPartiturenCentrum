@@ -12,6 +12,8 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
 using Google.Protobuf.WellKnownTypes;
+using K4os.Compression.LZ4.Internal;
+
 using KHMPartiturenCentrum.Models;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Crypto;
@@ -420,6 +422,190 @@ public class DBCommands
         return Repertoires;
     }
     #endregion
+
+    #region Update/Save Score
+    public static void SaveScore (ScoreModel score)
+    {
+        string sqlText = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet +
+            DBNames.ScoresFieldNameRepertoireId + " = @" + DBNames.ScoresFieldNameRepertoireId + ", " +
+            DBNames.ScoresFieldNameArchiveId + " = @" + DBNames.ScoresFieldNameArchiveId + ", " +
+            DBNames.ScoresFieldNameByHeart + " = @" + DBNames.ScoresFieldNameByHeart + ", " +
+
+            DBNames.ScoresFieldNameTitle + " = @" + DBNames.ScoresFieldNameTitle + ", " +
+            DBNames.ScoresFieldNameSubTitle + " = @" + DBNames.ScoresFieldNameSubTitle + ", " +
+
+            DBNames.ScoresFieldNameComposer + " = @" + DBNames.ScoresFieldNameComposer + ", " +
+            DBNames.ScoresFieldNameTextwriter + " = @" + DBNames.ScoresFieldNameTextwriter + ", " +
+            DBNames.ScoresFieldNameArranger + " = @" + DBNames.ScoresFieldNameArranger + ", " +
+
+            DBNames.ScoresFieldNameGenreId + " = @" + DBNames.ScoresFieldNameGenreId + ", " +
+            DBNames.ScoresFieldNameAccompanimentId + " = @" + DBNames.ScoresFieldNameAccompanimentId + ", " +
+            DBNames.ScoresFieldNameLanguageId + " = @" + DBNames.ScoresFieldNameLanguageId + ", " +
+
+            DBNames.ScoresFieldNameMusicPiece + " = @" + DBNames.ScoresFieldNameMusicPiece + ", " +
+
+            DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized + ", " +
+            DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified + ", " +
+            DBNames.ScoresFieldNameChecked + " = @" + DBNames.ScoresFieldNameChecked + ", " +
+
+            DBNames.ScoresFieldNameMuseScoreORP + " = @" + DBNames.ScoresFieldNameMuseScoreORP + ", " +
+            DBNames.ScoresFieldNameMuseScoreORK + " = @" + DBNames.ScoresFieldNameMuseScoreORK + ", " +
+            DBNames.ScoresFieldNameMuseScoreTOP + " = @" + DBNames.ScoresFieldNameMuseScoreTOP + ", " +
+            DBNames.ScoresFieldNameMuseScoreTOK + " = @" + DBNames.ScoresFieldNameMuseScoreTOK + ", " +
+
+            DBNames.ScoresFieldNamePDFORP + " = @" + DBNames.ScoresFieldNamePDFORP + ", " +
+            DBNames.ScoresFieldNamePDFORK + " = @" + DBNames.ScoresFieldNamePDFORK + ", " +
+            DBNames.ScoresFieldNamePDFTOP + " = @" + DBNames.ScoresFieldNamePDFTOP + ", " +
+            DBNames.ScoresFieldNamePDFTOK + " = @" + DBNames.ScoresFieldNamePDFTOK + ", " +
+
+            DBNames.ScoresFieldNameMP3B1 + " = @" + DBNames.ScoresFieldNameMP3B1 + ", " +
+            DBNames.ScoresFieldNameMP3B2 + " = @" + DBNames.ScoresFieldNameMP3B2 + ", " +
+            DBNames.ScoresFieldNameMP3T1 + " = @" + DBNames.ScoresFieldNameMP3T1 + ", " +
+            DBNames.ScoresFieldNameMP3T2 + " = @" + DBNames.ScoresFieldNameMP3T2 + ", " +
+
+            DBNames.ScoresFieldNameMP3SOL + " = @" + DBNames.ScoresFieldNameMP3SOL + ", " +
+            DBNames.ScoresFieldNameMP3TOT + " = @" + DBNames.ScoresFieldNameMP3TOT + ", " +
+            DBNames.ScoresFieldNameMP3PIA + " = @" + DBNames.ScoresFieldNameMP3PIA + ", " +
+
+            DBNames.ScoresFieldNameOnline + " = @" + DBNames.ScoresFieldNameOnline + ", " +
+
+            DBNames.ScoresFieldNameLyrics + " = @" + DBNames.ScoresFieldNameLyrics + ", " +
+
+            DBNames.ScoresFieldNameNotes + " = @" + DBNames.ScoresFieldNameNotes + ", " +
+
+            DBNames.ScoresFieldNameAmountPublisher1 + " = @" + DBNames.ScoresFieldNameAmountPublisher1 + ", " +
+            DBNames.ScoresFieldNameAmountPublisher2 + " = @" + DBNames.ScoresFieldNameAmountPublisher2 + ", " +
+            DBNames.ScoresFieldNameAmountPublisher3 + " = @" + DBNames.ScoresFieldNameAmountPublisher3 + ", " +
+            DBNames.ScoresFieldNameAmountPublisher4 + " = @" + DBNames.ScoresFieldNameAmountPublisher4 + ", " +
+
+            DBNames.ScoresFieldNamePublisher1Id + " = @" + DBNames.ScoresFieldNamePublisher1Id + ", " +
+            DBNames.ScoresFieldNamePublisher2Id + " = @" + DBNames.ScoresFieldNamePublisher2Id + ", " +
+            DBNames.ScoresFieldNamePublisher3Id + " = @" + DBNames.ScoresFieldNamePublisher3Id + ", " +
+            DBNames.ScoresFieldNamePublisher4Id + " = @" + DBNames.ScoresFieldNamePublisher4Id + ", " +
+            DBNames.SqlWhere + DBNames.ScoresFieldNameId + " = @" + DBNames.ScoresFieldNameId + ";";
+
+        try
+        {
+            ExecuteNonQueryScoresTable(sqlText, score);
+        }
+        catch (MySqlException ex)
+        {
+            Debug.WriteLine("Fout (UpdateScoresTable - MySqlException): " + ex.Message);
+            throw ex;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Fout (UpdateScoresTable): " + ex.Message);
+            throw;
+        }
+    }
+    #endregion
+
+    #region Execute Non Query ScoresTable
+    static void ExecuteNonQueryScoresTable(string sqlText, ScoreModel score)
+    {
+        int byHeart = 0, checkedScore = 0, musescoreORP = 0, musescoreORK = 0, musescoreTOP = 0, musescoreTOK = 0, musescoreOnline = 0;
+        int pdfORP = 0, pdfORK = 0, pdfTOP = 0, pdfTOK = 0;
+        int mp3B1 = 0, mp3B2 = 0, mp3T1 = 0, mp3T2 = 0, mp3SOL = 0, mp3TOT = 0, mp3PIA = 0;
+
+        using MySqlConnection con = new(DBConnect.ConnectionString);
+        con.Open();
+
+        using MySqlCommand cmd = new(sqlText, con);
+
+        // Convert booleans to int
+        if ( score.ByHeart == true ) { byHeart = 1; } else { byHeart = 0; }
+        if ( score.Check == true ) { checkedScore = 1; } else { checkedScore = 0; }
+        if ( score.MuseScoreORP == true ) { musescoreORP = 1; } else { musescoreORP = 0; }
+        if ( score.MuseScoreORK == true ) { musescoreORK = 1; } else { musescoreORK = 0; }
+        if ( score.MuseScoreTOP == true ) { musescoreTOP = 1; } else { musescoreTOP = 0; }
+        if ( score.MuseScoreTOK == true ) { musescoreTOK = 1; } else { musescoreTOK = 0; }
+
+        if (score.PDFORP == true) { pdfORP = 1; } else { pdfORP = 0; }
+        if (score.PDFORK == true) { pdfORK = 1; } else { pdfORK = 0; }
+        if (score.PDFTOP == true) { pdfTOP = 1; } else { pdfTOP = 0; }
+        if (score.PDFTOK == true) { pdfTOK = 1; } else { pdfTOK = 0; }
+
+        if (score.MP3B1 == true) { mp3B1 = 1; } else { mp3B1 = 0; }
+        if (score.MP3B2 == true) { mp3B2 = 1; } else { mp3B2 = 0; }
+        if (score.MP3T1 == true) { mp3T1 = 1; } else { mp3T1 = 0; }
+        if (score.MP3T2 == true) { mp3T2 = 1; } else { mp3T2 = 0; }
+
+        if (score.MP3SOL == true) { mp3SOL = 1; } else { mp3SOL = 0; }
+        if (score.MP3TOT == true) { mp3TOT = 1; } else { mp3TOT = 0; }
+        if (score.MP3PIA == true) { mp3PIA = 1; } else { mp3PIA = 0; }
+
+        if (score.MuseScoreOnline == true) { musescoreOnline = 1; } else { musescoreOnline = 0; }
+
+        //add parameters setting string values to DBNull.Value
+        // If it is a new record, Id will be 0, this parameter does not has te be set
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameRepertoireId, MySqlDbType.Int32).Value = score.RepertoireId;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameArchiveId, MySqlDbType.Int32).Value = score.ArchiveId;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameByHeart, MySqlDbType.Int32).Value = byHeart;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameTitle, MySqlDbType.VarChar).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameSubTitle, MySqlDbType.VarChar).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameComposer, MySqlDbType.VarChar).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameTextwriter, MySqlDbType.VarChar).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameArranger, MySqlDbType.VarChar).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameGenreId, MySqlDbType.Int32).Value = score.GenreId;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameAccompanimentId, MySqlDbType.Int32).Value = score.AccompanimentId;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameLanguageId, MySqlDbType.Int32).Value = score.LanguageId;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMusicPiece, MySqlDbType.VarChar).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameDigitized, MySqlDbType.String).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameModified, MySqlDbType.String).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameChecked, MySqlDbType.Int32).Value = checkedScore;
+
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMuseScoreORP, MySqlDbType.Int32).Value = musescoreORP;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMuseScoreORK, MySqlDbType.Int32).Value = musescoreORK;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMuseScoreTOP, MySqlDbType.Int32).Value = musescoreTOP;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMuseScoreTOK, MySqlDbType.Int32).Value = musescoreTOK;
+
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNamePDFORP, MySqlDbType.Int32).Value = pdfORP;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNamePDFORK, MySqlDbType.Int32).Value = pdfORK;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNamePDFTOP, MySqlDbType.Int32).Value = pdfTOP;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNamePDFTOK, MySqlDbType.Int32).Value = pdfTOK;
+
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3B1, MySqlDbType.Int32).Value = mp3B1;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3B1, MySqlDbType.Int32).Value = mp3B2;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3T1, MySqlDbType.Int32).Value = mp3T1;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3T2, MySqlDbType.Int32).Value = mp3T2;
+
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3SOL, MySqlDbType.Int32).Value = mp3SOL;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3TOT, MySqlDbType.Int32).Value = mp3TOT;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameMP3PIA, MySqlDbType.Int32).Value = mp3PIA;
+
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameOnline, MySqlDbType.Int32).Value = musescoreOnline;
+        
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameLyrics, MySqlDbType.MediumText).Value = DBNull.Value;
+        cmd.Parameters.Add("@" + DBNames.ScoresFieldNameNotes, MySqlDbType.MediumText).Value = DBNull.Value;
+
+        //set varchar/text values
+        if (!String.IsNullOrEmpty(score.ScoreTitle))
+        {
+            cmd.Parameters["@" + DBNames.ScoresFieldNameTitle].Value = score.ScoreTitle;
+        }
+
+        if (!String.IsNullOrEmpty(score.ScoreSubTitle))
+        {
+            cmd.Parameters["@" + DBNames.ScoresFieldNameSubTitle].Value = score.ScoreSubTitle;
+        }
+
+        if (!String.IsNullOrEmpty(score.Lyrics))
+        {
+            cmd.Parameters["@" + DBNames.ScoresFieldNameLyrics].Value = score.Lyrics;
+        }
+
+        if (!String.IsNullOrEmpty(score.Notes))
+        {
+            cmd.Parameters["@" + DBNames.ScoresFieldNameNotes].Value = score.Notes;
+        }
+
+
+        //execute; returns the number of rows affected
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+#endregion
+
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8604

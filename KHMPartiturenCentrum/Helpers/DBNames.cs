@@ -142,7 +142,7 @@ public class DBNames
     public static readonly string ScoresFieldNameAmountPublisher1 = "AantalUitgever1";
     public static readonly string ScoresFieldNameAmountPublisher2 = "AantalUitgever2";
     public static readonly string ScoresFieldNameAmountPublisher3 = "AantalUitgever3";
-    public static readonly string ScoresFieldNameAmountPublisher = "AantalUitgever4";
+    public static readonly string ScoresFieldNameAmountPublisher4 = "AantalUitgever4";
     public static readonly string ScoresFieldNamePublisher1Id = "Uitgever1Id";
     public static readonly string ScoresFieldNamePublisher2Id = "Uitgever2Id";
     public static readonly string ScoresFieldNamePublisher3Id = "Uitgever3Id";

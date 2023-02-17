@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
@@ -37,7 +38,6 @@ public partial class Scores : Page
         scores = new ScoreViewModel ();
         DataContext = scores;
     }
-
     private void PageLoaded ( object sender, RoutedEventArgs e )
     {
         comAccompaniment.ItemsSource = DBCommands.GetAccompaniments ();
@@ -50,7 +50,6 @@ public partial class Scores : Page
         comPublisher3.ItemsSource = DBCommands.GetPublishers ();
         comPublisher4.ItemsSource = DBCommands.GetPublishers ();
     }
-
     private void SelectedScoreChanged ( object sender, SelectionChangedEventArgs e )
     {
         DataGrid dg = (DataGrid)sender;
@@ -58,60 +57,9 @@ public partial class Scores : Page
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
         SelectedScore = selectedRow;
 
-        /*
-        #region Disable Change Events
-        //ComboBoxes
-        comAccompaniment.SelectionChanged -= ComboBoxChanged;
-        comArchive.SelectionChanged -= ComboBoxChanged;
-        comGenre.SelectionChanged -= ComboBoxChanged;
-        comLanguage.SelectionChanged -= ComboBoxChanged;
-        comPublisher1.SelectionChanged -= ComboBoxChanged;
-        comPublisher2.SelectionChanged -= ComboBoxChanged;
-        comPublisher3.SelectionChanged -= ComboBoxChanged;
-        comPublisher4.SelectionChanged -= ComboBoxChanged;
-        comRepertoire.SelectionChanged -= ComboBoxChanged;
-
-        //TextBoxes
-        tbAmountPublisher1.TextChanged -= TextBoxChanged;
-        tbAmountPublisher2.TextChanged -= TextBoxChanged;
-        tbAmountPublisher3.TextChanged -= TextBoxChanged;
-        tbAmountPublisher4.TextChanged -= TextBoxChanged;
-        tbArranger.TextChanged -= TextBoxChanged;
-        tbComposer.TextChanged -= TextBoxChanged;
-        tbMusicPiece.TextChanged -= TextBoxChanged;
-        tbScoreNumber.TextChanged -= TextBoxChanged;
-        tbSubTitle.TextChanged -= TextBoxChanged;
-        tbTextwriter.TextChanged -= TextBoxChanged;
-        tbTitle.TextChanged -= TextBoxChanged;
-
-        //CheckBoxes
-        chkByHeart.Checked -= CheckBoxChanged;
-        chkChecked.Checked -= CheckBoxChanged;
-        chkMP3B1.Checked -= CheckBoxChanged;
-        chkMP3B2.Checked -= CheckBoxChanged;
-        chkMP3PIA.Checked -= CheckBoxChanged;
-        chkMP3SOL.Checked -= CheckBoxChanged;
-        chkMP3T1.Checked -= CheckBoxChanged;
-        chkMP3T2.Checked -= CheckBoxChanged;
-        chkMP3TOT.Checked -= CheckBoxChanged;
-        chkMSCOnline.Checked -= CheckBoxChanged;
-        chkMSCORK.Checked -= CheckBoxChanged;
-        chkMSCORP.Checked -= CheckBoxChanged;
-        chkMSCTOP.Checked -= CheckBoxChanged;
-        chkMSCTOK.Checked -= CheckBoxChanged;
-
-        //RichTextBlocks
-
-        //DatePickers
-        dpDigitized.IsEnabled=false;
-        dpModified.IsEnabled=false;
-        #endregion
-        */
-
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
         tbScoreNumber.Text = selectedRow.Score;
-        chkByHeart.IsChecked = selectedRow.ByHeart;
 
         #region Repertoire Combobox
         comRepertoire.Text = selectedRow.RepertoireName;
@@ -124,7 +72,6 @@ public partial class Scores : Page
             }
         }
         #endregion
-        comRepertoire.SelectionChanged += ComboBoxChanged;
 
         #region Archive Combobox
         comArchive.Text = selectedRow.ArchiveName;
@@ -136,6 +83,10 @@ public partial class Scores : Page
                 comArchive.SelectedItem = archive;
             }
         }
+        #endregion
+
+        #region Sing By Heart checkbox
+        chkByHeart.IsChecked = selectedRow.ByHeart;
         #endregion
         #endregion
 
@@ -193,19 +144,25 @@ public partial class Scores : Page
         #endregion
 
         #region 6th Row (Date created, Date Modified and Checked)
+        #region Date Digitized
         if (selectedRow.DateCreatedString != "")
         {
             dpDigitized.SelectedDate = selectedRow.DateCreated.ToDateTime(TimeOnly.Parse("00:00 AM"));
             dpDigitized.Text = selectedRow.DateCreatedString;
         }
+        #endregion
 
+        #region Date Modified
         if (selectedRow.DateModifiedString != "")
         {
             dpModified.SelectedDate = selectedRow.DateModified.ToDateTime(TimeOnly.Parse("00:00 AM"));
             dpModified.Text = selectedRow.DateModifiedString;
         }
+        #endregion
 
+        #region Checked
         chkChecked.IsChecked = selectedRow.Check;
+        #endregion
         #endregion
 
         #region 7th Row (Checkboxes for MuseScore, PDF and MP3)
@@ -241,11 +198,11 @@ public partial class Scores : Page
         #endregion
 
         #region TAB Lyrics
-        // Unknow how to setthe memo field
+        // Unknown how to set the memo field
         #endregion
 
         #region TAB Notes
-        // Unknow how to set the memo field
+        // Unknown how to set the memo field
         #endregion
 
         #region TAB: Licenses
@@ -256,7 +213,7 @@ public partial class Scores : Page
         comPublisher1.Text = selectedRow.Publisher1Name;
         foreach ( PublisherModel publisher in comPublisher1.Items )
         {
-            if ( comPublisher1.Text == null ) { comPublisher1.Text = ""; }
+            comPublisher1.Text ??= "";
             if ( publisher.PublisherName == comPublisher1.Text.ToString () )
             {
                 comPublisher1.SelectedItem = publisher;
@@ -272,7 +229,7 @@ public partial class Scores : Page
         comPublisher2.Text = selectedRow.Publisher2Name;
         foreach ( PublisherModel publisher in comPublisher2.Items )
         {
-            if ( comPublisher2.Text == null ) { comPublisher2.Text = ""; }
+            comPublisher2.Text ??= "";
             if ( publisher.PublisherName == comPublisher2.Text.ToString () )
             {
                 comPublisher2.SelectedItem = publisher;
@@ -288,7 +245,7 @@ public partial class Scores : Page
         comPublisher3.Text = selectedRow.Publisher3Name;
         foreach ( PublisherModel publisher in comPublisher3.Items )
         {
-            if ( comPublisher3.Text == null ) { comPublisher3.Text = ""; }
+            comPublisher3.Text ??= "";
             if ( publisher.PublisherName == comPublisher3.Text.ToString () )
             {
                 comPublisher3.SelectedItem = publisher;
@@ -304,7 +261,7 @@ public partial class Scores : Page
         comPublisher4.Text = selectedRow.Publisher4Name;
         foreach ( PublisherModel publisher in comPublisher4.Items )
         {
-            if ( comPublisher4.Text == null ) { comPublisher4.Text = ""; }
+            comPublisher4.Text ??= "";
             if ( publisher.PublisherName == comPublisher4.Text.ToString () )
             {
                 comPublisher4.SelectedItem = publisher;
@@ -318,58 +275,7 @@ public partial class Scores : Page
         tbAmountSupplierTotal.Text = Total.ToString ();
         #endregion
         #endregion
-
-        /*
-        #region Enable Change Events
-        //ComboBoxes
-        comAccompaniment.SelectionChanged += ComboBoxChanged;
-        comArchive.SelectionChanged += ComboBoxChanged;
-        comGenre.SelectionChanged += ComboBoxChanged;
-        comLanguage.SelectionChanged += ComboBoxChanged;
-        comPublisher1.SelectionChanged += ComboBoxChanged;
-        comPublisher2.SelectionChanged += ComboBoxChanged;
-        comPublisher3.SelectionChanged += ComboBoxChanged;
-        comPublisher4.SelectionChanged += ComboBoxChanged;
-        comRepertoire.SelectionChanged += ComboBoxChanged;
-
-        //TextBoxes
-        tbAmountPublisher1.TextChanged += TextBoxChanged;
-        tbAmountPublisher2.TextChanged += TextBoxChanged;
-        tbAmountPublisher3.TextChanged += TextBoxChanged;
-        tbAmountPublisher4.TextChanged += TextBoxChanged;
-        tbArranger.TextChanged += TextBoxChanged;
-        tbComposer.TextChanged += TextBoxChanged;
-        tbMusicPiece.TextChanged += TextBoxChanged;
-        tbScoreNumber.TextChanged += TextBoxChanged;
-        tbSubTitle.TextChanged += TextBoxChanged;
-        tbTextwriter.TextChanged += TextBoxChanged;
-        tbTitle.TextChanged += TextBoxChanged;
-
-        //CheckBoxes
-        chkByHeart.Checked += CheckBoxChanged;
-        chkChecked.Checked += CheckBoxChanged;
-        chkMP3B1.Checked += CheckBoxChanged;
-        chkMP3B2.Checked += CheckBoxChanged;
-        chkMP3PIA.Checked += CheckBoxChanged;
-        chkMP3SOL.Checked += CheckBoxChanged;
-        chkMP3T1.Checked += CheckBoxChanged;
-        chkMP3T2.Checked += CheckBoxChanged;
-        chkMP3TOT.Checked += CheckBoxChanged;
-        chkMSCOnline.Checked += CheckBoxChanged;
-        chkMSCORK.Checked += CheckBoxChanged;
-        chkMSCORP.Checked += CheckBoxChanged;
-        chkMSCTOP.Checked += CheckBoxChanged;
-        chkMSCTOK.Checked += CheckBoxChanged;
-
-        //RichTextBlocks
-
-        //DatePickers
-        dpDigitized.IsEnabled = true;
-        dpModified.IsEnabled = true;
-        #endregion
-        */
     }
-
     private void BtnNextClick ( object sender, RoutedEventArgs e )
     {
         if ( ScoresDataGrid.SelectedIndex + 1 < ScoresDataGrid.Items.Count )
@@ -392,17 +298,14 @@ public partial class Scores : Page
             ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
         }
     }
-
     private void BtnLastClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
     }
-
     private void BtnFirstClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = 0;
     }
-
     private void TextBoxChanged(object sender, TextChangedEventArgs e)
     {
         var propertyName = ((TextBox)sender).Name;
@@ -446,7 +349,6 @@ public partial class Scores : Page
         }
         CheckChanged();
     }
-
     private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
     {
         var propertyName = ((ComboBox)sender).Name;
@@ -513,7 +415,6 @@ public partial class Scores : Page
         }
         CheckChanged ();
     }
-
     private void CheckChanged()
     {
         if(cbAccompaniment.IsChecked == true ||
@@ -569,7 +470,6 @@ public partial class Scores : Page
         }
 
     }
-
     private void RichTextBoxChanged(object sender, TextChangedEventArgs e)
     {
         var propertyName = ((RichTextBox)sender).Name;
@@ -588,7 +488,6 @@ public partial class Scores : Page
             }
         }
     }
-
     private void CheckBoxChanged ( object sender, RoutedEventArgs e )
     {
         var propertyName = ((CheckBox)sender).Name;
@@ -655,7 +554,6 @@ public partial class Scores : Page
         }
         CheckChanged ();
     }
-
     private void DatePickerChanged ( object sender, SelectionChangedEventArgs e )
     {
         var propertyName = ((DatePicker)sender).Name;
@@ -677,15 +575,7 @@ public partial class Scores : Page
                     }
                     else
                     {
-                        //if ( dpDigitized.SelectedDate.ToString () == "" )
-                        //{
-                        //    // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                        //    cbDigitized.IsChecked = false;
-                        //}
-                        //else
-                        //{
-                        //    cbDigitized.IsChecked = true;
-                        //}
+                        // If the change event is triggered a data has been entered, this always differs if no date is in the database
                         cbDigitized.IsChecked = false;
 
                     }
@@ -711,7 +601,6 @@ public partial class Scores : Page
         }
         CheckChanged ();
     }
-
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e) 
     { 
         // Used to enable or disable the change event
@@ -719,5 +608,95 @@ public partial class Scores : Page
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) 
     {
         // Used to enable or disable the change event
+    }
+
+    private void BtnSaveClick(object sender, RoutedEventArgs e)
+    {
+        if (SelectedScore != null)
+        {
+            ObservableCollection<SaveScoreModel> Score = new();
+
+            string Title = "", SubTitle = "", Composer = "", Textwriter = "", Arranger = "";
+            string DateDigitized = "", DateModified = "";
+            int AccompanimentId = -1, ArchiveId = -1, RepertoireId = -1, LanguageId = -1, GenreId = -1, Check = -1, ByHeart = -1;
+            int MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1, MuseScoreOnline = -1;
+            int MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1;
+            if ((bool)cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; }
+            if ((bool)cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedItem; }
+            if ((bool)cbArranger.IsChecked) { Composer = tbArranger.Text; }
+            if ((bool)cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; } else { ByHeart = 0; } }
+            if ((bool)cbChecked.IsChecked) { if ((bool)chkChecked.IsChecked) { Check = 1; } else { Check = 0; } }
+            if ((bool)cbComposer.IsChecked) { Composer = tbComposer.Text; }
+            if ((bool)cbDigitized.IsChecked)
+            {
+                int year = dpDigitized.SelectedDate.Value.Year;
+                int month = dpDigitized.SelectedDate.Value.Month;
+                int day = dpDigitized.SelectedDate.Value.Day;
+                DateDigitized = $"{year}/{month}/{day} 00:00:00 AM";
+            }
+            if ((bool)cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedItem; }
+            if ((bool)cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedItem; }
+            if ((bool)cbModified.IsChecked)
+            {
+                int year = dpModified.SelectedDate.Value.Year;
+                int month = dpModified.SelectedDate.Value.Month;
+                int day = dpModified.SelectedDate.Value.Day;
+                DateModified = $"{year}/{month}/{day} 00:00:00 AM";
+            }
+            if ((bool)cbRepertoire.IsChecked) { RepertoireId = (int)comRepertoire.SelectedItem; }
+            if ((bool)cbSubTitle.IsChecked) { SubTitle = tbSubTitle.Text; }
+            if ((bool)cbTextwriter.IsChecked) { Textwriter = tbTextwriter.Text; }
+            if ((bool)cbTitle.IsChecked) { Title = tbTitle.Text; }
+
+            Score.Add(new SaveScoreModel
+            {
+                AccompanimentId = AccompanimentId,
+                ArchiveId = ArchiveId,
+                Arranger = Arranger,
+                ByHeart = ByHeart,
+                Check = Check,
+                Composer = Composer,
+                DateDigitized = DateDigitized,
+                DateModified = DateModified,
+                GenreId = GenreId,
+                LanguageId = LanguageId,
+                Lyrics = (string)memoLyrics.DataContext,
+                MP3B1 = mp3B1,
+                MP3B2 = mp3B2,
+                MP3PIA = mp3PIA,
+                MP3SOL = mp3SOL,
+                MP3T1 = mp3T1,
+                MP3T2 = mp3T2,
+                MP3TOT = mp3TOT,
+                MuseScoreOnline = mscOnline,
+                MuseScoreORK = mscORK,
+                MuseScoreORP = mscORP,
+                MuseScoreTOK = mscTOK,
+                MuseScoreTOP = mscTOP,
+                MusicPiece = dataTable.Rows[i].ItemArray[40].ToString(),
+                Notes = (string)memoNotes.DataContext,
+                NumberScoresPublisher1 = int.Parse(dataTable.Rows[i].ItemArray[42].ToString()),
+                NumberScoresPublisher2 = int.Parse(dataTable.Rows[i].ItemArray[43].ToString()),
+                NumberScoresPublisher3 = int.Parse(dataTable.Rows[i].ItemArray[44].ToString()),
+                NumberScoresPublisher4 = int.Parse(dataTable.Rows[i].ItemArray[45].ToString()),
+                PDFORK = pdfORK,
+                PDFORP = pdfORP,
+                PDFTOK = pdfTOK,
+                PDFTOP = pdfTOP,
+                Publisher1Id = int.Parse(dataTable.Rows[i].ItemArray[46].ToString()),
+                Publisher2Id = int.Parse(dataTable.Rows[i].ItemArray[48].ToString()),
+                Publisher3Id = int.Parse(dataTable.Rows[i].ItemArray[50].ToString()),
+                Publisher4Id = int.Parse(dataTable.Rows[i].ItemArray[52].ToString()),
+                RepertoireId = RepertoireId,
+                Score = SelectedScore.Score,
+                ScoreId = SelectedScore.ScoreId,
+                ScoreNumber = SelectedScore.ScoreNumber,
+                ScoreSubNumber = SelectedScore.ScoreSubNumber,
+                ScoreSubTitle = SubTitle,
+                ScoreTitle = Title,
+                TextWriter = Textwriter,
+            });
+
+        }
     }
 }
