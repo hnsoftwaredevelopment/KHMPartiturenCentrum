@@ -58,15 +58,61 @@ public partial class Scores : Page
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
         SelectedScore = selectedRow;
 
-        //DisableChangeEvents();
+        /*
+        #region Disable Change Events
+        //ComboBoxes
+        comAccompaniment.SelectionChanged -= ComboBoxChanged;
+        comArchive.SelectionChanged -= ComboBoxChanged;
+        comGenre.SelectionChanged -= ComboBoxChanged;
+        comLanguage.SelectionChanged -= ComboBoxChanged;
+        comPublisher1.SelectionChanged -= ComboBoxChanged;
+        comPublisher2.SelectionChanged -= ComboBoxChanged;
+        comPublisher3.SelectionChanged -= ComboBoxChanged;
+        comPublisher4.SelectionChanged -= ComboBoxChanged;
+        comRepertoire.SelectionChanged -= ComboBoxChanged;
+
+        //TextBoxes
+        tbAmountPublisher1.TextChanged -= TextBoxChanged;
+        tbAmountPublisher2.TextChanged -= TextBoxChanged;
+        tbAmountPublisher3.TextChanged -= TextBoxChanged;
+        tbAmountPublisher4.TextChanged -= TextBoxChanged;
+        tbArranger.TextChanged -= TextBoxChanged;
+        tbComposer.TextChanged -= TextBoxChanged;
+        tbMusicPiece.TextChanged -= TextBoxChanged;
+        tbScoreNumber.TextChanged -= TextBoxChanged;
+        tbSubTitle.TextChanged -= TextBoxChanged;
+        tbTextwriter.TextChanged -= TextBoxChanged;
+        tbTitle.TextChanged -= TextBoxChanged;
+
+        //CheckBoxes
+        chkByHeart.Checked -= CheckBoxChanged;
+        chkChecked.Checked -= CheckBoxChanged;
+        chkMP3B1.Checked -= CheckBoxChanged;
+        chkMP3B2.Checked -= CheckBoxChanged;
+        chkMP3PIA.Checked -= CheckBoxChanged;
+        chkMP3SOL.Checked -= CheckBoxChanged;
+        chkMP3T1.Checked -= CheckBoxChanged;
+        chkMP3T2.Checked -= CheckBoxChanged;
+        chkMP3TOT.Checked -= CheckBoxChanged;
+        chkMSCOnline.Checked -= CheckBoxChanged;
+        chkMSCORK.Checked -= CheckBoxChanged;
+        chkMSCORP.Checked -= CheckBoxChanged;
+        chkMSCTOP.Checked -= CheckBoxChanged;
+        chkMSCTOK.Checked -= CheckBoxChanged;
+
+        //RichTextBlocks
+
+        //DatePickers
+        dpDigitized.IsEnabled=false;
+        dpModified.IsEnabled=false;
+        #endregion
+        */
+
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
         tbScoreNumber.Text = selectedRow.Score;
         chkByHeart.IsChecked = selectedRow.ByHeart;
 
-        //tbTitle.TextChanged -= TextBox_TextChanged;
-        comRepertoire.SelectionChanged -= ComboBoxChanged;
-        comArchive.SelectionChanged -= ComboBoxChanged;
         #region Repertoire Combobox
         comRepertoire.Text = selectedRow.RepertoireName;
         foreach ( RepertoireModel repertoire in comRepertoire.Items )
@@ -272,7 +318,56 @@ public partial class Scores : Page
         tbAmountSupplierTotal.Text = Total.ToString ();
         #endregion
         #endregion
-        EnableChangeEvents();
+
+        /*
+        #region Enable Change Events
+        //ComboBoxes
+        comAccompaniment.SelectionChanged += ComboBoxChanged;
+        comArchive.SelectionChanged += ComboBoxChanged;
+        comGenre.SelectionChanged += ComboBoxChanged;
+        comLanguage.SelectionChanged += ComboBoxChanged;
+        comPublisher1.SelectionChanged += ComboBoxChanged;
+        comPublisher2.SelectionChanged += ComboBoxChanged;
+        comPublisher3.SelectionChanged += ComboBoxChanged;
+        comPublisher4.SelectionChanged += ComboBoxChanged;
+        comRepertoire.SelectionChanged += ComboBoxChanged;
+
+        //TextBoxes
+        tbAmountPublisher1.TextChanged += TextBoxChanged;
+        tbAmountPublisher2.TextChanged += TextBoxChanged;
+        tbAmountPublisher3.TextChanged += TextBoxChanged;
+        tbAmountPublisher4.TextChanged += TextBoxChanged;
+        tbArranger.TextChanged += TextBoxChanged;
+        tbComposer.TextChanged += TextBoxChanged;
+        tbMusicPiece.TextChanged += TextBoxChanged;
+        tbScoreNumber.TextChanged += TextBoxChanged;
+        tbSubTitle.TextChanged += TextBoxChanged;
+        tbTextwriter.TextChanged += TextBoxChanged;
+        tbTitle.TextChanged += TextBoxChanged;
+
+        //CheckBoxes
+        chkByHeart.Checked += CheckBoxChanged;
+        chkChecked.Checked += CheckBoxChanged;
+        chkMP3B1.Checked += CheckBoxChanged;
+        chkMP3B2.Checked += CheckBoxChanged;
+        chkMP3PIA.Checked += CheckBoxChanged;
+        chkMP3SOL.Checked += CheckBoxChanged;
+        chkMP3T1.Checked += CheckBoxChanged;
+        chkMP3T2.Checked += CheckBoxChanged;
+        chkMP3TOT.Checked += CheckBoxChanged;
+        chkMSCOnline.Checked += CheckBoxChanged;
+        chkMSCORK.Checked += CheckBoxChanged;
+        chkMSCORP.Checked += CheckBoxChanged;
+        chkMSCTOP.Checked += CheckBoxChanged;
+        chkMSCTOK.Checked += CheckBoxChanged;
+
+        //RichTextBlocks
+
+        //DatePickers
+        dpDigitized.IsEnabled = true;
+        dpModified.IsEnabled = true;
+        #endregion
+        */
     }
 
     private void BtnNextClick ( object sender, RoutedEventArgs e )
@@ -361,31 +456,58 @@ public partial class Scores : Page
             switch ( propertyName )
             {
                 case "comRepertoire":
-                    if ( ( ( RepertoireModel ) comRepertoire.SelectedItem ).RepertoireId == SelectedScore.RepertoireId) { cbRepertoire.IsChecked = false; } else { cbRepertoire.IsChecked = true; }
+                    if (comRepertoire.SelectedItem != null)
+                    {
+                        if (((RepertoireModel)comRepertoire.SelectedItem).RepertoireId == SelectedScore.RepertoireId) { cbRepertoire.IsChecked = false; } else { cbRepertoire.IsChecked = true; }
+                    }
                     break;
                 case "comArchive":
-                    if ( ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveId == SelectedScore.ArchiveId ) { cbArchive.IsChecked = false; } else { cbArchive.IsChecked = true; }
+                    if (comArchive.SelectedItem != null)
+                    {
+                        if (((ArchiveModel)comArchive.SelectedItem).ArchiveId == SelectedScore.ArchiveId) { cbArchive.IsChecked = false; } else { cbArchive.IsChecked = true; }
+                    }
                     break;
                 case "comGenre":
-                    if ( ( ( GenreModel ) comGenre.SelectedItem ).GenreId == SelectedScore.GenreId ) { cbGenre.IsChecked = false; } else { cbGenre.IsChecked = true; }
+                    if (comGenre.SelectedItem != null)
+                    {
+                        if (((GenreModel)comGenre.SelectedItem).GenreId == SelectedScore.GenreId) { cbGenre.IsChecked = false; } else { cbGenre.IsChecked = true; }
+                    }
                     break;
                 case "comAccompaniment":
-                    if ( ( ( AccompanimentModel ) comAccompaniment.SelectedItem ).AccompanimentId == SelectedScore.AccompanimentId ) { cbAccompaniment.IsChecked = false; } else { cbAccompaniment.IsChecked = true; }
+                    if (comAccompaniment.SelectedItem != null)
+                    {
+                        if (((AccompanimentModel)comAccompaniment.SelectedItem).AccompanimentId == SelectedScore.AccompanimentId) { cbAccompaniment.IsChecked = false; } else { cbAccompaniment.IsChecked = true; }
+                    }
                     break;
                 case "comLanguage":
-                    if ( ( ( LanguageModel ) comLanguage.SelectedItem ).LanguageId == SelectedScore.LanguageId ) { cbLanguage.IsChecked = false; } else { cbLanguage.IsChecked = true; }
+                    if (comLanguage.SelectedItem != null)
+                    {
+                        if (((LanguageModel)comLanguage.SelectedItem).LanguageId == SelectedScore.LanguageId) { cbLanguage.IsChecked = false; } else { cbLanguage.IsChecked = true; }
+                    }
                     break;
                 case "comPublisher1":
-                    if ( ( ( PublisherModel ) comPublisher1.SelectedItem ).PublisherId == SelectedScore.Publisher1Id ) { cbPublisher1.IsChecked = false; } else { cbPublisher1.IsChecked = true; }
+                    if (comPublisher1.SelectedItem != null)
+                    {
+                        if (((PublisherModel)comPublisher1.SelectedItem).PublisherId == SelectedScore.Publisher1Id) { cbPublisher1.IsChecked = false; } else { cbPublisher1.IsChecked = true; }
+                    }
                     break;
                 case "comPublisher2":
-                    if ( ( ( PublisherModel ) comPublisher2.SelectedItem ).PublisherId == SelectedScore.Publisher2Id ) { cbPublisher2.IsChecked = false; } else { cbPublisher2.IsChecked = true; }
+                    if (comPublisher2.SelectedItem != null)
+                    {
+                        if (((PublisherModel)comPublisher2.SelectedItem).PublisherId == SelectedScore.Publisher2Id) { cbPublisher2.IsChecked = false; } else { cbPublisher2.IsChecked = true; }
+                    }
                     break;
                 case "comPublisher3":
-                    if ( ( ( PublisherModel ) comPublisher3.SelectedItem ).PublisherId == SelectedScore.Publisher3Id ) { cbPublisher3.IsChecked = false; } else { cbPublisher3.IsChecked = true; }
+                    if (comPublisher3.SelectedItem != null)
+                    {
+                        if (((PublisherModel)comPublisher3.SelectedItem).PublisherId == SelectedScore.Publisher3Id) { cbPublisher3.IsChecked = false; } else { cbPublisher3.IsChecked = true; }
+                    }
                     break;
                 case "comPublisher4":
-                    if ( ( ( PublisherModel ) comPublisher4.SelectedItem ).PublisherId == SelectedScore.Publisher4Id ) { cbPublisher4.IsChecked = false; } else { cbPublisher4.IsChecked = true; }
+                    if (comPublisher4.SelectedItem != null)
+                    {
+                        if (((PublisherModel)comPublisher4.SelectedItem).PublisherId == SelectedScore.Publisher4Id) { cbPublisher4.IsChecked = false; } else { cbPublisher4.IsChecked = true; }
+                    }
                     break;
             }
         }
@@ -588,17 +710,6 @@ public partial class Scores : Page
             }
         }
         CheckChanged ();
-    }
-
-    private void DisableChangeEvents()
-    {
-        comRepertoire.SelectionChanged -= ComboBox_SelectionChanged;
-        comArchive.SelectionChanged -= ComboBox_SelectionChanged;
-    }
-    private void EnableChangeEvents()
-    {
-        comRepertoire.SelectionChanged += ComboBox_SelectionChanged;
-        comArchive.SelectionChanged += ComboBox_SelectionChanged;
     }
 
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e) 
