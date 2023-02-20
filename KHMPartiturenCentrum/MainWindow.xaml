@@ -50,7 +50,7 @@
                             Margin="60,0,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="Alure Factsheets"
+                            Content="KHM Partituren centrum"
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="{DynamicResource PrimaryTextColor}" />

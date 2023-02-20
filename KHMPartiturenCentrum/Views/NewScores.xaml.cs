@@ -79,8 +79,8 @@ public partial class NewScores : Page
         #endregion
 
         //#region 2th Row (Title and SubTitle)
-        //tbTitle.Text = selectedRow.ScoreTitle;
-        //tbSubTitle.Text = selectedRow.ScoreSubTitle;
+        //tbTitle.Text = selectedRow.Title;
+        //tbSubTitle.Text = selectedRow.SubTitle;
         //#endregion
 
         //#region 3th Row (Composer, Textwriter and Arranger)
@@ -135,7 +135,7 @@ public partial class NewScores : Page
         //dpModified.SelectedDate = selectedRow.DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) );
         //dpModified.Text = selectedRow.DateModifiedString;
 
-        //chkChecked.IsChecked = selectedRow.Check;
+        //chkChecked.IsChecked = selectedRow.Checked;
         //#endregion
 
         //#region 7th Row (Checkboxes for MuseScore, PDF and MP3)
@@ -180,7 +180,7 @@ public partial class NewScores : Page
 
         //#region TAB: Licenses
         //#region Publisher 1
-        //tbAmountPublisher1.Text = selectedRow.NumberScoresPublisher1.ToString ();
+        //tbAmountPublisher1.Text = selectedRow.AmountPublisher1.ToString ();
 
         #region Publisher1 Combobox
         comPublisher1.Text = selectedRow.Publisher1Name;

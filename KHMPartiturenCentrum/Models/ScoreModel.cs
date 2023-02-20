@@ -11,7 +11,7 @@ public class ScoreModel
     public int ScoreId { get; set; }
     public string? ScoreNumber { get; set; } // Only the number
     public string? ScoreSubNumber { get; set; } // Only the SubNumber
-    public string? Score { get; set; } // ScoreNumber and SubNumber combined (XXX-YY Id SubNr exists else XXX)
+    public string? Score { get; set; } // ScoreMainNumber and SubNumber combined (XXX-YY Id SubNr exists else XXX)
     public string? ScoreTitle { get; set; }
     public string? ScoreSubTitle { get; set; }
     public string? Composer { get; set; }

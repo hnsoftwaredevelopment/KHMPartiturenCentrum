@@ -219,7 +219,7 @@ public class DBNames
 
     #region Table/View Scores
     public static readonly string NewScoresView = "NewScoresView";
-    // Fields and types are same as for the Score table/view
+    // Fields and types are same as for the ScoreNumber table/view
     #endregion
 
     #region Table/View Available Scores (Non Christmas)
@@ -271,53 +271,37 @@ public class DBNames
 
     #region Table/View Settings
     public static readonly string SettingsTable= "Settings";
-    public static readonly string SettingsFieldNameNaam = "Naam";
-    public static readonly string SettingsFieldNameFolder = "FactsheetsFolder";
-    public static readonly string SettingsFieldNameTemplateFolder = "TemplateFolderName";
-    public static readonly string SettingsFieldNameOutputFolder = "OutputFolderName";
-    public static readonly string SettingsFieldNameServiceFolder = "FactsheetsServiceFolder";
-    public static readonly string SettingsFieldNameMonitorFolder = "FactsheetsServiceMonitorFolder";
-
-    public static readonly string SettingsFieldTypeNaam = "int";
-    public static readonly string SettingsFieldTypeFolder = "varchar";
-    public static readonly string SettingsFieldTypeTemplateFolder = "varchar";
-    public static readonly string SettingsFieldTypeOutputFolder = "varchar";
-    public static readonly string SettingsFieldTypeServiceFolder = "varchar";
-    public static readonly string SettingsFieldTypeMonitorFolder = "varchar";
     #endregion
 
     #region Log history
     #region Table/View History
-    public static readonly string LogFactsheetTable = "History";
-    public static readonly string LogFactsheetFieldNameNaam = "Naam";
-    public static readonly string LogFactsheetFieldNameAction = "Action";
-    public static readonly string LogFactsheetFieldNameTimeStamp = "TimeStamp";
-    public static readonly string LogFactsheetFieldNameReleaseNaam = "ReleaseNaam";
-    public static readonly string LogFactsheetFieldNameFactsheetNaam = "FactsheetNaam";
-    public static readonly string LogFactsheetFieldNameResult = "Result";
+    public static readonly string LogKHMTable = "History";
+    public static readonly string LogKHMFieldNameNaam = "Naam";
+    public static readonly string LogKHMFieldNameAction = "Action";
+    public static readonly string LogKHMFieldNameTimeStamp = "TimeStamp";
+    public static readonly string LogKHMFieldNameReleaseNaam = "ReleaseNaam";
+    public static readonly string LogKHMFieldNameKHMNaam = "KHMNaam";
+    public static readonly string LogKHMFieldNameResult = "Result";
 
-    public static readonly string LogFactsheetFieldTypeNaam = "int";
-    public static readonly string LogFactsheetFieldTypeAction = "varchar";
-    public static readonly string LogFactsheetFieldTypeTimeStamp = "datetime";
-    public static readonly string LogFactsheetFieldTypeReleaseNaam = "int";
-    public static readonly string LogFactsheetFieldTypeFactsheetNaam = "int";
-    public static readonly string LogFactsheetFieldTypeResult = "varchar";
+    public static readonly string LogKHMFieldTypeNaam = "int";
+    public static readonly string LogKHMFieldTypeAction = "varchar";
+    public static readonly string LogKHMFieldTypeTimeStamp = "datetime";
+    public static readonly string LogKHMFieldTypeReleaseNaam = "int";
+    public static readonly string LogKHMFieldTypeKHMNaam = "int";
+    public static readonly string LogKHMFieldTypeResult = "varchar";
 
-    public static readonly string LogFactsheetView = "History";
-    public static readonly string LogFactsheetFieldNameReleaseName = "ReleaseName";
-    public static readonly string LogFactsheetFieldNameFactsheetName = "FactsheetName";
+    public static readonly string LogKHMView = "History";
+    public static readonly string LogKHMFieldNameReleaseName = "ReleaseName";
+    public static readonly string LogKHMFieldNameKHMName = "KHMName";
 
-    public static readonly string LogFactsheetFieldTypeReleaseName = "varchar";
-    public static readonly string LogFactsheetFieldTypeFactsheetName = "varchar";
+    public static readonly string LogKHMFieldTypeReleaseName = "varchar";
+    public static readonly string LogKHMFieldTypeKHMName = "varchar";
     #endregion
 
     #region Log Actions
-    public static readonly string LogFactsheetAdded = "Factsheet added";
-    public static readonly string LogFactsheetChanged = "Factsheet modified";
-    public static readonly string LogFactsheetDeleted = "Factsheet deleted";
-    public static readonly string LogFactsheetGenerationStart = "Started Factsheet generation";
-    public static readonly string LogFactsheetGenerationEnd = "Ended Factsheet generation";
-    public static readonly string LogFactsheetGenerated = "Generated Factsheet";
+    public static readonly string LogKHMAdded = "Partituur toegevoegd";
+    public static readonly string LogKHMChanged = "Partituur gewijzigd";
+    public static readonly string LogKHMDeleted = "Partituur verwijderd";
     #endregion
     #endregion
 }

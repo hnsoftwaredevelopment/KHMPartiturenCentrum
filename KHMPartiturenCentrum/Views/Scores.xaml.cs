@@ -609,94 +609,207 @@ public partial class Scores : Page
     {
         // Used to enable or disable the change event
     }
-
     private void BtnSaveClick(object sender, RoutedEventArgs e)
     {
+        ObservableCollection<SaveScoreModel> ScoreList = new();
         if (SelectedScore != null)
         {
-            ObservableCollection<SaveScoreModel> Score = new();
+            string Title = "", SubTitle = "", Composer = "", Textwriter = "", Arranger = "", MusicPiece = "",
+                    DateDigitized = "", DateModified = "";
 
-            string Title = "", SubTitle = "", Composer = "", Textwriter = "", Arranger = "";
-            string DateDigitized = "", DateModified = "";
-            int AccompanimentId = -1, ArchiveId = -1, RepertoireId = -1, LanguageId = -1, GenreId = -1, Check = -1, ByHeart = -1;
-            int MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1, MuseScoreOnline = -1;
-            int MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1;
-            if ((bool)cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; }
-            if ((bool)cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedItem; }
-            if ((bool)cbArranger.IsChecked) { Composer = tbArranger.Text; }
-            if ((bool)cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; } else { ByHeart = 0; } }
-            if ((bool)cbChecked.IsChecked) { if ((bool)chkChecked.IsChecked) { Check = 1; } else { Check = 0; } }
-            if ((bool)cbComposer.IsChecked) { Composer = tbComposer.Text; }
-            if ((bool)cbDigitized.IsChecked)
-            {
-                int year = dpDigitized.SelectedDate.Value.Year;
-                int month = dpDigitized.SelectedDate.Value.Month;
-                int day = dpDigitized.SelectedDate.Value.Day;
-                DateDigitized = $"{year}/{month}/{day} 00:00:00 AM";
-            }
-            if ((bool)cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedItem; }
-            if ((bool)cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedItem; }
-            if ((bool)cbModified.IsChecked)
-            {
-                int year = dpModified.SelectedDate.Value.Year;
-                int month = dpModified.SelectedDate.Value.Month;
-                int day = dpModified.SelectedDate.Value.Day;
-                DateModified = $"{year}/{month}/{day} 00:00:00 AM";
-            }
-            if ((bool)cbRepertoire.IsChecked) { RepertoireId = (int)comRepertoire.SelectedItem; }
-            if ((bool)cbSubTitle.IsChecked) { SubTitle = tbSubTitle.Text; }
-            if ((bool)cbTextwriter.IsChecked) { Textwriter = tbTextwriter.Text; }
-            if ((bool)cbTitle.IsChecked) { Title = tbTitle.Text; }
+            int TitleChanged = -1, SubTitleChanged = -1, 
+                ComposerChanged = -1, TextwriterChanged = -1, ArrangerChanged = -1,
+                DateDigitizedChanged = -1, DateModifiedChanged = -1, 
+                LyricsChanged = -1, MusicPieceChanged = -1, NotesChanged = -1,
+                AccompanimentId = -1, ArchiveId = -1, RepertoireId = -1, LanguageId = -1, GenreId = -1, Check = -1, ByHeart = -1, Publisher1Id = -1, Publisher2Id = -1, Publisher3Id = -1, Publisher4Id = -1,
+                MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1, MuseScoreOnline = -1,
+                PDFORP = -1, PDFORK = -1, PDFTOP = -1, PDFTOK = -1,
+                MP3B1 = -1, MP3B2 = -1, MP3T1 = -1, MP3T2 = -1, MP3SOL = -1, MP3TOT = -1, MP3PIA = -1,
+                AmountPublisher1 = -1, AmountPublisher2 = -1, AmountPublisher3 = -1, AmountPublisher4 = -1;
 
-            Score.Add(new SaveScoreModel
+            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; }
+            if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); }
+            if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher2.Text ); }
+            if ( ( bool ) cbAmountPublisher3.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher3.Text ); }
+            if ( ( bool ) cbAmountPublisher4.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher4.Text ); }
+            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedItem; }
+            if ( ( bool ) cbArranger.IsChecked) { Arranger = tbArranger.Text; }
+
+            if ( ( bool ) cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; } else { ByHeart = 0; } }
+
+            if ( ( bool ) cbChecked.IsChecked) { if ((bool)chkChecked.IsChecked) { Check = 1; } else { Check = 0; } }
+            if ( ( bool ) cbComposer.IsChecked) { Composer = tbComposer.Text; }
+
+            if ( ( bool ) cbDigitized.IsChecked)
+            {
+                string year = dpDigitized.SelectedDate.Value.Year.ToString();
+                string month = "0" + (dpDigitized.SelectedDate.Value.Month.ToString());
+                string day = "0" + (dpDigitized.SelectedDate.Value.Day.ToString());
+                if ( year == "1900" ) { DateDigitized = ""; } 
+                else 
+                { 
+                    DateDigitized = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}"; 
+                }
+            }
+
+            if ( ( bool ) cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedItem; }
+
+            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedItem; }
+
+            if ( ( bool ) cbModified.IsChecked)
+            {
+                string year = dpModified.SelectedDate.Value.Year.ToString();
+                string month = "0" + dpModified.SelectedDate.Value.Month.ToString();
+                string day = "0" + dpModified.SelectedDate.Value.Day.ToString();
+                if ( year == "1900" ) { DateModified = ""; }
+                else
+                {
+                    DateModified = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
+                }
+            }
+
+            if ( ( bool ) cbMP3B1.IsChecked ) { if ( ( bool ) chkMP3B1.IsChecked ) { MP3B1 = 1; } else { MP3B1 = 0; } }
+            if ( ( bool ) cbMP3B2.IsChecked ) { if ( ( bool ) chkMP3B2.IsChecked ) { MP3B2 = 1; } else { MP3B2 = 0; } }
+            if ( ( bool ) cbMP3PIA.IsChecked ) { if ( ( bool ) chkMP3PIA.IsChecked ) { MP3PIA = 1; } else { MP3PIA = 0; } }
+            if ( ( bool ) cbMP3SOL.IsChecked ) { if ( ( bool ) chkMP3SOL.IsChecked ) { MP3SOL = 1; } else { MP3SOL = 0; } }
+            if ( ( bool ) cbMP3T1.IsChecked ) { if ( ( bool ) chkMP3T1.IsChecked ) { MP3T1 = 1; } else { MP3T1 = 0; } }
+            if ( ( bool ) cbMP3T2.IsChecked ) { if ( ( bool ) chkMP3T2.IsChecked ) { MP3T2 = 1; } else { MP3T2 = 0; } }
+            if ( ( bool ) cbMP3TOT.IsChecked ) { if ( ( bool ) chkMP3TOT.IsChecked ) { MP3TOT = 1; } else { MP3TOT = 0; } }
+
+            if ( ( bool ) cbMSCORK.IsChecked) { if ( ( bool ) chkMSCORK.IsChecked ) { MuseScoreORK = 1; } else { MuseScoreORK = 0; } }
+            if ( ( bool ) cbMSCORP.IsChecked ) { if ( ( bool ) chkMSCORP.IsChecked ) { MuseScoreORP = 1; } else { MuseScoreORP = 0; } }
+            if ( ( bool ) cbMSCTOK.IsChecked ) { if ( ( bool ) chkMSCTOK.IsChecked ) { MuseScoreTOK = 1; } else { MuseScoreTOK = 0; } }
+            if ( ( bool ) cbMSCTOP.IsChecked ) { if ( ( bool ) chkMSCTOP.IsChecked ) { MuseScoreTOP = 1; } else { MuseScoreTOP = 0; } }
+            if ( ( bool ) cbMusicPiece.IsChecked ) { MusicPiece = tbMusicPiece.Text; }
+
+            if ( ( bool ) cbOnline.IsChecked ) { if ( ( bool ) chkMSCOnline.IsChecked ) { MuseScoreOnline = 1; } else { MuseScoreOnline = 0; } }
+
+            if ( ( bool ) cbPDFORK.IsChecked ) { if ( ( bool ) chkPDFORK.IsChecked ) { PDFORK = 1; } else { PDFORK = 0; } }
+            if ( ( bool ) cbPDFORP.IsChecked ) { if ( ( bool ) chkPDFORP.IsChecked ) { PDFORP = 1; } else { PDFORP = 0; } }
+            if ( ( bool ) cbPDFTOK.IsChecked ) { if ( ( bool ) chkPDFTOK.IsChecked ) { PDFTOK = 1; } else { PDFTOK = 0; } }
+            if ( ( bool ) cbPDFTOP.IsChecked ) { if ( ( bool ) chkPDFTOP.IsChecked ) { PDFTOP = 1; } else { PDFTOP = 0; } }
+            if ( ( bool ) cbPublisher1.IsChecked ) { Publisher1Id = ( int ) comPublisher1.SelectedItem; }
+            if ( ( bool ) cbPublisher2.IsChecked ) { Publisher1Id = ( int ) comPublisher2.SelectedItem; }
+            if ( ( bool ) cbPublisher3.IsChecked ) { Publisher1Id = ( int ) comPublisher3.SelectedItem; }
+            if ( ( bool ) cbPublisher4.IsChecked ) { Publisher1Id = ( int ) comPublisher4.SelectedItem; }
+
+            if ( ( bool ) cbRepertoire.IsChecked) { RepertoireId = (int)comRepertoire.SelectedItem; }
+
+            if ( ( bool ) cbSubTitle.IsChecked) { SubTitle = tbSubTitle.Text; SubTitleChanged = 1; }
+
+            if ( ( bool ) cbTextwriter.IsChecked) { Textwriter = tbTextwriter.Text; }
+            if ( ( bool ) cbTitle.IsChecked) { Title = tbTitle.Text; TitleChanged = 1; }
+
+            ScoreList.Add ( new SaveScoreModel
             {
                 AccompanimentId = AccompanimentId,
                 ArchiveId = ArchiveId,
                 Arranger = Arranger,
+                ArrangerChanged = ArrangerChanged,
                 ByHeart = ByHeart,
-                Check = Check,
+                Checked = Check,
                 Composer = Composer,
+                ComposerChanged = ComposerChanged,
                 DateDigitized = DateDigitized,
+                DateDigitizedChanged = DateDigitizedChanged,
                 DateModified = DateModified,
+                DateModifiedChanged = DateModifiedChanged,
                 GenreId = GenreId,
                 LanguageId = LanguageId,
-                Lyrics = (string)memoLyrics.DataContext,
-                MP3B1 = mp3B1,
-                MP3B2 = mp3B2,
-                MP3PIA = mp3PIA,
-                MP3SOL = mp3SOL,
-                MP3T1 = mp3T1,
-                MP3T2 = mp3T2,
-                MP3TOT = mp3TOT,
-                MuseScoreOnline = mscOnline,
-                MuseScoreORK = mscORK,
-                MuseScoreORP = mscORP,
-                MuseScoreTOK = mscTOK,
-                MuseScoreTOP = mscTOP,
-                MusicPiece = dataTable.Rows[i].ItemArray[40].ToString(),
-                Notes = (string)memoNotes.DataContext,
-                NumberScoresPublisher1 = int.Parse(dataTable.Rows[i].ItemArray[42].ToString()),
-                NumberScoresPublisher2 = int.Parse(dataTable.Rows[i].ItemArray[43].ToString()),
-                NumberScoresPublisher3 = int.Parse(dataTable.Rows[i].ItemArray[44].ToString()),
-                NumberScoresPublisher4 = int.Parse(dataTable.Rows[i].ItemArray[45].ToString()),
-                PDFORK = pdfORK,
-                PDFORP = pdfORP,
-                PDFTOK = pdfTOK,
-                PDFTOP = pdfTOP,
-                Publisher1Id = int.Parse(dataTable.Rows[i].ItemArray[46].ToString()),
-                Publisher2Id = int.Parse(dataTable.Rows[i].ItemArray[48].ToString()),
-                Publisher3Id = int.Parse(dataTable.Rows[i].ItemArray[50].ToString()),
-                Publisher4Id = int.Parse(dataTable.Rows[i].ItemArray[52].ToString()),
+                Lyrics = ( string ) memoLyrics.DataContext,
+                LyricsChanged = LyricsChanged,
+                MP3B1 = MP3B1,
+                MP3B2 = MP3B2,
+                MP3PIA = MP3PIA,
+                MP3SOL = MP3SOL,
+                MP3T1 = MP3T1,
+                MP3T2 = MP3T2,
+                MP3TOT = MP3TOT,
+                MuseScoreOnline = MuseScoreOnline,
+                MuseScoreORK = MuseScoreORK,
+                MuseScoreORP = MuseScoreORP,
+                MuseScoreTOK = MuseScoreTOK,
+                MuseScoreTOP = MuseScoreTOP,
+                MusicPiece = MusicPiece,
+                MusicPieceChanged = MusicPieceChanged,
+                Notes = ( string ) memoNotes.DataContext,
+                NotesChanged = NotesChanged,
+                AmountPublisher1 = AmountPublisher1,
+                AmountPublisher2 = AmountPublisher2,
+                AmountPublisher3 = AmountPublisher3,
+                AmountPublisher4 = AmountPublisher4,
+                PDFORK = PDFORK,
+                PDFORP = PDFORP,
+                PDFTOK = PDFTOK,
+                PDFTOP = PDFTOP,
+                Publisher1Id = Publisher1Id,
+                Publisher2Id = Publisher2Id,
+                Publisher3Id = Publisher3Id,
+                Publisher4Id = Publisher4Id,
                 RepertoireId = RepertoireId,
-                Score = SelectedScore.Score,
+                ScoreNumber = SelectedScore.Score,
                 ScoreId = SelectedScore.ScoreId,
-                ScoreNumber = SelectedScore.ScoreNumber,
+                ScoreMainNumber = SelectedScore.ScoreNumber,
                 ScoreSubNumber = SelectedScore.ScoreSubNumber,
-                ScoreSubTitle = SubTitle,
-                ScoreTitle = Title,
+                SubTitle = SubTitle,
+                SubTitleChanged = SubTitleChanged,
+                Title = Title,
+                TitleChanged = TitleChanged,
                 TextWriter = Textwriter,
-            });
+                TextwriterChanged = TextwriterChanged
+            } ) ;
 
+            DBCommands.SaveScore ( ScoreList );
+            DBCommands.GetScores ( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber );
+
+            ResetChanged ();
         }
+    }
+    public void ResetChanged ()
+    {
+        cbAccompaniment.IsChecked = false;
+        cbRepertoire.IsChecked = false;
+        cbArchive.IsChecked = false;
+        cbByHeart.IsChecked = false;
+        cbTitle.IsChecked = false;
+        cbSubTitle.IsChecked = false;
+        cbComposer.IsChecked = false;
+        cbTextwriter.IsChecked = false;
+        cbArranger.IsChecked = false;
+        cbGenre.IsChecked = false;
+        cbAccompaniment.IsChecked = false;
+        cbLanguage.IsChecked = false;
+        cbMusicPiece.IsChecked = false;
+        cbDigitized.IsChecked = false;
+        cbModified.IsChecked = false;
+        cbChecked.IsChecked = false;
+        cbPDFORP.IsChecked = false;
+        cbPDFORK.IsChecked = false;
+        cbPDFTOP.IsChecked = false;
+        cbPDFTOK.IsChecked = false;
+        cbMSCORP.IsChecked = false;
+        cbMSCORK.IsChecked = false;
+        cbMSCTOP.IsChecked = false;
+        cbMSCTOK.IsChecked = false;
+        cbMP3B1.IsChecked = false;
+        cbMP3B2.IsChecked = false;
+        cbMP3T1.IsChecked = false;
+        cbMP3T2.IsChecked = false;
+        cbMP3SOL.IsChecked = false;
+        cbMP3TOT.IsChecked = false;
+        cbMP3PIA.IsChecked = false;
+        cbOnline.IsChecked = false;
+        cbLyrics.IsChecked = false;
+        cbNotes.IsChecked = false;
+        cbAmountPublisher1.IsChecked = false;
+        cbAmountPublisher2.IsChecked = false;
+        cbAmountPublisher3.IsChecked = false;
+        cbAmountPublisher4.IsChecked = false;
+        cbPublisher1.IsChecked = false;
+        cbPublisher2.IsChecked = false;
+        cbPublisher3.IsChecked = false;
+        cbPublisher4.IsChecked = false;
+        btnSave.IsEnabled = false;
+        btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
     }
 }
