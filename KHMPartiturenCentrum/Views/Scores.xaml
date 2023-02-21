@@ -106,6 +106,7 @@
                 <CheckBox x:Name="cbPublisher2" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher3" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher4" Visibility="Visible" />
+                <TextBox x:Name="tbSelectedIndex" Visibility="Visible"/>
             </StackPanel>
             <!--#endregion-->
 
@@ -266,7 +267,7 @@
                 AlternationCount="1"
                 AutoGenerateColumns="false"
                 IsReadOnly="true"
-                ItemsSource="{Binding Scores}"
+                ItemsSource="{Binding Scores, Mode=TwoWay}"
                 SelectionChanged="SelectedScoreChanged"
                 SelectionMode="Single"
                 Style="{DynamicResource CustomDataGrid}">

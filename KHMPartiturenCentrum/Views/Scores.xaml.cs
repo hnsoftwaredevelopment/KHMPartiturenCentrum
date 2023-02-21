@@ -57,6 +57,8 @@ public partial class Scores : Page
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
         SelectedScore = selectedRow;
 
+        tbSelectedIndex.Text = dg.SelectedIndex.ToString();
+
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
         tbScoreNumber.Text = selectedRow.Score;
@@ -626,6 +628,9 @@ public partial class Scores : Page
                 PDFORP = -1, PDFORK = -1, PDFTOP = -1, PDFTOK = -1,
                 MP3B1 = -1, MP3B2 = -1, MP3T1 = -1, MP3T2 = -1, MP3SOL = -1, MP3TOT = -1, MP3PIA = -1,
                 AmountPublisher1 = -1, AmountPublisher2 = -1, AmountPublisher3 = -1, AmountPublisher4 = -1;
+
+            //ScoresDataGrid.Items[int.Parse(tbSelectedIndex.Text)].
+            SelectedScore.ScoreSubTitle = tbSubTitle.Text;
 
             if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; }
             if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); }

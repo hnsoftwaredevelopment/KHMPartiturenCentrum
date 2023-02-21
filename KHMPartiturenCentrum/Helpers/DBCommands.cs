@@ -424,56 +424,55 @@ public class DBCommands
     #endregion
 
     #region Update/Save Score
-    public static void SaveScore ( ObservableCollection<SaveScoreModel> scoreList )
+    public static void SaveScore(ObservableCollection<SaveScoreModel> scoreList)
     {
 
         string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet;
 
-        if ( scoreList [ 0 ].RepertoireId != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameRepertoireId + " = @" + DBNames.ScoresFieldNameRepertoireId;  }
-        if ( scoreList [ 0 ].ArchiveId != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameArchiveId + " = @" + DBNames.ScoresFieldNameArchiveId; }
-        if ( scoreList [ 0 ].ByHeart != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameByHeart + " = @" + DBNames.ScoresFieldNameByHeart; }
+        if (scoreList[0].RepertoireId != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameRepertoireId + " = @" + DBNames.ScoresFieldNameRepertoireId; }
+        if (scoreList[0].ArchiveId != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameArchiveId + " = @" + DBNames.ScoresFieldNameArchiveId; }
+        if (scoreList[0].ByHeart != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameByHeart + " = @" + DBNames.ScoresFieldNameByHeart; }
 
-        if ( scoreList [ 0 ].TitleChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameTitle + " = @" + DBNames.ScoresFieldNameTitle; }
-        if ( scoreList [ 0 ].SubTitleChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameSubTitle + " = @" + DBNames.ScoresFieldNameSubTitle; }
+        if (scoreList[0].TitleChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameTitle + " = @" + DBNames.ScoresFieldNameTitle; }
+        if (scoreList[0].SubTitleChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameSubTitle + " = @" + DBNames.ScoresFieldNameSubTitle; }
 
-        if ( scoreList [ 0 ].ComposerChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameComposer + " = @" + DBNames.ScoresFieldNameComposer; }
-        if ( scoreList [ 0 ].TextwriterChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameTextwriter + " = @" + DBNames.ScoresFieldNameTextwriter; }
-        if ( scoreList [ 0 ].ArrangerChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameArranger + " = @" + DBNames.ScoresFieldNameArranger; }
+        if (scoreList[0].ComposerChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameComposer + " = @" + DBNames.ScoresFieldNameComposer; }
+        if (scoreList[0].TextwriterChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameTextwriter + " = @" + DBNames.ScoresFieldNameTextwriter; }
+        if (scoreList[0].ArrangerChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameArranger + " = @" + DBNames.ScoresFieldNameArranger; }
 
-        if ( scoreList [ 0 ].GenreId != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameGenreId + " = @" + DBNames.ScoresFieldNameGenreId; }
-        if ( scoreList [ 0 ].AccompanimentId != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameAccompanimentId + " = @" + DBNames.ScoresFieldNameAccompanimentId; }
-        if ( scoreList [ 0 ].LanguageId != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameLanguageId + " = @" + DBNames.ScoresFieldNameLanguageId; }
+        if (scoreList[0].GenreId != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameGenreId + " = @" + DBNames.ScoresFieldNameGenreId; }
+        if (scoreList[0].AccompanimentId != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameAccompanimentId + " = @" + DBNames.ScoresFieldNameAccompanimentId; }
+        if (scoreList[0].LanguageId != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameLanguageId + " = @" + DBNames.ScoresFieldNameLanguageId; }
 
-        if ( scoreList [ 0 ].MusicPieceChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMusicPiece + " = @" + DBNames.ScoresFieldNameMusicPiece; }
+        if (scoreList[0].MusicPieceChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMusicPiece + " = @" + DBNames.ScoresFieldNameMusicPiece; }
 
-        if ( scoreList [ 0 ].DateDigitizedChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
-        if ( scoreList [ 0 ].DateModifiedChanged != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
-        if ( scoreList [ 0 ].Checked != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameChecked + " = @" + DBNames.ScoresFieldNameChecked; }
+        if (scoreList[0].DateDigitizedChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
+        if (scoreList[0].DateModifiedChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
+        if (scoreList[0].Checked != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameChecked + " = @" + DBNames.ScoresFieldNameChecked; }
 
-        if ( scoreList [ 0 ].MuseScoreORP != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORP + " = @" + DBNames.ScoresFieldNameMuseScoreORP; }
-        if ( scoreList [ 0 ].MuseScoreORK != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORK + " = @" + DBNames.ScoresFieldNameMuseScoreORK; }
-        if ( scoreList [ 0 ].MuseScoreTOP != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreTOP + " = @" + DBNames.ScoresFieldNameMuseScoreTOP; }
-        if ( scoreList [ 0 ].MuseScoreTOK != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreTOK + " = @" + DBNames.ScoresFieldNameMuseScoreTOK; }
+        if (scoreList[0].MuseScoreORP != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORP + " = @" + DBNames.ScoresFieldNameMuseScoreORP; }
+        if (scoreList[0].MuseScoreORK != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORK + " = @" + DBNames.ScoresFieldNameMuseScoreORK; }
+        if (scoreList[0].MuseScoreTOP != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreTOP + " = @" + DBNames.ScoresFieldNameMuseScoreTOP; }
+        if (scoreList[0].MuseScoreTOK != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreTOK + " = @" + DBNames.ScoresFieldNameMuseScoreTOK; }
 
-        if ( scoreList [ 0 ].PDFORP != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFORP + " = @" + DBNames.ScoresFieldNamePDFORP; }
-        if ( scoreList [ 0 ].PDFORK != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFORK + " = @" + DBNames.ScoresFieldNamePDFORK; }
-        if ( scoreList [ 0 ].PDFTOP != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOP + " = @" + DBNames.ScoresFieldNamePDFTOP; }
-        if ( scoreList [ 0 ].PDFTOK != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOK + " = @" + DBNames.ScoresFieldNamePDFTOK; }
+        if (scoreList[0].PDFORP != -1) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFORP + " = @" + DBNames.ScoresFieldNamePDFORP; }
+        if (scoreList[0].PDFORK != -1) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFORK + " = @" + DBNames.ScoresFieldNamePDFORK; }
+        if (scoreList[0].PDFTOP != -1) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOP + " = @" + DBNames.ScoresFieldNamePDFTOP; }
+        if (scoreList[0].PDFTOK != -1) { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOK + " = @" + DBNames.ScoresFieldNamePDFTOK; }
 
-        if ( scoreList [ 0 ].MP3B1 != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B1 + " = @" + DBNames.ScoresFieldNameMP3B1; }
-        if ( scoreList [ 0 ].MP3B2 != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B2 + " = @" + DBNames.ScoresFieldNameMP3B2; }
-        if ( scoreList [ 0 ].MP3T1 != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3T1 + " = @" + DBNames.ScoresFieldNameMP3T1; }
-        if ( scoreList [ 0 ].MP3T2 != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3T2 + " = @" + DBNames.ScoresFieldNameMP3T2; }
+        if (scoreList[0].MP3B1 != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B1 + " = @" + DBNames.ScoresFieldNameMP3B1; }
+        if (scoreList[0].MP3B2 != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B2 + " = @" + DBNames.ScoresFieldNameMP3B2; }
+        if (scoreList[0].MP3T1 != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3T1 + " = @" + DBNames.ScoresFieldNameMP3T1; }
+        if (scoreList[0].MP3T2 != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3T2 + " = @" + DBNames.ScoresFieldNameMP3T2; }
 
-        if ( scoreList [ 0 ].MP3SOL != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3SOL + " = @" + DBNames.ScoresFieldNameMP3SOL; }
-        if ( scoreList [ 0 ].MP3TOT != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3TOT + " = @" + DBNames.ScoresFieldNameMP3TOT; }
-        if ( scoreList [ 0 ].MP3PIA != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3PIA + " = @" + DBNames.ScoresFieldNameMP3PIA; }
+        if (scoreList[0].MP3SOL != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3SOL + " = @" + DBNames.ScoresFieldNameMP3SOL; }
+        if (scoreList[0].MP3TOT != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3TOT + " = @" + DBNames.ScoresFieldNameMP3TOT; }
+        if (scoreList[0].MP3PIA != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMP3PIA + " = @" + DBNames.ScoresFieldNameMP3PIA; }
 
-        if ( scoreList [ 0 ].MuseScoreOnline != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameOnline + " = @" + DBNames.ScoresFieldNameOnline; }
+        if (scoreList[0].MuseScoreOnline != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameOnline + " = @" + DBNames.ScoresFieldNameOnline; }
 
-        // Ritch text fields will always be added to the update since we do not check changed
-        sqlQuery += ", " + DBNames.ScoresFieldNameLyrics + " = @" + DBNames.ScoresFieldNameLyrics;
-        sqlQuery += ", " + DBNames.ScoresFieldNameNotes + " = @" + DBNames.ScoresFieldNameNotes;
+        if (scoreList[0].LyricsChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameLyrics + " = @" + DBNames.ScoresFieldNameLyrics; }
+        if (scoreList[0].NotesChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameNotes + " = @" + DBNames.ScoresFieldNameNotes; }
 
         if ( scoreList [ 0 ].AmountPublisher1 != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameAmountPublisher1 + " = @" + DBNames.ScoresFieldNameAmountPublisher1; }
         if ( scoreList [ 0 ].AmountPublisher2 != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNameAmountPublisher2 + " = @" + DBNames.ScoresFieldNameAmountPublisher2; }
