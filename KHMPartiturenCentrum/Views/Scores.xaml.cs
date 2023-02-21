@@ -57,8 +57,6 @@ public partial class Scores : Page
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
         SelectedScore = selectedRow;
 
-        tbSelectedIndex.Text = dg.SelectedIndex.ToString();
-
         #region TAB Score Information
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
         tbScoreNumber.Text = selectedRow.Score;
@@ -603,14 +601,6 @@ public partial class Scores : Page
         }
         CheckChanged ();
     }
-    private void TextBox_TextChanged(object sender, TextChangedEventArgs e) 
-    { 
-        // Used to enable or disable the change event
-    }
-    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-    {
-        // Used to enable or disable the change event
-    }
     private void BtnSaveClick(object sender, RoutedEventArgs e)
     {
         ObservableCollection<SaveScoreModel> ScoreList = new();
@@ -629,21 +619,21 @@ public partial class Scores : Page
                 MP3B1 = -1, MP3B2 = -1, MP3T1 = -1, MP3T2 = -1, MP3SOL = -1, MP3TOT = -1, MP3PIA = -1,
                 AmountPublisher1 = -1, AmountPublisher2 = -1, AmountPublisher3 = -1, AmountPublisher4 = -1;
 
-            //ScoresDataGrid.Items[int.Parse(tbSelectedIndex.Text)].
-            SelectedScore.ScoreSubTitle = tbSubTitle.Text;
+            // How to SAve changed values back to the DataGrid
+            // SelectedScore.ScoreSubTitle = tbSubTitle.Text;
 
-            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; }
-            if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); }
-            if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher2.Text ); }
-            if ( ( bool ) cbAmountPublisher3.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher3.Text ); }
-            if ( ( bool ) cbAmountPublisher4.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher4.Text ); }
-            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedItem; }
-            if ( ( bool ) cbArranger.IsChecked) { Arranger = tbArranger.Text; }
+            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; SelectedScore.AccompanimentId = AccompanimentId; }
+            if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); SelectedScore.NumberScoresPublisher1 = AmountPublisher1; }
+            if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher2.Text ); SelectedScore.NumberScoresPublisher2 = AmountPublisher2; }
+            if ( ( bool ) cbAmountPublisher3.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher3.Text ); SelectedScore.NumberScoresPublisher3 = AmountPublisher3; }
+            if ( ( bool ) cbAmountPublisher4.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher4.Text ); SelectedScore.NumberScoresPublisher4 = AmountPublisher4; }
+            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedItem; SelectedScore.ArchiveId = ArchiveId; }
+            if ( ( bool ) cbArranger.IsChecked) { Arranger = tbArranger.Text; ArrangerChanged = 1; SelectedScore.Arranger = Arranger; }
 
-            if ( ( bool ) cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; } else { ByHeart = 0; } }
+            if ( ( bool ) cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; SelectedScore.ByHeart = true; } else { ByHeart = 0; SelectedScore.ByHeart = false; } }
 
-            if ( ( bool ) cbChecked.IsChecked) { if ((bool)chkChecked.IsChecked) { Check = 1; } else { Check = 0; } }
-            if ( ( bool ) cbComposer.IsChecked) { Composer = tbComposer.Text; }
+            if ( ( bool ) cbChecked.IsChecked) { if ((bool)chkChecked.IsChecked) { Check = 1; SelectedScore.Check = true; } else { Check = 0; SelectedScore.Check = false; } }
+            if ( ( bool ) cbComposer.IsChecked) { Composer = tbComposer.Text; ComposerChanged = 1; SelectedScore.Composer = Composer; }
 
             if ( ( bool ) cbDigitized.IsChecked)
             {
@@ -655,11 +645,14 @@ public partial class Scores : Page
                 { 
                     DateDigitized = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}"; 
                 }
+
+                DateTime _created = DateTime.Parse(DateDigitized + "00:00:00 AM");
+                SelectedScore.DateCreated = DateOnly.FromDateTime(_created);
             }
 
-            if ( ( bool ) cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedItem; }
+            if ( ( bool ) cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedItem; SelectedScore.GenreId = GenreId; }
 
-            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedItem; }
+            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedItem; SelectedScore.LanguageId = LanguageId; }
 
             if ( ( bool ) cbModified.IsChecked)
             {
@@ -671,9 +664,13 @@ public partial class Scores : Page
                 {
                     DateModified = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
                 }
+
+                DateTime _modified = DateTime.Parse(DateModified + "00:00:00 AM");
+                SelectedScore.DateModified = DateOnly.FromDateTime(_modified);
             }
 
-            if ( ( bool ) cbMP3B1.IsChecked ) { if ( ( bool ) chkMP3B1.IsChecked ) { MP3B1 = 1; } else { MP3B1 = 0; } }
+            // TODO: Make changes available in Datagrid continue from here
+            if ( ( bool ) cbMP3B1.IsChecked ) { if ( ( bool ) chkMP3B1.IsChecked ) { MP3B1 = 1;} else { MP3B1 = 0; } }
             if ( ( bool ) cbMP3B2.IsChecked ) { if ( ( bool ) chkMP3B2.IsChecked ) { MP3B2 = 1; } else { MP3B2 = 0; } }
             if ( ( bool ) cbMP3PIA.IsChecked ) { if ( ( bool ) chkMP3PIA.IsChecked ) { MP3PIA = 1; } else { MP3PIA = 0; } }
             if ( ( bool ) cbMP3SOL.IsChecked ) { if ( ( bool ) chkMP3SOL.IsChecked ) { MP3SOL = 1; } else { MP3SOL = 0; } }
@@ -685,7 +682,7 @@ public partial class Scores : Page
             if ( ( bool ) cbMSCORP.IsChecked ) { if ( ( bool ) chkMSCORP.IsChecked ) { MuseScoreORP = 1; } else { MuseScoreORP = 0; } }
             if ( ( bool ) cbMSCTOK.IsChecked ) { if ( ( bool ) chkMSCTOK.IsChecked ) { MuseScoreTOK = 1; } else { MuseScoreTOK = 0; } }
             if ( ( bool ) cbMSCTOP.IsChecked ) { if ( ( bool ) chkMSCTOP.IsChecked ) { MuseScoreTOP = 1; } else { MuseScoreTOP = 0; } }
-            if ( ( bool ) cbMusicPiece.IsChecked ) { MusicPiece = tbMusicPiece.Text; }
+            if ( ( bool ) cbMusicPiece.IsChecked ) { MusicPiece = tbMusicPiece.Text; MusicPieceChanged = 1; }
 
             if ( ( bool ) cbOnline.IsChecked ) { if ( ( bool ) chkMSCOnline.IsChecked ) { MuseScoreOnline = 1; } else { MuseScoreOnline = 0; } }
 
@@ -702,8 +699,11 @@ public partial class Scores : Page
 
             if ( ( bool ) cbSubTitle.IsChecked) { SubTitle = tbSubTitle.Text; SubTitleChanged = 1; }
 
-            if ( ( bool ) cbTextwriter.IsChecked) { Textwriter = tbTextwriter.Text; }
-            if ( ( bool ) cbTitle.IsChecked) { Title = tbTitle.Text; TitleChanged = 1; }
+            if ( ( bool ) cbTextwriter.IsChecked) { Textwriter = tbTextwriter.Text; TextwriterChanged = 1; }
+            if ( ( bool ) cbTitle.IsChecked ) { Title = tbTitle.Text; TitleChanged = 1; }
+
+            if ( ( bool ) cbLyrics.IsChecked ) { Lyrics = (DataGridTextColumn)memoLyrics.DataContext; LyricsChanged = 1; }
+            if ( ( bool ) cbNotes.IsChecked ) { Notes = (DataGridTextColumn)memoNotes.DataContext; NotesChanged = 1; }
 
             ScoreList.Add ( new SaveScoreModel
             {
