@@ -590,7 +590,7 @@ public partial class Scores : Page
                     else
                     {
                         // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                        cbDigitized.IsChecked = false;
+                        cbDigitized.IsChecked = true;
 
                     }
                     break;
@@ -608,7 +608,7 @@ public partial class Scores : Page
                     else
                     {
                         // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                        cbModified.IsChecked = false;
+                        cbModified.IsChecked = true;
                     }
                     break;
             }
@@ -635,13 +635,12 @@ public partial class Scores : Page
 
             // How to SAve changed values back to the DataGrid
             // SelectedScore.ScoreSubTitle = tbSubTitle.Text;
-
-            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedIndex; SelectedScore.AccompanimentId = AccompanimentId; }
+            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = ((AccompanimentModel)comAccompaniment.SelectedItem).AccompanimentId; SelectedScore.AccompanimentId = AccompanimentId; SelectedScore.AccompanimentName = ((AccompanimentModel)comAccompaniment.SelectedItem).AccompanimentName; }
             if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); SelectedScore.NumberScoresPublisher1 = AmountPublisher1; }
             if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher2 = int.Parse ( tbAmountPublisher2.Text ); SelectedScore.NumberScoresPublisher2 = AmountPublisher2; }
             if ( ( bool ) cbAmountPublisher3.IsChecked ) { AmountPublisher3 = int.Parse ( tbAmountPublisher3.Text ); SelectedScore.NumberScoresPublisher3 = AmountPublisher3; }
             if ( ( bool ) cbAmountPublisher4.IsChecked ) { AmountPublisher4 = int.Parse ( tbAmountPublisher4.Text ); SelectedScore.NumberScoresPublisher4 = AmountPublisher4; }
-            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedIndex; SelectedScore.ArchiveId = ArchiveId; }
+            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = ((ArchiveModel)comArchive.SelectedItem).ArchiveId; SelectedScore.ArchiveId = ArchiveId; SelectedScore.ArchiveName = ((ArchiveModel)comArchive.SelectedItem).ArchiveName; }
             if ( ( bool ) cbArranger.IsChecked) { Arranger = tbArranger.Text; ArrangerChanged = 1; SelectedScore.Arranger = Arranger; }
 
             if ( ( bool ) cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; SelectedScore.ByHeart = true; } else { ByHeart = 0; SelectedScore.ByHeart = false; } }
@@ -660,13 +659,14 @@ public partial class Scores : Page
                     DateDigitized = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}"; 
                 }
 
-                DateTime _created = DateTime.Parse(DateDigitized + "00:00:00 AM");
+                DateDigitizedChanged = 1;
+                DateTime _created = DateTime.Parse(DateDigitized + " 00:00:00 AM");
                 SelectedScore.DateCreated = DateOnly.FromDateTime(_created);
             }
 
-            if ( ( bool ) cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedIndex; SelectedScore.GenreId = GenreId; }
+            if ( ( bool ) cbGenre.IsChecked) { GenreId = ((GenreModel)comGenre.SelectedItem).GenreId; SelectedScore.GenreId = GenreId; SelectedScore.GenreName = ((GenreModel)comGenre.SelectedItem).GenreName; }
 
-            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedIndex; SelectedScore.LanguageId = LanguageId; }
+            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = ((LanguageModel)comLanguage.SelectedItem).LanguageId; SelectedScore.LanguageId = LanguageId; SelectedScore.LanguageName = ((LanguageModel)comLanguage.SelectedItem).LanguageName; }
 
             if ( ( bool ) cbModified.IsChecked)
             {
@@ -678,8 +678,8 @@ public partial class Scores : Page
                 {
                     DateModified = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
                 }
-
-                DateTime _modified = DateTime.Parse(DateModified + "00:00:00 AM");
+                DateModifiedChanged = 1;
+                DateTime _modified = DateTime.Parse(DateModified + " 00:00:00 AM");
                 SelectedScore.DateModified = DateOnly.FromDateTime(_modified);
             }
             if ( ( bool ) cbMP3B1.IsChecked ) { if ( ( bool ) chkMP3B1.IsChecked ) { MP3B1 = 1; SelectedScore.MP3B1 = true; } else { MP3B1 = 0; SelectedScore.MP3B1 = false; } }
@@ -702,12 +702,14 @@ public partial class Scores : Page
             if ( ( bool ) cbPDFORP.IsChecked ) { if ( ( bool ) chkPDFORP.IsChecked ) { PDFORP = 1; SelectedScore.PDFORP = true; } else { PDFORP = 0; SelectedScore.PDFORP = false;} }
             if ( ( bool ) cbPDFTOK.IsChecked ) { if ( ( bool ) chkPDFTOK.IsChecked ) { PDFTOK = 1; SelectedScore.PDFTOK = true; } else { PDFTOK = 0; SelectedScore.PDFTOK = false; } }
             if ( ( bool ) cbPDFTOP.IsChecked ) { if ( ( bool ) chkPDFTOP.IsChecked ) { PDFTOP = 1; SelectedScore.PDFTOP = true; } else { PDFTOP = 0; SelectedScore.PDFTOP = false; } }
-            if ( ( bool ) cbPublisher1.IsChecked ) { Publisher1Id = ( int ) comPublisher1.SelectedItem; SelectedScore.Publisher1Id = Publisher1Id; }
-            if ( ( bool ) cbPublisher2.IsChecked ) { Publisher1Id = ( int ) comPublisher2.SelectedItem; SelectedScore.Publisher2Id = Publisher2Id;}
-            if ( ( bool ) cbPublisher3.IsChecked ) { Publisher1Id = ( int ) comPublisher3.SelectedItem; SelectedScore.Publisher3Id = Publisher3Id;}
-            if ( ( bool ) cbPublisher4.IsChecked ) { Publisher1Id = ( int ) comPublisher4.SelectedItem; SelectedScore.Publisher4Id = Publisher4Id; }
+            if ( ( bool ) cbPublisher1.IsChecked ) { Publisher1Id = ((PublisherModel)comPublisher1.SelectedItem).PublisherId; SelectedScore.Publisher1Id = Publisher1Id; SelectedScore.Publisher1Name = ((PublisherModel)comPublisher1.SelectedItem).PublisherName; }
+            if ( ( bool ) cbPublisher2.IsChecked ) { Publisher1Id = ((PublisherModel)comPublisher2.SelectedItem).PublisherId; SelectedScore.Publisher2Id = Publisher2Id; SelectedScore.Publisher2Name = ((PublisherModel)comPublisher2.SelectedItem).PublisherName; }
+            if ( ( bool ) cbPublisher3.IsChecked ) { Publisher1Id = ((PublisherModel)comPublisher3.SelectedItem).PublisherId; SelectedScore.Publisher3Id = Publisher3Id; SelectedScore.Publisher3Name = ((PublisherModel)comPublisher3.SelectedItem).PublisherName; }
+            if ( ( bool ) cbPublisher4.IsChecked ) { Publisher1Id = ((PublisherModel)comPublisher4.SelectedItem).PublisherId; SelectedScore.Publisher4Id = Publisher4Id; SelectedScore.Publisher4Name = ((PublisherModel)comPublisher4.SelectedItem).PublisherName; }
 
-            if ( ( bool ) cbRepertoire.IsChecked) { RepertoireId = (int)comRepertoire.SelectedIndex; SelectedScore.RepertoireId = RepertoireId; }
+            if ((bool)cbArchive.IsChecked) { ArchiveId = ((ArchiveModel)comArchive.SelectedItem).ArchiveId; SelectedScore.ArchiveId = ArchiveId; SelectedScore.ArchiveName = ((ArchiveModel)comArchive.SelectedItem).ArchiveName; }
+
+            if ( ( bool ) cbRepertoire.IsChecked) { RepertoireId = ((RepertoireModel)comRepertoire.SelectedItem).RepertoireId; SelectedScore.RepertoireId = RepertoireId; SelectedScore.RepertoireName = ((RepertoireModel)comRepertoire.SelectedItem).RepertoireName; }
 
             if ( ( bool ) cbSubTitle.IsChecked) { SubTitle = tbSubTitle.Text; SubTitleChanged = 1; SelectedScore.ScoreSubTitle = SubTitle; }
 

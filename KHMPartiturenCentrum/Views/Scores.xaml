@@ -269,7 +269,7 @@
                 IsReadOnly="true"
                 ItemsSource="{Binding Scores, Mode=TwoWay}"
                 SelectionChanged="SelectedScoreChanged"
-                SelectionMode="Single"
+                SelectionMode="Single" SelectedIndex="1" SelectedItem="1"
                 Style="{DynamicResource CustomDataGrid}">
 
                 <!--#region Context Menu-->
