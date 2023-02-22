@@ -85,7 +85,7 @@ public partial class NewScores : Page
 
         //#region 3th Row (Composer, Textwriter and Arranger)
         //tbComposer.Text = selectedRow.Composer;
-        //tbTextwriter.Text = selectedRow.TextWriter;
+        //tbTextwriter.Text = selectedRow.Textwriter;
         //tbArranger.Text = selectedRow.Arranger;
         //#endregion
 

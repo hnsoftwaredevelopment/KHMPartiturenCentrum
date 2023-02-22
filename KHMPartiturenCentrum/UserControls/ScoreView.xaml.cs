@@ -88,7 +88,7 @@ namespace KHMPartiturenCentrum.UserControls
 
             #region 3th Row (Composer, Textwriter and Arranger)
             tbComposer.Text = selectedRow.Composer;
-            tbTextwriter.Text = selectedRow.TextWriter;
+            tbTextwriter.Text = selectedRow.Textwriter;
             tbArranger.Text = selectedRow.Arranger;
             #endregion
 
@@ -308,7 +308,7 @@ namespace KHMPartiturenCentrum.UserControls
                         if (tbComposer.Text == SelectedScore.Composer) { cbComposer.IsChecked = false; } else { cbComposer.IsChecked = true; }
                         break;
                     case "tbTextwriter":
-                        if (tbTextwriter.Text == SelectedScore.TextWriter) { cbTextwriter.IsChecked = false; } else { cbTextwriter.IsChecked = true; }
+                        if (tbTextwriter.Text == SelectedScore.Textwriter) { cbTextwriter.IsChecked = false; } else { cbTextwriter.IsChecked = true; }
                         break;
                     case "tbArranger":
                         if (tbArranger.Text == SelectedScore.Arranger) { cbArranger.IsChecked = false; } else { cbArranger.IsChecked = true; }

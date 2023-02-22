@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace KHMPartiturenCentrum.Models;
 
@@ -15,7 +16,7 @@ public class ScoreModel
     public string? ScoreTitle { get; set; }
     public string? ScoreSubTitle { get; set; }
     public string? Composer { get; set; }
-    public string? TextWriter{ get; set; }
+    public string? Textwriter{ get; set; }
     public string? Arranger { get; set; }
     public int RepertoireId { get; set; }
     public string? RepertoireName { get; set; }

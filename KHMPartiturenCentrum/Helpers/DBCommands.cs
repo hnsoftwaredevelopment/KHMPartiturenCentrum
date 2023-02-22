@@ -181,7 +181,7 @@ public class DBCommands
                         ScoreTitle = dataTable.Rows [ i ].ItemArray [ 4 ].ToString (),
                         ScoreSubTitle = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
                         Composer = dataTable.Rows [ i ].ItemArray [ 6 ].ToString (),
-                        TextWriter = dataTable.Rows [ i ].ItemArray [ 7 ].ToString (),
+                        Textwriter = dataTable.Rows [ i ].ItemArray [ 7 ].ToString (),
                         Arranger = dataTable.Rows [ i ].ItemArray [ 8 ].ToString (),
                         ArchiveId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 9 ].ToString () ),
                         ArchiveName = dataTable.Rows [ i ].ItemArray [ 10 ].ToString (),
