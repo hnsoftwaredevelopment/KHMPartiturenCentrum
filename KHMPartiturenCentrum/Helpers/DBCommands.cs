@@ -261,16 +261,34 @@ public class DBCommands
     public static void DeleteScore(string ScoreNumber, string ScoreSubNumber ) 
     {
         // Check if the selected Score is used in a set of Scores
-        var NumberOfScores = DBCommands.CheckForSubScores(DBNames.ScoresTable, ScoreNumber);
+        var NumberOfScores = CheckForSubScores(DBNames.ScoresTable, ScoreNumber);
         if(NumberOfScores != 1) 
         {
             // There are Subscores avaiable
+            // If Selected Score is 01 then delete it, no need to add the ScoreNumber again, because it already exists
+            if(ScoreSubNumber == "01")
+            {
+                ExecuteDeleteScore(DBNames.ScoresTable, ScoreNumber, ScoreSubNumber);
+            }
+            else
+            {
+                // If there are two Scores and the second one is deleted SubNumber should be removed from First Score
+                if(NumberOfScores == 2)
+                {
+                    ExecuteDeleteScore(DBNames.ScoresTable, ScoreNumber, ScoreSubNumber);
+                    RemoveSubScore(ScoreNumber);
+                }
+                else
+                {
+                    // Subscore can be deleted without effecting the other scores in the set
+                    ExecuteDeleteScore(DBNames.ScoresTable, ScoreNumber, ScoreSubNumber);
+                }
+            }
         }
         else 
         {
             ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber );
             ReAddScore ( ScoreNumber );
-
         }
         // Delete Current Score
 
@@ -317,6 +335,20 @@ public class DBCommands
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
+    #region Remove SubVersion from Score
+    public static void RemoveSubScore(string _scoreSubNumber)
+    {
+        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = ''";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
 
         using MySqlCommand cmd = new(sqlQuery, connection);
 
@@ -627,7 +659,7 @@ public class DBCommands
         if ( scoreList [ 0 ].PDFTOK != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFTOK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOK; }
 
         if ( scoreList [ 0 ].MP3B1 != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3B1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B1; }
-        if ( scoreList [ 0 ].MP3B2 != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3B1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B2; }
+        if ( scoreList [ 0 ].MP3B2 != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3B2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B2; }
         if ( scoreList [ 0 ].MP3T1 != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3T1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3T1; }
         if ( scoreList [ 0 ].MP3T2 != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3T2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3T2; }
 

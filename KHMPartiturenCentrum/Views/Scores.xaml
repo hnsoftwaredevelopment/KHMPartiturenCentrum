@@ -262,7 +262,7 @@
             <DataGrid
                 x:Name="ScoresDataGrid"
                 Grid.Column="0"
-                Margin="0,5,0,4"
+                Margin="0,7,0,2"
                 Padding="5,0,5,0"
                 AlternationCount="1"
                 AutoGenerateColumns="false"

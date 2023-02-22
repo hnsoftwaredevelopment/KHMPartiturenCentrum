@@ -335,19 +335,33 @@ public partial class Scores : Page
                     break;
                 case "tbAmountPublisher1":
                     if ( tbAmountPublisher1.Text == SelectedScore.NumberScoresPublisher1.ToString () ) { cbAmountPublisher1.IsChecked = false; } else { cbAmountPublisher1.IsChecked = true; }
+                    CalculateTotal();
                     break;
                 case "tbAmountPublisher2":
                     if ( tbAmountPublisher2.Text == SelectedScore.NumberScoresPublisher2.ToString () ) { cbAmountPublisher2.IsChecked = false; } else { cbAmountPublisher2.IsChecked = true; }
+                    CalculateTotal();
                     break;
                 case "tbAmountPublisher3":
                     if ( tbAmountPublisher3.Text == SelectedScore.NumberScoresPublisher3.ToString () ) { cbAmountPublisher3.IsChecked = false; } else { cbAmountPublisher3.IsChecked = true; }
+                    CalculateTotal();
                     break;
                 case "tbAmountPublisher4":
                     if ( tbAmountPublisher4.Text == SelectedScore.NumberScoresPublisher4.ToString () ) { cbAmountPublisher4.IsChecked = false; } else { cbAmountPublisher4.IsChecked = true; }
+                    CalculateTotal();
                     break;
             }
         }
         CheckChanged();
+    }
+    private void CalculateTotal()
+    {
+        int _total = 0;
+        if( tbAmountPublisher1.Text != "") { _total += int.Parse(tbAmountPublisher1.Text); }
+        if (tbAmountPublisher2.Text != "") { _total += int.Parse(tbAmountPublisher2.Text); }
+        if (tbAmountPublisher3.Text != "") { _total += int.Parse(tbAmountPublisher3.Text); }
+        if (tbAmountPublisher4.Text != "") { _total += int.Parse(tbAmountPublisher4.Text); }
+
+        tbAmountSupplierTotal.Text = _total.ToString();
     }
     private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -622,12 +636,12 @@ public partial class Scores : Page
             // How to SAve changed values back to the DataGrid
             // SelectedScore.ScoreSubTitle = tbSubTitle.Text;
 
-            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedItem; SelectedScore.AccompanimentId = AccompanimentId; }
+            if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = (int)comAccompaniment.SelectedIndex; SelectedScore.AccompanimentId = AccompanimentId; }
             if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); SelectedScore.NumberScoresPublisher1 = AmountPublisher1; }
-            if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher2.Text ); SelectedScore.NumberScoresPublisher2 = AmountPublisher2; }
-            if ( ( bool ) cbAmountPublisher3.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher3.Text ); SelectedScore.NumberScoresPublisher3 = AmountPublisher3; }
-            if ( ( bool ) cbAmountPublisher4.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher4.Text ); SelectedScore.NumberScoresPublisher4 = AmountPublisher4; }
-            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedItem; SelectedScore.ArchiveId = ArchiveId; }
+            if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher2 = int.Parse ( tbAmountPublisher2.Text ); SelectedScore.NumberScoresPublisher2 = AmountPublisher2; }
+            if ( ( bool ) cbAmountPublisher3.IsChecked ) { AmountPublisher3 = int.Parse ( tbAmountPublisher3.Text ); SelectedScore.NumberScoresPublisher3 = AmountPublisher3; }
+            if ( ( bool ) cbAmountPublisher4.IsChecked ) { AmountPublisher4 = int.Parse ( tbAmountPublisher4.Text ); SelectedScore.NumberScoresPublisher4 = AmountPublisher4; }
+            if ( ( bool ) cbArchive.IsChecked) { ArchiveId = (int)comArchive.SelectedIndex; SelectedScore.ArchiveId = ArchiveId; }
             if ( ( bool ) cbArranger.IsChecked) { Arranger = tbArranger.Text; ArrangerChanged = 1; SelectedScore.Arranger = Arranger; }
 
             if ( ( bool ) cbByHeart.IsChecked) { if ((bool)chkByHeart.IsChecked) { ByHeart = 1; SelectedScore.ByHeart = true; } else { ByHeart = 0; SelectedScore.ByHeart = false; } }
@@ -650,9 +664,9 @@ public partial class Scores : Page
                 SelectedScore.DateCreated = DateOnly.FromDateTime(_created);
             }
 
-            if ( ( bool ) cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedItem; SelectedScore.GenreId = GenreId; }
+            if ( ( bool ) cbGenre.IsChecked) { GenreId = (int)comGenre.SelectedIndex; SelectedScore.GenreId = GenreId; }
 
-            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedItem; SelectedScore.LanguageId = LanguageId; }
+            if ( ( bool ) cbLanguage.IsChecked) { LanguageId = (int)comLanguage.SelectedIndex; SelectedScore.LanguageId = LanguageId; }
 
             if ( ( bool ) cbModified.IsChecked)
             {
@@ -693,7 +707,7 @@ public partial class Scores : Page
             if ( ( bool ) cbPublisher3.IsChecked ) { Publisher1Id = ( int ) comPublisher3.SelectedItem; SelectedScore.Publisher3Id = Publisher3Id;}
             if ( ( bool ) cbPublisher4.IsChecked ) { Publisher1Id = ( int ) comPublisher4.SelectedItem; SelectedScore.Publisher4Id = Publisher4Id; }
 
-            if ( ( bool ) cbRepertoire.IsChecked) { RepertoireId = (int)comRepertoire.SelectedItem; SelectedScore.RepertoireId = RepertoireId; }
+            if ( ( bool ) cbRepertoire.IsChecked) { RepertoireId = (int)comRepertoire.SelectedIndex; SelectedScore.RepertoireId = RepertoireId; }
 
             if ( ( bool ) cbSubTitle.IsChecked) { SubTitle = tbSubTitle.Text; SubTitleChanged = 1; SelectedScore.ScoreSubTitle = SubTitle; }
 
@@ -815,7 +829,6 @@ public partial class Scores : Page
         btnSave.IsEnabled = false;
         btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
     }
-
     private void DeleteScore ( object sender, RoutedEventArgs e ) 
     {
         if ( SelectedScore != null ) 
@@ -828,7 +841,18 @@ public partial class Scores : Page
                     // Continue Deleting Score
                     if(SelectedScore.ScoreNumber != null)
                     { 
-                        DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber ); 
+                        DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber );
+                        
+                        // If the selected (Sub) score has number "01" and there is only 1 Score Left and the subscorenumber should be removed from the datagrid
+                        if( SelectedScore.ScoreSubNumber == "01")
+                        {
+                            var NumberOfScores = DBCommands.CheckForSubScores(DBNames.ScoresTable, SelectedScore.ScoreNumber);
+                            if (NumberOfScores == 1)
+                            {
+                                SelectedScore.ScoreSubNumber = "";
+                                SelectedScore.Score = SelectedScore.ScoreNumber;
+                            }
+                        }
                     }
                     
                     break;

@@ -125,10 +125,10 @@ public class DBNames
     public static readonly string ScoresFieldNamePDFORK = "PDFORK";
     public static readonly string ScoresFieldNamePDFTOP = "PDFTOP";
     public static readonly string ScoresFieldNamePDFTOK = "PDFTOK";
-    public static readonly string ScoresFieldNameMuseScoreORP = "MuseScoreORP";
-    public static readonly string ScoresFieldNameMuseScoreORK = "MuseScoreORK";
-    public static readonly string ScoresFieldNameMuseScoreTOP = "MuseScoreTOP";
-    public static readonly string ScoresFieldNameMuseScoreTOK = "MuseScoreTOK";
+    public static readonly string ScoresFieldNameMuseScoreORP = "MSCORP";
+    public static readonly string ScoresFieldNameMuseScoreORK = "MSCORK";
+    public static readonly string ScoresFieldNameMuseScoreTOP = "MSCTOP";
+    public static readonly string ScoresFieldNameMuseScoreTOK = "MSCTOK";
     public static readonly string ScoresFieldNameMP3TOT = "MP3TOT";
     public static readonly string ScoresFieldNameMP3T1 = "MP3T1";
     public static readonly string ScoresFieldNameMP3T2 = "MP3T2";
