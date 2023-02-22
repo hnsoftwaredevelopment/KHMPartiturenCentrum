@@ -16,6 +16,7 @@ using K4os.Compression.LZ4.Internal;
 
 using KHMPartiturenCentrum.Models;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using MySqlX.XDevAPI.Common;
 using Org.BouncyCastle.Crypto;
 
@@ -259,6 +260,18 @@ public class DBCommands
     #region Delete Score
     public static void DeleteScore(string ScoreNumber, string ScoreSubNumber ) 
     {
+        // Check if the selected Score is used in a set of Scores
+        var NumberOfScores = DBCommands.CheckForSubScores(DBNames.ScoresTable, ScoreNumber);
+        if(NumberOfScores != 1) 
+        {
+            // There are Subscores avaiable
+        }
+        else 
+        {
+            ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber );
+            ReAddScore ( ScoreNumber );
+
+        }
         // Delete Current Score
 
         // Add new record with only the ScoreNumber
@@ -268,16 +281,60 @@ public class DBCommands
     #region Check for SubScores
     public static int CheckForSubScores(string _table, string _scoreNumber ) 
     {
-        var Result = 0;
-
+        // Check how many Scores there are in the table with the given scorenumber, If there are more then 1 there is a set with SubNumbers
         var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ();
 
-        //SELECT COUNT(*) FROM Bibliotheek WHERE Partituur="061";
+        using MySqlCommand cmd = new(sqlQuery, connection);
 
-        return Result;
+        int rowsAffected = cmd.ExecuteNonQuery();
+
+        return rowsAffected;
+    }
+    #endregion
+
+    #region Execute Delete
+    static void ExecuteDeleteScore(string _table, string _scoreNumber ) 
+    {
+        // Delete Score without SubScores
+        var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+
+    static void ExecuteDeleteScore ( string _table, string _scoreNumber, string _scoreSubNumber ) 
+    {
+        // Delete Score with SubScoreNumber
+        var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + 
+            DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "'" + DBNames.SqlAnd + DBNames.ScoresFieldNameScoreSubNumber + " = '" + _scoreSubNumber + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
+    #region Re Add Score
+    public static void ReAddScore(string _scoreNumber ) {
+        //INSERT INTO tablename (partituur) VALUES (xxx)
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " + DBNames.ScoresFieldNameScoreNumber + " ) " + DBNames.SqlValues + " ( " + _scoreNumber + " );";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
     }
     #endregion
 

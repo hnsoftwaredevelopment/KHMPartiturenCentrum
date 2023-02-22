@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -826,10 +825,18 @@ public partial class Scores : Page
             switch ( messageBoxResult ) 
             {
                 case MessageBoxResult.Yes:
+                    // Continue Deleting Score
+                    if(SelectedScore.ScoreNumber != null)
+                    { 
+                        DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber ); 
+                    }
+                    
                     break;
-                    case MessageBoxResult.No:
+                case MessageBoxResult.No:
+                    // Do nothing no deletion wanted
                     break;
-                    case MessageBoxResult.Cancel:
+                case MessageBoxResult.Cancel:
+                    // Do Nothing Deletion canceled
                     break;
 
             }
