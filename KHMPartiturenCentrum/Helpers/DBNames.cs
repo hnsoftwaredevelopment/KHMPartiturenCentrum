@@ -5,6 +5,7 @@ public class DBNames
     #region Sql commands
     public static readonly string SqlSelect = "SELECT ";
     public static readonly string SqlSelectAll = "SELECT *";
+    public static readonly string SqlDelete = "DELETE ";
     public static readonly string SqlSelectDistinct = "SELECT DISTINCT ";
     public static readonly string SqlCast = "CAST( ";
     public static readonly string SqlMax = "MAX( ";
@@ -21,8 +22,8 @@ public class DBNames
     public static readonly string SqlAnd = " AND ";
     public static readonly string SqlOr = " OR ";
     public static readonly string SqlIsNull = " IS NULL ";
-    public static readonly string SqlCount = "COUNT";
-    public static readonly string SqlCountAll = "COUNT(*)";
+    public static readonly string SqlCount = " COUNT( ";
+    public static readonly string SqlCountAll = " COUNT(*) ";
     public static readonly string SqlBetween = " BETWEEN ";
     #endregion
 

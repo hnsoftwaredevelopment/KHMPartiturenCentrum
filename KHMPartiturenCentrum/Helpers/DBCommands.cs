@@ -16,6 +16,7 @@ using K4os.Compression.LZ4.Internal;
 
 using KHMPartiturenCentrum.Models;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using Org.BouncyCastle.Crypto;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
@@ -252,6 +253,31 @@ public class DBCommands
             }
         }
         return Scores;
+    }
+    #endregion
+
+    #region Delete Score
+    public static void DeleteScore(string ScoreNumber, string ScoreSubNumber ) 
+    {
+        // Delete Current Score
+
+        // Add new record with only the ScoreNumber
+    }
+    #endregion
+
+    #region Check for SubScores
+    public static int CheckForSubScores(string _table, string _scoreNumber ) 
+    {
+        var Result = 0;
+
+        var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        //SELECT COUNT(*) FROM Bibliotheek WHERE Partituur="061";
+
+        return Result;
     }
     #endregion
 
@@ -507,10 +533,10 @@ public class DBCommands
     #region Execute Non Query ScoresTable
     static void ExecuteNonQueryScoresTable ( string sqlQuery, ObservableCollection<SaveScoreModel> scoreList )
     {
-        using MySqlConnection con = new(DBConnect.ConnectionString);
-        con.Open ();
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
 
-        using MySqlCommand cmd = new(sqlQuery, con);
+        using MySqlCommand cmd = new(sqlQuery, connection);
 
         if ( scoreList [ 0 ].RepertoireId != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameRepertoireId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].RepertoireId; }
         if ( scoreList [ 0 ].ArchiveId != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameArchiveId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ArchiveId; }

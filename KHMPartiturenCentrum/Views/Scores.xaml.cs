@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -814,5 +815,24 @@ public partial class Scores : Page
         cbPublisher4.IsChecked = false;
         btnSave.IsEnabled = false;
         btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
+    }
+
+    private void DeleteScore ( object sender, RoutedEventArgs e ) 
+    {
+        if ( SelectedScore != null ) 
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show ( $"Weet je zeker dat je {SelectedScore.ScoreNumber} - {SelectedScore.ScoreTitle} wilt verwijderen?", $"Verwijder partituur {SelectedScore.ScoreNumber}", MessageBoxButton.YesNoCancel );
+
+            switch ( messageBoxResult ) 
+            {
+                case MessageBoxResult.Yes:
+                    break;
+                    case MessageBoxResult.No:
+                    break;
+                    case MessageBoxResult.Cancel:
+                    break;
+
+            }
+        }
     }
 }
