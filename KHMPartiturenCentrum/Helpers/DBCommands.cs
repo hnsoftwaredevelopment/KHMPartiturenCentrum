@@ -279,30 +279,29 @@ public class DBCommands
             ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber );
             ReAddScore ( ScoreNumber );
         }
-
-       if ( NumberOfScores != 1 && NumberOfScores != -1)
+        else
+        {
+            // There are Subscores avaiable
+            // If Selected Score is 01 then delete it, no need to add the ScoreNumber again, because it already exists
+            if ( ScoreSubNumber == "01" )
             {
-                // There are Subscores avaiable
-                // If Selected Score is 01 then delete it, no need to add the ScoreNumber again, because it already exists
-                if ( ScoreSubNumber == "01" )
+                ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+            }
+            else
+            {
+                // If there are two Scores and the second one is deleted SubNumber should be removed from First Score
+                if ( NumberOfScores == 2 )
                 {
                     ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                    RemoveSubScore ( ScoreNumber );
                 }
                 else
                 {
-                    // If there are two Scores and the second one is deleted SubNumber should be removed from First Score
-                    if ( NumberOfScores == 2 )
-                    {
-                        ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
-                        RemoveSubScore ( ScoreNumber );
-                    }
-                    else
-                    {
-                        // Subscore can be deleted without effecting the other scores in the set
-                        ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
-                    }
+                    // Subscore can be deleted without effecting the other scores in the set
+                    ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
                 }
             }
+        }
 
         // Delete Current Score
 
@@ -357,9 +356,9 @@ public class DBCommands
     #endregion
 
     #region Remove SubVersion from Score
-    public static void RemoveSubScore(string _scoreSubNumber)
+    public static void RemoveSubScore(string _scoreNumber)
     {
-        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = ''" + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreSubNumber + "';";
+        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = ''" + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open();
