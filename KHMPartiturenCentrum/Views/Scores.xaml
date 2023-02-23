@@ -59,9 +59,10 @@
 
             <!--#region Hidden fields section-->
             <StackPanel
-                Grid.Column="0" Visibility="Collapsed"
+                Grid.Column="0"
                 HorizontalAlignment="Left"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                Visibility="Collapsed">
                 <CheckBox x:Name="cbRepertoire" Visibility="Visible" />
                 <CheckBox x:Name="cbArchive" Visibility="Visible" />
                 <CheckBox x:Name="cbByHeart" Visibility="Visible" />
@@ -76,8 +77,9 @@
                 <CheckBox x:Name="cbMusicPiece" Visibility="Visible" />
                 <CheckBox
                     x:Name="cbDigitized"
+                    IsChecked="False"
                     ToolTip="Digitized"
-                    Visibility="Visible" IsChecked="False"/>
+                    Visibility="Visible" />
                 <CheckBox x:Name="cbModified" Visibility="Visible" />
                 <CheckBox x:Name="cbChecked" Visibility="Visible" />
                 <CheckBox x:Name="cbPDFORP" Visibility="Visible" />
@@ -195,7 +197,7 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
-                
+
                 <Button
                     x:Name="btnRenumber"
                     Width="30"
@@ -205,10 +207,11 @@
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="False"
                     Style="{DynamicResource DataGrid.Button.Save}"
-                    ToolTip="Geef de geselecteerde partituur een ander partituurnummer" >
+                    ToolTip="Geef de geselecteerde partituur een ander partituurnummer">
                     <Path
                         Data="{StaticResource renumber}"
-                        Stretch="Uniform" Fill="{DynamicResource Button.Save.BorderBrush}"
+                        Fill="{DynamicResource Button.Save.BorderBrush}"
+                        Stretch="Uniform"
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
                 <Button
@@ -268,8 +271,10 @@
                 AutoGenerateColumns="false"
                 IsReadOnly="true"
                 ItemsSource="{Binding Scores, Mode=TwoWay}"
+                SelectedIndex="0"
+                SelectedItem="0"
                 SelectionChanged="SelectedScoreChanged"
-                SelectionMode="Single" SelectedIndex="1" SelectedItem="1"
+                SelectionMode="Single"
                 Style="{DynamicResource CustomDataGrid}">
 
                 <!--#region Context Menu-->

@@ -21,8 +21,7 @@ public partial class ScoreViewModel: BaseScoreViewModel
     public ScoreViewModel ()
     {
         Scores = DBCommands.GetScores (DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber);
-        //AvailableScores = DBCommands.GetAvailableScores (  );
-        //AvailableChristmasScores = DBCommands.GetAvailableChristmasScores (  );
+
     }
 
 

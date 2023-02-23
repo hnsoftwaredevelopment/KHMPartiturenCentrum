@@ -117,7 +117,7 @@ public class DBCommands
     {
         ObservableCollection<ScoreModel> Scores = new();
 
-        DataTable dataTable = DBCommands.GetData(_table, _orderByFieldName);
+        DataTable dataTable = GetData(_table, _orderByFieldName);
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -261,35 +261,49 @@ public class DBCommands
     public static void DeleteScore(string ScoreNumber, string ScoreSubNumber ) 
     {
         // Check if the selected Score is used in a set of Scores
-        var NumberOfScores = CheckForSubScores(DBNames.ScoresTable, ScoreNumber);
-        if(NumberOfScores != 1) 
-        {
-            // There are Subscores avaiable
-            // If Selected Score is 01 then delete it, no need to add the ScoreNumber again, because it already exists
-            if(ScoreSubNumber == "01")
-            {
-                ExecuteDeleteScore(DBNames.ScoresTable, ScoreNumber, ScoreSubNumber);
-            }
-            else
-            {
-                // If there are two Scores and the second one is deleted SubNumber should be removed from First Score
-                if(NumberOfScores == 2)
-                {
-                    ExecuteDeleteScore(DBNames.ScoresTable, ScoreNumber, ScoreSubNumber);
-                    RemoveSubScore(ScoreNumber);
-                }
-                else
-                {
-                    // Subscore can be deleted without effecting the other scores in the set
-                    ExecuteDeleteScore(DBNames.ScoresTable, ScoreNumber, ScoreSubNumber);
-                }
-            }
-        }
-        else 
+        var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + ScoreNumber + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+
+        var NumberOfScores = int.Parse(cmd.ExecuteScalar ().ToString());
+
+
+        //var NumberOfScores = CheckForSubScores(DBNames.ScoresTable, ScoreNumber);
+        
+        if ( NumberOfScores == 1 )
         {
             ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber );
             ReAddScore ( ScoreNumber );
         }
+
+       if ( NumberOfScores != 1 && NumberOfScores != -1)
+            {
+                // There are Subscores avaiable
+                // If Selected Score is 01 then delete it, no need to add the ScoreNumber again, because it already exists
+                if ( ScoreSubNumber == "01" )
+                {
+                    ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                }
+                else
+                {
+                    // If there are two Scores and the second one is deleted SubNumber should be removed from First Score
+                    if ( NumberOfScores == 2 )
+                    {
+                        ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                        RemoveSubScore ( ScoreNumber );
+                    }
+                    else
+                    {
+                        // Subscore can be deleted without effecting the other scores in the set
+                        ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                    }
+                }
+            }
+
         // Delete Current Score
 
         // Add new record with only the ScoreNumber
@@ -345,7 +359,7 @@ public class DBCommands
     #region Remove SubVersion from Score
     public static void RemoveSubScore(string _scoreSubNumber)
     {
-        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = ''";
+        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = ''" + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreSubNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open();
@@ -357,9 +371,9 @@ public class DBCommands
     #endregion
 
     #region Re Add Score
-    public static void ReAddScore(string _scoreNumber ) {
-        //INSERT INTO tablename (partituur) VALUES (xxx)
-        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " + DBNames.ScoresFieldNameScoreNumber + " ) " + DBNames.SqlValues + " ( " + _scoreNumber + " );";
+    public static void ReAddScore(string _scoreNumber ) 
+    {
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " + DBNames.ScoresFieldNameScoreNumber + " ) " + DBNames.SqlValues + " ( '" + _scoreNumber + "' );";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ();

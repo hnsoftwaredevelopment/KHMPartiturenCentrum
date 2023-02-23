@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,17 @@ public partial class Scores : Page
         DataGrid dg = (DataGrid)sender;
 
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
+
+        if (selectedRow == null )
+        {
+            object item = dg.Items[0];
+            dg.SelectedItem = item;
+            selectedRow = (ScoreModel)dg.SelectedItem;
+
+            // Scroll to he itew in the Datagrid
+            dg.ScrollIntoView ( dg.Items [ 0 ] );
+        }
+
         SelectedScore = selectedRow;
 
         #region TAB Score Information
@@ -198,11 +210,11 @@ public partial class Scores : Page
         #endregion
 
         #region TAB Lyrics
-        // Unknown how to set the memo field
+        GetLyrics ();
         #endregion
 
         #region TAB Notes
-        // Unknown how to set the memo field
+        GetNotes ();
         #endregion
 
         #region TAB: Licenses
@@ -286,6 +298,9 @@ public partial class Scores : Page
         {
             ScoresDataGrid.SelectedIndex = 0;
         }
+
+        // Scroll to the item in the Gridiew
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     private void BtnPreviousClick ( object sender, RoutedEventArgs e )
     {
@@ -297,14 +312,25 @@ public partial class Scores : Page
         {
             ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
         }
+
+        // Scroll to the item in the Gridiew
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     private void BtnLastClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
+
+        // Scroll to the item in the Gridiew
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
+
     }
     private void BtnFirstClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = 0;
+
+        // Scroll to the item in the Gridiew
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
+
     }
     private void TextBoxChanged(object sender, TextChangedEventArgs e)
     {
@@ -494,13 +520,19 @@ public partial class Scores : Page
             switch ( propertyName )
             {
                 case "memoLyrics":
+                    //string _lyrics = GetRichTextFromFlowDocument(memoLyrics.Document);
+                    //string _orgLyrics = SelectedScore.Lyrics.ToString();
+
                     cbLyrics.IsChecked = true;
                     break;
                 case "memoNotes":
+                    //string _notes = GetRichTextFromFlowDocument(memoNotes.Document);
+
                     cbNotes.IsChecked = true;
                     break;
             }
         }
+        CheckChanged ();
     }
     private void CheckBoxChanged ( object sender, RoutedEventArgs e )
     {
@@ -620,7 +652,7 @@ public partial class Scores : Page
         ObservableCollection<SaveScoreModel> ScoreList = new();
         if (SelectedScore != null)
         {
-            string Title = "", SubTitle = "", Composer = "", Textwriter = "", Arranger = "", MusicPiece = "",
+            string Title = "", SubTitle = "", Composer = "", Textwriter = "", Arranger = "", MusicPiece = "", Lyrics = "", Notes = "", 
                     DateDigitized = "", DateModified = "";
 
             int TitleChanged = -1, SubTitleChanged = -1, 
@@ -716,8 +748,8 @@ public partial class Scores : Page
             if ( ( bool ) cbTextwriter.IsChecked) { Textwriter = tbTextwriter.Text; TextwriterChanged = 1; SelectedScore.Textwriter = Textwriter; }
             if ( ( bool ) cbTitle.IsChecked ) { Title = tbTitle.Text; TitleChanged = 1; SelectedScore.ScoreTitle = Title; }
 
-            if ( ( bool ) cbLyrics.IsChecked ) { Lyrics = (DataGridTextColumn)memoLyrics.DataContext; LyricsChanged = 1; SelectedScore.Lyrics = Lyrics.ToString(); }
-            if ( ( bool ) cbNotes.IsChecked ) { Notes = (DataGridTextColumn)memoNotes.DataContext; NotesChanged = 1; SelectedScore.Notes = Notes.ToString(); }
+            if ( ( bool ) cbLyrics.IsChecked ) { Lyrics = GetRichTextFromFlowDocument ( memoLyrics.Document ); LyricsChanged = 1; SelectedScore.Lyrics = Lyrics.ToString(); }
+            if ( ( bool ) cbNotes.IsChecked ) { Notes = GetRichTextFromFlowDocument ( memoNotes.Document ); NotesChanged = 1; SelectedScore.Notes = Notes.ToString(); }
 
             ScoreList.Add ( new SaveScoreModel
             {
@@ -735,7 +767,7 @@ public partial class Scores : Page
                 DateModifiedChanged = DateModifiedChanged,
                 GenreId = GenreId,
                 LanguageId = LanguageId,
-                Lyrics = ( string ) memoLyrics.DataContext,
+                Lyrics = Lyrics,
                 LyricsChanged = LyricsChanged,
                 MP3B1 = MP3B1,
                 MP3B2 = MP3B2,
@@ -751,7 +783,7 @@ public partial class Scores : Page
                 MuseScoreTOP = MuseScoreTOP,
                 MusicPiece = MusicPiece,
                 MusicPieceChanged = MusicPieceChanged,
-                Notes = ( string ) memoNotes.DataContext,
+                Notes = Notes,
                 NotesChanged = NotesChanged,
                 AmountPublisher1 = AmountPublisher1,
                 AmountPublisher2 = AmountPublisher2,
@@ -867,5 +899,77 @@ public partial class Scores : Page
 
             }
         }
+        scores = new ScoreViewModel ();
+        DataContext = scores;
     }
+    private void GetLyrics()
+    {
+        var ContentLyrics = string.Empty;
+
+        // Clear the current textbox
+        memoLyrics.Document.Blocks.Clear ();
+
+        if ( SelectedScore != null )
+        {
+            if ( SelectedScore.Lyrics != null && SelectedScore.Lyrics != "")
+            {
+                ContentLyrics = SelectedScore.Lyrics.ToString ();
+
+                //convert to byte[]
+                byte[] dataArr = Encoding.UTF8.GetBytes(ContentLyrics);
+
+                using ( MemoryStream ms = new ( dataArr ) )
+                {
+                    //load data
+                    TextRange flowDocRange = new TextRange(memoLyrics.Document.ContentStart, memoLyrics.Document.ContentEnd);
+                    flowDocRange.Load ( ms, DataFormats.Rtf );
+                }
+            }
+        }
+    }
+    private void GetNotes ()
+    {
+        var ContentNotes = string.Empty;
+
+        // Clear the current textbox
+        memoNotes.Document.Blocks.Clear ();
+
+        if ( SelectedScore != null )
+        {
+            if ( SelectedScore.Notes != null && SelectedScore.Notes != "")
+            {
+                ContentNotes = SelectedScore.Notes.ToString ();
+
+                //convert to byte[]
+                byte[] dataArr = Encoding.UTF8.GetBytes(ContentNotes);
+
+                using ( MemoryStream ms = new ( dataArr ) )
+                {
+                    //load data
+                    TextRange flowDocRange = new TextRange(memoNotes.Document.ContentStart, memoNotes.Document.ContentEnd);
+                    flowDocRange.Load ( ms, DataFormats.Rtf );
+                }
+            }
+        }
+    }
+
+    #region Get rich text from flow document of a memo field (Lyrics or Notes)
+    private string GetRichTextFromFlowDocument ( FlowDocument fDoc )
+    {
+        string result = string.Empty;
+
+        //convert to string
+        if ( fDoc != null )
+        {
+            TextRange tr = new TextRange(fDoc.ContentStart, fDoc.ContentEnd);
+
+            using ( MemoryStream ms = new MemoryStream () )
+            {
+                tr.Save ( ms, DataFormats.Rtf );
+                result = System.Text.Encoding.UTF8.GetString ( ms.ToArray () );
+            }
+        }
+        return result;
+    }
+    #endregion
 }

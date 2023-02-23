@@ -247,13 +247,6 @@ public partial class BaseScoreViewModel : ObservableObject
 
     public ScoreModel? SelectedScoreModel { get; set; }
 
-    //public ObservableCollection<AccompanimentModel>? Accompaniments { get; set; }
-    //public ObservableCollection<GenreModel>? Genres { get; set; }
-    //public ObservableCollection<ArchiveModel>? Archives { get; set; }
-    //public ObservableCollection<LanguageModel>? Languages { get; set; }
-    //public ObservableCollection<PublisherModel>? Publishers { get; set; }
-    //public ObservableCollection<PublisherModel>? Publishers1 { get; set; }
-    //public ObservableCollection<RepertoireModel>? Repertoires { get; set; }
     public ObservableCollection<ScoreModel> Scores { get; set; }
     public ObservableCollection<ScoreModel> AvailableScores { get; set; }
     public ObservableCollection<ScoreModel> AvailableChristmasScores { get; set; }
