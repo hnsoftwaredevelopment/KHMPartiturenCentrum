@@ -972,4 +972,16 @@ public partial class Scores : Page
         return result;
     }
     #endregion
+
+    private void RenumberClick(object sender, RoutedEventArgs e)
+    {
+        //var selectedRow = e.Source as DataGridRow;
+        if ( SelectedScore != null )
+        {
+            RenumberScore renumberScore = new(SelectedScore, SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber);
+            //renumberScore.Owner = this;
+            renumberScore.Show();
+        }
+        
+    }
 }

@@ -205,7 +205,7 @@
                     Margin="0,0,10,0"
                     Padding="4"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="False"
+                    IsEnabled="True" Click="RenumberClick"
                     Style="{DynamicResource DataGrid.Button.Save}"
                     ToolTip="Geef de geselecteerde partituur een ander partituurnummer">
                     <Path
