@@ -20,7 +20,7 @@ public class SaveScoreModel
     public int SubTitleChanged = 0;
     public string Composer = "";
     public int ComposerChanged = 0;
-    public string TextWriter = "";
+    public string Textwriter = "";
     public int TextwriterChanged = 0;
     public string Arranger = "";
     public int ArrangerChanged = 0;

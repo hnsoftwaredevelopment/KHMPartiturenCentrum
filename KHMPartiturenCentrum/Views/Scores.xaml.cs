@@ -806,12 +806,12 @@ public partial class Scores : Page
                 SubTitleChanged = SubTitleChanged,
                 Title = Title,
                 TitleChanged = TitleChanged,
-                TextWriter = Textwriter,
+                Textwriter = Textwriter,
                 TextwriterChanged = TextwriterChanged
             } ) ;
 
             DBCommands.SaveScore ( ScoreList );
-            DBCommands.GetScores ( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber );
+            DBCommands.GetScores ( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null );
 
             ResetChanged ();
         }

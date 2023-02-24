@@ -64,6 +64,29 @@ public class DBCommands
         return table;
     }
     #endregion
+
+    #region GetData Sorted and filtered
+    public static DataTable GetData ( string _table, string OrderByFieldName, string WhereFieldName, string WhereFieldValue )
+    {
+        string selectQuery = "";
+        if ( OrderByFieldName.ToLower () == "nosort" )
+        {
+            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "';";
+        }
+        else
+        {
+            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DBNames.SqlOrder + OrderByFieldName + ";";
+        }
+
+        MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+        DataTable table = new();
+        MySqlDataAdapter adapter = new(selectQuery, connection);
+        adapter.Fill ( table );
+        connection.Close ();
+        return table;
+    }
+    #endregion
     #endregion
 
     #region Get Available Scores (non Christmas)
@@ -113,11 +136,20 @@ public class DBCommands
     #endregion
 
     #region Get Scores
-    public static ObservableCollection<ScoreModel> GetScores ( string _table, string _orderByFieldName )
+    public static ObservableCollection<ScoreModel> GetScores ( string _table, string _orderByFieldName, string _whereFieldName, string _whereFieldValue )
     {
         ObservableCollection<ScoreModel> Scores = new();
+        DataTable dataTable = new();
 
-        DataTable dataTable = GetData(_table, _orderByFieldName);
+        if ( _whereFieldName != null)
+        {
+            dataTable = GetData(_table, _orderByFieldName, _whereFieldName, _whereFieldValue);
+        }
+        else
+        { 
+            dataTable = GetData(_table, _orderByFieldName); 
+        }
+        
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -543,7 +575,8 @@ public class DBCommands
                 Repertoires.Add ( new RepertoireModel
                 {
                     RepertoireId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
-                    RepertoireName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
+                    RepertoireName = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
+                    RepertoireRange = dataTable.Rows [i].ItemArray [ 4 ].ToString ()
                 } );
             }
         }
@@ -648,7 +681,7 @@ public class DBCommands
         if ( scoreList [ 0 ].SubTitleChanged != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameSubTitle, MySqlDbType.VarChar ).Value = scoreList [ 0 ].SubTitle; }
 
         if ( scoreList [ 0 ].ComposerChanged != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameComposer, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Composer; }
-        if ( scoreList [ 0 ].TextwriterChanged != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameTextwriter, MySqlDbType.VarChar ).Value = scoreList [ 0 ].TextWriter; }
+        if ( scoreList [ 0 ].TextwriterChanged != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameTextwriter, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Textwriter; }
         if ( scoreList [ 0 ].ArrangerChanged != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameArranger, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Arranger; }
 
         if ( scoreList [ 0 ].GenreId != -1 ) { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameGenreId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].GenreId; }
