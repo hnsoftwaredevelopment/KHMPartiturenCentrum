@@ -876,11 +876,12 @@ public partial class Scores : Page
                     if(SelectedScore.ScoreNumber != null)
                     { 
                         DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber );
-                        
+                        DBCommands.ReAddScore(SelectedScore.ScoreNumber);
+
                         // If the selected (Sub) score has number "01" and there is only 1 Score Left and the subscorenumber should be removed from the datagrid
                         if( SelectedScore.ScoreSubNumber == "01")
                         {
-                            var NumberOfScores = DBCommands.CheckForSubScores(DBNames.ScoresTable, SelectedScore.ScoreNumber);
+                            var NumberOfScores = DBCommands.CheckForSubScores(SelectedScore.ScoreNumber);
                             if (NumberOfScores == 1)
                             {
                                 SelectedScore.ScoreSubNumber = "";

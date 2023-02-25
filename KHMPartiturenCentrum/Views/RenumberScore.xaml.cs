@@ -108,31 +108,57 @@ public partial class RenumberScore : Window
         {
             // Does not belong to a serie
             ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
-            SaveToNewScore ( ScoreInfo, "" );
-            //DeleteScore(Oldnumber)
-            //AddScore(OldNumber)
+            SaveToNewScore ( ScoreInfo, ""`, "replace" );
+            DBCommands.DeleteScore(tbScoreNumber.Text, "" );
+            DBCommands.ReAddScore(tbScoreNumber.Text);
         }
         else
         {
             //Belongs to a serie
+            string[] _tempScoreNumber = tbScoreNumber.Text.Replace(" ", "").Split("-");
+
+            int NumberOfScores = DBCommands.CheckForSubScores(_tempScoreNumber[0]);
+
             // Check if the entire serie should be copied
             if (cbSerie.IsChecked != false )
             {
                 // Complete series should be copied
+                DataTable ScoreList = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreSubNumber, DBNames.ScoresFieldNameScoreNumber, _tempScoreNumber[0]);
+                //  First score of the list can be renumbered normaly, for the other scores a new Record should be added first
+
+                // First create the requirered Subscores before renumbering
+                // Delete the curently selected new score, so all the scores can be added in the new process
+                DBCommands.DeleteScore(cbxNewScores.SelectedValue.ToString(), "");
+
+                // Iterate through the list of new Scores, skip the
+                for (int i=0; i < ScoreList.Rows.Count; i++)
+                {
+                    // Add the Score as  a new score
+                    // Cannot Send a datatemplateRow to Method.
+                    // TODO: Is there a way to cas a row into a new table?
+                    //SaveToNewScore(ScoreInfo.Rows[i], "", "add");
+                }
+
+                // Delete the original Series
+                DBCommands.DeleteScore(_tempScoreNumber[0], "");
+
+                // The Original Score number should be added again, as a single score
+                DBCommands.ReAddScore(_tempScoreNumber[0]);
             }
             else
             {
                 // Only Current score should be copied to a new score (New score has nu subNumber
-                ScoreInfo = DBCommands.GetData ( DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text );
-                SaveToNewScore ( ScoreInfo, "" );
-                // Check SubVersions
-                // If Current Subnumer is 01 Do nothing Extra
-                // If Current Subnumer is > 01 but there are only two scores with subnumer 
-                //      If remaining Score has subnumber 01 remove the subnumer from that score also else do nothing with the remaining score
-                // If there are more Scores in the serie just remove this score
+                
+                // Renumber Current Score and Delete the selected Record
+                ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
+                SaveToNewScore(ScoreInfo, "", "replace");
+                DBCommands.DeleteScore(_tempScoreNumber[0], _tempScoreNumber[1]);
 
-                //DeleteScore(Oldnumber)
-                //AddScore(OldNumber)
+                if ( NumberOfScores == 2 ) 
+                {
+                    // Remove the Subnumber from the remaining Score
+                    DBCommands.RemoveSubScore(_tempScoreNumber[0]);
+                }
             }
 
         }
@@ -155,8 +181,8 @@ public partial class RenumberScore : Window
     }
     #endregion
 
-    #region Svae To NewScoreList
-    private void SaveToNewScore(DataTable scoreInfo, string subScoreNumber )
+    #region Save To NewScoreList
+    private void SaveToNewScore(DataTable scoreInfo, string subScoreNumber, string AddReplace )
     {
         ObservableCollection<SaveScoreModel> Score = new();
 
@@ -207,6 +233,20 @@ public partial class RenumberScore : Window
             Publisher3Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 50 ].ToString () ),
             Publisher4Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 52 ].ToString () ),
         } );
+
+        switch (AddReplace.ToLower())
+        {
+            case "add":
+                // Add as new record
+                break;
+            case "replace":
+                // Replace an existing record wit the new values
+                DBCommands.SaveScore(Score);
+                break;
+        }
+        
+        //DBCommands.GetScores(DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null);
+
     }
     #endregion
 }
