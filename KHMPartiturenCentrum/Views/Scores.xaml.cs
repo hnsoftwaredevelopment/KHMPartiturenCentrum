@@ -665,8 +665,6 @@ public partial class Scores : Page
                 MP3B1 = -1, MP3B2 = -1, MP3T1 = -1, MP3T2 = -1, MP3SOL = -1, MP3TOT = -1, MP3PIA = -1,
                 AmountPublisher1 = -1, AmountPublisher2 = -1, AmountPublisher3 = -1, AmountPublisher4 = -1;
 
-            // How to SAve changed values back to the DataGrid
-            // SelectedScore.ScoreSubTitle = tbSubTitle.Text;
             if ( ( bool ) cbAccompaniment.IsChecked) { AccompanimentId = ((AccompanimentModel)comAccompaniment.SelectedItem).AccompanimentId; SelectedScore.AccompanimentId = AccompanimentId; SelectedScore.AccompanimentName = ((AccompanimentModel)comAccompaniment.SelectedItem).AccompanimentName; }
             if ( ( bool ) cbAmountPublisher1.IsChecked ) { AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); SelectedScore.NumberScoresPublisher1 = AmountPublisher1; }
             if ( ( bool ) cbAmountPublisher2.IsChecked ) { AmountPublisher2 = int.Parse ( tbAmountPublisher2.Text ); SelectedScore.NumberScoresPublisher2 = AmountPublisher2; }
@@ -982,6 +980,10 @@ public partial class Scores : Page
             RenumberScore renumberScore = new(SelectedScore, SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber);
             //renumberScore.Owner = this;
             renumberScore.Show();
+
+            // When the renumbering is done relooad the Score
+            //scores = new ScoreViewModel ();
+            //DataContext = scores;
         }
         
     }

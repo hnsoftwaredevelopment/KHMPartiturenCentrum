@@ -1,5 +1,7 @@
-﻿using KHMPartiturenCentrum.Helpers;
+﻿using Google.Protobuf.WellKnownTypes;
+using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
+using KHMPartiturenCentrum.ViewModels;
 using MySqlX.XDevAPI.Relational;
 using Org.BouncyCastle.Utilities;
 using System;
@@ -69,7 +71,7 @@ public partial class RenumberScore : Window
     {
         var _newScore = "";
 
-        if ( tbScoreNumber.Text != "" && cbxNewScores.SelectedValue != "")
+        if ( tbScoreNumber.Text.ToString() != "" && cbxNewScores.SelectedValue.ToString () != "")
         {
             if ( cbSerie.IsChecked != false )
             { _newScore = cbxNewScores.SelectedValue.ToString () + tbScoreNumber.Text.ToString ().Substring ( 3, 3 ); }
@@ -91,7 +93,7 @@ public partial class RenumberScore : Window
     }
     #endregion
 
-    #region Close Window is pressend
+    #region Close Window is pressed
     private void Close_Click ( object sender, RoutedEventArgs e )
     {
         this.Close ();
@@ -103,47 +105,46 @@ public partial class RenumberScore : Window
     {
         DataTable ScoreInfo = new();
 
+        // Get Id of targetScore
+        int TargetScoreId = DBCommands.GetTargetId(cbxNewScores.SelectedValue.ToString());
+
         //Check if the score belongs to a serie, score number will contain a - if it does
         if ( !tbScoreNumber.Text.Contains ( "-" ) )
         {
             // Does not belong to a serie
             ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
-            SaveToNewScore ( ScoreInfo, ""`, "replace" );
+           
+
+            SaveToNewScore ( ScoreInfo, TargetScoreId, "", "replace" );
             DBCommands.DeleteScore(tbScoreNumber.Text, "" );
             DBCommands.ReAddScore(tbScoreNumber.Text);
         }
         else
         {
             //Belongs to a serie
-            string[] _tempScoreNumber = tbScoreNumber.Text.Replace(" ", "").Split("-");
+            string[] _oldScoreNumber = tbScoreNumber.Text.Replace(" ", "").Split("-");
 
-            int NumberOfScores = DBCommands.CheckForSubScores(_tempScoreNumber[0]);
+            long NumberOfScores = DBCommands.CheckForSubScores(_oldScoreNumber[0]);
 
             // Check if the entire serie should be copied
             if (cbSerie.IsChecked != false )
             {
                 // Complete series should be copied
-                DataTable ScoreList = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreSubNumber, DBNames.ScoresFieldNameScoreNumber, _tempScoreNumber[0]);
-                //  First score of the list can be renumbered normaly, for the other scores a new Record should be added first
+                DataTable ScoreList = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreSubNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber[0]);
 
-                // First create the requirered Subscores before renumbering
-                // Delete the curently selected new score, so all the scores can be added in the new process
-                DBCommands.DeleteScore(cbxNewScores.SelectedValue.ToString(), "");
-
-                // Iterate through the list of new Scores, skip the
-                for (int i=0; i < ScoreList.Rows.Count; i++)
+                if ( cbxNewScores.SelectedValue != null )
                 {
-                    // Add the Score as  a new score
-                    // Cannot Send a datatemplateRow to Method.
-                    // TODO: Is there a way to cas a row into a new table?
-                    //SaveToNewScore(ScoreInfo.Rows[i], "", "add");
+                    // Delete the currently selected new score, so all the scores can be added in the new process
+                    DBCommands.DeleteScore ( cbxNewScores.SelectedValue.ToString (), "" );
+
+                    DBCommands.RenumberScoreList(ScoreList, cbxNewScores.SelectedValue.ToString() );
+
+                    // Delete the original Series
+                    DBCommands.DeleteScore ( _oldScoreNumber [ 0 ], "" );
+
+                    // The Original Score number should be added again, as a single score
+                    DBCommands.ReAddScore ( _oldScoreNumber [ 0 ] );
                 }
-
-                // Delete the original Series
-                DBCommands.DeleteScore(_tempScoreNumber[0], "");
-
-                // The Original Score number should be added again, as a single score
-                DBCommands.ReAddScore(_tempScoreNumber[0]);
             }
             else
             {
@@ -151,17 +152,18 @@ public partial class RenumberScore : Window
                 
                 // Renumber Current Score and Delete the selected Record
                 ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
-                SaveToNewScore(ScoreInfo, "", "replace");
-                DBCommands.DeleteScore(_tempScoreNumber[0], _tempScoreNumber[1]);
+                SaveToNewScore(ScoreInfo, TargetScoreId, "", "replace");
+                DBCommands.DeleteScore(_oldScoreNumber[0], _oldScoreNumber[1]);
 
                 if ( NumberOfScores == 2 ) 
                 {
-                    // Remove the Subnumber from the remaining Score
-                    DBCommands.RemoveSubScore(_tempScoreNumber[0]);
+                    // Remove the Sub number from the remaining Score
+                    DBCommands.RemoveSubScore(_oldScoreNumber[0]);
                 }
             }
 
         }
+        this.Close ();
     }
     #endregion
 
@@ -182,56 +184,56 @@ public partial class RenumberScore : Window
     #endregion
 
     #region Save To NewScoreList
-    private void SaveToNewScore(DataTable scoreInfo, string subScoreNumber, string AddReplace )
+    private void SaveToNewScore(DataTable scoreInfo, int TargetScoreId, string subScoreNumber, string AddReplace )
     {
         ObservableCollection<SaveScoreModel> Score = new();
 
         Score.Add ( new SaveScoreModel
         {
-            ScoreId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 0 ].ToString () ),
-            ScoreMainNumber = tbScoreNumber.Text,
+            ScoreId = TargetScoreId,
+            ScoreMainNumber = cbxNewScores.SelectedValue.ToString(),
             ScoreSubNumber = subScoreNumber,
-            Title = scoreInfo.Rows [ 0 ].ItemArray [ 4 ].ToString (),
-            SubTitle = scoreInfo.Rows [ 0 ].ItemArray [ 5 ].ToString (),
-            Composer = scoreInfo.Rows [ 0 ].ItemArray [ 6 ].ToString (),
-            Textwriter = scoreInfo.Rows [ 0 ].ItemArray [ 7 ].ToString (),
-            Arranger = scoreInfo.Rows [ 0 ].ItemArray [ 8 ].ToString (),
-            ArchiveId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 9 ].ToString () ),
-            RepertoireId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 11 ].ToString () ),
-            LanguageId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 13 ].ToString () ),
-            GenreId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 15 ].ToString () ),
-            Lyrics = scoreInfo.Rows [ 0 ].ItemArray [ 17 ].ToString (),
-            Checked = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 18 ].ToString () ),
-            DateDigitized = scoreInfo.Rows [ 0 ].ItemArray [ 19 ].ToString (),
-            DateModified = scoreInfo.Rows [ 0 ].ItemArray [ 20 ].ToString (),
-            AccompanimentId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 21 ].ToString () ),
-            PDFORP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 23 ].ToString () ),
-            PDFORK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 24 ].ToString () ),
-            PDFTOP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 25 ].ToString () ),
-            PDFTOK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 26 ].ToString () ),
-            MuseScoreORP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 27 ].ToString () ),
-            MuseScoreORK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 28 ].ToString () ),
-            MuseScoreTOP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 29 ].ToString () ),
-            MuseScoreTOK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 30 ].ToString () ),
-            MP3TOT = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 31 ].ToString () ),
-            MP3T1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 32 ].ToString () ),
-            MP3T2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 33 ].ToString () ),
-            MP3B1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 34 ].ToString () ),
-            MP3B2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 35 ].ToString () ),
-            MP3SOL = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 36 ].ToString () ),
-            MP3PIA = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 37 ].ToString () ),
-            MuseScoreOnline = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 38 ].ToString () ),
-            ByHeart = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 39 ].ToString () ),
-            MusicPiece = scoreInfo.Rows [ 0 ].ItemArray [ 40 ].ToString (),
-            Notes = scoreInfo.Rows [ 0 ].ItemArray [ 41 ].ToString (),
-            AmountPublisher1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 42 ].ToString () ),
-            AmountPublisher2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 43 ].ToString () ),
-            AmountPublisher3 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 44 ].ToString () ),
-            AmountPublisher4 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 45 ].ToString () ),
-            Publisher1Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 46 ].ToString () ),
-            Publisher2Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 48 ].ToString () ),
-            Publisher3Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 50 ].ToString () ),
-            Publisher4Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 52 ].ToString () ),
+            Title = scoreInfo.Rows [ 0 ].ItemArray [ 5 ].ToString (),
+            SubTitle = scoreInfo.Rows [ 0 ].ItemArray [ 6 ].ToString (),
+            Composer = scoreInfo.Rows [ 0 ].ItemArray [ 7 ].ToString (),
+            Textwriter = scoreInfo.Rows [ 0 ].ItemArray [ 8 ].ToString (),
+            Arranger = scoreInfo.Rows [ 0 ].ItemArray [ 9 ].ToString (),
+            ArchiveId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 1 ].ToString () ),
+            RepertoireId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 2 ].ToString () ),
+            LanguageId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 10 ].ToString () ),
+            GenreId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 11 ].ToString () ),
+            Lyrics = scoreInfo.Rows [ 0 ].ItemArray [ 12 ].ToString (),
+            Checked = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 13 ].ToString () ),
+            DateDigitized = GetDate(scoreInfo.Rows [ 0 ].ItemArray [ 14 ].ToString()),
+            DateModified = GetDate(scoreInfo.Rows [ 0 ].ItemArray [ 15 ].ToString ()),
+            AccompanimentId = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 16 ].ToString () ),
+            PDFORP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 17 ].ToString () ),
+            PDFORK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 18 ].ToString () ),
+            PDFTOP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 19 ].ToString () ),
+            PDFTOK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 20 ].ToString () ),
+            MuseScoreORP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 21 ].ToString () ),
+            MuseScoreORK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 22 ].ToString () ),
+            MuseScoreTOP = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 23 ].ToString () ),
+            MuseScoreTOK = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 24 ].ToString () ),
+            MP3TOT = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 25 ].ToString () ),
+            MP3T1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 26 ].ToString () ),
+            MP3T2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 27 ].ToString () ),
+            MP3B1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 28 ].ToString () ),
+            MP3B2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 29 ].ToString () ),
+            MP3SOL = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 30 ].ToString () ),
+            MP3PIA = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 31 ].ToString () ),
+            MuseScoreOnline = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 32 ].ToString () ),
+            ByHeart = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 33 ].ToString () ),
+            MusicPiece = scoreInfo.Rows [ 0 ].ItemArray [ 34 ].ToString (),
+            Notes = scoreInfo.Rows [ 0 ].ItemArray [ 35 ].ToString (),
+            AmountPublisher1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 36 ].ToString () ),
+            AmountPublisher2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 37 ].ToString () ),
+            AmountPublisher3 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 38 ].ToString () ),
+            AmountPublisher4 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 39 ].ToString () ),
+            Publisher1Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 40 ].ToString () ),
+            Publisher2Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 41 ].ToString () ),
+            Publisher3Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 42 ].ToString () ),
+            Publisher4Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 43 ].ToString () ),
         } );
 
         switch (AddReplace.ToLower())
@@ -240,13 +242,41 @@ public partial class RenumberScore : Window
                 // Add as new record
                 break;
             case "replace":
-                // Replace an existing record wit the new values
+                // Replace an existing record with the new values
                 DBCommands.SaveScore(Score);
                 break;
         }
         
         //DBCommands.GetScores(DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null);
 
+    }
+    #endregion
+
+    #region Get The Date from the DateTime string
+    /// <summary>
+    /// Transform the date from a string "d-M-yyyy hh:mm:ss" To a date only "YYYY-MM-DD"
+    /// </summary>
+    /// <param name="Original datestring"></param>
+    /// <returns = new datestring></returns>
+    public static string GetDate(string _date )
+    {
+        var dateString = "";
+        DateOnly _dateOutput;
+
+        string[] dateTime = _date.Split(" ");
+        string[] date = dateTime[0].Split("-");
+
+        string year = date[2];
+        string month = "0" + date[1];
+        string day = "0" + date[0];
+
+        dateString = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
+        _dateOutput = DateOnly.FromDateTime(DateTime.Parse(dateString + " 00:00:00 AM"));
+
+        //DateTime _dateOutput = DateTime.Parse(DateModified + " 00:00:00 AM");
+        //SelectedScore.DateModified = DateOnly.FromDateTime ( _modified );
+
+        return dateString;
     }
     #endregion
 }

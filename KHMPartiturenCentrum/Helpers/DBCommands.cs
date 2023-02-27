@@ -337,7 +337,7 @@ public class DBCommands
     #endregion
 
     #region Check for SubScores
-    public static int CheckForSubScores(string _scoreNumber ) 
+    public static long CheckForSubScores(string _scoreNumber ) 
     {
         // Check how many Scores there are in the table with the given scorenumber, If there are more then 1 there is a set with SubNumbers
         var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
@@ -347,9 +347,9 @@ public class DBCommands
 
         using MySqlCommand cmd = new(sqlQuery, connection);
 
-        int rowsAffected = cmd.ExecuteNonQuery();
+        long numberOfScores = (long)cmd.ExecuteScalar();
 
-        return rowsAffected;
+        return numberOfScores;
     }
     #endregion
 
@@ -653,9 +653,10 @@ public class DBCommands
         if ( scoreList [ 0 ].Publisher2Id != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher2Id + " = @" + DBNames.ScoresFieldNamePublisher2Id; }
         if ( scoreList [ 0 ].Publisher3Id != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher3Id + " = @" + DBNames.ScoresFieldNamePublisher3Id; }
         if ( scoreList [ 0 ].Publisher4Id != -1 ) { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher4Id + " = @" + DBNames.ScoresFieldNamePublisher4Id; }
- 
+
         // Add the filter to the sqlQuery
         sqlQuery += DBNames.SqlWhere + DBNames.ScoresFieldNameId + " = @" + DBNames.ScoresFieldNameId + ";";
+        //sqlQuery += DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = @" + DBNames.ScoresFieldNameScoreNumber + ";";
 
         try
         {
@@ -671,6 +672,134 @@ public class DBCommands
             Debug.WriteLine ( "Fout (UpdateScoresTable): " + ex.Message );
             throw;
         }
+    }
+    #endregion
+
+    #region Get TargetId for renumbering Score
+    /// <summary>
+    /// Get the Id of the Score where the data should be renumbered to
+    /// </summary>
+    /// <param name="_scoreNumber"></param>
+    /// <returns></returns>
+    public static int GetTargetId ( string _scoreNumber )
+    {
+        var _targetId = 0;
+
+        var sqlQuery = DBNames.SqlSelect + DBNames.ScoresFieldNameId + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        _targetId = (int)cmd.ExecuteScalar();
+
+        return _targetId;
+    }
+    #endregion
+
+    #region Renumber Score list
+    public static void RenumberScoreList(DataTable scoreList, string newScoreNumber )
+    {
+        var sqlQuery = "";
+
+        for ( int i = 0; i < scoreList.Rows.Count; i++ )
+        {
+            sqlQuery += DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " +
+                DBNames.ScoresFieldNameArchiveId + ", " +
+                DBNames.ScoresFieldNameRepertoireId + ", " +
+                DBNames.ScoresFieldNameScoreNumber + ", " +
+                DBNames.ScoresFieldNameScoreSubNumber + ", " +
+                DBNames.ScoresFieldNameTitle + ", " +
+                DBNames.ScoresFieldNameSubTitle + ", " +
+                DBNames.ScoresFieldNameComposer + ", " +
+                DBNames.ScoresFieldNameTextwriter + ", " +
+                DBNames.ScoresFieldNameArranger + ", " +
+                DBNames.ScoresFieldNameLanguageId + ", " +
+                DBNames.ScoresFieldNameGenreId + ", " +
+                DBNames.ScoresFieldNameLyrics + ", " +
+                DBNames.ScoresFieldNameDigitized + ", " +
+                DBNames.ScoresFieldNameModified + ", " +
+                DBNames.ScoresFieldNameAccompanimentId + ", " +
+                DBNames.ScoresFieldNamePDFORP + ", " +
+                DBNames.ScoresFieldNamePDFORK + ", " +
+                DBNames.ScoresFieldNamePDFTOP + ", " +
+                DBNames.ScoresFieldNamePDFTOK + ", " +
+                DBNames.ScoresFieldNameMuseScoreORP + ", " +
+                DBNames.ScoresFieldNameMuseScoreORK + ", " +
+                DBNames.ScoresFieldNameMuseScoreTOP + ", " +
+                DBNames.ScoresFieldNameMuseScoreTOK + ", " +
+                DBNames.ScoresFieldNameMP3TOT + ", " +
+                DBNames.ScoresFieldNameMP3T1 + ", " +
+                DBNames.ScoresFieldNameMP3T2 + ", " +
+                DBNames.ScoresFieldNameMP3B1 + ", " +
+                DBNames.ScoresFieldNameMP3B2 + ", " +
+                DBNames.ScoresFieldNameMP3SOL + ", " +
+                DBNames.ScoresFieldNameMP3PIA + ", " +
+                DBNames.ScoresFieldNameOnline + ", " +
+                DBNames.ScoresFieldNameByHeart + ", " +
+                DBNames.ScoresFieldNameMusicPiece + ", " +
+                DBNames.ScoresFieldNameNotes + ", " +
+                DBNames.ScoresFieldNameAmountPublisher1 + ", " +
+                DBNames.ScoresFieldNameAmountPublisher2 + ", " +
+                DBNames.ScoresFieldNameAmountPublisher3 + ", " +
+                DBNames.ScoresFieldNameAmountPublisher4 + ", " +
+                DBNames.ScoresFieldNamePublisher1Id + ", " +
+                DBNames.ScoresFieldNamePublisher2Id + ", " +
+                DBNames.ScoresFieldNamePublisher3Id + ", " +
+                DBNames.ScoresFieldNamePublisher4Id + " ) " +
+                DBNames.SqlValues + " ( " +
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 1 ].ToString () ) + ", " +             // ArchiveId
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 2 ].ToString () ) + ", " +       // RepertoireId
+                "'" + newScoreNumber + "', " +                                                // Renumbered Score number
+                "'" + scoreList.Rows [ i ].ItemArray [ 4 ].ToString () + "', " +              // Score Sub Number
+                "'" + scoreList.Rows [ i ].ItemArray [ 5 ].ToString () + "', " +              // Title
+                "'" + scoreList.Rows [ i ].ItemArray [ 6 ].ToString () + "', " +              // SubTitle
+                "'" + scoreList.Rows [ i ].ItemArray [ 7 ].ToString () + "', " +              // Composer
+                "'" + scoreList.Rows [ i ].ItemArray [ 8 ].ToString () + "', " +              // Text writer
+                "'" + scoreList.Rows [ i ].ItemArray [ 9 ].ToString () + "', " +              // Arranger
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 10 ].ToString () ) + ", " +      // LanguageId
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 11 ].ToString () ) + ", " +      // GenreId
+                "'" + scoreList.Rows [ i ].ItemArray [ 12 ].ToString () + "', " +             // Lyrics
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 13 ].ToString () ) + ", " +      // Checked
+                "'" + scoreList.Rows [ i ].ItemArray [ 14 ].ToString () + "', " +             // Date digitized
+                "'" + scoreList.Rows [ i ].ItemArray [ 15 ].ToString () + "', " +             // Date last modification
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 16 ].ToString () ) + ", " +      // AccompanimentId
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 17 ].ToString () ) + ", " +      // PDF ORP
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 18 ].ToString () ) + ", " +      // PDF ORK
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 19 ].ToString () ) + ", " +      // PDF TOP
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 20 ].ToString () ) + ", " +      // PDF TOK
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 21 ].ToString () ) + ", " +      // MuseScore ORP
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 22 ].ToString () ) + ", " +      // MuseScore ORK
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 23 ].ToString () ) + ", " +      // MuseScore TOP
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 24 ].ToString () ) + ", " +      // MuseScore TOK
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 25 ].ToString () ) + ", " +      // MP3 TOT
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 26 ].ToString () ) + ", " +      // MP3 T1
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 27 ].ToString () ) + ", " +      // MP3 T2
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 28 ].ToString () ) + ", " +      // MP3 B1
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 29 ].ToString () ) + ", " +      // MP3 B2
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 30 ].ToString () ) + ", " +      // MP3 SOL
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 31 ].ToString () ) + ", " +      // MP3 PIA
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 32 ].ToString () ) + ", " +      // MuseScore Online
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 33 ].ToString () ) + ", " +      // Sing By Heart
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 34 ].ToString () ) + ", " +      // Music piece
+                "'" + scoreList.Rows [ i ].ItemArray [ 35 ].ToString () + "', " +             // Notes
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 36 ].ToString () ) + ", " +      // Amount Publisher 1
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 37 ].ToString () ) + ", " +      // Amount Publisher 2
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 38 ].ToString () ) + ", " +      // Amount Publisher 3
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 39 ].ToString () ) + ", " +      // Amount Publisher 4
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 40 ].ToString () ) + ", " +      // Id Publisher 1
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 41 ].ToString () ) + ", " +      // Id Publisher 2
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 42 ].ToString () ) + ", " +      // Id Publisher 3
+                int.Parse ( scoreList.Rows [ i ].ItemArray [ 43 ].ToString () ) + " );";      // Id Publisher 4
+        }
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
     }
     #endregion
 
