@@ -37,9 +37,9 @@
 
                     <Grid Grid.Row="0">
                         <Border
-                            Width="32"
-                            Height="24"
-                            Margin="14,0,0,0"
+                            Width="50"
+                            Height="35"
+                            Margin="5,0,0,0"
                             HorizontalAlignment="Left">
                             <Border.Background>
                                 <ImageBrush ImageSource="Resources/Images/logo.png" Stretch="Uniform" />
@@ -75,9 +75,9 @@
 
                         <Button
                             x:Name="btnFreeNumbers"
-                            Click="btnNewScores_Click"
-                            MouseEnter="btnNewScores_MouseEnter"
-                            MouseLeave="btnNewScores_MouseLeave"
+                            Click="btnAvailableScores_Click"
+                            MouseEnter="btnAvailableScores_MouseEnter"
+                            MouseLeave="btnAvailableScores_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
                             <ctls:MenuItem
                                 VerticalAlignment="Center"
@@ -85,7 +85,7 @@
                                 Icon="{DynamicResource freenumbers}"
                                 IconWidth="16"
                                 IndicatorBrush="{DynamicResource PrimaryBlueColor}"
-                                Text="Vrije nummers" />
+                                Text="Beschikbare partituur nummers" />
                         </Button>
 
                         <Button

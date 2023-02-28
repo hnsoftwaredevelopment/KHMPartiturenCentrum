@@ -47,7 +47,6 @@ public partial class RenumberScore : Window
         var Scores = DBCommands.GetEmptyScores(DBNames.NewScoresView, DBNames.ScoresFieldNameScoreNumber);
 
         cbxNewScores.ItemsSource = Scores.Select ( x => x.ScoreNumber ).ToList ();
-
     }
     #region Selected a new number for the score
     private void NewScoreChanged ( object sender, SelectionChangedEventArgs e )

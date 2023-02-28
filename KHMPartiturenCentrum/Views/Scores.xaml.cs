@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -974,33 +976,67 @@ public partial class Scores : Page
 
     private void RenumberClick(object sender, RoutedEventArgs e)
     {
-        //var selectedRow = e.Source as DataGridRow;
         if ( SelectedScore != null )
         {
-            bool PopupIsClosed = false;
             RenumberScore renumberScore = new(SelectedScore, SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber);
-            //renumberScore.Owner = this;
             renumberScore.Show();
 
             renumberScore.Closed += delegate
             {
-                //  The user has closed our dialog.
-                PopupIsClosed = true;
+                //  The user has closed the dialog.
                 scores = new ScoreViewModel ();
                 DataContext = scores;
             };
-
-            //  ...elsewhere in the code...
-
-            //if ( validationgDlg != null )
-            //{
-            //    //  Our "MikesDialog" is still open...
-            //}
-
-            // When the renumbering is done relooad the Score
-            //scores = new ScoreViewModel ();
-            //DataContext = scores;
         }
-        
+    }
+
+    private void NewScoreClicked ( object sender, RoutedEventArgs e )
+    {
+        if ( SelectedScore != null )
+        {
+            NewScore newScore = new(SelectedScore, SelectedScore.ScoreNumber);
+            newScore.Show ();
+
+            newScore.Closed += delegate
+            {
+                //  The user has closed the dialog.
+                scores = new ScoreViewModel ();
+                DataContext = scores;
+
+                // Select the Newly created Score
+                for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+                {
+                    //Console.WriteLine ( ScoresDataGrid.Items [ i ]);
+                    //Console.WriteLine ( ((ScoreModel) (ScoresDataGrid.Items [ i ])).ScoreNumber );
+                    if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
+                    {
+                        ScoresDataGrid.SelectedIndex = i;
+                        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
+                        tbTitle.Text = "";
+                        break;
+                    }
+                }
+            };
+        }
+
+        //string NewScoreNumber = "031";
+        //DBCommands.AddNewScore ( NewScoreNumber );
+        //scores = new ScoreViewModel ();
+        //DataContext = scores;
+
+        //ScoresDataGrid.SelectedIndex = 0;
+
+        //for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+        //{
+        //    Console.WriteLine ( ScoresDataGrid.Items [ i ] );
+        //    Console.WriteLine ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber );
+        //    if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNumber )
+        //    {
+        //        ScoresDataGrid.SelectedIndex = i;
+        //        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
+        //        tbTitle.Text = "";
+        //        break;
+        //    }
+        //}
     }
 }

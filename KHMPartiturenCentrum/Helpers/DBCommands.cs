@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
@@ -455,6 +456,49 @@ public class DBCommands
     public static void ReAddScore(string _scoreNumber ) 
     {
         var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " + DBNames.ScoresFieldNameScoreNumber + " ) " + DBNames.SqlValues + " ( '" + _scoreNumber + "' );";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
+    #region Add New Score
+    public static void AddNewScore ( string _scoreNumber )
+    {
+        var repertoire = 1;
+
+        if ( int.Parse( _scoreNumber ) >= 700 && int.Parse ( _scoreNumber ) <= 899 ) 
+        {
+            // Christmas Repertoire 4
+            repertoire = 4;
+        }
+        else if ( int.Parse ( _scoreNumber ) >= 900 && int.Parse ( _scoreNumber ) <= 999 )
+        {
+            // Project Repertoire 5
+            repertoire = 5;
+        }
+        else
+        {
+            // Base repertoire 2
+            repertoire = 2;
+        }
+
+        var sqlQuery = DBNames.SqlUpdate + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlSet + 
+                DBNames.ScoresFieldNameTitle + " = '<nieuw>', " + 
+                DBNames.ScoresFieldNameAccompanimentId + " = 1, " +
+                DBNames.ScoresFieldNameArchiveId + " = 3, " +
+                DBNames.ScoresFieldNameGenreId + " = 1, " +
+                DBNames.ScoresFieldNameLanguageId + " = 1, " +
+                DBNames.ScoresFieldNamePublisher1Id + " = 1, " +
+                DBNames.ScoresFieldNamePublisher2Id + " = 1, " +
+                DBNames.ScoresFieldNamePublisher3Id + " = 1, " +
+                DBNames.ScoresFieldNamePublisher4Id + " = 1, " +
+                DBNames.ScoresFieldNameRepertoireId + " = " + repertoire + 
+                DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ();
@@ -923,6 +967,13 @@ public class DBCommands
 
         //execute; returns the number of rows affected
         int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
+    #region Check if Number is in range
+    bool ValueInRange ( int numberToCheck, int bottom, int top )
+    {
+        return ( numberToCheck >= bottom && numberToCheck <= top );
     }
     #endregion
 }
