@@ -149,9 +149,9 @@ public partial class RenumberScore : Window
             else
             {
                 // Only Current score should be copied to a new score (New score has nu subNumber
-                
+
                 // Renumber Current Score and Delete the selected Record
-                ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
+                ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber [0], DBNames.ScoresFieldNameScoreSubNumber, _oldScoreNumber [1] );
                 SaveToNewScore(ScoreInfo, TargetScoreId, "", "replace");
                 DBCommands.DeleteScore(_oldScoreNumber[0], _oldScoreNumber[1]);
 

@@ -977,9 +977,25 @@ public partial class Scores : Page
         //var selectedRow = e.Source as DataGridRow;
         if ( SelectedScore != null )
         {
+            bool PopupIsClosed = false;
             RenumberScore renumberScore = new(SelectedScore, SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber);
             //renumberScore.Owner = this;
             renumberScore.Show();
+
+            renumberScore.Closed += delegate
+            {
+                //  The user has closed our dialog.
+                PopupIsClosed = true;
+                scores = new ScoreViewModel ();
+                DataContext = scores;
+            };
+
+            //  ...elsewhere in the code...
+
+            //if ( validationgDlg != null )
+            //{
+            //    //  Our "MikesDialog" is still open...
+            //}
 
             // When the renumbering is done relooad the Score
             //scores = new ScoreViewModel ();
