@@ -17,14 +17,18 @@
     <None Remove="Resources\Images\filetypemscx.png" />
     <None Remove="Resources\Images\filetypemscxonline.png" />
     <None Remove="Resources\Images\filetypepdf.png" />
+    <None Remove="Resources\Images\khmlogo.svg" />
+    <None Remove="Resources\Images\lock.png" />
     <None Remove="Resources\Images\logo-white.png" />
     <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\next.png" />
     <None Remove="Resources\Images\openfolder.png" />
     <None Remove="Resources\Images\previous.png" />
     <None Remove="Resources\Images\save.png" />
+    <None Remove="Resources\Images\sheet_music.jpg" />
     <None Remove="Resources\Images\start.png" />
     <None Remove="Resources\Images\stopeditting.png" />
+    <None Remove="Resources\Images\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +61,12 @@
     <Resource Include="Resources\Images\filetypepdf.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\khmlogo.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\lock.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\logo-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -75,10 +85,16 @@
     <Resource Include="Resources\Images\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\sheet_music.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\start.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\stopeditting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

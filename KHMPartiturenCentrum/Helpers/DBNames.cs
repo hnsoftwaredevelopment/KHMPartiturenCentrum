@@ -232,15 +232,17 @@ public class DBNames
     public static readonly string AvailableScoresFieldTypeNumber = "varchar";
     #endregion
 
-    #region Table/View Users (From KHM User Database)
+    #region Table/View Users
     public static readonly string UsersTable = "Users";
-    public static readonly string UsersFieldNameId = "ArchiveId";
-    public static readonly string UsersFieldNameUserName = "E-Mail";
+    public static readonly string UsersFieldNameId = "Id";
+    public static readonly string UsersFieldNameLogin = "EMail";
+    public static readonly string UsersFieldNameUserName = "UserName";
     public static readonly string UsersFieldNameFullName = "Fullname";
-    public static readonly string UsersFieldNamePW = "Password";
+    public static readonly string UsersFieldNamePW = "`Password`";
     public static readonly string UsersFieldNameRoleId = "RoleId";
 
     public static readonly string UsersFieldTypeId = "int";
+    public static readonly string UsersFieldTypeLogin = "varchar";
     public static readonly string UsersFieldTypeUserName = "varchar";
     public static readonly string UsersFieldTypeFullName = "varchar";
     public static readonly string UsersFieldTypePW = "varchar";
@@ -248,8 +250,10 @@ public class DBNames
 
     public static readonly string UsersView = "view_Users";
     public static readonly string UsersViewFieldNameRoleName = "RoleText";
+    public static readonly string UsersViewFieldNameRoleDescription = "RoleDescription";
 
     public static readonly string UsersViewFieldTypeRoleName = "varchar";
+    public static readonly string UsersViewFieldTypeRoleDescription = "varchar";
     #endregion
 
     #region Table/View Settings

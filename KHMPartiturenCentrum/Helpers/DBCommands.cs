@@ -1004,6 +1004,35 @@ public class DBCommands
         return ( numberToCheck >= bottom && numberToCheck <= top );
     }
     #endregion
+
+    #region Check valid user
+    public static int CheckUser(string login, string password)
+    {
+        int UserId = 0;
+
+        // When the credentials are invalid, return 0 as UserId as Invalid User
+        string sqlQuery = DBNames.SqlSelect + DBNames.UsersFieldNameId + 
+            DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable +
+            DBNames.SqlWhere + "( " + DBNames.UsersFieldNameLogin + " = '" + login + "' " +
+            DBNames.SqlOr + DBNames.UsersFieldNameUserName + " = '" + login +"' )" +
+            DBNames.SqlAnd + DBNames.UsersFieldNamePW + " = '" + password + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        try
+        {
+            UserId = (int)cmd.ExecuteScalar();
+        }
+        catch
+        {
+            UserId = 0;
+        }
+        return UserId;
+    }
+    #endregion
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8604
