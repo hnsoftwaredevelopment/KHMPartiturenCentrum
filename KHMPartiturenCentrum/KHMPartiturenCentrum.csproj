@@ -17,6 +17,7 @@
     <None Remove="Resources\Images\filetypemscx.png" />
     <None Remove="Resources\Images\filetypemscxonline.png" />
     <None Remove="Resources\Images\filetypepdf.png" />
+    <None Remove="Resources\Images\logo-white.png" />
     <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\next.png" />
     <None Remove="Resources\Images\openfolder.png" />
@@ -54,6 +55,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\filetypepdf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\logo-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\logo.png">

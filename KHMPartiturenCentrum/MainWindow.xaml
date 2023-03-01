@@ -42,7 +42,7 @@
                             Margin="5,0,0,0"
                             HorizontalAlignment="Left">
                             <Border.Background>
-                                <ImageBrush ImageSource="Resources/Images/logo.png" Stretch="Uniform" />
+                                <ImageBrush ImageSource="Resources/Images/logo-white.png" Stretch="Uniform" />
                             </Border.Background>
                         </Border>
 

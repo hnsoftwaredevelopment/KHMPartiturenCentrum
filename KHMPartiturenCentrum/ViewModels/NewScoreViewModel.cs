@@ -11,16 +11,7 @@ public class NewScoreViewModel : BaseScoreViewModel
 {
     public NewScoreViewModel ()
     {
-        //Scores = new ObservableCollection<ScoreModel> ();
-        //Accompaniments = DBCommands.GetAccompaniments ();
-        //Archives = DBCommands.GetArchives ();
-        //Genres = DBCommands.GetGenres ();
-        //Languages = DBCommands.GetLanguages ();
-        //Publishers = DBCommands.GetPublishers ();
-        //Publishers1 = DBCommands.GetPublishers ();
-        //Repertoires = DBCommands.GetRepertoires ();
-        Scores = DBCommands.GetEmptyScores ( DBNames.NewScoresView, DBNames.ScoresFieldNameScoreNumber );
+        //Scores = DBCommands.GetEmptyScores ( DBNames.AvailableScoresView, DBNames.AvailableScoresFieldNameNumber );
         AvailableScores = DBCommands.GetAvailableScores ();
-        AvailableChristmasScores = DBCommands.GetAvailableChristmasScores ();
     }
 }

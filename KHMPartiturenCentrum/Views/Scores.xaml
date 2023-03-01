@@ -204,8 +204,9 @@
                     Height="30"
                     Margin="0,0,10,0"
                     Padding="4"
+                    Click="RenumberClick"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True" Click="RenumberClick"
+                    IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Save}"
                     ToolTip="Geef de geselecteerde partituur een ander partituurnummer">
                     <Path
@@ -219,14 +220,34 @@
                     Width="30"
                     Height="30"
                     Margin="0,0,10,0"
-                    Padding="4" Click="NewScoreClicked"
+                    Padding="4"
+                    Click="NewScoreClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Add}"
-                    ToolTip="Nieuwe Sub-partituur toevoegen"
+                    ToolTip="Nieuwe Partituur toevoegen"
                     ToolTipService.ShowOnDisabled="True">
                     <Path
                         Data="{StaticResource newscore}"
+                        Fill="{StaticResource Button.Add.BorderBrush}"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource Button.Add.BorderBrush}" />
+                </Button>
+
+                <Button
+                    x:Name="btnAddSub"
+                    Width="30"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Padding="4"
+                    Click="NewSubScoreClicked"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    IsEnabled="True"
+                    Style="{DynamicResource DataGrid.Button.Add}"
+                    ToolTip="Nieuwe Sub-partituur voor de geselecteerde partituur toevoegen"
+                    ToolTipService.ShowOnDisabled="True">
+                    <Path
+                        Data="{StaticResource addsubscore}"
                         Fill="{StaticResource Button.Add.BorderBrush}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Add.BorderBrush}" />
@@ -280,12 +301,12 @@
                 <!--#region Context Menu-->
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Nieuwe partituur toevoegen" />
-                        <MenuItem Header="Nieuwe Kerst partituur toevoegen" />
+                        <MenuItem Header="Nieuwe partituur toevoegen" Click="NewScoreClicked"/>
+                        <MenuItem Header="Sub partituur voor geselecteerde partituur maken" Click="NewSubScoreClicked" />
                         <Separator />
-                        <MenuItem Header="Sub partituur voor geselecteerde partituur maken" />
+                        <MenuItem Header="Geselecteerde partituur omnummeren" Click="RenumberClick" />
                         <Separator />
-                        <MenuItem Header="Verwijder geselecteerde partituur" />
+                        <MenuItem Header="Verwijder geselecteerde partituur" Click="DeleteScore"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <!--#endregion-->

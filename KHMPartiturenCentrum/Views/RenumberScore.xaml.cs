@@ -260,21 +260,20 @@ public partial class RenumberScore : Window
     public static string GetDate(string _date )
     {
         var dateString = "";
-        DateOnly _dateOutput;
+        if ( _date != "" )
+        {
+            DateOnly _dateOutput;
 
-        string[] dateTime = _date.Split(" ");
-        string[] date = dateTime[0].Split("-");
+            string[] dateTime = _date.Split(" ");
+            string[] date = dateTime[0].Split("-");
 
-        string year = date[2];
-        string month = "0" + date[1];
-        string day = "0" + date[0];
+            string year = date[2];
+            string month = "0" + date[1];
+            string day = "0" + date[0];
 
-        dateString = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
-        _dateOutput = DateOnly.FromDateTime(DateTime.Parse(dateString + " 00:00:00 AM"));
-
-        //DateTime _dateOutput = DateTime.Parse(DateModified + " 00:00:00 AM");
-        //SelectedScore.DateModified = DateOnly.FromDateTime ( _modified );
-
+            dateString = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
+            _dateOutput = DateOnly.FromDateTime ( DateTime.Parse ( dateString + " 00:00:00 AM" ) );
+        }
         return dateString;
     }
     #endregion

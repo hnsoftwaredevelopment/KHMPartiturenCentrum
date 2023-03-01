@@ -219,35 +219,17 @@ public class DBNames
     #endregion
 
     #region Table/View Scores
-    public static readonly string NewScoresView = "NewScoresView";
+    public static readonly string NewScoresView = "AvailableScoresView";
     // Fields and types are same as for the ScoreNumber table/view
     #endregion
 
-    #region Table/View Available Scores (Non Christmas)
+    #region Table/View Available Score Numbers (All available scores Christmas and Non Christmas)
     public static readonly string AvailableScoresView = "AvailableScoresView";
     public static readonly string AvailableScoresFieldNameId = "Id";
     public static readonly string AvailableScoresFieldNameNumber = "Partituur";
 
     public static readonly string AvailableScoresFieldTypeId = "int";
     public static readonly string AvailableScoresFieldTypeNumber = "varchar";
-    #endregion
-
-    #region Table/View Available Scores (Christmas)
-    public static readonly string AvailableChristmasScoresView = "AvailableChristmasScoresView";
-    public static readonly string AvailableChristmasScoresFieldNameId = "Id";
-    public static readonly string AvailableChristmasScoresFieldNameNumber = "Partituur";
-
-    public static readonly string AvailableChristmasScoresFieldTypeId = "int";
-    public static readonly string AvailableChristmasScoresFieldTypeNumber = "varchar";
-    #endregion
-
-    #region Table/View Available Numbers (All available scores Christmas and Non Christmas)
-    public static readonly string AvailableNumbersView = "AvailableNumbersView";
-    public static readonly string AvailableNumbersFieldNameId = "Id";
-    public static readonly string AvailableNumbersFieldNameNumber = "Partituur";
-
-    public static readonly string AvailableNumbersFieldTypeId = "int";
-    public static readonly string AvailableNumbersFieldTypeNumber = "varchar";
     #endregion
 
     #region Table/View Users (From KHM User Database)

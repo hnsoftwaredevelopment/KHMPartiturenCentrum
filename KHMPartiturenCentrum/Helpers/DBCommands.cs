@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Xml;
 using Google.Protobuf.WellKnownTypes;
 using K4os.Compression.LZ4.Internal;
@@ -122,35 +123,12 @@ public class DBCommands
     #endregion
     #endregion
 
-    #region Get Available Scores (non Christmas)
+    #region Get Available Scores
     public static ObservableCollection<ScoreModel> GetAvailableScores()
     {
         ObservableCollection<ScoreModel> Scores = new();
 
         DataTable dataTable = DBCommands.GetData(DBNames.AvailableScoresView, DBNames.AvailableScoresFieldNameNumber);
-
-        if (dataTable.Rows.Count > 0)
-        {
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                Scores.Add(new ScoreModel
-                {
-                    ScoreId = int.Parse(dataTable.Rows[i].ItemArray[0].ToString()),
-                    ScoreNumber = dataTable.Rows[i].ItemArray[1].ToString()
-                });
-            }
-        }
-
-        return Scores;
-    }
-    #endregion
-
-    #region Get Available Scores (Christmas)
-    public static ObservableCollection<ScoreModel> GetAvailableChristmasScores()
-    {
-        ObservableCollection<ScoreModel> Scores = new();
-
-        DataTable dataTable = DBCommands.GetData(DBNames.AvailableChristmasScoresView, DBNames.AvailableChristmasScoresFieldNameNumber);
 
         if (dataTable.Rows.Count > 0)
         {
@@ -386,6 +364,24 @@ public class DBCommands
     }
     #endregion
 
+    #region Get Highest Subversion
+    public static int getHighestSubNumber(string _scoreNumber )
+    {
+        //Select MAX ( SubNummer) FROM Bibliotheek Where Partituur = '000'
+        var sqlQuery = DBNames.SqlSelect + DBNames.SqlMax + DBNames.ScoresFieldNameScoreSubNumber + ") " + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        string highestSubNumberValue = (string)cmd.ExecuteScalar();
+        int highestSubNumber = int.Parse(highestSubNumberValue);
+
+        return highestSubNumber;
+    }
+    #endregion
+
     #region Execute Delete
     static void ExecuteDeleteScore(string _table, string _scoreNumber ) 
     {
@@ -438,7 +434,7 @@ public class DBCommands
     }
     #endregion
 
-    #region Add Subversion to Score
+    #region Add SubScore to Score
     public static void AddSubScore(string _scoreNumber, string _subScoreNumber)
     {
         string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = '" + _subScoreNumber + "'" + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
@@ -509,6 +505,57 @@ public class DBCommands
     }
     #endregion
 
+    #region Add New Score as Subscore
+    public static void AddNewScoreAsSubscore ( ObservableCollection<ScoreModel> _score )
+    {
+        var repertoire = 1;
+
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " +
+                DBNames.ScoresFieldNameTitle + ", " +
+                DBNames.ScoresFieldNameAccompanimentId + ", " +
+                DBNames.ScoresFieldNameArchiveId + ", " +
+                DBNames.ScoresFieldNameGenreId + ", " +
+                DBNames.ScoresFieldNameLanguageId + ", " +
+                DBNames.ScoresFieldNamePublisher1Id + ", " +
+                DBNames.ScoresFieldNamePublisher2Id + ", " +
+                DBNames.ScoresFieldNamePublisher3Id + ", " +
+                DBNames.ScoresFieldNamePublisher4Id + ", " +
+                DBNames.ScoresFieldNameRepertoireId + ", " +
+                DBNames.ScoresFieldNameScoreNumber + ", " +
+                DBNames.ScoresFieldNameScoreSubNumber + ", " +
+                DBNames.ScoresFieldNameMusicPiece + ", " +
+                DBNames.ScoresFieldNameAmountPublisher1 + ", " +
+                DBNames.ScoresFieldNameAmountPublisher2 + ", " +
+                DBNames.ScoresFieldNameAmountPublisher3 + ", " +
+                DBNames.ScoresFieldNameAmountPublisher4 + " )" +
+                DBNames.SqlValues + "( " +
+                "'<nieuw>', " +
+                _score[0].AccompanimentId + ", " +
+                _score[0].ArchiveId +", " +
+                _score[0].GenreId +", " +
+                _score[0].LanguageId +", " +
+                _score[0].Publisher1Id +", " +
+                _score[0].Publisher2Id +", " +
+                _score[0].Publisher3Id +", " +
+                _score[0].Publisher4Id +", " +
+                _score[0].RepertoireId +", " +
+                "'" + _score[0].ScoreNumber + "', " +
+                "'" + _score[0].ScoreSubNumber + "', " +
+                "'" + _score[0].MusicPiece + "', " +
+                _score[0].NumberScoresPublisher1 + ", " +
+                _score[0].NumberScoresPublisher2 + ", " +
+                _score[0].NumberScoresPublisher3 + ", " +
+                _score[0].NumberScoresPublisher4 + " );";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
     #region Get Empty Scores
     public static ObservableCollection<ScoreModel> GetEmptyScores ( string _table, string _orderByFieldName )
     {
@@ -523,26 +570,7 @@ public class DBCommands
                 Scores.Add ( new ScoreModel
                 {
                     ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
-                    Score = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
-                    ScoreNumber = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
-                    ArchiveId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 9 ].ToString () ),
-                    ArchiveName = dataTable.Rows [ i ].ItemArray [ 10 ].ToString (),
-                    RepertoireId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 11 ].ToString () ),
-                    RepertoireName = dataTable.Rows [ i ].ItemArray [ 12 ].ToString (),
-                    LanguageId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 13 ].ToString () ),
-                    LanguageName = dataTable.Rows [ i ].ItemArray [ 14 ].ToString (),
-                    GenreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 15 ].ToString () ),
-                    GenreName = dataTable.Rows [ i ].ItemArray [ 16 ].ToString (),
-                    AccompanimentId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 21 ].ToString () ),
-                    AccompanimentName = dataTable.Rows [ i ].ItemArray [ 22 ].ToString (),
-                    Publisher1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString () ),
-                    Publisher1Name = dataTable.Rows [ i ].ItemArray [ 47 ].ToString (),
-                    Publisher2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 48 ].ToString () ),
-                    Publisher2Name = dataTable.Rows [ i ].ItemArray [ 49 ].ToString (),
-                    Publisher3Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 50 ].ToString () ),
-                    Publisher3Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString (),
-                    Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString () ),
-                    Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ()
+                    ScoreNumber = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ()
                 } );
             }
         }
@@ -701,8 +729,8 @@ public class DBCommands
 
         if (scoreList[0].MusicPieceChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMusicPiece + " = @" + DBNames.ScoresFieldNameMusicPiece; }
 
-        if (scoreList[0].DateDigitizedChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
-        if (scoreList[0].DateModifiedChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
+        if (scoreList[0].DateDigitizedChanged != 0) { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
+        if (scoreList[0].DateModifiedChanged != 0) { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
         if (scoreList[0].Checked != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameChecked + " = @" + DBNames.ScoresFieldNameChecked; }
 
         if (scoreList[0].MuseScoreORP != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORP + " = @" + DBNames.ScoresFieldNameMuseScoreORP; }

@@ -27,5 +27,7 @@ public partial class AvailableScores : Page
     public AvailableScores ()
     {
         InitializeComponent ();
+        scores = new NewScoreViewModel ();
+        DataContext = scores;
     }
 }

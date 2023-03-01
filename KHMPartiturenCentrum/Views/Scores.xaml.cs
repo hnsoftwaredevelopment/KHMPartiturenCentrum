@@ -1018,25 +1018,102 @@ public partial class Scores : Page
                 }
             };
         }
+    }
+    private void NewSubScoreClicked ( object sender, RoutedEventArgs e )
+    {
+        // Checķ if Score already has Sub Scores
+        // NO:
+        //  Change SubNumber of Selected Score to "01"
+        //  Create new Score with SubNumber "02"
+        //  Save Changes
+        //  On Cancel: Change SubNumber of selected Score back to ""
+        // YES:
+        //  Get the highest SubNumber and add 1 to it
+        //  Create new Score with new SubNumber
+        //  Save Changes
 
-        //string NewScoreNumber = "031";
-        //DBCommands.AddNewScore ( NewScoreNumber );
-        //scores = new ScoreViewModel ();
-        //DataContext = scores;
+        if ( SelectedScore != null )
+        {
+            var NumberOfSubScores = DBCommands.CheckForSubScores ( SelectedScore.ScoreNumber );
+            var SubScore = "";
 
-        //ScoresDataGrid.SelectedIndex = 0;
+            if ( NumberOfSubScores == 1 )
+            {
+                // There are no subscores, Set SubSocre for current Score to "01" and create new Score with SubNumber = "02"
+                DBCommands.AddSubScore ( SelectedScore.ScoreNumber, "01" );
 
-        //for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
-        //{
-        //    Console.WriteLine ( ScoresDataGrid.Items [ i ] );
-        //    Console.WriteLine ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber );
-        //    if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNumber )
-        //    {
-        //        ScoresDataGrid.SelectedIndex = i;
-        //        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
-        //        tbTitle.Text = "";
-        //        break;
-        //    }
-        //}
+                SubScore = "02";
+            }
+            else
+            {
+                // There are SubScores get the Highest SubScore Number
+                int SubScoreValue = DBCommands.getHighestSubNumber(SelectedScore.ScoreNumber) + 1;
+
+                SubScore = SubScoreValue.ToString("00");
+            }
+
+            ObservableCollection<ScoreModel> selectedScore = new();
+
+            selectedScore.Add ( new ScoreModel
+            {
+                ScoreNumber = SelectedScore.ScoreNumber,
+                ScoreSubNumber = SubScore,
+                ArchiveId = SelectedScore.ArchiveId,
+                AccompanimentId = SelectedScore.AccompanimentId,
+                GenreId = SelectedScore.GenreId,
+                LanguageId = SelectedScore.LanguageId,
+                Publisher1Id = SelectedScore.Publisher1Id,
+                Publisher2Id = SelectedScore.Publisher2Id,
+                Publisher3Id = SelectedScore.Publisher3Id,
+                Publisher4Id = SelectedScore.Publisher4Id,
+                RepertoireId = SelectedScore.RepertoireId,
+                MusicPiece = SelectedScore.MusicPiece,
+                NumberScoresPublisher1 = SelectedScore.NumberScoresPublisher1,
+                NumberScoresPublisher2 = SelectedScore.NumberScoresPublisher2,
+                NumberScoresPublisher3 = SelectedScore.NumberScoresPublisher3,
+                NumberScoresPublisher4 = SelectedScore.NumberScoresPublisher4,
+            } );
+
+            DBCommands.AddNewScoreAsSubscore ( selectedScore );
+
+            scores = new ScoreViewModel ();
+            DataContext = scores;
+
+            // Select the Newly created Score
+            for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+            {
+                if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == SelectedScore.ScoreNumber && ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreSubNumber == SubScore )
+                {
+                    ScoresDataGrid.SelectedIndex = i;
+                    ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
+                    tbTitle.Text = "";
+                    break;
+                }
+            }
+
+            //NewScore newScore = new(SelectedScore, SelectedScore.ScoreNumber);
+            //newScore.Show ();
+
+            //newScore.Closed += delegate
+            //{
+            //    //  The user has closed the dialog.
+            //    scores = new ScoreViewModel ();
+            //    DataContext = scores;
+
+            //    // Select the Newly created Score
+            //    for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+            //    {
+            //        //Console.WriteLine ( ScoresDataGrid.Items [ i ]);
+            //        //Console.WriteLine ( ((ScoreModel) (ScoresDataGrid.Items [ i ])).ScoreNumber );
+            //        if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
+            //        {
+            //            ScoresDataGrid.SelectedIndex = i;
+            //            ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
+            //            tbTitle.Text = "";
+            //            break;
+            //        }
+            //    }
+            //};
+        }
     }
 }
