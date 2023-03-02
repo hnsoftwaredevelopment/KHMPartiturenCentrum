@@ -25,6 +25,7 @@ using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.ViewModels;
 
 using static System.Net.Mime.MediaTypeNames;
+using static KHMPartiturenCentrum.App;
 
 namespace KHMPartiturenCentrum.Views;
 
@@ -40,6 +41,17 @@ public partial class Scores : Page
         InitializeComponent ();
         scores = new ScoreViewModel ();
         DataContext = scores;
+
+        if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8)
+        {
+            tbEnableEdit.Text = "Visible";
+            tbEnableEditFields.Text = "True";
+        }
+        else
+        {
+            tbEnableEdit.Text = "Collapsed";
+            tbEnableEditFields.Text = "False";
+        }
     }
     private void PageLoaded ( object sender, RoutedEventArgs e )
     {

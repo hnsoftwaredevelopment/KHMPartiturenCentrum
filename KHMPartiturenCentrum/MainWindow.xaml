@@ -6,11 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:KHMPartiturenCentrum"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:KHMPartiturenCentrum.ViewModels"
     Title="MainWindow"
     Width="1400"
     Height="650"
+    d:DataContext="{d:DesignInstance Type=viewmodels:UserViewModel}"
     AllowsTransparency="True"
     Background="Transparent"
+    DataContext="viewmodels:UserViewModel"
     FontFamily="Poppins"
     MouseDown="Window_MouseDown"
     ResizeMode="CanResizeWithGrip"
@@ -29,6 +32,7 @@
                 Background="{DynamicResource SecundaryBackgroundColor}"
                 CornerRadius="8 0 0 8">
                 <Grid x:Name="GridNav" Width="60">
+                    <!--#region Header region-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60" />
                         <RowDefinition Height="*" />
@@ -39,7 +43,7 @@
                         <Border
                             Width="50"
                             Height="35"
-                            Margin="5,0,0,0"
+                            Margin="8,0,0,0"
                             HorizontalAlignment="Left">
                             <Border.Background>
                                 <ImageBrush ImageSource="Resources/Images/logo-white.png" Stretch="Uniform" />
@@ -47,14 +51,15 @@
                         </Border>
 
                         <Label
-                            Margin="60,0,0,0"
+                            Margin="75,13,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="KHM Partituren centrum"
-                            FontSize="16"
+                            Content="Partituren centrum"
+                            FontSize="15"
                             FontWeight="Bold"
                             Foreground="{DynamicResource PrimaryTextColor}" />
                     </Grid>
+                    <!--#endregion-->
 
                     <!--#region MenuItem-->
                     <StackPanel Grid.Row="1" Margin="-1,40,0,20">
@@ -85,7 +90,7 @@
                                 Icon="{DynamicResource freenumbers}"
                                 IconWidth="16"
                                 IndicatorBrush="{DynamicResource PrimaryBlueColor}"
-                                Text="Beschikbare partituur nummers" />
+                                Text="Beschikbare partituurnummers" />
                         </Button>
 
                         <Button
@@ -162,7 +167,8 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <ToggleButton
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton
                     x:Name="Tg_Btn"
                     Grid.Column="1"
                     Width="30"
@@ -181,7 +187,7 @@
                                         BeginTime="0:0:0"
                                         Storyboard.TargetName="GridNav"
                                         Storyboard.TargetProperty="Width"
-                                        From="210"
+                                        From="270"
                                         To="60"
                                         Duration="0:0:0.5" />
                                 </Storyboard>
@@ -195,14 +201,17 @@
                                         Storyboard.TargetName="GridNav"
                                         Storyboard.TargetProperty="Width"
                                         From="60"
-                                        To="210"
+                                        To="270"
                                         Duration="0:0:0.5" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
                     </ToggleButton.Triggers>
-                </ToggleButton>
+                    </ToggleButton>
 
+                    <TextBlock x:Name="tbUserName" Foreground="White" Margin="60,0,0,0" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" Text="UserName"/>
+                </StackPanel>
+                
                 <!--#region Button Close | Restore | Minimize-->
                 <DockPanel
                     HorizontalAlignment="Stretch"

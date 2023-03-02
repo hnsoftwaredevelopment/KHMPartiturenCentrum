@@ -1,7 +1,8 @@
 ﻿using KHMPartiturenCentrum.Helpers;
-
+using KHMPartiturenCentrum.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KHMPartiturenCentrum.Converters;
+using static KHMPartiturenCentrum.App;
 
 namespace KHMPartiturenCentrum.Views;
 /// <summary>
@@ -65,10 +68,21 @@ public partial class LoginPage : Window
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
         tbInvalidLogin.Visibility = Visibility.Collapsed;
-        int UserId = DBCommands.CheckUser(tbUserName.Text, tbPassword.Password);
+        int UserId = DBCommands.CheckUser(tbUserName.Text, Helper.HashPassword(tbPassword.Password, tbUserName.Text));
         if (UserId != 0)
         {
-            // Use userId the get Fullname and Role from the database
+            ScoreUsers.SelectedUserId = UserId;
+            ObservableCollection<UserModel> Users = DBCommands.GetUsers ( );
+
+            foreach ( UserModel user in Users )
+            {
+                if ( user.UserId == UserId )
+                {
+                    ScoreUsers.SelectedUserName = user.UserName;
+                    ScoreUsers.SelectedUserEmail = user.UserEmail;
+                    ScoreUsers.SelectedUserRoleId = user.UserRoleId;
+                }
+            }
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();

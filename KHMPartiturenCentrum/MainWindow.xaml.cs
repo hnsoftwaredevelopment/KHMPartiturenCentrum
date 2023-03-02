@@ -16,6 +16,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using KHMPartiturenCentrum.Views;
+using System.Configuration;
+using KHMPartiturenCentrum.ViewModels;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using static KHMPartiturenCentrum.App;
+using System.Collections.ObjectModel;
+using KHMPartiturenCentrum.Models;
 
 namespace KHMPartiturenCentrum;
 /// <summary>
@@ -24,8 +30,9 @@ namespace KHMPartiturenCentrum;
 public partial class MainWindow : Window
 {
     public MainWindow()
-    {
-        InitializeComponent();
+    {      
+        InitializeComponent ();
+        tbUserName.Text = ScoreUsers.SelectedUserName;
     }
 
     #region Button Close | Restore | Minimize 
@@ -111,7 +118,7 @@ public partial class MainWindow : Window
             Popup.PlacementTarget = btnFreeNumbers;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Beschikbare partituurnummers";
+            Header.PopupText.Text = "Beschikbare nummers";
         }
     }
     #endregion

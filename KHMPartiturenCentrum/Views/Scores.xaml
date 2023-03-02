@@ -108,6 +108,14 @@
                 <CheckBox x:Name="cbPublisher2" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher3" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher4" Visibility="Visible" />
+                <TextBlock
+                    x:Name="tbEnableEdit"
+                    Text=""
+                    Visibility="Visible" />
+                <TextBlock
+                    x:Name="tbEnableEditFields"
+                    Text=""
+                    Visibility="Visible" />
             </StackPanel>
             <!--#endregion-->
 
@@ -116,6 +124,8 @@
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
+
+                <!--#region Jump to First record-->
                 <Button
                     x:Name="btnFirst"
                     Width="30"
@@ -131,7 +141,9 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region Jump to Previous record-->
                 <Button
                     x:Name="btnPrev"
                     Width="30"
@@ -147,7 +159,9 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region Jump to Next record-->
                 <Button
                     x:Name="btnNext"
                     Width="30"
@@ -163,41 +177,50 @@
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region Jump to Last record-->
                 <Button
                     x:Name="btnLast"
                     Width="30"
                     Height="30"
+                    Margin="10,0,10,0"
                     Padding="5"
                     Click="BtnLastClick"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Laatste partituur"
-                    ToolTipService.ShowOnDisabled="True">
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding tbEnableEdit.Text}">
                     <Path
                         Data="{StaticResource last}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Navigate.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region  Save Button-->
                 <Button
                     x:Name="btnSave"
                     Width="30"
                     Height="30"
-                    Margin="10,0,10,0"
+                    Margin="0,0,10,0"
                     Padding="4"
                     Click="BtnSaveClick"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="False"
                     Style="{DynamicResource DataGrid.Button.Save}"
                     ToolTip="Er zijn geen gegevens aangepast, opslaan niet mogelijk"
-                    ToolTipService.ShowOnDisabled="True">
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
                     <Path
                         Data="{StaticResource save}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region Renumber Score button-->
                 <Button
                     x:Name="btnRenumber"
                     Width="30"
@@ -208,13 +231,17 @@
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Save}"
-                    ToolTip="Geef de geselecteerde partituur een ander partituurnummer">
+                    ToolTip="Geef de geselecteerde partituur een ander partituurnummer"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
                     <Path
                         Data="{StaticResource renumber}"
                         Fill="{DynamicResource Button.Save.BorderBrush}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Save.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
+
+                <!--#region Add new Score-->
                 <Button
                     x:Name="btnAdd"
                     Width="30"
@@ -226,14 +253,17 @@
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Add}"
                     ToolTip="Nieuwe Partituur toevoegen"
-                    ToolTipService.ShowOnDisabled="True">
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
                     <Path
                         Data="{StaticResource newscore}"
                         Fill="{StaticResource Button.Add.BorderBrush}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Add.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region Add new Sub score-->
                 <Button
                     x:Name="btnAddSub"
                     Width="30"
@@ -245,14 +275,17 @@
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Add}"
                     ToolTip="Nieuwe Sub-partituur voor de geselecteerde partituur toevoegen"
-                    ToolTipService.ShowOnDisabled="True">
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
                     <Path
                         Data="{StaticResource addsubscore}"
                         Fill="{StaticResource Button.Add.BorderBrush}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Add.BorderBrush}" />
                 </Button>
+                <!--#endregion-->
 
+                <!--#region Delete Score-->
                 <Button
                     x:Name="btnDelete"
                     Width="30"
@@ -263,13 +296,14 @@
                     IsEnabled="True"
                     Style="{DynamicResource DataGrid.Button.Add}"
                     ToolTip="Geselecteerde partituur verwijderen"
-                    ToolTipService.ShowOnDisabled="True">
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
                     <Path
                         Data="{StaticResource delete}"
                         Stretch="Uniform"
                         Stroke="{StaticResource Button.Delete.BorderBrush}" />
                 </Button>
-
+                <!--#endregion-->
 
             </StackPanel>
             <!--#endregion-->
@@ -301,12 +335,12 @@
                 <!--#region Context Menu-->
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Nieuwe partituur toevoegen" Click="NewScoreClicked"/>
-                        <MenuItem Header="Sub partituur voor geselecteerde partituur maken" Click="NewSubScoreClicked" />
+                        <MenuItem Click="NewScoreClicked" Header="Nieuwe partituur toevoegen" />
+                        <MenuItem Click="NewSubScoreClicked" Header="Sub partituur voor geselecteerde partituur maken" />
                         <Separator />
-                        <MenuItem Header="Geselecteerde partituur omnummeren" Click="RenumberClick" />
+                        <MenuItem Click="RenumberClick" Header="Geselecteerde partituur omnummeren" />
                         <Separator />
-                        <MenuItem Header="Verwijder geselecteerde partituur" Click="DeleteScore"/>
+                        <MenuItem Click="DeleteScore" Header="Verwijder geselecteerde partituur" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <!--#endregion-->
@@ -950,6 +984,7 @@
                                                 x:Name="comRepertoire"
                                                 Width="220"
                                                 HorizontalAlignment="Left"
+                                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                                 SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1004,6 +1039,7 @@
                                                 x:Name="comArchive"
                                                 Width="220"
                                                 HorizontalAlignment="Left"
+                                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                                 SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1058,6 +1094,7 @@
                                             x:Name="chkByHeart"
                                             Checked="CheckBoxChanged"
                                             IsChecked="{Binding ByHeart}"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Unchecked="CheckBoxChanged" />
                                     </StackPanel>
                                     <!--#endregion-->
@@ -1077,6 +1114,7 @@
                                         <TextBox
                                             x:Name="tbTitle"
                                             Width="450"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             TextChanged="TextBoxChanged" />
                                     </StackPanel>
@@ -1088,6 +1126,7 @@
                                         <TextBox
                                             x:Name="tbSubTitle"
                                             Width="450"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             TextChanged="TextBoxChanged" />
                                     </StackPanel>
@@ -1109,6 +1148,7 @@
                                         <TextBox
                                             x:Name="tbComposer"
                                             Width="340"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             TextChanged="TextBoxChanged" />
                                     </StackPanel>
@@ -1120,6 +1160,7 @@
                                         <TextBox
                                             x:Name="tbTextwriter"
                                             Width="340"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             TextChanged="TextBoxChanged" />
                                     </StackPanel>
@@ -1131,6 +1172,7 @@
                                         <TextBox
                                             x:Name="tbArranger"
                                             Width="340"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             TextChanged="TextBoxChanged" />
                                     </StackPanel>
@@ -1155,6 +1197,7 @@
                                                 x:Name="comGenre"
                                                 Width="220"
                                                 HorizontalAlignment="Left"
+                                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                                 SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1209,6 +1252,7 @@
                                                 x:Name="comAccompaniment"
                                                 Width="220"
                                                 HorizontalAlignment="Left"
+                                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                                 SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1263,6 +1307,7 @@
                                                 x:Name="comLanguage"
                                                 Width="220"
                                                 HorizontalAlignment="Left"
+                                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                                 SelectionChanged="ComboBoxChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -1318,6 +1363,7 @@
                                         <TextBox
                                             x:Name="tbMusicPiece"
                                             Width="1000"
+                                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                             Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                             Text="{Binding MusicPiece}"
                                             TextChanged="TextBoxChanged" />
@@ -1350,6 +1396,7 @@
                                     <DatePicker
                                         x:Name="dpDigitized"
                                         Margin="0,0,50,7"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         SelectedDateChanged="DatePickerChanged" />
                                 </StackPanel>
                                 <!--#endregion-->
@@ -1360,6 +1407,7 @@
                                     <DatePicker
                                         x:Name="dpModified"
                                         Margin="0,0,50,7"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         SelectedDateChanged="DatePickerChanged" />
                                 </StackPanel>
                                 <!--#endregion-->
@@ -1370,6 +1418,7 @@
                                     <CheckBox
                                         x:Name="chkChecked"
                                         Checked="CheckBoxChanged"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         Unchecked="CheckBoxChanged" />
                                 </StackPanel>
                                 <!--#endregion-->
@@ -1430,6 +1479,7 @@
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1444,6 +1494,7 @@
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1458,6 +1509,7 @@
                                     Grid.Row="2"
                                     Grid.Column="2"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1472,6 +1524,7 @@
                                     Grid.Row="3"
                                     Grid.Column="2"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
@@ -1495,6 +1548,7 @@
                                     Grid.Row="0"
                                     Grid.Column="6"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1509,6 +1563,7 @@
                                     Grid.Row="1"
                                     Grid.Column="6"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1523,6 +1578,7 @@
                                     Grid.Row="2"
                                     Grid.Column="6"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1537,6 +1593,7 @@
                                     Grid.Row="3"
                                     Grid.Column="6"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
@@ -1560,6 +1617,7 @@
                                     Grid.Row="0"
                                     Grid.Column="10"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1574,6 +1632,7 @@
                                     Grid.Row="1"
                                     Grid.Column="10"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1588,6 +1647,7 @@
                                     Grid.Row="2"
                                     Grid.Column="10"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1602,6 +1662,7 @@
                                     Grid.Row="3"
                                     Grid.Column="10"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1616,6 +1677,7 @@
                                     Grid.Row="0"
                                     Grid.Column="13"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1630,6 +1692,7 @@
                                     Grid.Row="1"
                                     Grid.Column="13"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
 
@@ -1644,6 +1707,7 @@
                                     Grid.Row="2"
                                     Grid.Column="13"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
@@ -1667,6 +1731,7 @@
                                     Grid.Row="0"
                                     Grid.Column="17"
                                     Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
                                 <!--#endregion-->
@@ -1865,6 +1930,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             HorizontalScrollBarVisibility="Auto"
+                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                             TextChanged="RichTextBoxChanged"
                             VerticalScrollBarVisibility="Auto">
                             <FlowDocument x:Name="inpLyricsFD">
@@ -2067,6 +2133,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 HorizontalScrollBarVisibility="Auto"
+                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                 TextChanged="RichTextBoxChanged"
                                 VerticalScrollBarVisibility="Auto">
                                 <FlowDocument x:Name="inpNotesFD">
@@ -2161,6 +2228,7 @@
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     TextChanged="TextBoxChanged" />
 
@@ -2172,6 +2240,7 @@
                                         x:Name="comPublisher1"
                                         Width="240"
                                         HorizontalAlignment="Left"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
@@ -2226,6 +2295,7 @@
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     TextChanged="TextBoxChanged" />
 
@@ -2237,6 +2307,7 @@
                                         x:Name="comPublisher2"
                                         Width="240"
                                         HorizontalAlignment="Left"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
@@ -2291,6 +2362,7 @@
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     TextChanged="TextBoxChanged" />
 
@@ -2302,6 +2374,7 @@
                                         x:Name="comPublisher3"
                                         Width="240"
                                         HorizontalAlignment="Left"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
@@ -2356,6 +2429,7 @@
                                     Margin="0,5"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}"
                                     TextChanged="TextBoxChanged" />
 
@@ -2367,6 +2441,7 @@
                                         x:Name="comPublisher4"
                                         Width="240"
                                         HorizontalAlignment="Left"
+                                        IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                         SelectionChanged="ComboBoxChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
@@ -2431,6 +2506,7 @@
                                     Width="70"
                                     HorizontalContentAlignment="Right"
                                     VerticalContentAlignment="Center"
+                                    IsEnabled="False"
                                     Style="{DynamicResource TabItem.Page.TextBox.Style}" />
                                 <TextBlock
                                     Grid.Row="7"

@@ -17,6 +17,7 @@ using Google.Protobuf.WellKnownTypes;
 using K4os.Compression.LZ4.Internal;
 
 using KHMPartiturenCentrum.Models;
+using KHMPartiturenCentrum.Views;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using MySqlX.XDevAPI.Common;
@@ -1010,6 +1011,16 @@ public class DBCommands
     {
         int UserId = 0;
 
+        //ObservableCollection<UserModel> Users = GetUsers();
+
+        //foreach(var user in Users )
+        //{
+        //    if (user.UserPassword == password )
+        //    {
+        //        Console.WriteLine (user.UserId);
+        //    }
+        //}
+
         // When the credentials are invalid, return 0 as UserId as Invalid User
         string sqlQuery = DBNames.SqlSelect + DBNames.UsersFieldNameId + 
             DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable +
@@ -1032,6 +1043,59 @@ public class DBCommands
         }
         return UserId;
     }
+    #endregion
+
+    #region Get UserInfo
+    #region Get Userinfo for 1 user
+    public static ObservableCollection<UserModel> GetUsers (int _userId)
+    {
+        ObservableCollection<UserModel> users = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.UsersTable, "nosort", DBNames.UsersFieldNameId, _userId.ToString());
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                users.Add ( new UserModel
+                {
+                    UserId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    UserName = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
+                    UserEmail = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
+                    UserPassword = dataTable.Rows [ i ].ItemArray [ 3 ].ToString (),
+                    UserRoleId = int.Parse(dataTable.Rows [ i ].ItemArray [ 5 ].ToString ())
+                } );
+            }
+        }
+        return users;
+    }
+    #endregion
+
+    #region Get Userinfo for all users
+    public static ObservableCollection<UserModel> GetUsers ( )
+    {
+        ObservableCollection<UserModel> users = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.UsersTable, "nosort");
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                users.Add ( new UserModel
+                {
+                    UserId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    UserName = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
+                    UserEmail = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
+                    UserPassword = dataTable.Rows [ i ].ItemArray [ 3 ].ToString (),
+                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 5 ].ToString () )
+                } );
+            }
+        }
+        return users;
+    }
+    #endregion
+
     #endregion
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
