@@ -1001,7 +1001,6 @@ public partial class Scores : Page
             };
         }
     }
-
     private void NewScoreClicked ( object sender, RoutedEventArgs e )
     {
         if ( SelectedScore != null )
@@ -1033,17 +1032,6 @@ public partial class Scores : Page
     }
     private void NewSubScoreClicked ( object sender, RoutedEventArgs e )
     {
-        // Checķ if Score already has Sub Scores
-        // NO:
-        //  Change SubNumber of Selected Score to "01"
-        //  Create new Score with SubNumber "02"
-        //  Save Changes
-        //  On Cancel: Change SubNumber of selected Score back to ""
-        // YES:
-        //  Get the highest SubNumber and add 1 to it
-        //  Create new Score with new SubNumber
-        //  Save Changes
-
         if ( SelectedScore != null )
         {
             var NumberOfSubScores = DBCommands.CheckForSubScores ( SelectedScore.ScoreNumber );

@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KHMPartiturenCentrum.Converters;
 using static KHMPartiturenCentrum.App;
+using System.Windows.Controls.Primitives;
 
 namespace KHMPartiturenCentrum.Views;
 /// <summary>
@@ -68,7 +69,7 @@ public partial class LoginPage : Window
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
         tbInvalidLogin.Visibility = Visibility.Collapsed;
-        int UserId = DBCommands.CheckUser(tbUserName.Text, Helper.HashPassword(tbPassword.Password, tbUserName.Text));
+        int UserId = DBCommands.CheckUser(tbUserName.Text, tbPassword.Password);
         if (UserId != 0)
         {
             ScoreUsers.SelectedUserId = UserId;
@@ -79,6 +80,8 @@ public partial class LoginPage : Window
                 if ( user.UserId == UserId )
                 {
                     ScoreUsers.SelectedUserName = user.UserName;
+                    ScoreUsers.SelectedUserFullName = user.UserFullName;
+                    ScoreUsers.SelectedUserPassword = user.UserPassword;
                     ScoreUsers.SelectedUserEmail = user.UserEmail;
                     ScoreUsers.SelectedUserRoleId = user.UserRoleId;
                 }
@@ -90,6 +93,14 @@ public partial class LoginPage : Window
         else
         {
             tbInvalidLogin.Visibility = Visibility.Visible;
+        }
+    }
+
+    private void PressedEnterOnPassword ( object sender, KeyEventArgs e )
+    {
+        if ( e.Key == Key.Enter )
+        {
+            btnLogin.RaiseEvent ( new RoutedEventArgs ( ButtonBase.ClickEvent ) );
         }
     }
 }

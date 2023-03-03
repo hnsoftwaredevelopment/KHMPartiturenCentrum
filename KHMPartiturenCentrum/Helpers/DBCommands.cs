@@ -15,13 +15,14 @@ using System.Windows.Forms;
 using System.Xml;
 using Google.Protobuf.WellKnownTypes;
 using K4os.Compression.LZ4.Internal;
-
+using KHMPartiturenCentrum.Converters;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.Views;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using MySqlX.XDevAPI.Common;
 using Org.BouncyCastle.Crypto;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604
@@ -789,6 +790,44 @@ public class DBCommands
     }
     #endregion
 
+    #region Update User
+    public static void UpdateUser ( ObservableCollection<UserModel> modifiedUser )
+    {
+
+        string sqlQuery = DBNames.SqlUpdate + DBNames.UsersTable + DBNames.SqlSet;
+
+        if( modifiedUser != null )
+        {
+            if ( modifiedUser [0].UserFullName != "" )
+            { sqlQuery += DBNames.UsersFieldNameFullName + " = @" + DBNames.UsersFieldNameFullName; }
+
+            if ( modifiedUser [ 0 ].UserEmail != "" )
+            { sqlQuery += ", " + DBNames.UsersFieldNameLogin + " = @" + DBNames.UsersFieldNameLogin; }
+
+            if ( modifiedUser [ 0 ].UserPassword != "" )
+            { sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
+        }
+
+        // Add the filter to the sqlQuery
+        sqlQuery += DBNames.SqlWhere + DBNames.UsersFieldNameUserName + " = @" + DBNames.UsersFieldNameUserName + ";";
+
+        try
+        {
+            ExecuteNonQueryUsersTable ( sqlQuery.Replace ( "SET , ", "SET " ), modifiedUser );
+        }
+        catch ( MySqlException ex )
+        {
+            Debug.WriteLine ( "Fout (UpdateScoresTable - MySqlException): " + ex.Message );
+            throw ex;
+        }
+        catch ( Exception ex )
+        {
+            Debug.WriteLine ( "Fout (UpdateScoresTable): " + ex.Message );
+            throw;
+        }
+    }
+    #endregion
+
     #region Get TargetId for renumbering Score
     /// <summary>
     /// Get the Id of the Score where the data should be renumbered to
@@ -999,6 +1038,34 @@ public class DBCommands
     }
     #endregion
 
+    #region Execute Non Query UserssTable
+    static void ExecuteNonQueryUsersTable ( string sqlQuery, ObservableCollection<UserModel> modifiedUser )
+    {
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        if ( modifiedUser != null )
+        {
+            if ( modifiedUser [ 0 ].UserFullName != "" )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameFullName, MySqlDbType.VarChar ).Value = modifiedUser[0].UserFullName; }
+
+            if ( modifiedUser [ 0 ].UserFullName != "" )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameLogin, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserEmail; }
+
+            if ( modifiedUser [ 0 ].UserPassword != "" )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }
+        }
+
+        // Add the username value for the Score that has to be modified
+        cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameUserName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserName;
+
+        //execute; returns the number of rows affected
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
     #region Check if Number is in range
     bool ValueInRange ( int numberToCheck, int bottom, int top )
     {
@@ -1011,37 +1078,20 @@ public class DBCommands
     {
         int UserId = 0;
 
-        //ObservableCollection<UserModel> Users = GetUsers();
-
-        //foreach(var user in Users )
-        //{
-        //    if (user.UserPassword == password )
-        //    {
-        //        Console.WriteLine (user.UserId);
-        //    }
-        //}
-
-        // When the credentials are invalid, return 0 as UserId as Invalid User
-        string sqlQuery = DBNames.SqlSelect + DBNames.UsersFieldNameId + 
-            DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable +
-            DBNames.SqlWhere + "( " + DBNames.UsersFieldNameLogin + " = '" + login + "' " +
-            DBNames.SqlOr + DBNames.UsersFieldNameUserName + " = '" + login +"' )" +
-            DBNames.SqlAnd + DBNames.UsersFieldNamePW + " = '" + password + "';";
-
-        using MySqlConnection connection = new(DBConnect.ConnectionString);
-        connection.Open();
-
-        using MySqlCommand cmd = new(sqlQuery, connection);
-
-        try
+        ObservableCollection<UserModel> Users = GetUsers();
+        
+        foreach(var user in Users )
         {
-            UserId = (int)cmd.ExecuteScalar();
+            var _pwToCheck = Helper.HashPepperPassword(password, user.UserName);
+            if ( user.UserPassword == _pwToCheck)
+            {
+                return user.UserId;
+            }
         }
-        catch
-        {
-            UserId = 0;
-        }
-        return UserId;
+
+        return 0;
+
+        
     }
     #endregion
 
@@ -1063,7 +1113,8 @@ public class DBCommands
                     UserName = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
                     UserEmail = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
                     UserPassword = dataTable.Rows [ i ].ItemArray [ 3 ].ToString (),
-                    UserRoleId = int.Parse(dataTable.Rows [ i ].ItemArray [ 5 ].ToString ())
+                    UserFullName = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
+                    UserRoleId = int.Parse(dataTable.Rows [ i ].ItemArray [ 4 ].ToString ())
                 } );
             }
         }
@@ -1088,7 +1139,8 @@ public class DBCommands
                     UserName = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
                     UserEmail = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
                     UserPassword = dataTable.Rows [ i ].ItemArray [ 3 ].ToString (),
-                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 5 ].ToString () )
+                    UserFullName = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
+                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString () )
                 } );
             }
         }

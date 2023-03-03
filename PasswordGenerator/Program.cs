@@ -1,8 +1,7 @@
-﻿
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
-string HashSaltedPassword(string password, string username )
+string HashPepperPassword ( string password, string username )
 {
     var sha = SHA512.Create();
     var asByteArray = Encoding.Default.GetBytes( password + username );
@@ -23,11 +22,10 @@ string HashPassword ( string password )
 Console.WriteLine ( "Enter password:" );
 string password = Console.ReadLine();
 
-
 Console.WriteLine ( "Enter username:" );
 string username = Console.ReadLine();
 
-Console.WriteLine("Salted Password: " + HashSaltedPassword(password, username));
-Console.WriteLine ( "Hashed Password: " + HashPassword ( password ) );
+Console.WriteLine ( "Hashed Password  : " + HashPassword ( password ) );
+Console.WriteLine ( "Peppered Password: " + HashPepperPassword ( password, username ) );
 
-//123: bHid7gw+c3qWkt6T6jMyVxoCq5g9Aonlbn0j2x2FkKZISGZRfwZxZBppCaz/4qnTmR94eI92GLNuE+BRCzrFaQ==
+Console.ReadLine ();

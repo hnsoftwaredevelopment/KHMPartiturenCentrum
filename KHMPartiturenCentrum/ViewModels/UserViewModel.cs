@@ -22,7 +22,10 @@ public partial class UserViewModel : ObservableObject
 
     [ObservableProperty]
     public string userPassword;
-    
+
+    [ObservableProperty]
+    public string userFullName;
+
     [ObservableProperty]
     public int userRoleId;
 
@@ -30,7 +33,7 @@ public partial class UserViewModel : ObservableObject
 
     public UserViewModel(int UserId) 
     { 
-        User = DBCommands.GetUsers(UserId );
+        //User = DBCommands.GetUsers(UserId );
     }
 
 }

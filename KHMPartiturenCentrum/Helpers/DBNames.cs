@@ -238,7 +238,7 @@ public class DBNames
     public static readonly string UsersFieldNameLogin = "EMail";
     public static readonly string UsersFieldNameUserName = "UserName";
     public static readonly string UsersFieldNameFullName = "Fullname";
-    public static readonly string UsersFieldNamePW = "`Password`";
+    public static readonly string UsersFieldNamePW = "Password";
     public static readonly string UsersFieldNameRoleId = "RoleId";
 
     public static readonly string UsersFieldTypeId = "int";

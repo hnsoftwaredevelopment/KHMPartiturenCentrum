@@ -312,8 +312,9 @@
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="400*" />
+                <ColumnDefinition Width="1001*" />
+                <ColumnDefinition Width="199*"/>
             </Grid.ColumnDefinitions>
 
             <!--#region Datagrid Scores-->
@@ -795,10 +796,10 @@
             <!--#region Tabcontrol defenition-->
             <TabControl
                 Grid.Column="1"
-                Margin="5"
+                Margin="5,5,5,5"
                 DataContext="viewmodel:ScoreViewModel"
                 Style="{DynamicResource TabControlStyle}"
-                TabStripPlacement="Right">
+                TabStripPlacement="Right" Grid.ColumnSpan="2">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">

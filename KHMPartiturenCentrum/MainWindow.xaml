@@ -94,35 +94,55 @@
                         </Button>
 
                         <Button
-                            x:Name="btnLicenses"
-                            Click="btnLicenses_Click"
-                            MouseEnter="btnLicenses_MouseEnter"
-                            MouseLeave="btnLicenses_MouseLeave"
+                            x:Name="btnUserProfile"
+                            Click="btnUserProfile_Click"
+                            MouseEnter="btnUserProfile_MouseEnter"
+                            MouseLeave="btnUserProfile_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}">
                             <ctls:MenuItem
                                 VerticalAlignment="Center"
                                 GroupName="MenuItem"
-                                Icon="{DynamicResource license}"
+                                Icon="{DynamicResource users}"
                                 IconWidth="16"
                                 IndicatorBrush="{DynamicResource PrimaryBlueColor}"
-                                Text="Gebruikers" />
+                                Text="Gebruikers profiel" />
                         </Button>
 
                         <Button
-                            x:Name="btnSettings"
-                            Click="btnSettings_Click"
-                            MouseEnter="btnSettings_MouseEnter"
-                            MouseLeave="btnSettings_MouseLeave"
+                            x:Name="btnUsersManagement"
+                            Click="btnUsersManagement_Click"
+                            MouseEnter="btnUsersManagement_MouseEnter"
+                            MouseLeave="btnUsersManagement_MouseLeave"
                             Style="{DynamicResource PopupButtonStyle}"
-                            Visibility="Visible">
+                            Visibility="{Binding ElementName=tbShowAdmin, Path=Text}">
                             <ctls:MenuItem
                                 VerticalAlignment="Center"
                                 GroupName="MenuItem"
-                                Icon="{DynamicResource settings}"
+                                Icon="{DynamicResource usermanagement}"
                                 IconWidth="16"
                                 IndicatorBrush="{DynamicResource PrimaryBlueColor}"
-                                Text="Instellingen" />
+                                Text="Gebruikersbeheer" />
                         </Button>
+
+                        <Button
+                            x:Name="btnLogging"
+                            Click="btnLogging_Click"
+                            MouseEnter="btnLogging_MouseEnter"
+                            MouseLeave="btnLogging_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}"
+                            Visibility="{Binding ElementName=tbShowAdmin, Path=Text}">
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource log}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Logging" />
+                        </Button>
+
+                        <!--#region Hide or show Administrator Only controls -->
+                        <TextBlock x:Name="tbShowAdmin" Text="Visible" Visibility="Collapsed"/>
+                        <!--#endregion-->
 
                         <ContentControl>
                             <ContentControl.Content>
@@ -132,7 +152,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="18"
-                                            Text="Select anything from menu..." />
+                                            Text="Selecteer een menu item..." />
                                     </Binding.TargetNullValue>
                                 </Binding>
                             </ContentControl.Content>

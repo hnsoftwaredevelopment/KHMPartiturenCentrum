@@ -148,7 +148,7 @@
 
                     <PasswordBox Grid.Column="1" x:Name="tbPassword"
                              FontSize="13" Style="{DynamicResource PasswordBox}"
-                             FontWeight="Medium"
+                             FontWeight="Medium" KeyDown="PressedEnterOnPassword"
                              FontFamily="Montserrat"                            
                              Width ="250" Margin="3,0,0,0" ToolTip="Wachtwoord"
                              Padding="3,0,0,0" TabIndex="1" Cursor="IBeam"/>

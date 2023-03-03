@@ -32,7 +32,17 @@ public partial class MainWindow : Window
     public MainWindow()
     {      
         InitializeComponent ();
-        tbUserName.Text = ScoreUsers.SelectedUserName;
+        tbUserName.Text = ScoreUsers.SelectedUserFullName;
+
+        // Set the value to control weather or not an administrator has logged in
+        if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 )
+        {
+            tbShowAdmin.Text = "Visible";
+        }
+        else
+        {
+            tbShowAdmin.Text = "Collapsed";
+        }
     }
 
     #region Button Close | Restore | Minimize 
@@ -132,29 +142,29 @@ public partial class MainWindow : Window
     #endregion
     #endregion
 
-    #region Licenses Menu
+    #region Users Profile Menu
     #region On Click
-    private void btnLicenses_Click(object sender, RoutedEventArgs e)
+    private void btnUserProfile_Click ( object sender, RoutedEventArgs e)
     {
-        fContainer.Navigate(new System.Uri("Views/History.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate(new System.Uri("Views/UserProfile.xaml", UriKind.RelativeOrAbsolute));
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnLicenses_MouseEnter(object sender, MouseEventArgs e)
+    private void btnUserProfile_MouseEnter ( object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
         {
-            Popup.PlacementTarget = btnLicenses;
+            Popup.PlacementTarget = btnUserProfile;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Toon de aangeschafte partituren per per partituur";
+            Header.PopupText.Text = "Wijzig de gebruikers gegevens";
         }
     }
     #endregion
 
     #region On Mouse Leave
-    private void btnLicenses_MouseLeave(object sender, MouseEventArgs e)
+    private void btnUserProfile_MouseLeave ( object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
@@ -162,35 +172,76 @@ public partial class MainWindow : Window
     #endregion
     #endregion
 
-    #region Settings
+    #region Users Management
     #region On Click
-    private void btnSettings_Click(object sender, RoutedEventArgs e)
+    private void btnUsersManagement_Click(object sender, RoutedEventArgs e)
     {
         fContainer.Navigate(new System.Uri("Views/Settings.xaml", UriKind.RelativeOrAbsolute));
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnSettings_MouseEnter(object sender, MouseEventArgs e)
+    private void btnUsersManagement_MouseEnter ( object sender, MouseEventArgs e)
     {
         if (Tg_Btn.IsChecked == false)
         {
-            Popup.PlacementTarget = btnSettings;
+            Popup.PlacementTarget = btnUsersManagement;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
-            Header.PopupText.Text = "Gebruikers instellingen";
+            Header.PopupText.Text = "Gebruikers beheer";
         }
     }
     #endregion
 
     #region On Mouse Leave
-    private void btnSettings_MouseLeave(object sender, MouseEventArgs e)
+    private void btnUsersManagement_MouseLeave ( object sender, MouseEventArgs e)
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
     }
     #endregion
     #endregion
+
+    #region Logging
+    #region On Click
+    private void btnLogging_Click ( object sender, RoutedEventArgs e )
+    {
+        fContainer.Navigate ( new System.Uri ( "Views/History.xaml", UriKind.RelativeOrAbsolute ) );
+    }
+    #endregion
+
+    #region On Mouse Enter
+    private void btnLogging_MouseEnter ( object sender, MouseEventArgs e )
+    {
+        if ( Tg_Btn.IsChecked == false )
+        {
+            Popup.PlacementTarget = btnLogging;
+            Popup.Placement = PlacementMode.Right;
+            Popup.IsOpen = true;
+            Header.PopupText.Text = "Log bestand";
+        }
+    }
+    #endregion
+
+    #region On Mouse Leave
+    private void btnLogging_MouseLeave ( object sender, MouseEventArgs e )
+    {
+        Popup.Visibility = Visibility.Collapsed;
+        Popup.IsOpen = false;
+    }
+    #endregion
+    #endregion
+    #endregion
+
+    #region Reload MainPage (After UserFullName update)
+    // Make reload of the MainWindow possible from the age where the UserName can be changed, so it will be updated in the MainWindow after save
+    public static void ReloadMainWindow ()
+    {
+        MainWindow newMainWindow = new MainWindow();
+        newMainWindow.Show ();
+        Application.Current.MainWindow.Close ();
+        Application.Current.MainWindow = newMainWindow;
+    }
     #endregion
 }
 
