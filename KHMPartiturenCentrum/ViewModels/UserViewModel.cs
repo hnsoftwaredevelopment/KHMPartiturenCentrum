@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
+using KHMPartiturenCentrum.Views;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,11 +31,17 @@ public partial class UserViewModel : ObservableObject
     [ObservableProperty]
     public int userRoleId;
 
-    public ObservableCollection<UserModel> User { get; set; }
+    [ObservableProperty]
+    public string roleName;
 
-    public UserViewModel(int UserId) 
-    { 
-        //User = DBCommands.GetUsers(UserId );
+    [ObservableProperty]
+    public string roleDescription;
+
+    public ObservableCollection<UserModel> Users { get; set; }
+
+    public UserViewModel() 
+    {
+        Users = DBCommands.GetUsers();
     }
 
 }

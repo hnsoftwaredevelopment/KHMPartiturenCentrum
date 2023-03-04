@@ -13,4 +13,6 @@ public class UserModel
     public string UserPassword { get; set; }
     public string UserFullName { get; set; }
     public int UserRoleId { get; set; }
+    public string RoleName { get; set; }
+    public string RoleDescription { get; set; }
 }

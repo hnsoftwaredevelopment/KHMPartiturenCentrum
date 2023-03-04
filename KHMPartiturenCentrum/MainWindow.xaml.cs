@@ -35,7 +35,7 @@ public partial class MainWindow : Window
         tbUserName.Text = ScoreUsers.SelectedUserFullName;
 
         // Set the value to control weather or not an administrator has logged in
-        if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 )
+        if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 15)
         {
             tbShowAdmin.Text = "Visible";
         }
@@ -176,7 +176,7 @@ public partial class MainWindow : Window
     #region On Click
     private void btnUsersManagement_Click(object sender, RoutedEventArgs e)
     {
-        fContainer.Navigate(new System.Uri("Views/Settings.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate(new System.Uri("Views/UserManagement.xaml", UriKind.RelativeOrAbsolute));
     }
     #endregion
 

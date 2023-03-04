@@ -44,7 +44,7 @@ public partial class RenumberScore : Window
             cbSerie.Visibility = Visibility.Collapsed;
         }
 
-        var Scores = DBCommands.GetEmptyScores(DBNames.NewScoresView, DBNames.ScoresFieldNameScoreNumber);
+        var Scores = DBCommands.GetEmptyScores(DBNames.AvailableScoresView, DBNames.ScoresFieldNameScoreNumber);
 
         cbxNewScores.ItemsSource = Scores.Select ( x => x.ScoreNumber ).ToList ();
     }

@@ -708,6 +708,29 @@ public class DBCommands
     }
     #endregion
 
+    #region GetUserRoles
+    public static ObservableCollection<UserRoleModel> GetUserRoles()
+    {
+        ObservableCollection<UserRoleModel> UserRoles = new();
+
+        DataTable dataTable = DBCommands.GetData(DBNames.UserRolesTable, DBNames.UserRolesFieldNameOrder);
+        if (dataTable.Rows.Count > 0)
+        {
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                UserRoles.Add(new UserRoleModel
+                {
+                    RoleId = int.Parse(dataTable.Rows[i].ItemArray[0].ToString()),
+                    RoleOrder = int.Parse(dataTable.Rows[i].ItemArray[1].ToString()),
+                    RoleName = dataTable.Rows[i].ItemArray[2].ToString(),
+                    RoleDescription = dataTable.Rows[i].ItemArray[3].ToString()
+                });
+            }
+        }
+        return UserRoles;
+    }
+    #endregion
+
     #region Update/Save Score
     public static void SaveScore(ObservableCollection<SaveScoreModel> scoreList)
     {
@@ -1127,7 +1150,7 @@ public class DBCommands
     {
         ObservableCollection<UserModel> users = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.UsersTable, "nosort");
+        DataTable dataTable = DBCommands.GetData(DBNames.UsersTable, DBNames.UsersFieldNameFullName);
 
         if ( dataTable.Rows.Count > 0 )
         {

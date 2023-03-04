@@ -42,7 +42,7 @@ public partial class Scores : Page
         scores = new ScoreViewModel ();
         DataContext = scores;
 
-        if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8)
+        if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15)
         {
             tbEnableEdit.Text = "Visible";
             tbEnableEditFields.Text = "True";
