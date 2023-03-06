@@ -349,6 +349,20 @@ public class DBCommands
     }
     #endregion
 
+    #region Delete User
+    public static void DeleteUser(string _userId)
+    {
+        var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable + DBNames.SqlWhere + DBNames.UsersFieldNameId + " = " + _userId + ";";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
     #region Check for SubScores
     public static long CheckForSubScores(string _scoreNumber ) 
     {
@@ -558,6 +572,20 @@ public class DBCommands
     }
     #endregion
 
+    #region Add New User
+    public static void AddNewUser()
+    {
+        var sqlQuery = DBNames.SqlUpdate + DBNames.Database + "." + DBNames.UsersTable + DBNames.SqlSet +
+                DBNames.UsersFieldNameRoleId + " = 1;";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
     #region Get Empty Scores
     public static ObservableCollection<ScoreModel> GetEmptyScores ( string _table, string _orderByFieldName )
     {
@@ -1100,21 +1128,19 @@ public class DBCommands
     public static int CheckUser(string login, string password)
     {
         int UserId = 0;
+        var _pwLogedInUser = Helper.HashPepperPassword(password, login);
 
         ObservableCollection<UserModel> Users = GetUsers();
         
         foreach(var user in Users )
         {
             var _pwToCheck = Helper.HashPepperPassword(password, user.UserName);
-            if ( user.UserPassword == _pwToCheck)
+            if ( _pwLogedInUser == _pwToCheck)
             {
                 return user.UserId;
             }
         }
-
-        return 0;
-
-        
+        return 0;    
     }
     #endregion
 

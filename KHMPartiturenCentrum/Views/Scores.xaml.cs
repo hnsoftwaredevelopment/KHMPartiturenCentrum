@@ -315,7 +315,7 @@ public partial class Scores : Page
             ScoresDataGrid.SelectedIndex = 0;
         }
 
-        // Scroll to the item in the Gridiew
+        // Scroll to the item in the GridView
         ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     private void BtnPreviousClick ( object sender, RoutedEventArgs e )
@@ -329,24 +329,22 @@ public partial class Scores : Page
             ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
         }
 
-        // Scroll to the item in the Gridiew
+        // Scroll to the item in the GridView
         ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     private void BtnLastClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
 
-        // Scroll to the item in the Gridiew
+        // Scroll to the item in the GridView
         ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
-
     }
     private void BtnFirstClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = 0;
 
-        // Scroll to the item in the Gridiew
+        // Scroll to the item in the GridView
         ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
-
     }
     private void TextBoxChanged(object sender, TextChangedEventArgs e)
     {

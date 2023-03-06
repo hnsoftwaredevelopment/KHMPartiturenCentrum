@@ -41,6 +41,13 @@ public partial class UserManagement : Page
 
     private void SelectedUserChanged(object sender, SelectionChangedEventArgs e)
     {
+        // Clear all the fields
+        tbUserName.Text = string.Empty;
+        tbFullName.Text = string.Empty;
+        tbEMail.Text = string.Empty;
+        pbPassword.Password = string.Empty;
+        comUserRole.SelectedIndex = 0;
+
         DataGrid dg = (DataGrid)sender;
 
         UserModel selectedRow = (UserModel)dg.SelectedItem;
@@ -51,8 +58,12 @@ public partial class UserManagement : Page
             dg.SelectedItem = item;
             selectedRow = (UserModel) dg.SelectedItem;
 
-            // Scroll to he item in the Datagrid
+            // Scroll to the item in the DataGrid
             dg.ScrollIntoView ( dg.Items [ 0 ] );
+            UsersDataGrid.SelectedIndex = 0;
+
+            // Scroll to the item in the GridView
+            UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
         }
 
         SelectedUser = selectedRow;
@@ -77,7 +88,6 @@ public partial class UserManagement : Page
         #endregion
 
         ResetChanged ();
-
     }
 
     private void TextBoxChanged(object sender, TextChangedEventArgs e)
@@ -117,7 +127,7 @@ public partial class UserManagement : Page
                 case "comUserRole":
                     if ( comUserRole.SelectedItem != null )
                     {
-                        if ( ( (UserModel) comUserRole.SelectedItem ).UserRoleId == SelectedUser.UserRoleId )
+                        if ( ( (UserRoleModel) comUserRole.SelectedItem ).RoleId == SelectedUser.UserRoleId )
                         { cbUserRoleChanged.IsChecked = false; }
                         else
                         { cbUserRoleChanged.IsChecked = true; }
@@ -154,22 +164,48 @@ public partial class UserManagement : Page
 
     private void BtnFirstClick ( object sender, RoutedEventArgs e )
     {
+        UsersDataGrid.SelectedIndex = 0;
 
+        // Scroll to the item in the GridView
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
     private void BtnLastClick ( object sender, RoutedEventArgs e )
     {
+        UsersDataGrid.SelectedIndex = UsersDataGrid.Items.Count - 1;
 
+        // Scroll to the item in the GridView
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
     private void BtnPreviousClick ( object sender, RoutedEventArgs e )
     {
+        if (UsersDataGrid.SelectedIndex > 0)
+        {
+            UsersDataGrid.SelectedIndex -= 1;
+        }
+        else
+        {
+            UsersDataGrid.SelectedIndex = UsersDataGrid.Items.Count - 1;
+        }
 
+        // Scroll to the item in the GridView
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
     private void BtnNextClick ( object sender, RoutedEventArgs e )
     {
+        if (UsersDataGrid.SelectedIndex + 1 < UsersDataGrid.Items.Count)
+        {
+            UsersDataGrid.SelectedIndex += 1;
+        }
+        else
+        {
+            UsersDataGrid.SelectedIndex = 0;
+        }
 
+        // Scroll to the item in the GridView
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
     private void BtnSaveClick ( object sender, RoutedEventArgs e )
@@ -179,12 +215,38 @@ public partial class UserManagement : Page
 
     private void NewUserClicked ( object sender, RoutedEventArgs e )
     {
-
+        DBCommands.AddNewUser();
+        // After adding a new user get the highest UserId and select it
+        // Enable tbUserName to enter a Username.
+        // Validation on Username Should be filled and Unique
+        // Also validate E-Mail, should also be unique
     }
 
     private void DeleteUser ( object sender, RoutedEventArgs e )
     {
+        if (SelectedUser != null)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show($"Weet je zeker dat je {SelectedUser.UserFullName} wilt verwijderen?", $"Verwijder gebruiker {SelectedUser.UserId}", MessageBoxButton.YesNoCancel);
 
+            switch (messageBoxResult)
+            {
+                case MessageBoxResult.Yes:
+                    // Continue Deleting User
+                    if (SelectedUser.UserId != null)
+                    {
+                        DBCommands.DeleteUser(SelectedUser.UserId);
+                    }
+                    break;
+                case MessageBoxResult.No:
+                    // Do nothing no deletion wanted
+                    break;
+                case MessageBoxResult.Cancel:
+                    // Do Nothing Deletion canceled
+                    break;
+            }
+        }
+        users = new UserViewModel();
+        DataContext = users;
     }
 
     private void CheckChanged ()
