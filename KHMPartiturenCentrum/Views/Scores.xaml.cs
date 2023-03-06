@@ -44,7 +44,6 @@ public partial class Scores : Page
 
         if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15)
         {
-            tbEnableEdit.Text = "Visible";
             tbEnableEditFields.Text = "True";
         }
         else
@@ -64,6 +63,7 @@ public partial class Scores : Page
         comPublisher2.ItemsSource = DBCommands.GetPublishers ();
         comPublisher3.ItemsSource = DBCommands.GetPublishers ();
         comPublisher4.ItemsSource = DBCommands.GetPublishers ();
+        ResetChanged ();
     }
     private void SelectedScoreChanged ( object sender, SelectionChangedEventArgs e )
     {
@@ -301,6 +301,8 @@ public partial class Scores : Page
         tbAmountSupplierTotal.Text = Total.ToString ();
         #endregion
         #endregion
+
+        ResetChanged ();
     }
     private void BtnNextClick ( object sender, RoutedEventArgs e )
     {
@@ -514,11 +516,20 @@ public partial class Scores : Page
             cbPublisher3.IsChecked == true ||
             cbPublisher4.IsChecked  == true)
         {
-            btnSave.IsEnabled = true;
-            btnSave.ToolTip = "Sla de gewijzigde gegevens op";
+            if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 )
+            {
+                tbEnableEdit.Text = "Visible";
+                btnSave.IsEnabled = true;
+                btnSave.ToolTip = "Sla de gewijzigde gegevens op";
+            }
+            else
+            {
+                tbEnableEdit.Text = "Collapsed";
+            }
         }
         else
         {
+            tbEnableEdit.Text = "Collapsed";
             btnSave.IsEnabled = false;
             btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
         }
@@ -872,6 +883,7 @@ public partial class Scores : Page
         cbPublisher2.IsChecked = false;
         cbPublisher3.IsChecked = false;
         cbPublisher4.IsChecked = false;
+        tbEnableEdit.Text = "Collapsed";
         btnSave.IsEnabled = false;
         btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
     }
@@ -939,6 +951,7 @@ public partial class Scores : Page
                 }
             }
         }
+        cbLyrics.IsChecked = false;
     }
     private void GetNotes ()
     {
@@ -964,6 +977,7 @@ public partial class Scores : Page
                 }
             }
         }
+        cbNotes.IsChecked = false;
     }
 
     #region Get rich text from flow document of a memo field (Lyrics or Notes)

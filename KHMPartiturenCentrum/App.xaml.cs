@@ -25,6 +25,8 @@ public partial class App : Application
         public static string SelectedUserEmail { get; set; }
         public static string SelectedUserPassword { get; set; }
         public static int SelectedUserRoleId { get; set; }
+        public static int SelectedUserRoleName { get; set; }
+        public static int SelectedUserRoleDescription { get; set; }
         public static ObservableCollection<UserModel> User { get; set; }
     }
 }

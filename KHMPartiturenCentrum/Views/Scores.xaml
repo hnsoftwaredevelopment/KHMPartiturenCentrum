@@ -62,7 +62,7 @@
                 Grid.Column="0"
                 HorizontalAlignment="Left"
                 Orientation="Horizontal"
-                Visibility="Collapsed">
+                Visibility="Visible">
                 <CheckBox x:Name="cbRepertoire" Visibility="Visible" />
                 <CheckBox x:Name="cbArchive" Visibility="Visible" />
                 <CheckBox x:Name="cbByHeart" Visibility="Visible" />
@@ -108,14 +108,12 @@
                 <CheckBox x:Name="cbPublisher2" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher3" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher4" Visibility="Visible" />
-                <TextBlock
+                <TextBlock Foreground="White" Background="DarkGreen" Width="40"
                     x:Name="tbEnableEdit"
-                    Text=""
-                    Visibility="Visible" />
-                <TextBlock
+                    Text="Collapsed"/>
+                <TextBlock Foreground="White" Background="DarkBlue" Width="40"
                     x:Name="tbEnableEditFields"
-                    Text=""
-                    Visibility="Visible" />
+                    Text=""/>
             </StackPanel>
             <!--#endregion-->
 
@@ -124,185 +122,80 @@
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
-
+                
                 <!--#region Jump to First record-->
                 <Button
                     x:Name="btnFirst"
-                    Width="30"
-                    Height="30"
-                    Padding="5"
                     Click="BtnFirstClick"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"
-                    ToolTip="Eerste partituur"
-                    ToolTipService.ShowOnDisabled="True">
-                    <Path
-                        Data="{StaticResource first}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Navigate.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
                 <!--#endregion-->
 
                 <!--#region Jump to Previous record-->
                 <Button
                     x:Name="btnPrev"
-                    Width="30"
-                    Height="30"
-                    Padding="5"
                     Click="BtnPreviousClick"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"
-                    ToolTip="Vorige partituur"
-                    ToolTipService.ShowOnDisabled="True">
-                    <Path
-                        Data="{StaticResource previous}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Navigate.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
                 <!--#endregion-->
 
                 <!--#region Jump to Next record-->
                 <Button
                     x:Name="btnNext"
-                    Width="30"
-                    Height="30"
-                    Padding="5"
                     Click="BtnNextClick"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"
-                    ToolTip="Volgende partituur"
-                    ToolTipService.ShowOnDisabled="True">
-                    <Path
-                        Data="{StaticResource next}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Navigate.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
                 <!--#endregion-->
 
                 <!--#region Jump to Last record-->
                 <Button
                     x:Name="btnLast"
-                    Width="30"
-                    Height="30"
-                    Margin="10,0,10,0"
-                    Padding="5"
                     Click="BtnLastClick"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"
-                    ToolTip="Laatste partituur"
-                    ToolTipService.ShowOnDisabled="True"
-                    Visibility="{Binding tbEnableEdit.Text}">
-                    <Path
-                        Data="{StaticResource last}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Navigate.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
                 <!--#endregion-->
 
                 <!--#region  Save Button-->
                 <Button
                     x:Name="btnSave"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,10,0"
-                    Padding="4"
                     Click="BtnSaveClick"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="False"
-                    Style="{DynamicResource DataGrid.Button.Save}"
-                    ToolTip="Er zijn geen gegevens aangepast, opslaan niet mogelijk"
-                    ToolTipService.ShowOnDisabled="True"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
-                    <Path
-                        Data="{StaticResource save}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Save.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Renumber Score button-->
                 <Button
                     x:Name="btnRenumber"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,10,0"
-                    Padding="4"
                     Click="RenumberClick"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Save}"
-                    ToolTip="Geef de geselecteerde partituur een ander partituurnummer"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
-                    <Path
-                        Data="{StaticResource renumber}"
-                        Fill="{DynamicResource Button.Save.BorderBrush}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Save.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Add new Score-->
                 <Button
                     x:Name="btnAdd"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,10,0"
-                    Padding="4"
                     Click="NewScoreClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Add}"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Nieuwe Partituur toevoegen"
-                    ToolTipService.ShowOnDisabled="True"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
-                    <Path
-                        Data="{StaticResource newscore}"
-                        Fill="{StaticResource Button.Add.BorderBrush}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Add.BorderBrush}" />
-                </Button>
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Add new Sub score-->
                 <Button
                     x:Name="btnAddSub"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,10,0"
-                    Padding="4"
                     Click="NewSubScoreClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Add}"
-                    ToolTip="Nieuwe Sub-partituur voor de geselecteerde partituur toevoegen"
-                    ToolTipService.ShowOnDisabled="True"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
-                    <Path
-                        Data="{StaticResource addsubscore}"
-                        Fill="{StaticResource Button.Add.BorderBrush}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Add.BorderBrush}" />
-                </Button>
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}"/>
                 <!--#endregion-->
 
                 <!--#region Delete Score-->
                 <Button
                     x:Name="btnDelete"
-                    Width="30"
-                    Height="30"
-                    Padding="4"
                     Click="DeleteScore"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
-                    IsEnabled="True"
-                    Style="{DynamicResource DataGrid.Button.Add}"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Geselecteerde partituur verwijderen"
-                    ToolTipService.ShowOnDisabled="True"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}">
-                    <Path
-                        Data="{StaticResource delete}"
-                        Stretch="Uniform"
-                        Stroke="{StaticResource Button.Delete.BorderBrush}" />
-                </Button>
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
                 <!--#endregion-->
 
             </StackPanel>
@@ -314,7 +207,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400*" />
                 <ColumnDefinition Width="1001*" />
-                <ColumnDefinition Width="199*"/>
+                <ColumnDefinition Width="199*" />
             </Grid.ColumnDefinitions>
 
             <!--#region Datagrid Scores-->
@@ -796,10 +689,11 @@
             <!--#region Tabcontrol defenition-->
             <TabControl
                 Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Margin="5,5,5,5"
                 DataContext="viewmodel:ScoreViewModel"
                 Style="{DynamicResource TabControlStyle}"
-                TabStripPlacement="Right" Grid.ColumnSpan="2">
+                TabStripPlacement="Right">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">

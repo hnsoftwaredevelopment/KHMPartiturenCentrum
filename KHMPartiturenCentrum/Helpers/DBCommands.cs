@@ -1150,7 +1150,7 @@ public class DBCommands
     {
         ObservableCollection<UserModel> users = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.UsersTable, DBNames.UsersFieldNameFullName);
+        DataTable dataTable = DBCommands.GetData(DBNames.UsersView, DBNames.UsersFieldNameFullName);
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -1163,7 +1163,9 @@ public class DBCommands
                     UserEmail = dataTable.Rows [ i ].ItemArray [ 1 ].ToString (),
                     UserPassword = dataTable.Rows [ i ].ItemArray [ 3 ].ToString (),
                     UserFullName = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
-                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString () )
+                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString () ),
+                    RoleName= dataTable.Rows [ i ].ItemArray [7].ToString(),
+                    RoleDescription= dataTable.Rows [ i ].ItemArray [ 8 ].ToString ()
                 } );
             }
         }

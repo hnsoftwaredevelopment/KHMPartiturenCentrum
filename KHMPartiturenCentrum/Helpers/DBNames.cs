@@ -145,15 +145,15 @@ public class DBNames
     #region Table/View Users
     public static readonly string UsersTable = "Users";
     public static readonly string UsersFieldNameId = "Id";
-    public static readonly string UsersFieldNameLogin = "E=Mail";
+    public static readonly string UsersFieldNameLogin = "EMail";
     public static readonly string UsersFieldNameUserName = "UserName";
     public static readonly string UsersFieldNameFullName = "Fullname";
     public static readonly string UsersFieldNamePW = "Password";
     public static readonly string UsersFieldNameRoleId = "RoleId";
 
     public static readonly string UsersView = "view_Users";
-    public static readonly string UsersViewFieldNameRoleOrder = "Order";
-    public static readonly string UsersViewFieldNameRoleName = "RoleText";
+    public static readonly string UsersViewFieldNameRoleOrder = "RoleOrder";
+    public static readonly string UsersViewFieldNameRoleName = "RoleName";
     public static readonly string UsersViewFieldNameRoleDescription = "RoleDescription";
     #endregion
 
@@ -161,7 +161,7 @@ public class DBNames
     public static readonly string UserRolesTable = "UserRoles";
     public static readonly string UserRolesFieldNameId = "Id";
     public static readonly string UserRolesFieldNameOrder = "RoleOrder";
-    public static readonly string UserRolesFieldNameName = "Role";
+    public static readonly string UserRolesFieldNameName = "RoleName";
     public static readonly string UserRolesFieldNameDescription = "Description";
     #endregion
 

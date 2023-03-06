@@ -249,5 +249,4 @@ public partial class BaseScoreViewModel : ObservableObject
 
     public ObservableCollection<ScoreModel> Scores { get; set; }
     public ObservableCollection<ScoreModel> AvailableScores { get; set; }
-    public ObservableCollection<ScoreModel> AvailableChristmasScores { get; set; }
 }

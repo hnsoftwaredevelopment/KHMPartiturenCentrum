@@ -37,11 +37,14 @@ public partial class UserViewModel : ObservableObject
     [ObservableProperty]
     public string roleDescription;
 
+    [ObservableProperty]
+    public object selectedItem ="";
+
     public ObservableCollection<UserModel> Users { get; set; }
 
     public UserViewModel() 
     {
-        Users = DBCommands.GetUsers();
+        Users = DBCommands.GetUsers(  );
     }
 
 }
