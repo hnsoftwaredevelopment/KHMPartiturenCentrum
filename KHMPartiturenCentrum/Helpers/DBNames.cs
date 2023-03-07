@@ -16,6 +16,9 @@ public class DBNames
     public static readonly string SqlUpdate = "UPDATE ";
     public static readonly string SqlFrom = " FROM ";
     public static readonly string SqlWhere = " WHERE ";
+    public static readonly string SqlLimit = " LIMIT ";
+    public static readonly string SqlAsc = " ASC ";
+    public static readonly string SqlDesc = " DESC ";
     public static readonly string SqlValues = " VALUES ";
     public static readonly string SqlOrder = " ORDER BY ";
     public static readonly string SqlSet = " SET ";

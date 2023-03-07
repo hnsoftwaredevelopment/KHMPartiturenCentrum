@@ -217,26 +217,15 @@ public partial class UserManagement : Page
 
     private void NewUserClicked ( object sender, RoutedEventArgs e )
     {
-        // Add a new blank item to the data source
-        //users = new UserViewModel();
-        var newItem = new UserModel();
-        //Users.Add(newItem) ;
-        ObservableCollection<UserModel> users2 = new();
-        
-        users2.Add(newItem);
+        DBCommands.AddNewUser();
+        int LatestUserId = DBCommands.GetAddedUserId();
 
-        //Console.WriteLine();
+        UsersDataGrid.SelectedIndex = LatestUserId;
 
-        Console.WriteLine( users);
+        // Scroll to the item in the GridView
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
 
-        // Commit any pending edits to add the new item to the DataGrid
-        UsersDataGrid.CommitEdit();
-
-        // Select the new item and make the first cell editable
-        UsersDataGrid.SelectedItem = newItem;
-        //UsersDataGrid.CurrentCell = new DataGridCellInfo(newItem, UsersDataGrid.Columns[0]);
-        //UsersDataGrid.BeginEdit();
-        //DBCommands.AddNewUser();
+        tbUserName.IsEnabled= true;
         // After adding a new user get the highest UserId and select it
         // Enable tbUserName to enter a Username.
         // Validation on Username Should be filled and Unique

@@ -586,6 +586,26 @@ public class DBCommands
         int rowsAffected = cmd.ExecuteNonQuery();
     }
     #endregion
+
+    #region Get Latest Added UserId
+    public static int GetAddedUserId()
+    {
+        int userId = 0;
+        //SELECT * FROM users ORDER BY id DESC LIMIT 1
+        var sqlQuery = DBNames.SqlSelectAll +
+            DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable +
+            DBNames.SqlOrder + DBNames.UserRolesFieldNameId + DBNames.SqlDesc + DBNames.SqlLimit + "1";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        userId = (int)cmd.ExecuteScalar();
+
+        return userId;
+    }
+    #endregion
     #region Get Empty Scores
     public static ObservableCollection<ScoreModel> GetEmptyScores ( string _table, string _orderByFieldName )
     {
