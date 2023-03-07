@@ -3,8 +3,11 @@ using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.ViewModels;
 
+using Microsoft.VisualBasic.ApplicationServices;
+
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,7 +38,6 @@ public partial class UserManagement : Page
 
         users = new UserViewModel();
         DataContext = users;
-
         comUserRole.ItemsSource = DBCommands.GetUserRoles();
     }
 
@@ -215,7 +217,26 @@ public partial class UserManagement : Page
 
     private void NewUserClicked ( object sender, RoutedEventArgs e )
     {
-        DBCommands.AddNewUser();
+        // Add a new blank item to the data source
+        //users = new UserViewModel();
+        var newItem = new UserModel();
+        //Users.Add(newItem) ;
+        ObservableCollection<UserModel> users2 = new();
+        
+        users2.Add(newItem);
+
+        //Console.WriteLine();
+
+        Console.WriteLine( users);
+
+        // Commit any pending edits to add the new item to the DataGrid
+        UsersDataGrid.CommitEdit();
+
+        // Select the new item and make the first cell editable
+        UsersDataGrid.SelectedItem = newItem;
+        //UsersDataGrid.CurrentCell = new DataGridCellInfo(newItem, UsersDataGrid.Columns[0]);
+        //UsersDataGrid.BeginEdit();
+        //DBCommands.AddNewUser();
         // After adding a new user get the highest UserId and select it
         // Enable tbUserName to enter a Username.
         // Validation on Username Should be filled and Unique
@@ -234,7 +255,7 @@ public partial class UserManagement : Page
                     // Continue Deleting User
                     if (SelectedUser.UserId != null)
                     {
-                        DBCommands.DeleteUser(SelectedUser.UserId);
+                        DBCommands.DeleteUser(SelectedUser.UserId.ToString());
                     }
                     break;
                 case MessageBoxResult.No:

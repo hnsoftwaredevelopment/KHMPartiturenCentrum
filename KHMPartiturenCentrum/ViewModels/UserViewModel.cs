@@ -3,6 +3,8 @@ using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.Views;
 
+using Microsoft.VisualBasic.ApplicationServices;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,6 +46,7 @@ public partial class UserViewModel : ObservableObject
 
     public UserViewModel() 
     {
+        Users = new ObservableCollection<UserModel>();
         Users = DBCommands.GetUsers(  );
     }
 
