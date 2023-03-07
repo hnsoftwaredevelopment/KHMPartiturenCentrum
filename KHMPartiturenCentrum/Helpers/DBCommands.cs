@@ -575,8 +575,10 @@ public class DBCommands
     #region Add New User
     public static void AddNewUser()
     {
-        var sqlQuery = DBNames.SqlUpdate + DBNames.Database + "." + DBNames.UsersTable + DBNames.SqlSet +
-                DBNames.UsersFieldNameRoleId + " = 1;";
+        // Add a new user as Super User (UserRole 5)
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.UsersTable +
+            " ( " + DBNames.UsersFieldNameRoleId + " ) " + DBNames.SqlValues +
+            " ( 5 ) ";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open();

@@ -73,6 +73,7 @@
                 <CheckBox x:Name="cbUserRoleChanged" />
 
                 <TextBlock x:Name="tbEnableEdit" Text="Collapsed"/>
+                <TextBlock x:Name="tbAdminMode" Text="Collapsed"/>
             </StackPanel>
 
             <!--#endregion-->
@@ -114,7 +115,7 @@
                 <!--#region  Save Button-->
                 <Button
                     x:Name="btnSave"
-                    Click="BtnSaveClick"
+                    Click="SaveUserProfileClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=UsersDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
@@ -127,7 +128,7 @@
                     CommandParameter="{Binding SelectedItem, ElementName=UsersDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Nieuwe Gebruiker toevoegen"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Delete User-->
@@ -137,9 +138,8 @@
                     CommandParameter="{Binding SelectedItem, ElementName=UsersDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Geselecteerde Gebruiker verwijderen"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
-
             </StackPanel>
             <!--#endregion-->
         </Grid>
@@ -170,7 +170,7 @@
 
                 <!--#region Context Menu-->
                 <DataGrid.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu Visibility="{Binding ElementName=tbAdminMode, Path=Text}">
                         <MenuItem Header="Nieuwe gebruiker toevoegen" />
                         <Separator />
                         <MenuItem Header="Verwijder geselecteerde gebruiker" />

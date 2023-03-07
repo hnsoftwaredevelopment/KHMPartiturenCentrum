@@ -36,6 +36,15 @@ public partial class UserManagement : Page
     {
         InitializeComponent();
 
+        if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15)
+        {
+            tbAdminMode.Text = "Visible";
+        }
+        else
+        {
+            tbAdminMode.Text = "Collapsed";
+        }
+
         users = new UserViewModel();
         DataContext = users;
         comUserRole.ItemsSource = DBCommands.GetUserRoles();
@@ -155,7 +164,24 @@ public partial class UserManagement : Page
 
     private void SaveUserProfileClicked(object sender, RoutedEventArgs e)
     {
+        ObservableCollection<UserModel> modifiedUser = new ObservableCollection<UserModel>();
 
+        var propertyName = ((Button)sender).Name;
+
+        switch (propertyName)
+        {
+            case "btnSave":
+                break;
+                    case "btnSaveUserProfile":
+                break;
+        }
+
+        // When the saved user is a newly added user disable the UserName box again
+        tbUserName.IsEnabled = false;
+
+        // Reload the DataGrid
+        users = new UserViewModel();
+        DataContext = users;
     }
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
@@ -210,26 +236,28 @@ public partial class UserManagement : Page
         UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
-    private void BtnSaveClick ( object sender, RoutedEventArgs e )
-    {
-
-    }
-
     private void NewUserClicked ( object sender, RoutedEventArgs e )
     {
         DBCommands.AddNewUser();
-        int LatestUserId = DBCommands.GetAddedUserId();
 
+        // Reload the DataGrid
+        users = new UserViewModel();
+        DataContext = users;
+
+        // Jump to newly added user
+        int LatestUserId = DBCommands.GetAddedUserId();
         UsersDataGrid.SelectedIndex = LatestUserId;
 
         // Scroll to the item in the GridView
         UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
 
+        // Enable Editmode of the UserName
         tbUserName.IsEnabled= true;
         // After adding a new user get the highest UserId and select it
         // Enable tbUserName to enter a Username.
         // Validation on Username Should be filled and Unique
         // Also validate E-Mail, should also be unique
+
     }
 
     private void DeleteUser ( object sender, RoutedEventArgs e )

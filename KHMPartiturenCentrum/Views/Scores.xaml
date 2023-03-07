@@ -62,7 +62,7 @@
                 Grid.Column="0"
                 HorizontalAlignment="Left"
                 Orientation="Horizontal"
-                Visibility="Visible">
+                Visibility="Collapsed">
                 <CheckBox x:Name="cbRepertoire" Visibility="Visible" />
                 <CheckBox x:Name="cbArchive" Visibility="Visible" />
                 <CheckBox x:Name="cbByHeart" Visibility="Visible" />
@@ -108,12 +108,9 @@
                 <CheckBox x:Name="cbPublisher2" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher3" Visibility="Visible" />
                 <CheckBox x:Name="cbPublisher4" Visibility="Visible" />
-                <TextBlock Foreground="White" Background="DarkGreen" Width="40"
-                    x:Name="tbEnableEdit"
-                    Text="Collapsed"/>
-                <TextBlock Foreground="White" Background="DarkBlue" Width="40"
-                    x:Name="tbEnableEditFields"
-                    Text=""/>
+                <TextBlock x:Name="tbEnableEdit" Text="Collapsed"/>
+                <TextBlock x:Name="tbAdminMode" Text="Collapsed"/>
+                <TextBlock x:Name="tbEnableEditFields" Text=""/>
             </StackPanel>
             <!--#endregion-->
 
@@ -166,7 +163,7 @@
                     Click="RenumberClick"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Add new Score-->
@@ -176,7 +173,7 @@
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Nieuwe Partituur toevoegen"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Add new Sub score-->
@@ -185,7 +182,7 @@
                     Click="NewSubScoreClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}"/>
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}"/>
                 <!--#endregion-->
 
                 <!--#region Delete Score-->
@@ -195,9 +192,8 @@
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
                     ToolTip="Geselecteerde partituur verwijderen"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
-
             </StackPanel>
             <!--#endregion-->
         </Grid>
@@ -228,7 +224,7 @@
 
                 <!--#region Context Menu-->
                 <DataGrid.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu Visibility="{Binding ElementName=tbAdminMode, Path=Text}">
                         <MenuItem Click="NewScoreClicked" Header="Nieuwe partituur toevoegen" />
                         <MenuItem Click="NewSubScoreClicked" Header="Sub partituur voor geselecteerde partituur maken" />
                         <Separator />

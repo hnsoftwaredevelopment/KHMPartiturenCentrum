@@ -45,10 +45,12 @@ public partial class Scores : Page
         if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15)
         {
             tbEnableEditFields.Text = "True";
+            tbAdminMode.Text = "Visible";
         }
         else
         {
             tbEnableEdit.Text = "Collapsed";
+            tbAdminMode.Text = "Collapsed";
             tbEnableEditFields.Text = "False";
         }
     }
