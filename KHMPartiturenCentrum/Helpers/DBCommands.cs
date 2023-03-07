@@ -608,6 +608,7 @@ public class DBCommands
         return userId;
     }
     #endregion
+
     #region Get Empty Scores
     public static ObservableCollection<ScoreModel> GetEmptyScores ( string _table, string _orderByFieldName )
     {

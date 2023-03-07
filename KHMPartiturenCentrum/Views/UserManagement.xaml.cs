@@ -166,15 +166,21 @@ public partial class UserManagement : Page
     {
         ObservableCollection<UserModel> modifiedUser = new ObservableCollection<UserModel>();
 
-        var propertyName = ((Button)sender).Name;
+        var SaveStatus = tbAdminMode.IsEnabled;
+        var UserName = "";
 
-        switch (propertyName)
+        switch (SaveStatus)
         {
-            case "btnSave":
+            case true:
+                // User to save is a new user also save UserName
+                UserName = tbUserName.Text;
                 break;
-                    case "btnSaveUserProfile":
+            case false:
+                // User to save is an existing User, do nothing with UserName
                 break;
         }
+
+        // Fill the modifiedUser collection
 
         // When the saved user is a newly added user disable the UserName box again
         tbUserName.IsEnabled = false;
