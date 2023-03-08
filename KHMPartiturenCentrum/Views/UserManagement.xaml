@@ -46,7 +46,7 @@
         </Border>
         <!--#endregion-->
 
-        <!--#region Action Buttons-->
+        <!--#region Action Row-->
         <Grid
             Grid.Row="1"
             Margin="25,0,25,0"
@@ -61,19 +61,29 @@
                 Grid.Column="0"
                 Orientation="Horizontal"
                 Visibility="Visible">
-                <TextBlock x:Name="tbEnableSave" Text="False" />
                 <TextBlock x:Name="tbCheckFullName" Text="False" />
                 <TextBlock x:Name="tbCheckEMail" Text="False" />
                 <TextBlock x:Name="tbCheckPassword" Text="False" />
                 <TextBlock x:Name="tbCheckUserRole" Text="False" />
 
                 <CheckBox x:Name="cbFullNameChanged" />
+                <CheckBox x:Name="cbUserNameChanged" />
                 <CheckBox x:Name="cbEMailChanged" />
                 <CheckBox x:Name="cbPasswordChanged" />
                 <CheckBox x:Name="cbUserRoleChanged" />
+                <CheckBox x:Name="cbDisableSave" />
+                <CheckBox x:Name="cbValidUserName" />
+                <CheckBox x:Name="cbValidEMail" />
+                <CheckBox x:Name="cbValidPassword" />
+                <CheckBox x:Name="cbValidUserRole" />
 
-                <TextBlock x:Name="tbEnableEdit" Text="Collapsed"/>
-                <TextBlock x:Name="tbAdminMode" Text="Collapsed"/>
+                <TextBlock x:Name="tbEnableSave" Text="Collapsed" />
+                <TextBlock x:Name="tbAdminMode" Text="Collapsed" />
+                <TextBlock x:Name="tbValidUserName" Text="Collapsed" />
+                <TextBlock x:Name="tbValidEMail" Text="Collapsed" />
+                <TextBlock x:Name="tbValidPassword" Text="Collapsed" />
+                <TextBlock x:Name="tbValidUserRole" Text="Collapsed" />
+
             </StackPanel>
 
             <!--#endregion-->
@@ -118,7 +128,7 @@
                     Click="SaveUserProfileClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=UsersDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
-                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                    Visibility="{Binding ElementName=tbEnableSave, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Add new User-->
@@ -143,12 +153,13 @@
             </StackPanel>
             <!--#endregion-->
         </Grid>
+        <!--#endregion-->
 
-
+        <!--#region  Edit user pane-->
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!--#region Datagrid Users-->
@@ -266,6 +277,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
+                    <!--#region UserName-->
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
@@ -273,7 +285,35 @@
                         VerticalAlignment="Center"
                         FontWeight="Bold"
                         Text="Gebruikersnaam"
-                        ToolTip="De gebruikersnaam kan niet worden gewijzigd" />
+                        ToolTip="De gebruikersnaam kan, na aanmaken gebruiker, niet worden gewijzigd. De gebruikersnaam mag niet leeg en moet uniek zijn." />
+
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                        <TextBox
+                            x:Name="tbUserName"
+                            Width="250"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            IsEnabled="False"
+                            Style="{DynamicResource UserNameTextBox}"
+                            TabIndex="1"
+                            TextChanged="TextBoxChanged" />
+
+                        <TextBlock
+                            x:Name="warningValidUserName"
+                            Margin="25,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="Red"
+                            Text=""
+                            Visibility="{Binding ElementName=tbValidUserName, Path=Text}" />
+                    </StackPanel>
+                    <!--  endregion  -->
+
+                    <!--#region Fullname-->
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
@@ -281,38 +321,7 @@
                         VerticalAlignment="Center"
                         FontWeight="Bold"
                         Text="Volledige naam" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontWeight="Bold"
-                        Text="E-Mail adres" />
-                    <TextBlock
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontWeight="Bold"
-                        Text="Gebruikersrol" />
-                    <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        FontWeight="Bold"
-                        Text="Nieuw wachtwoord"
-                        ToolTip="Verander je wachtwoord om in te loggen" />
 
-                    <TextBox
-                        x:Name="tbUserName"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Width="250"
-                        Margin="5,0,0,0"
-                        VerticalAlignment="Center"
-                        IsEnabled="False"
-                        Style="{DynamicResource UserNameTextBox}" TabIndex="1" />
                     <TextBox
                         x:Name="tbFullName"
                         Grid.Row="1"
@@ -322,24 +331,68 @@
                         VerticalAlignment="Center"
                         IsEnabled="True"
                         Style="{DynamicResource UserNameTextBox}"
-                        TextChanged="TextBoxChanged" TabIndex="2" />
-                    <TextBox
-                        x:Name="tbEMail"
+                        TabIndex="2"
+                        TextChanged="TextBoxChanged" />
+                    <!--#endregion-->
+
+                    <!--#region E-Mail address-->
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Text="E-Mail adres" />
+
+                    <StackPanel
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="350"
-                        Margin="5,0,0,0"
-                        VerticalAlignment="Center"
-                        IsEnabled="True"
-                        Style="{DynamicResource UserNameTextBox}"
-                        TextChanged="TextBoxChanged" TabIndex="3" />
-                    <ComboBox
-                        x:Name="comUserRole" Foreground="Black"
+                        Orientation="Horizontal">
+                        <TextBox
+                            x:Name="tbEMail"
+                            Width="350"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            IsEnabled="True"
+                            Style="{DynamicResource UserNameTextBox}"
+                            TabIndex="3"
+                            TextChanged="TextBoxChanged" />
+
+                        <TextBlock
+                            x:Name="warningValidEMail"
+                            Margin="25,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="Red"
+                            Text=""
+                            Visibility="{Binding ElementName=tbValidEMail, Path=Text}" />
+                    </StackPanel>
+
+                    <!--#endregion-->
+
+                    <!--#region Gebruikers rol-->
+                    <TextBlock
                         Grid.Row="3"
-                        Grid.Column="1" SelectedIndex="0"
-                        Width="400" Height="30"
-                        Margin="5,0,0,0" SelectionChanged="ComboBoxChanged" 
-                        HorizontalAlignment="Left" TabIndex="4" FontSize="14">
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Text="Gebruikersrol" />
+
+                    <ComboBox
+                        x:Name="comUserRole"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Width="400"
+                        Height="30"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        FontSize="14"
+                        Foreground="Black"
+                        SelectedIndex="0"
+                        SelectionChanged="ComboBoxChanged"
+                        TabIndex="4">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="2" Text="{Binding RoleDescription}" />
@@ -385,16 +438,44 @@
                             </Style>
                         </ComboBox.ItemContainerStyle>
                     </ComboBox>
-                    <PasswordBox
-                        x:Name="pbPassword"
+
+                    <!--#endregion-->
+
+                    <!--#region Wachtwoord-->
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        FontWeight="Bold"
+                        Text="Nieuw wachtwoord"
+                        ToolTip="Verander je wachtwoord om in te loggen" />
+
+                    <StackPanel
                         Grid.Row="4"
                         Grid.Column="1"
-                        Width="350"
-                        Margin="5,0,0,0"
-                        VerticalAlignment="Bottom"
-                        IsEnabled="True"
-                        PasswordChanged="PasswordChanged"
-                        Style="{DynamicResource PasswordBox}" TabIndex="5" />
+                        Orientation="Horizontal">
+                        <PasswordBox
+                            x:Name="pbPassword"
+                            Width="350"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Bottom"
+                            IsEnabled="True"
+                            PasswordChanged="PasswordChanged"
+                            Style="{DynamicResource PasswordBox}"
+                            TabIndex="5" />
+
+                        <TextBlock
+                            x:Name="warningValidPassword"
+                            Margin="25,0,0,0"
+                            VerticalAlignment="Bottom"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="Red"
+                            Text="Nog geen wachtwoord ingevuld"
+                            Visibility="{Binding ElementName=tbValidPassword, Path=Text}" />
+                    </StackPanel>
+                    <!--#endregion-->
 
                     <Button
                         x:Name="btnSaveUserProfile"
@@ -405,8 +486,11 @@
                         Click="SaveUserProfileClicked"
                         Content="Gegevens opslaan"
                         Style="{DynamicResource RoundedButtonStyle}" />
+
                 </Grid>
             </Border>
+            <!--#endregion-->
         </Grid>
+        <!--#endregion-->
     </Grid>
 </Page>
