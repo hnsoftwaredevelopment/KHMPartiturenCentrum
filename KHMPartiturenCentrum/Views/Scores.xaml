@@ -75,11 +75,7 @@
                 <CheckBox x:Name="cbAccompaniment" Visibility="Visible" />
                 <CheckBox x:Name="cbLanguage" Visibility="Visible" />
                 <CheckBox x:Name="cbMusicPiece" Visibility="Visible" />
-                <CheckBox
-                    x:Name="cbDigitized"
-                    IsChecked="False"
-                    ToolTip="Digitized"
-                    Visibility="Visible" />
+                <CheckBox x:Name="cbDigitized" Visibility="Visible" />
                 <CheckBox x:Name="cbModified" Visibility="Visible" />
                 <CheckBox x:Name="cbChecked" Visibility="Visible" />
                 <CheckBox x:Name="cbPDFORP" Visibility="Visible" />

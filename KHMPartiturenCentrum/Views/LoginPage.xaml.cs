@@ -69,7 +69,7 @@ public partial class LoginPage : Window
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
         tbInvalidLogin.Visibility = Visibility.Collapsed;
-        int UserId = DBCommands.CheckUser(tbUserName.Text, tbPassword.Password);
+        int UserId = DBCommands.CheckUserPassword(tbUserName.Text, tbPassword.Password);
         if (UserId != 0)
         {
             ScoreUsers.SelectedUserId = UserId;

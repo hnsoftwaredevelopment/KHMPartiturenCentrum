@@ -36,7 +36,7 @@ public partial class UserManagement : Page
     {
         InitializeComponent();
 
-        if (ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15)
+        if ( cbDisableSave.IsChecked == false && ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 ) )
         {
             tbAdminMode.Text = "Visible";
         }
@@ -115,12 +115,79 @@ public partial class UserManagement : Page
                     { cbFullNameChanged.IsChecked = false; }
                     else
                     { cbFullNameChanged.IsChecked = true; }
+
+                    CheckChanged ();
                     break;
                 case "tbEMail":
+                    // First check if the email address has a correct format
+                    // Start checking when there is a @ and a . in the e-mail address
+                    if ( tbEMail.Text.Contains ( "@" ))
+                    {
+                        bool validMailAddress = DBCommands.IsValidEmail ( tbEMail.Text );
+                        if ( validMailAddress )
+                        {
+                            //Check if the e-mail address is unique
+                            bool EMailExists = DBCommands.CheckEMail ( tbEMail.Text, SelectedUser.UserId );
+                            if ( EMailExists )
+                            {
+                                tbValidEMail.Text = "Visible";
+                                warningValidEMail.Text = "Dit e-mail adres wordt al gebruikt";
+                                cbValidEMail.IsChecked = false;
+                            }
+                            else
+                            {
+                                tbValidEMail.Text = "Collapsed";
+                                cbValidEMail.IsChecked = true;
+                            }
+                        }
+                        else
+                        {
+                            tbValidEMail.Text = "Visible";
+                            warningValidEMail.Text = "Ongeldig e-mail adres";
+                            cbValidEMail.IsChecked = false;
+                        }
+                    }
+                    // Check if the e-mail address actualy changed
                     if ( tbEMail.Text == SelectedUser.UserEmail )
                     { cbEMailChanged.IsChecked = false; }
                     else
                     { cbEMailChanged.IsChecked = true; }
+
+                    CheckChanged ();
+                    break;
+                case "tbUserName":
+                    //Checķif the UserName textbox is editable, if not, not change can be made
+                    if ( tbUserName.IsEnabled == true )
+                    {
+                        // Check if username already exists, if yes (or empty) show message else Enable Save
+                        if ( tbUserName.Text.Length > 2 )
+                        {
+                            // By Default Warning disappears
+                            tbValidUserName.Text = "Collapsed";
+                            bool UserExists = DBCommands.CheckUserName( tbUserName.Text, SelectedUser.UserId );
+                            if ( UserExists )
+                            {
+                                tbValidUserName.Text = "Visible";
+                                warningValidUserName.Text = "Deze gebruikersnaam bestaat al";
+                                cbValidUserName.IsChecked = false;
+                            }
+                            else
+                            {
+                                tbValidUserName.Text = "Collapsed";
+                                cbValidUserName.IsChecked = true;
+                            }
+                        }
+                        else
+                        {
+                            tbValidUserName.Text = "Visible";
+                            warningValidUserName.Text = "Gebruikersnaam moet uit minimaal 3 tekens bestaan en moet uniek zijn";
+                            cbValidUserName.IsChecked = false;
+                        }
+
+                        cbUserNameChanged.IsChecked = true;
+                    }
+
+                    CheckChanged ();
                     break;
             }
         }
@@ -142,6 +209,9 @@ public partial class UserManagement : Page
                         { cbUserRoleChanged.IsChecked = false; }
                         else
                         { cbUserRoleChanged.IsChecked = true; }
+
+                        // A User Role is Selected
+                        cbValidUserRole.IsChecked = true;
                     }
                     break;
             }
@@ -158,8 +228,27 @@ public partial class UserManagement : Page
         else
         { cbPasswordChanged .IsChecked = true; }
 
-        CheckChanged ();
+        //Only Give password warning for new user, existing user already hass a valid password
+        if(tbUserName.IsEnabled == true )
+        {
+            if(pbPassword.Password.Length < 3 )
+            {
+                // No valid password is entered
+                tbValidPassword.Text = "Visible";
+                cbValidPassword.IsChecked = false;
+                warningValidPassword.Text = "Wachtwoord moet minimaal 3 tekens bevatten";
+            }
+            else
+            {
+                // Valid Password entered
+                tbValidPassword.Text = "Collapsed";
+                cbPasswordChanged.IsChecked = true;
+                cbValidPassword.IsChecked = true;
+                warningValidPassword.Text = "Collapsed";
+            }
+        }
 
+        CheckChanged ();
     }
 
     private void SaveUserProfileClicked(object sender, RoutedEventArgs e)
@@ -181,7 +270,16 @@ public partial class UserManagement : Page
         }
 
         // Fill the modifiedUser collection
-
+        modifiedUser.Add ( new UserModel
+        {
+            UserId = SelectedUser.UserId,
+            UserName = UserName,    
+            UserEmail = tbEMail.Text,
+            UserFullName = tbFullName.Text,
+            UserRoleId = ((UserRoleModel)comUserRole.SelectedValue).RoleId,
+            UserPassword = Helper.HashPepperPassword(pbPassword.Password, tbUserName.Text)
+        } );
+        //((KHMPartiturenCentrum.Models.UserRoleModel)comUserRole.SelectedValue).RoleId
         // When the saved user is a newly added user disable the UserName box again
         tbUserName.IsEnabled = false;
 
@@ -193,7 +291,6 @@ public partial class UserManagement : Page
     private void PageLoaded ( object sender, RoutedEventArgs e )
     {
         comUserRole.ItemsSource = DBCommands.GetUserRoles ();
-        ResetChanged ();
     }
 
     private void BtnFirstClick ( object sender, RoutedEventArgs e )
@@ -295,27 +392,60 @@ public partial class UserManagement : Page
 
     private void CheckChanged ()
     {
-        if (cbEMailChanged.IsChecked == true ||
-            cbFullNameChanged.IsChecked == true ||
-            cbPasswordChanged.IsChecked == true ||
-            cbUserRoleChanged.IsChecked == true )
+        // First check if it is a new user (UserName is editable) or an existing user
+        if ( tbUserName.IsEnabled == true )
         {
-            if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 )
+            // New User
+            // Check valid fields
+            if( cbValidUserName.IsChecked == true && cbValidEMail.IsChecked == true && cbValidPassword.IsChecked == true && cbValidUserRole.IsChecked == true )
             {
-                tbEnableEdit.Text = "Visible";
+                // All fields are Valid
+                tbEnableSave.Text = "Visible";
                 btnSave.IsEnabled = true;
                 btnSave.ToolTip = "Sla de gewijzigde gegevens op";
             }
             else
             {
-                tbEnableEdit.Text = "Collapsed";
+                // Not all fields are valid
+                tbEnableSave.Text = "Collapsed";
+                btnSave.IsEnabled = false;
+                btnSave.ToolTip = "Niet alle noodzakelijke velden hebben een (geldige) waarde, opslaan niet mogelijk";
             }
         }
         else
         {
-            tbEnableEdit.Text = "Collapsed";
-            btnSave.IsEnabled = false;
-            btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
+            // Existing user
+            if ( cbEMailChanged.IsChecked == true ||
+                cbFullNameChanged.IsChecked == true ||
+                cbPasswordChanged.IsChecked == true ||
+                cbUserRoleChanged.IsChecked == true )
+            {
+                if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 )
+                {
+                    tbEnableSave.Text = "Visible";
+                    if ( cbDisableSave.IsChecked == false )
+                    {
+                        btnSave.IsEnabled = true;
+                        btnSave.ToolTip = "Sla de gewijzigde gegevens op";
+                    }
+                    else
+                    {
+                        btnSave.IsEnabled = false;
+                        btnSave.ToolTip = "Er zijn velden met een ongeldige waarde, opslaan niet mogelijk";
+                    }
+                }
+                else
+                {
+                    tbEnableSave.Text = "Collapsed";
+                }
+            }
+            else
+            {
+                tbEnableSave.Text = "Collapsed";
+                btnSave.IsEnabled = false;
+                btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
+            }
+
         }
     }
 
@@ -326,8 +456,58 @@ public partial class UserManagement : Page
         cbPasswordChanged.IsChecked = false;
         cbUserRoleChanged.IsChecked = false;
 
-        tbEnableEdit.Text = "Collapsed";
+        #region Check if E-mail is entered
+        if ( tbEMail.Text == "" )
+        {
+            cbValidEMail.IsChecked = false;
+        }
+        else
+        {
+            cbValidEMail.IsChecked = true;
+        }
+        #endregion
+
+        #region Check if UserName is entered
+        if ( tbUserName.Text == "" )
+        {
+            cbValidUserName.IsChecked = false;
+        }
+        else
+        {
+            cbValidUserName.IsChecked = true;
+        }
+        #endregion
+
+        #region Check if Password is entered
+        if ( SelectedUser.UserPassword == "" )
+        {
+            cbValidPassword.IsChecked = false;
+        }
+        else
+        {
+            cbValidPassword.IsChecked = true;
+        }
+        #endregion
+
+        #region Check if RoleId is entered
+        if ( SelectedUser.UserRoleId > 0 )
+        {
+            cbValidUserRole.IsChecked = true;
+        }
+        else
+        {
+            cbValidUserRole.IsChecked = false;
+        }
+        #endregion
+
+        #region If no UserName is entered the TextBox should be enabled
+        if ( SelectedUser.UserName == "" )
+            { tbUserName.IsEnabled = true;}
+        else
+        { tbUserName.IsEnabled = false;}
+        #endregion
+
+        tbEnableSave.Text = "Collapsed";
         btnSave.IsEnabled = false;
-        btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
     }
 }

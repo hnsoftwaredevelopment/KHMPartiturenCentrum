@@ -280,7 +280,6 @@
                             <Setter TargetName="path" Property="Fill" Value="{DynamicResource Button.Save.BorderBrush}" />
                             <Setter TargetName="path" Property="Stretch" Value="Uniform" />
                             <Setter TargetName="path" Property="Stroke" Value="{DynamicResource Button.Save.BorderBrush}" />
-                            <Setter TargetName="border" Property="ToolTip" Value="Er zijn geen gegevens aangepast, opslaan niet mogelijk" />
                         </Trigger>
 
                         <Trigger Property="Name" Value="btnRenumber">

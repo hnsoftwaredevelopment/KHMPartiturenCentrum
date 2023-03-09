@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ using K4os.Compression.LZ4.Internal;
 using KHMPartiturenCentrum.Converters;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.Views;
+using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using MySqlX.XDevAPI.Common;
@@ -1147,8 +1150,8 @@ public class DBCommands
     }
     #endregion
 
-    #region Check valid user
-    public static int CheckUser(string login, string password)
+    #region Check valid user password
+    public static int CheckUserPassword(string login, string password)
     {
         int UserId = 0;
         var _pwLogedInUser = Helper.HashPepperPassword(password, login);
@@ -1164,6 +1167,101 @@ public class DBCommands
             }
         }
         return 0;    
+    }
+    #endregion
+
+    #region Check valid username
+    public static bool CheckUserName ( string userName, int userId )
+    {
+        // Returns false if UserName does not already exist and true if it is already used (bool UserExists = DBCommands.CheckUserName( tbUserName.Text );)
+        ObservableCollection<UserModel> Users = GetUsers();
+
+        foreach ( var user in Users )
+        {
+            if ( user.UserName.ToLower () == userName.ToLower () )
+            {
+                // Still valid if the Username belongs to the selected User
+                if ( user.UserId == userId )
+                { 
+                    return false; 
+                }
+                else 
+                { 
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    #endregion
+
+    #region Check valid e-mail (Is it unique)
+    public static bool CheckEMail ( string email, int userId )
+    {
+        ObservableCollection<UserModel> Users = GetUsers();
+
+        foreach ( var user in Users )
+        {
+            if ( user.UserEmail.ToLower () == email.ToLower () )
+            {
+                // Still valid if the Username belongs to the selected User
+                if ( user.UserId == userId )
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    #endregion
+
+    #region Check if the e-mail address has the correct format
+    public static bool IsValidEmail ( string email )
+    {
+        if ( string.IsNullOrWhiteSpace ( email ) )
+            return false;
+
+        try
+        {
+            // Normalize the domain
+            email = Regex.Replace ( email, @"(@)(.+)$", DomainMapper,
+                                  RegexOptions.None, TimeSpan.FromMilliseconds ( 200 ) );
+
+            // Examines the domain part of the email and normalizes it.
+            string DomainMapper ( Match match )
+            {
+                // Use IdnMapping class to convert Unicode domain names.
+                var idn = new IdnMapping();
+
+                // Pull out and process domain name (throws ArgumentException on invalid)
+                string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                return match.Groups [ 1 ].Value + domainName;
+            }
+        }
+        catch ( RegexMatchTimeoutException e )
+        {
+            return false;
+        }
+        catch ( ArgumentException e )
+        {
+            return false;
+        }
+
+        try
+        {
+            return Regex.IsMatch ( email,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds ( 250 ) );
+        }
+        catch ( RegexMatchTimeoutException )
+        {
+            return false;
+        }
     }
     #endregion
 

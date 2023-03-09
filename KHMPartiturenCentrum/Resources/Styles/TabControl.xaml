@@ -113,18 +113,18 @@
         <Setter Property="Margin" Value="10" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="FontFamily" Value="Bahnschrift SemiBold" />
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style x:Key="TabItem.Page.Image.Style" TargetType="{x:Type Image}">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Width" Value="70"/>
-        <Setter Property="Grid.Row" Value="0"/>
-        <Setter Property="Grid.RowSpan" Value="4"/>
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Width" Value="70" />
+        <Setter Property="Grid.Row" Value="0" />
+        <Setter Property="Grid.RowSpan" Value="4" />
     </Style>
 
-    <!--#region Rich Text Format Toolbar -->
+    <!--#region Rich Text Format Toolbar-->
     <Style x:Key="RichText.ToolBar.Tray" TargetType="ToolBarTray">
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="Auto" />
