@@ -1383,6 +1383,41 @@ public class DBCommands
         return userId;
     }
     #endregion
+
+    #region Get HistoryLogging
+    public static ObservableCollection<HistoryModel> GetHistoryLog()
+    {
+        ObservableCollection<HistoryModel> HistoryLog = new();
+        DataTable dataTable = new();
+
+        dataTable = GetData ( DBNames.LogView, DBNames.LogViewFieldNameLogid);
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            //Splitup DateTimeStamp in a date and a time
+            string[] _dateTime = dataTable.Rows[i].ItemArray[1].ToString().Split(' ');
+            string logDate = _dateTime[0];
+            string logTime = _dateTime[1];
+
+            for ( int i = 0; i < dataTable.Rows.Count; i++ )
+            {
+                HistoryLog.Add ( new HistoryModel
+                {
+                    LogId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
+                    LogDate = logDate,
+                    LogTime = logTime,
+                    UserName= dataTable.Rows [ i ].ItemArray [2].ToString(),
+                    PerformedAction = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
+                    Description = dataTable.Rows [ i ].ItemArray [ 4 ].ToString (),
+                    ModifiedField = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
+                    OldValue = dataTable.Rows [ i ].ItemArray [ 6 ].ToString (),
+                    NewValue = dataTable.Rows [ i ].ItemArray [ 7 ].ToString ()
+                } );
+            }
+        }
+        return HistoryLog;
+    }
+    #endregion
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8604

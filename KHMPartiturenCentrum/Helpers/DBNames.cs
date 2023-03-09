@@ -173,7 +173,7 @@ public class DBNames
     #endregion
 
     #region Log history
-    #region Table/View History
+    #region Table History
     public static readonly string LogTable = "History";
     public static readonly string LogFieldNameLogId = "Id";
     public static readonly string LogFieldNameTimeStamp = "LogDate";
@@ -182,7 +182,19 @@ public class DBNames
     public static readonly string LogFieldNameDescription = "Description";
     #endregion
 
-    #region Table/View HistoryDetails
+    #region View History
+    public static readonly string LogView = "view_History";
+    public static readonly string LogViewFieldNameLogid = "LogId";
+    public static readonly string LogViewFieldNameLogDate = "LogDate";
+    public static readonly string LogViewFieldNameUserName = "User";
+    public static readonly string LogViewFieldNameAction = "Action";
+    public static readonly string LogViewFieldNameDescription = "Description";
+    public static readonly string LogViewFieldNameField = "ModifiedField";
+    public static readonly string LogViewFieldNameOldValue = "OldValue";
+    public static readonly string LogViewFieldNameNewValue = "NewValue";
+    #endregion
+
+    #region Table HistoryDetails
     public static readonly string LogDetailTable = "HistoryDetails";
     public static readonly string LogDetailFieldNameDetailId = "Id";
     public static readonly string LogDetailFieldNameLogId = "LogId";
