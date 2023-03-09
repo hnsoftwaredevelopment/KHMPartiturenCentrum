@@ -53,7 +53,7 @@ public partial class MainWindow : Window
     #region Button Close
     private void btnClose_Click(object sender, RoutedEventArgs e)
     {
-        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserLoggedIn, $"Gebruiker: {tbLogedInUserName}" );
+        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserLoggedIn, $"Gebruiker: {tbLogedInUserName.Text}" );
         Close ();
     }
     #endregion
