@@ -195,6 +195,12 @@ public class DBNames
     public static readonly string LogUserAdded = "Gebruiker toegevoegd";
     public static readonly string LogUserChanged = "Gebruiker gewijzigd";
     public static readonly string LogUserDeleted = "Gebruiker verwijderd";
+    public static readonly string LogUserEMail = "E-mail adres gewijzigd";
+    public static readonly string LogUserFullName = "Naam gewijzigd";
+    public static readonly string LogUserRole = "Rol gewijzigd";
+    public static readonly string LogUserPassword = "Wachtwoord gewijzigd";
+    public static readonly string LogUserLoggedIn = "Gebruiker ingelogt";
+    public static readonly string LogUserLoggedOut = "Gebruiker uitgelogt";
 
     public static readonly string LogScoreAdded = "Partituur toegevoegd";
     public static readonly string LogScoreChanged = "Partituur gewijzigd";

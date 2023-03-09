@@ -875,8 +875,11 @@ public class DBCommands
 
         if( modifiedUser != null )
         {
+            if ( modifiedUser [ 0 ].UserName != "" )
+            { sqlQuery += DBNames.UsersFieldNameUserName + " = @" + DBNames.UsersFieldNameUserName; }
+
             if ( modifiedUser [0].UserFullName != "" )
-            { sqlQuery += DBNames.UsersFieldNameFullName + " = @" + DBNames.UsersFieldNameFullName; }
+            { sqlQuery += ", " + DBNames.UsersFieldNameFullName + " = @" + DBNames.UsersFieldNameFullName; }
 
             if ( modifiedUser [ 0 ].UserEmail != "" )
             { sqlQuery += ", " + DBNames.UsersFieldNameLogin + " = @" + DBNames.UsersFieldNameLogin; }
@@ -886,7 +889,7 @@ public class DBCommands
         }
 
         // Add the filter to the sqlQuery
-        sqlQuery += DBNames.SqlWhere + DBNames.UsersFieldNameUserName + " = @" + DBNames.UsersFieldNameUserName + ";";
+        sqlQuery += DBNames.SqlWhere + DBNames.UsersFieldNameId + " = @" + DBNames.UsersFieldNameId + ";";
 
         try
         {
@@ -1125,6 +1128,9 @@ public class DBCommands
 
         if ( modifiedUser != null )
         {
+            if ( modifiedUser [ 0 ].UserName != "" )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameUserName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserName; }
+
             if ( modifiedUser [ 0 ].UserFullName != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameFullName, MySqlDbType.VarChar ).Value = modifiedUser[0].UserFullName; }
 
@@ -1135,8 +1141,8 @@ public class DBCommands
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }
         }
 
-        // Add the username value for the Score that has to be modified
-        cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameUserName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserName;
+        // Add the userId value for the user that has to be modified
+        cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameId, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserId;
 
         //execute; returns the number of rows affected
         int rowsAffected = cmd.ExecuteNonQuery();
@@ -1327,7 +1333,7 @@ public class DBCommands
     {
         var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogTable + " ( " + 
             DBNames.LogFieldNameUserId + ", " + 
-            DBNames.LogFieldNameAction + 
+            DBNames.LogFieldNameAction + ", " +
             DBNames.LogFieldNameDescription + " ) " + DBNames.SqlValues + " ( " +
             loggedInUser + ", '" + action + "', '" + description + "' );";
 
@@ -1348,7 +1354,7 @@ public class DBCommands
             DBNames.LogDetailFieldNameChanged + ", " +
             DBNames.LogDetailFieldNameOldValue + ", " + 
             DBNames.LogDetailFieldNameNewValue + " ) " + DBNames.SqlValues + " ( " +
-            logId + ", '" + field + "', " + oldValue + "', '" + newValue + "' );";
+            logId + ", '" + field + "', '" + oldValue + "', '" + newValue + "' );";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open();
@@ -1356,6 +1362,25 @@ public class DBCommands
         using MySqlCommand cmd = new(sqlQuery, connection);
 
         int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
+    #region Get Latest Added HistoryId
+    public static int GetAddedHistoryId ()
+    {
+        int userId = 0;
+        var sqlQuery = DBNames.SqlSelectAll +
+            DBNames.SqlFrom + DBNames.Database + "." + DBNames.LogTable +
+            DBNames.SqlOrder + DBNames.LogFieldNameLogId + DBNames.SqlDesc + DBNames.SqlLimit + "1";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        userId = (int) cmd.ExecuteScalar ();
+
+        return userId;
     }
     #endregion
 }

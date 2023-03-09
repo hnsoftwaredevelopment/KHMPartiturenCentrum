@@ -60,7 +60,7 @@
             <StackPanel
                 Grid.Column="0"
                 Orientation="Horizontal"
-                Visibility="Visible">
+                Visibility="Collapsed">
                 <TextBlock x:Name="tbCheckFullName" Text="False" />
                 <TextBlock x:Name="tbCheckEMail" Text="False" />
                 <TextBlock x:Name="tbCheckPassword" Text="False" />
@@ -84,6 +84,8 @@
                 <TextBlock x:Name="tbValidPassword" Text="Collapsed" />
                 <TextBlock x:Name="tbValidUserRole" Text="Collapsed" />
 
+                <TextBlock x:Name="tbLogedInUserName"/>
+                <TextBlock x:Name="tbLogedInUserId"/>
             </StackPanel>
 
             <!--#endregion-->
@@ -269,7 +271,6 @@
                         <RowDefinition Height="45" />
                         <RowDefinition Height="45" />
                         <RowDefinition Height="55" />
-                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -476,17 +477,6 @@
                             Visibility="{Binding ElementName=tbValidPassword, Path=Text}" />
                     </StackPanel>
                     <!--#endregion-->
-
-                    <Button
-                        x:Name="btnSaveUserProfile"
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Width="130"
-                        Click="SaveUserProfileClicked"
-                        Content="Gegevens opslaan"
-                        Style="{DynamicResource RoundedButtonStyle}" />
-
                 </Grid>
             </Border>
             <!--#endregion-->

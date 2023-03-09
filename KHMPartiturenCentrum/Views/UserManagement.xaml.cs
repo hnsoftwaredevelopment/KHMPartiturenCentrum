@@ -36,6 +36,9 @@ public partial class UserManagement : Page
     {
         InitializeComponent();
 
+        tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
+        tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString();
+
         if ( cbDisableSave.IsChecked == false && ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 ) )
         {
             tbAdminMode.Text = "Visible";
@@ -279,13 +282,42 @@ public partial class UserManagement : Page
             UserRoleId = ((UserRoleModel)comUserRole.SelectedValue).RoleId,
             UserPassword = Helper.HashPepperPassword(pbPassword.Password, tbUserName.Text)
         } );
-        //((KHMPartiturenCentrum.Models.UserRoleModel)comUserRole.SelectedValue).RoleId
-        // When the saved user is a newly added user disable the UserName box again
-        tbUserName.IsEnabled = false;
 
-        // Reload the DataGrid
-        users = new UserViewModel();
-        DataContext = users;
+        // No action if UserName is Empty
+        if(tbUserName.Text != "" )
+        { 
+            // Action for logging depends if it is a new user added or an existing user modified
+            var _action = string.Empty;
+
+            if (tbUserName.IsEnabled)
+            { _action = DBNames.LogUserAdded; } else
+            { _action =DBNames.LogUserChanged; }
+
+            DBCommands.UpdateUser ( modifiedUser );
+
+            // Write log info
+            DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), _action, $"Gebruiker: {tbUserName.Text}" );
+
+            // Get Added History Id
+            int _historyId = DBCommands.GetAddedHistoryId();
+
+            if(cbEMailChanged.IsChecked == true ) { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserEMail, SelectedUser.UserEmail, tbEMail.Text ); }
+            if ( cbFullNameChanged.IsChecked == true )
+            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserFullName, SelectedUser.UserFullName, tbFullName.Text ); }
+
+            if ( cbUserRoleChanged.IsChecked == true )
+            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserRole, SelectedUser.UserRoleId.ToString(), ((UserRoleModel) comUserRole.SelectedValue ).RoleId.ToString() ); }
+
+            if ( cbPasswordChanged.IsChecked == true )
+            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserPassword, "", "" ); }
+
+            // When the saved user is a newly added user disable the UserName box again
+            tbUserName.IsEnabled = false;
+
+            // Reload the DataGrid
+            users = new UserViewModel();
+            DataContext = users;
+        }
     }
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
@@ -368,6 +400,7 @@ public partial class UserManagement : Page
         if (SelectedUser != null)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show($"Weet je zeker dat je {SelectedUser.UserFullName} wilt verwijderen?", $"Verwijder gebruiker {SelectedUser.UserId}", MessageBoxButton.YesNoCancel);
+            string SelectedUserName = SelectedUser.UserName;
 
             switch (messageBoxResult)
             {
@@ -376,6 +409,13 @@ public partial class UserManagement : Page
                     if (SelectedUser.UserId != null)
                     {
                         DBCommands.DeleteUser(SelectedUser.UserId.ToString());
+
+                        // Write action to History Log
+                        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserDeleted, SelectedUserName );
+
+                        // Refresh DataGrid
+                        users = new UserViewModel ();
+                        DataContext = users;
                     }
                     break;
                 case MessageBoxResult.No:
@@ -386,8 +426,6 @@ public partial class UserManagement : Page
                     break;
             }
         }
-        users = new UserViewModel();
-        DataContext = users;
     }
 
     private void CheckChanged ()

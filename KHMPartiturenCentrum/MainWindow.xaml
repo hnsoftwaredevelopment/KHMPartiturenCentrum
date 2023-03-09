@@ -141,7 +141,12 @@
                         </Button>
 
                         <!--#region Hide or show Administrator Only controls -->
-                        <TextBlock x:Name="tbShowAdmin" Text="Visible" Visibility="Collapsed"/>
+                        <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                            <TextBlock x:Name="tbShowAdmin" Text="Visible"/>
+
+                            <TextBlock x:Name="tbLogedInUserName"/>
+                            <TextBlock x:Name="tbLogedInUserId"/>
+                        </StackPanel>
                         <!--#endregion-->
 
                         <ContentControl>

@@ -86,6 +86,9 @@ public partial class LoginPage : Window
                     ScoreUsers.SelectedUserRoleId = user.UserRoleId;
                 }
             }
+
+            // Write Login to Logfile
+            DBCommands.WriteLog(UserId, DBNames.LogUserLoggedIn, $"Gebruiker: {ScoreUsers.SelectedUserName}");
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();

@@ -22,6 +22,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static KHMPartiturenCentrum.App;
 using System.Collections.ObjectModel;
 using KHMPartiturenCentrum.Models;
+using KHMPartiturenCentrum.Helpers;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace KHMPartiturenCentrum;
 /// <summary>
@@ -33,6 +35,8 @@ public partial class MainWindow : Window
     {      
         InitializeComponent ();
         tbUserName.Text = ScoreUsers.SelectedUserFullName;
+        tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
+        tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString ();
 
         // Set the value to control weather or not an administrator has logged in
         if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 15)
@@ -49,7 +53,8 @@ public partial class MainWindow : Window
     #region Button Close
     private void btnClose_Click(object sender, RoutedEventArgs e)
     {
-        Close();
+        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserLoggedIn, $"Gebruiker: {tbLogedInUserName}" );
+        Close ();
     }
     #endregion
 
@@ -71,7 +76,7 @@ public partial class MainWindow : Window
     #endregion
     #endregion
 
-    #region Drag Widow
+    #region Drag Window
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
         if (e.LeftButton == MouseButtonState.Pressed)
