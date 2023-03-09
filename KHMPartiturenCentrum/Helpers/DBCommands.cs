@@ -1223,6 +1223,43 @@ public class DBCommands
     #endregion
 
     #endregion
+
+    #region Write History Logging
+    public static void WriteLog(int loggedInUser, string action, string description)
+    {
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogTable + " ( " + 
+            DBNames.LogFieldNameUserId + ", " + 
+            DBNames.LogFieldNameAction + 
+            DBNames.LogFieldNameDescription + " ) " + DBNames.SqlValues + " ( " +
+            loggedInUser + ", '" + action + "', '" + description + "' );";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
+
+    #region Write History Detail Logging
+    public static void WriteDetailLog(int logId, string field, string oldValue, string newValue)
+    {
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogDetailTable + " ( " +
+            DBNames.LogDetailFieldNameLogId + ", " +
+            DBNames.LogDetailFieldNameChanged + ", " +
+            DBNames.LogDetailFieldNameOldValue + ", " + 
+            DBNames.LogDetailFieldNameNewValue + " ) " + DBNames.SqlValues + " ( " +
+            logId + ", '" + field + "', " + oldValue + "', '" + newValue + "' );";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
 }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8604

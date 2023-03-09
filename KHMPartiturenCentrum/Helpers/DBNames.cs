@@ -174,22 +174,32 @@ public class DBNames
 
     #region Log history
     #region Table/View History
-    public static readonly string LogKHMTable = "History";
-    public static readonly string LogKHMFieldNameNaam = "Naam";
-    public static readonly string LogKHMFieldNameAction = "Action";
-    public static readonly string LogKHMFieldNameTimeStamp = "TimeStamp";
-    public static readonly string LogKHMFieldNameReleaseNaam = "ReleaseNaam";
-    public static readonly string LogKHMFieldNameKHMNaam = "KHMNaam";
-    public static readonly string LogKHMFieldNameResult = "Result";
-    public static readonly string LogKHMView = "History";
-    public static readonly string LogKHMFieldNameReleaseName = "ReleaseName";
-    public static readonly string LogKHMFieldNameKHMName = "KHMName";
+    public static readonly string LogTable = "History";
+    public static readonly string LogFieldNameLogId = "Id";
+    public static readonly string LogFieldNameTimeStamp = "LogDate";
+    public static readonly string LogFieldNameUserId = "UserId";
+    public static readonly string LogFieldNameAction = "Action";
+    public static readonly string LogFieldNameDescription = "Description";
+    #endregion
+
+    #region Table/View HistoryDetails
+    public static readonly string LogDetailTable = "HistoryDetails";
+    public static readonly string LogDetailFieldNameDetailId = "Id";
+    public static readonly string LogDetailFieldNameLogId = "LogId";
+    public static readonly string LogDetailFieldNameChanged = "ModifiedField";
+    public static readonly string LogDetailFieldNameOldValue = "OldValue";
+    public static readonly string LogDetailFieldNameNewValue = "NewValue";
     #endregion
 
     #region Log Actions
-    public static readonly string LogKHMAdded = "Partituur toegevoegd";
-    public static readonly string LogKHMChanged = "Partituur gewijzigd";
-    public static readonly string LogKHMDeleted = "Partituur verwijderd";
+    public static readonly string LogUserAdded = "Gebruiker toegevoegd";
+    public static readonly string LogUserChanged = "Gebruiker gewijzigd";
+    public static readonly string LogUserDeleted = "Gebruiker verwijderd";
+
+    public static readonly string LogScoreAdded = "Partituur toegevoegd";
+    public static readonly string LogScoreChanged = "Partituur gewijzigd";
+    public static readonly string LogScoreDeleted = "Partituur verwijderd";
+    public static readonly string LogScoreRenumbered = "Partituur omgenummerd";
     #endregion
     #endregion
 }
