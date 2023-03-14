@@ -88,7 +88,7 @@ public partial class LoginPage : Window
             }
 
             // Write Login to Logfile
-            DBCommands.WriteLog(UserId, DBNames.LogUserLoggedIn, $"Gebruiker: {ScoreUsers.SelectedUserName}");
+            DBCommands.WriteLog(UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogt");
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();

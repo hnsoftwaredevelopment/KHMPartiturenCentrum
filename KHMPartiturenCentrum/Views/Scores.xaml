@@ -107,6 +107,10 @@
                 <TextBlock x:Name="tbEnableEdit" Text="Collapsed"/>
                 <TextBlock x:Name="tbAdminMode" Text="Collapsed"/>
                 <TextBlock x:Name="tbEnableEditFields" Text=""/>
+
+                <TextBlock x:Name="tbLogedInUserName"/>
+                <TextBlock x:Name="tbLogedInFullName"/>
+                <TextBlock x:Name="tbLogedInUserId"/>
             </StackPanel>
             <!--#endregion-->
 

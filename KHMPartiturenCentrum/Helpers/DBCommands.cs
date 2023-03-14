@@ -808,8 +808,8 @@ public class DBCommands
 
         if (scoreList[0].MusicPieceChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMusicPiece + " = @" + DBNames.ScoresFieldNameMusicPiece; }
 
-        if (scoreList[0].DateDigitizedChanged != 0) { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
-        if (scoreList[0].DateModifiedChanged != 0) { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
+        if (scoreList[0].DateDigitizedChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
+        if (scoreList[0].DateModifiedChanged != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
         if (scoreList[0].Checked != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameChecked + " = @" + DBNames.ScoresFieldNameChecked; }
 
         if (scoreList[0].MuseScoreORP != -1) { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORP + " = @" + DBNames.ScoresFieldNameMuseScoreORP; }
@@ -1349,6 +1349,8 @@ public class DBCommands
     #region Write History Detail Logging
     public static void WriteDetailLog(int logId, string field, string oldValue, string newValue)
     {
+        if ( oldValue == "" ) { oldValue = "<Leeg>";}
+        if ( newValue == "" ) { newValue = "<Leeg>"; }
         var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogDetailTable + " ( " +
             DBNames.LogDetailFieldNameLogId + ", " +
             DBNames.LogDetailFieldNameChanged + ", " +
@@ -1394,20 +1396,22 @@ public class DBCommands
 
         if ( dataTable.Rows.Count > 0 )
         {
-            //Splitup DateTimeStamp in a date and a time
-            string[] _dateTime = dataTable.Rows[i].ItemArray[1].ToString().Split(' ');
-            string logDate = _dateTime[0];
-            string logTime = _dateTime[1];
 
             for ( int i = 0; i < dataTable.Rows.Count; i++ )
             {
+                //Split-up DateTimeStamp in a date and a time
+                string[] _dateTime = dataTable.Rows[i].ItemArray[1].ToString().Split(' ');
+                string[] _date = _dateTime[0].Split("-");
+                string logDate = $"{int.Parse(_date[0]).ToString("00")}-{int.Parse(_date[1]).ToString("00")}-{_date[2]}";
+                string logTime = _dateTime[1];
+
                 HistoryLog.Add ( new HistoryModel
                 {
                     LogId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
                     LogDate = logDate,
                     LogTime = logTime,
                     UserName= dataTable.Rows [ i ].ItemArray [2].ToString(),
-                    PerformedAction = dataTable.Rows [ i ].ItemArray [ 2 ].ToString (),
+                    PerformedAction = dataTable.Rows [ i ].ItemArray [3 ].ToString (),
                     Description = dataTable.Rows [ i ].ItemArray [ 4 ].ToString (),
                     ModifiedField = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
                     OldValue = dataTable.Rows [ i ].ItemArray [ 6 ].ToString (),

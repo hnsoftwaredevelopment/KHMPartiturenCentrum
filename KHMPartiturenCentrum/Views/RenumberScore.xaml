@@ -67,6 +67,7 @@
                 FontSize="14"
                 FontStyle="Italic"
                 Text="{Binding ScoreTitle}" />
+            <TextBlock x:Name="tbLogedInUserId" Visibility="Collapsed"/>
         </StackPanel>
         <!--#endregion-->
 

@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static KHMPartiturenCentrum.App;
 
 namespace KHMPartiturenCentrum.Views;
 
@@ -31,6 +32,8 @@ public partial class RenumberScore : Window
     public RenumberScore ( object selectedRow, string selectedScore, string selectedSubScore )
     {
         InitializeComponent ();
+
+        tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString ();
 
         DataContext = selectedRow;
         if ( selectedSubScore != "" && selectedSubScore != null )
@@ -245,7 +248,25 @@ public partial class RenumberScore : Window
                 DBCommands.SaveScore(Score);
                 break;
         }
-        
+        string _newScore = "";
+
+        if ( subScoreNumber == "" )
+        { 
+            _newScore = cbxNewScores.SelectedValue.ToString (); 
+        } 
+        else
+        { 
+            _newScore = cbxNewScores.SelectedValue.ToString () + "-" + subScoreNumber; 
+        }
+
+        // Write log info
+        DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), DBNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
+
+        // GetHashCode History Id
+        int _historyId = DBCommands.GetAddedHistoryId();
+
+        // Write Dertailed logging
+        DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreRenumbered, tbScoreNumber.Text, _newScore );
         //DBCommands.GetScores(DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null);
 
     }

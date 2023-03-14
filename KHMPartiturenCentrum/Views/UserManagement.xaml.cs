@@ -37,6 +37,7 @@ public partial class UserManagement : Page
         InitializeComponent();
 
         tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
+        tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
         tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString();
 
         if ( cbDisableSave.IsChecked == false && ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 ) )
@@ -306,10 +307,10 @@ public partial class UserManagement : Page
             { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserFullName, SelectedUser.UserFullName, tbFullName.Text ); }
 
             if ( cbUserRoleChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserRole, SelectedUser.UserRoleId.ToString(), ((UserRoleModel) comUserRole.SelectedValue ).RoleId.ToString() ); }
+            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserRole, SelectedUser.RoleDescription, ((UserRoleModel) comUserRole.SelectedValue ).RoleDescription ); }
 
             if ( cbPasswordChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserPassword, "", "" ); }
+            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserPassword, "...", "..." ); }
 
             // When the saved user is a newly added user disable the UserName box again
             tbUserName.IsEnabled = false;

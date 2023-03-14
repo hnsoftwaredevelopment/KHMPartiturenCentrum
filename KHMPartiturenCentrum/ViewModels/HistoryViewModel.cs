@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using KHMPartiturenCentrum.Helpers;
+using KHMPartiturenCentrum.Models;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace KHMPartiturenCentrum.ViewModels
 {
@@ -35,5 +39,14 @@ namespace KHMPartiturenCentrum.ViewModels
 
         [ObservableProperty]
         public string newValue = "";
+
+        public ObservableCollection<HistoryModel> HistoryLog { get; set; }
+
+        public HistoryViewModel() 
+        {
+            HistoryLog = new ObservableCollection<HistoryModel> ();
+            HistoryLog = DBCommands.GetHistoryLog ();
+        }
     }
+
 }

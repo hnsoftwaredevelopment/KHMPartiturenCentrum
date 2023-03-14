@@ -218,6 +218,22 @@ public class DBNames
     public static readonly string LogScoreChanged = "Partituur gewijzigd";
     public static readonly string LogScoreDeleted = "Partituur verwijderd";
     public static readonly string LogScoreRenumbered = "Partituur omgenummerd";
+
+    public static readonly string LogAccompaniment = "Begeleiding";
+    public static readonly string LogAmountPublisher = "Aantal in bezit";
+    public static readonly string LogArranger = "Arrangement";
+    public static readonly string LogArchive = "Archief";
+    public static readonly string LogByHeart = "Uit het hoofd";
+    public static readonly string LogChecked = "Gecontroleerd";
+    public static readonly string LogComposer = "Componist";
+    public static readonly string LogGenre = "Genre";
+    public static readonly string LogLanguage = "Taal";
+    public static readonly string LogMusicPiece = "Muziekstuk";
+    public static readonly string LogPublisher = "Uitgever";
+    public static readonly string LogRepertoire = "Repertoire";
+    public static readonly string LogSubTitle = "Ondertitel";
+    public static readonly string LogTextwriter = "Tekstschrijver";
+    public static readonly string LogTitle = "Titel";
     #endregion
     #endregion
 }

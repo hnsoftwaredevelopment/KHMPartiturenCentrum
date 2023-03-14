@@ -36,6 +36,7 @@ public partial class MainWindow : Window
         InitializeComponent ();
         tbUserName.Text = ScoreUsers.SelectedUserFullName;
         tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
+        tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
         tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString ();
 
         // Set the value to control weather or not an administrator has logged in
@@ -53,7 +54,7 @@ public partial class MainWindow : Window
     #region Button Close
     private void btnClose_Click(object sender, RoutedEventArgs e)
     {
-        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserLoggedIn, $"Gebruiker: {tbLogedInUserName.Text}" );
+        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserLoggedOut, $"{tbLogedInFullName.Text} heeft de applicatie afgesloten" );
         Close ();
     }
     #endregion

@@ -85,6 +85,7 @@
                 <TextBlock x:Name="tbValidUserRole" Text="Collapsed" />
 
                 <TextBlock x:Name="tbLogedInUserName"/>
+                <TextBlock x:Name="tbLogedInFullName"/>
                 <TextBlock x:Name="tbLogedInUserId"/>
             </StackPanel>
 

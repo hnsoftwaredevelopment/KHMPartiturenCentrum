@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KHMPartiturenCentrum.Models;
+using KHMPartiturenCentrum.ViewModels;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace KHMPartiturenCentrum.Views
 {
@@ -20,9 +23,13 @@ namespace KHMPartiturenCentrum.Views
     /// </summary>
     public partial class History : Page
     {
+        public HistoryViewModel? history;
         public History ()
         {
             InitializeComponent ();
+
+            history = new HistoryViewModel ();
+            DataContext = history;
         }
     }
 }

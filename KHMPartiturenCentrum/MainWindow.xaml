@@ -145,6 +145,7 @@
                             <TextBlock x:Name="tbShowAdmin" Text="Visible"/>
 
                             <TextBlock x:Name="tbLogedInUserName"/>
+                            <TextBlock x:Name="tbLogedInFullName"/>
                             <TextBlock x:Name="tbLogedInUserId"/>
                         </StackPanel>
                         <!--#endregion-->
