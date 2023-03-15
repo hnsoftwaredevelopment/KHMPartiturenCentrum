@@ -198,7 +198,7 @@ public partial class Scores : Page
 
         if ( selectedRow.DateCreatedString != "" )
         {
-            dpDigitized.SelectedDate = selectedRow.DateCreated.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) );
+            dpDigitized.SelectedDate = selectedRow.DateDigitized.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) );
             dpDigitized.Text = selectedRow.DateCreatedString;
         }
 
@@ -216,7 +216,7 @@ public partial class Scores : Page
 
         #region Checked
 
-        chkChecked.IsChecked = selectedRow.Check;
+        chkChecked.IsChecked = selectedRow.Checked;
 
         #endregion Checked
 
@@ -281,7 +281,7 @@ public partial class Scores : Page
 
         #region Publisher 1
 
-        tbAmountPublisher1.Text = selectedRow.NumberScoresPublisher1.ToString ();
+        tbAmountPublisher1.Text = selectedRow.AmountPublisher1.ToString ();
 
         #region Publisher1 Combobox
 
@@ -301,7 +301,7 @@ public partial class Scores : Page
 
         #region Publisher 2
 
-        tbAmountPublisher2.Text = selectedRow.NumberScoresPublisher2.ToString ();
+        tbAmountPublisher2.Text = selectedRow.AmountPublisher2.ToString ();
 
         #region Publisher2 Combobox
 
@@ -321,7 +321,7 @@ public partial class Scores : Page
 
         #region Publisher 3
 
-        tbAmountPublisher3.Text = selectedRow.NumberScoresPublisher3.ToString ();
+        tbAmountPublisher3.Text = selectedRow.AmountPublisher3.ToString ();
 
         #region Publisher3 Combobox
 
@@ -341,7 +341,7 @@ public partial class Scores : Page
 
         #region Publisher 4
 
-        tbAmountPublisher4.Text = selectedRow.NumberScoresPublisher4.ToString ();
+        tbAmountPublisher4.Text = selectedRow.AmountPublisher4.ToString ();
 
         #region Publisherr4 Combobox
 
@@ -361,7 +361,7 @@ public partial class Scores : Page
 
         #region Total
 
-        var Total = selectedRow.NumberScoresPublisher1 + selectedRow.NumberScoresPublisher2 + selectedRow.NumberScoresPublisher3 + selectedRow.NumberScoresPublisher4;
+        var Total = selectedRow.AmountPublisher1 + selectedRow.AmountPublisher2 + selectedRow.AmountPublisher3 + selectedRow.AmountPublisher4;
         tbAmountSupplierTotal.Text = Total.ToString ();
 
         #endregion Total
@@ -468,7 +468,7 @@ public partial class Scores : Page
                     break;
 
                 case "tbAmountPublisher1":
-                    if ( tbAmountPublisher1.Text == SelectedScore.NumberScoresPublisher1.ToString () )
+                    if ( tbAmountPublisher1.Text == SelectedScore.AmountPublisher1.ToString () )
                     { cbAmountPublisher1.IsChecked = false; }
                     else
                     { cbAmountPublisher1.IsChecked = true; }
@@ -476,7 +476,7 @@ public partial class Scores : Page
                     break;
 
                 case "tbAmountPublisher2":
-                    if ( tbAmountPublisher2.Text == SelectedScore.NumberScoresPublisher2.ToString () )
+                    if ( tbAmountPublisher2.Text == SelectedScore.AmountPublisher2.ToString () )
                     { cbAmountPublisher2.IsChecked = false; }
                     else
                     { cbAmountPublisher2.IsChecked = true; }
@@ -484,7 +484,7 @@ public partial class Scores : Page
                     break;
 
                 case "tbAmountPublisher3":
-                    if ( tbAmountPublisher3.Text == SelectedScore.NumberScoresPublisher3.ToString () )
+                    if ( tbAmountPublisher3.Text == SelectedScore.AmountPublisher3.ToString () )
                     { cbAmountPublisher3.IsChecked = false; }
                     else
                     { cbAmountPublisher3.IsChecked = true; }
@@ -492,7 +492,7 @@ public partial class Scores : Page
                     break;
 
                 case "tbAmountPublisher4":
-                    if ( tbAmountPublisher4.Text == SelectedScore.NumberScoresPublisher4.ToString () )
+                    if ( tbAmountPublisher4.Text == SelectedScore.AmountPublisher4.ToString () )
                     { cbAmountPublisher4.IsChecked = false; }
                     else
                     { cbAmountPublisher4.IsChecked = true; }
@@ -726,7 +726,7 @@ public partial class Scores : Page
                     break;
 
                 case "chkChecked":
-                    if ( chkChecked.IsChecked == SelectedScore.Check )
+                    if ( chkChecked.IsChecked == SelectedScore.Checked )
                     { cbChecked.IsChecked = false; }
                     else
                     { cbChecked.IsChecked = true; }
@@ -906,7 +906,11 @@ public partial class Scores : Page
     {
         ObservableCollection<SaveScoreModel> ScoreList = new();
         ObservableCollection<ScoreModel> OldScoreValues = new();
-        OldScoreValues [ 0 ].AccompanimentId = SelectedScore.AccompanimentId;
+        
+        // Add an empty row in the OldScoreValues
+        OldScoreValues.Add (new ScoreModel {} );
+
+        //OldScoreValues [ 0 ].AccompanimentId = SelectedScore.AccompanimentId;
         if ( SelectedScore != null )
         {
             string DateDigitized = "", DateModified = "";
@@ -933,29 +937,29 @@ public partial class Scores : Page
             if ( (bool) cbAmountPublisher1.IsChecked )
             {
                 AmountPublisher1Changed = 1;
-                OldScoreValues [ 0 ].NumberScoresPublisher1 = SelectedScore.NumberScoresPublisher1;
-                SelectedScore.NumberScoresPublisher1 = int.Parse ( tbAmountPublisher1.Text ); 
+                OldScoreValues [ 0 ].AmountPublisher1 = SelectedScore.AmountPublisher1;
+                SelectedScore.AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); 
             }
 
             if ( (bool) cbAmountPublisher2.IsChecked )
             {
                 AmountPublisher2Changed = 1;
-                OldScoreValues [ 0 ].NumberScoresPublisher2 = SelectedScore.NumberScoresPublisher2;
-                SelectedScore.NumberScoresPublisher2 = int.Parse ( tbAmountPublisher2.Text ); 
+                OldScoreValues [ 0 ].AmountPublisher2 = SelectedScore.AmountPublisher2;
+                SelectedScore.AmountPublisher2 = int.Parse ( tbAmountPublisher2.Text ); 
             }
 
             if ( (bool) cbAmountPublisher3.IsChecked )
             { 
                 AmountPublisher3Changed = 1;
-                OldScoreValues [ 0 ].NumberScoresPublisher3 = SelectedScore.NumberScoresPublisher3;
-                SelectedScore.NumberScoresPublisher3 = int.Parse ( tbAmountPublisher3.Text ); 
+                OldScoreValues [ 0 ].AmountPublisher3 = SelectedScore.AmountPublisher3;
+                SelectedScore.AmountPublisher3 = int.Parse ( tbAmountPublisher3.Text ); 
             }
             
             if ( (bool) cbAmountPublisher4.IsChecked )
             { 
                 AmountPublisher4Changed = 1;
-                OldScoreValues [ 0 ].NumberScoresPublisher4 = SelectedScore.NumberScoresPublisher4;
-                SelectedScore.NumberScoresPublisher4 = int.Parse ( tbAmountPublisher4.Text ); 
+                OldScoreValues [ 0 ].AmountPublisher4 = SelectedScore.AmountPublisher4;
+                SelectedScore.AmountPublisher4 = int.Parse ( tbAmountPublisher4.Text ); 
             }
             
             if ( (bool) cbArchive.IsChecked )
@@ -991,16 +995,16 @@ public partial class Scores : Page
 
             if ( (bool) cbChecked.IsChecked )
             {
-                OldScoreValues [ 0 ].Check = SelectedScore.Check;
+                OldScoreValues [ 0 ].Checked = SelectedScore.Checked;
                 if ( (bool) chkChecked.IsChecked ) 
                 { 
                     Check = 1; 
-                    SelectedScore.Check = true; 
+                    SelectedScore.Checked = true; 
                 } 
                 else 
                 { 
                     Check = 0; 
-                    SelectedScore.Check = false; 
+                    SelectedScore.Checked = false; 
                 } 
             }
 
@@ -1025,8 +1029,8 @@ public partial class Scores : Page
 
                 DateDigitizedChanged = 1;
                 DateTime _created = DateTime.Parse(DateDigitized + " 00:00:00 AM");
-                OldScoreValues[ 0 ].DateCreated = SelectedScore.DateCreated;
-                SelectedScore.DateCreated = DateOnly.FromDateTime ( _created );
+                OldScoreValues[ 0 ].DateDigitized = SelectedScore.DateDigitized;
+                SelectedScore.DateDigitized = DateOnly.FromDateTime ( _created );
             }
 
             if ( (bool) cbGenre.IsChecked )
@@ -1441,13 +1445,13 @@ public partial class Scores : Page
                 MusicPieceChanged = MusicPieceChanged,
                 Notes = SelectedScore.Notes,
                 NotesChanged = NotesChanged,
-                AmountPublisher1 = SelectedScore.NumberScoresPublisher1,
+                AmountPublisher1 = SelectedScore.AmountPublisher1,
                 AmountPublisher1Changed = AmountPublisher1Changed,
-                AmountPublisher2 = SelectedScore.NumberScoresPublisher2,
+                AmountPublisher2 = SelectedScore.AmountPublisher2,
                 AmountPublisher2Changed = AmountPublisher2Changed,
-                AmountPublisher3 = SelectedScore.NumberScoresPublisher3,
+                AmountPublisher3 = SelectedScore.AmountPublisher3,
                 AmountPublisher3Changed = AmountPublisher3Changed,
-                AmountPublisher4 = SelectedScore.NumberScoresPublisher4,
+                AmountPublisher4 = SelectedScore.AmountPublisher4,
                 AmountPublisher4Changed = AmountPublisher4Changed,
                 PDFORK = PDFORK,
                 PDFORP = PDFORP,
@@ -1492,113 +1496,523 @@ public partial class Scores : Page
     public void SaveHistory ( ObservableCollection<SaveScoreModel> _scoreList, ObservableCollection<ScoreModel> _oldScoreList )
     {
 
+        string _action = DBNames.LogScoreChanged;
+        if ( (bool) cbNewScore.IsChecked ) { _action = DBNames.LogScoreAdded; }
+
         // Write log info
-        DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), DBNames.LogScoreChanged, $"Partituur: {tbScoreNumber.Text}" );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, _action, $"Partituur: {tbScoreNumber.Text}" );
 
         // Get Added History Id
         int _historyId = DBCommands.GetAddedHistoryId();
 
-        if ( (bool) ( cbAccompaniment.IsChecked = true ) )
+        #region Log Accompaniment changes
+        if ( ( bool ) ( cbAccompaniment.IsChecked ) )
         {
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogAccompaniment, _oldScoreList [ 0 ].AccompanimentName, _scoreList [ 0 ].AccompanimentName );
         }
+        #endregion
 
-        if ( (bool) ( cbRepertoire.IsChecked = true ) ) 
+        #region Log Repertoire Changes
+        if ( (bool) ( cbRepertoire.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogRepertoire, _oldScoreList [ 0 ].RepertoireName, _scoreList [ 0 ].RepertoireName ); 
         }
-        
-        if ( (bool) ( cbArchive.IsChecked = true ) ) 
+        #endregion
+
+        #region Log Archive Changes
+        if ( (bool) ( cbArchive.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogArchive, _oldScoreList [ 0 ].ArchiveName, _scoreList [ 0 ].ArchiveName ); 
         }
-        
-        if ( (bool) ( cbByHeart.IsChecked = true ) )
+        #endregion
+
+        #region Log Sing By Heart Changes
+        if ( (bool) ( cbByHeart.IsChecked ) )
         {
-            string oldByHeartValue = "", newByHeartValue = "";
+            string oldValue = "", newValue = "";
 
-            if ( (bool) ( _oldScoreList [ 0 ].ByHeart = true ) )
-            { oldByHeartValue = "Ja"; }
+            if ( (bool) ( _oldScoreList [ 0 ].ByHeart == true ) )
+            { oldValue = DBNames.LogYes; }
             else
-            { oldByHeartValue = "Nee"; }
+            { oldValue = DBNames.LogNo; }
 
-            if ( _scoreList [ 0 ].ByHeart = true )
-            { newByHeartValue = "Ja"; }
+            if ( _scoreList [ 0 ].ByHeart == 1 )
+            { newValue = DBNames.LogYes; }
             else
-            { newByHeartValue = "Nee"; }
+            { newValue = DBNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogByHeart, oldByHeartValue, newByHeartValue );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogByHeart, oldValue, newValue );
         }
+        #endregion
 
-        if ( ( bool ) ( cbTitle.IsChecked = true ) ) 
+        #region Log Title Changes
+        if ( ( bool ) ( cbTitle.IsChecked ) ) 
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTitle, _oldScoreList [ 0 ].ScoreTitle, _scoreList [ 0 ].Title ); 
-        }
+            // Prevent the Title "<Nieuw>" (for new scores) to be written to the log
+            string? _oldTitle = _oldScoreList [ 0 ].ScoreTitle;
+            if(_oldTitle == DBNames.LogNew) { _oldTitle = "" ; }
 
-        if ( ( bool ) ( cbSubTitle.IsChecked = true ) ) 
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTitle, _oldTitle, _scoreList [ 0 ].Title ); 
+        }
+        #endregion
+
+        #region Log SubTitle Changes
+        if ( ( bool ) ( cbSubTitle.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogSubTitle, _oldScoreList [ 0 ].ScoreSubTitle, _scoreList [ 0 ].SubTitle ); 
         }
+        #endregion
 
-        if ( ( bool ) ( cbComposer.IsChecked = true ) ) 
+        #region Log Composer Changes
+        if ( ( bool ) ( cbComposer.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogComposer, _oldScoreList [ 0 ].Composer, _scoreList [ 0 ].Composer ); 
         }
+        #endregion
 
-        if ( ( bool ) ( cbTextwriter.IsChecked = true ) ) 
+        #region Log Textwriter Changes
+        if ( ( bool ) ( cbTextwriter.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogTextwriter, _oldScoreList [ 0 ].Textwriter, _scoreList [ 0 ].Textwriter ); 
         }
+        #endregion
 
-        if ( ( bool ) ( cbArranger.IsChecked = true ) ) 
+        #region Log Arranger Changes
+        if ( ( bool ) ( cbArranger.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogArranger, _oldScoreList [ 0 ].Arranger, _scoreList [ 0 ].Arranger ); 
         }
+        #endregion
 
-        if ( ( bool ) ( cbGenre.IsChecked = true ) ) 
+        #region Log Genre Changes
+        if ( ( bool ) ( cbGenre.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogGenre, _oldScoreList [ 0 ].GenreName, _scoreList [ 0 ].GenreName ); 
         }
+        #endregion
 
-        if ( ( bool ) ( cbLanguage.IsChecked = true ) ) 
+        #region Log Language Changes
+        if ( ( bool ) ( cbLanguage.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogLanguage, _oldScoreList [ 0 ].LanguageName, _scoreList [ 0 ].LanguageName ); 
         }
+        #endregion
 
-        if ( ( bool ) ( cbMusicPiece.IsChecked = true ) ) 
+        #region Log Music piece Changes
+        if ( ( bool ) ( cbMusicPiece.IsChecked ) ) 
         { 
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogMusicPiece, _oldScoreList [ 0 ].MusicPiece, _scoreList [ 0 ].MusicPiece ); 
         }
+        #endregion
 
-        //if ( ( bool ) ( cbDigitized.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbModified.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbChecked.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPDFORP.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPDFORK.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPDFTOP.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPDFTOK.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMSCORP.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMSCORK.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMSCTOP.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMSCTOK.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3B1.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3B2.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3T1.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3T2.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3SOL.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3TOT.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbMP3PIA.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbOnline.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbLyrics.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbNotes.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbAmountPublisher1.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbAmountPublisher2.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbAmountPublisher3.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbAmountPublisher4.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPublisher1.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPublisher2.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPublisher3.IsChecked = true ) ) { ; }
-        //if ( ( bool ) ( cbPublisher4.IsChecked = true ) ) { ; }
+        #region Log Date Digitized Changes
+        if ( ( bool ) ( cbDigitized.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogDigitized, (_oldScoreList [ 0 ].DateDigitized.ToDateTime ( TimeOnly.Parse ( "00:00 AM" )).ToString()), _scoreList [ 0 ].DateDigitized );
+        }
+        #endregion
+
+        #region Log Date Modified Changes
+        if ( ( bool ) ( cbModified.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogModified, ( _oldScoreList [ 0 ].DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString () ), _scoreList [ 0 ].DateModified );
+        }
+        #endregion
+
+        #region Log Checked digitized score Changes
+        if ( ( bool ) ( cbChecked.IsChecked ) ) 
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].Checked == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].Checked == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogChecked, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log PDF ORP Changes
+        if ( ( bool ) ( cbPDFORP.IsChecked ) ) 
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].PDFORP == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].PDFORP == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFORP, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log PDF ORK Changes
+        if ( ( bool ) ( cbPDFORK.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].PDFORK == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].PDFORK == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFORK, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log PDF TOP Changes
+        if ( ( bool ) ( cbPDFTOP.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].PDFTOP == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].PDFTOP == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFTOP, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log PDF TOK Changes
+        if ( ( bool ) ( cbPDFTOK.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].PDFTOK == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].PDFTOK == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFTOK, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MuseScore ORP Changes
+        if ( ( bool ) ( cbMSCORP.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreORP == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MuseScoreORP == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCORP, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MuseScore ORK Changes
+        if ( ( bool ) ( cbMSCORK.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreORK == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MuseScoreORK == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCORK, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MuseScore TOP Changes
+        if ( ( bool ) ( cbMSCTOP.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreTOP == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MuseScoreTOP == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCTOP, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MuseScore TOK Changes
+        if ( ( bool ) ( cbMSCTOK.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreTOK == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MuseScoreTOK == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCTOK, oldValue, newValue );
+        }
+
+        #endregion
+
+        #region Log MP3 B1 Changes
+        if ( ( bool ) ( cbMP3B1.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3B1 == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3B1 == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3B1, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MP3 B2 Changes
+        if ( ( bool ) ( cbMP3B2.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3B2 == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3B2 == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3B2, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MP3 T1 Changes
+        if ( ( bool ) ( cbMP3T1.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3T1 == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3T1 == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3T1, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MP3 T2 Changes
+        if ( ( bool ) ( cbMP3T2.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3T2 == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3T2 == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3T2, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MP3 SOL Changes
+        if ( ( bool ) ( cbMP3SOL.IsChecked ) )
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3SOL == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MP3 TOT Changes
+        if ( ( bool ) ( cbMP3TOT.IsChecked ) ) 
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3TOT == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3TOT == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3TOT, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MP3 PIA Changes
+        if ( ( bool ) ( cbMP3PIA.IsChecked ) ) 
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MP3PIA == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MP3PIA == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3PIA, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log MuseScore Online Changes
+        if ( ( bool ) ( cbOnline.IsChecked ) ) 
+        {
+            string oldValue = "", newValue = "";
+
+            if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreOnline == true ) )
+            { oldValue = DBNames.LogYes; }
+            else
+            { oldValue = DBNames.LogNo; }
+
+            if ( _scoreList [ 0 ].MuseScoreOnline == 1 )
+            { newValue = DBNames.LogYes; }
+            else
+            { newValue = DBNames.LogNo; }
+
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCOnline, oldValue, newValue );
+        }
+        #endregion
+
+        #region Log Lyrics Changes
+        if ( ( bool ) ( cbLyrics.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLyrics, "", "" );
+        }
+        #endregion
+
+        #region Log Notes Changes
+        if ( ( bool ) ( cbNotes.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogNotes, "", "" );
+        }
+        #endregion
+
+        #region Log Amount Publisher 1 Changes
+        if ( ( bool ) ( cbAmountPublisher1.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher1.ToString(), _scoreList [ 0 ].AmountPublisher1.ToString() );
+        }
+        #endregion
+
+        #region Log Amount Publisher 2 Changes
+        if ( ( bool ) ( cbAmountPublisher2.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher2.ToString (), _scoreList [ 0 ].AmountPublisher2.ToString () );
+        }
+        #endregion
+
+        #region Log Amount Publisher 3 Changes
+        if ( ( bool ) ( cbAmountPublisher3.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher3.ToString (), _scoreList [ 0 ].AmountPublisher3.ToString () );
+        }
+        #endregion
+
+        #region Log Amount Publisher 4 Changes
+        if ( ( bool ) ( cbAmountPublisher4.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher4.ToString (), _scoreList [ 0 ].AmountPublisher4.ToString () );
+        }
+        #endregion
+
+        #region Log Publisher 1 Changes
+        if ( ( bool ) ( cbPublisher1.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher1Name, _scoreList [ 0 ].Publisher1Name );
+        }
+
+        #endregion
+
+        #region Log Publisher 2 Changes
+        if ( ( bool ) ( cbPublisher2.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher2Name, _scoreList [ 0 ].Publisher2Name );
+        }
+        #endregion
+
+        #region Log Publisher 3 Changes
+        if ( ( bool ) ( cbPublisher3.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher3Name, _scoreList [ 0 ].Publisher3Name );
+        }
+        #endregion
+
+        #region Log Publisher 4 Changes
+        if ( ( bool ) ( cbPublisher4.IsChecked ) ) 
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher4Name, _scoreList [ 0 ].Publisher4Name );
+        }
+        #endregion
     }
 
     public void ResetChanged ()
@@ -1645,6 +2059,7 @@ public partial class Scores : Page
         cbPublisher2.IsChecked = false;
         cbPublisher3.IsChecked = false;
         cbPublisher4.IsChecked = false;
+        cbNewScore.IsChecked = false;
         tbEnableEdit.Text = "Collapsed";
         btnSave.IsEnabled = false;
         btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
@@ -1653,8 +2068,8 @@ public partial class Scores : Page
     private void DeleteScore ( object sender, RoutedEventArgs e )
     {
         if ( SelectedScore != null )
-        {
-            MessageBoxResult messageBoxResult = MessageBox.Show ( $"Weet je zeker dat je {SelectedScore.ScoreNumber} - {SelectedScore.ScoreTitle} wilt verwijderen?", $"Verwijder partituur {SelectedScore.ScoreNumber}", MessageBoxButton.YesNoCancel );
+        {  
+            MessageBoxResult messageBoxResult = MessageBox.Show ( $"Weet je zeker dat je {SelectedScore.Score} - {SelectedScore.ScoreTitle} wilt verwijderen?", $"Verwijder partituur {SelectedScore.ScoreNumber}", MessageBoxButton.YesNoCancel );
 
             switch ( messageBoxResult )
             {
@@ -1663,6 +2078,8 @@ public partial class Scores : Page
                     if ( SelectedScore.ScoreNumber != null )
                     {
                         DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber );
+                        // Write log info
+                        DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), DBNames.LogScoreDeleted, $"Partituur: {tbScoreNumber.Text}" );
                         DBCommands.ReAddScore ( SelectedScore.ScoreNumber );
 
                         // If the selected (Sub) score has number "01" and there is only 1 Score Left and the subscorenumber should be removed from the datagrid
@@ -1676,10 +2093,6 @@ public partial class Scores : Page
                             }
                         }
                     }
-
-                    // Write log info
-                    DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), DBNames.LogScoreDeleted, $"Partituur: {tbScoreNumber.Text}" );
-
                     break;
 
                 case MessageBoxResult.No:
@@ -1803,13 +2216,12 @@ public partial class Scores : Page
                 // Select the Newly created Score
                 for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
                 {
-                    //Console.WriteLine ( ScoresDataGrid.Items [ i ]);
-                    //Console.WriteLine ( ((ScoreModel) (ScoresDataGrid.Items [ i ])).ScoreNumber );
                     if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
                     {
                         ScoresDataGrid.SelectedIndex = i;
                         ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
                         tbTitle.Text = "";
+                        cbNewScore.IsChecked = true;
                         break;
                     }
                 }
@@ -1855,11 +2267,14 @@ public partial class Scores : Page
                 Publisher4Id = SelectedScore.Publisher4Id,
                 RepertoireId = SelectedScore.RepertoireId,
                 MusicPiece = SelectedScore.MusicPiece,
-                NumberScoresPublisher1 = SelectedScore.NumberScoresPublisher1,
-                NumberScoresPublisher2 = SelectedScore.NumberScoresPublisher2,
-                NumberScoresPublisher3 = SelectedScore.NumberScoresPublisher3,
-                NumberScoresPublisher4 = SelectedScore.NumberScoresPublisher4,
+                AmountPublisher1 = SelectedScore.AmountPublisher1,
+                AmountPublisher2 = SelectedScore.AmountPublisher2,
+                AmountPublisher3 = SelectedScore.AmountPublisher3,
+                AmountPublisher4 = SelectedScore.AmountPublisher4,
             } );
+
+            // Save the original Selected Score Number
+            string _selectedScore = SelectedScore.ScoreNumber;
 
             DBCommands.AddNewScoreAsSubscore ( selectedScore );
 
@@ -1869,38 +2284,16 @@ public partial class Scores : Page
             // Select the Newly created Score
             for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
             {
-                if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == SelectedScore.ScoreNumber && ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreSubNumber == SubScore )
+                if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == _selectedScore && ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreSubNumber == SubScore )
                 {
                     ScoresDataGrid.SelectedIndex = i;
                     ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
                     tbTitle.Text = "";
+                    cbNewScore.IsChecked = true;
                     break;
                 }
             }
 
-            //NewScore newScore = new(SelectedScore, SelectedScore.ScoreNumber);
-            //newScore.Show ();
-
-            //newScore.Closed += delegate
-            //{
-            //    //  The user has closed the dialog.
-            //    scores = new ScoreViewModel ();
-            //    DataContext = scores;
-
-            //    // Select the Newly created Score
-            //    for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
-            //    {
-            //        //Console.WriteLine ( ScoresDataGrid.Items [ i ]);
-            //        //Console.WriteLine ( ((ScoreModel) (ScoresDataGrid.Items [ i ])).ScoreNumber );
-            //        if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
-            //        {
-            //            ScoresDataGrid.SelectedIndex = i;
-            //            ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
-            //            tbTitle.Text = "";
-            //            break;
-            //        }
-            //    }
-            //};
         }
     }
 }

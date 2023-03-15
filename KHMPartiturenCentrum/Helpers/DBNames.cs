@@ -226,14 +226,38 @@ public class DBNames
     public static readonly string LogByHeart = "Uit het hoofd";
     public static readonly string LogChecked = "Gecontroleerd";
     public static readonly string LogComposer = "Componist";
+    public static readonly string LogDigitized = "Gedigitaliseerd";
     public static readonly string LogGenre = "Genre";
     public static readonly string LogLanguage = "Taal";
+    public static readonly string LogLyrics = "Liedtekst aangepast";
+    public static readonly string LogModified = "Laatste aanpassing";
+    public static readonly string LogMSCORP = "MuseScore Origineel Totaal";
+    public static readonly string LogMSCORK = "MuseScore Origineel Koor";
+    public static readonly string LogMSCTOP = "MuseScore Bewerkt Totaal";
+    public static readonly string LogMSCTOK = "MuseScore Bewerkt Koor";
+    public static readonly string LogMSCOnline = "MuseScore Online gepost";
+    public static readonly string LogMP3B1 = "Audiofile Bariton";
+    public static readonly string LogMP3B2 = "Audiofile Bas";
+    public static readonly string LogMP3T1 = "Audiofile 1e Tenor";
+    public static readonly string LogMP3T2 = "Audiofile 2e Tenor";
+    public static readonly string LogMP3SOL = "Audiofile Solist";
+    public static readonly string LogMP3TOT = "Audiofile Totaal";
+    public static readonly string LogMP3PIA = "Audiofile Piano";
     public static readonly string LogMusicPiece = "Muziekstuk";
+    public static readonly string LogNotes = "Opmerkingen aangepast";
+    public static readonly string LogPDFORP = "PDF Origineel Totaal";
+    public static readonly string LogPDFORK = "PDF Origineel Koor";
+    public static readonly string LogPDFTOP = "PDF Bewerkt Totaal";
+    public static readonly string LogPDFTOK = "PDF Bewerkt Koor";
     public static readonly string LogPublisher = "Uitgever";
     public static readonly string LogRepertoire = "Repertoire";
+    public static readonly string LogScoreNumber = "Partituur nummer";
     public static readonly string LogSubTitle = "Ondertitel";
     public static readonly string LogTextwriter = "Tekstschrijver";
     public static readonly string LogTitle = "Titel";
+    public static readonly string LogYes = "Ja";
+    public static readonly string LogNo = "Nee";
+    public static readonly string LogNew = "<Nieuw>";
     #endregion
     #endregion
 }

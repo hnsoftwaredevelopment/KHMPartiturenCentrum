@@ -135,13 +135,13 @@ namespace KHMPartiturenCentrum.UserControls
             #endregion
 
             #region 6th Row (Date created, Date Modified and Checked)
-            dpDigitized.SelectedDate = selectedRow.DateCreated.ToDateTime(TimeOnly.Parse("00:00 AM"));
+            dpDigitized.SelectedDate = selectedRow.DateDigitized.ToDateTime(TimeOnly.Parse("00:00 AM"));
             dpDigitized.Text = selectedRow.DateCreatedString;
 
             dpModified.SelectedDate = selectedRow.DateModified.ToDateTime(TimeOnly.Parse("00:00 AM"));
             dpModified.Text = selectedRow.DateModifiedString;
 
-            chkChecked.IsChecked = selectedRow.Check;
+            chkChecked.IsChecked = selectedRow.Checked;
             #endregion
 
             #region 7th Row (Checkboxes for MuseScore, PDF and MP3)
@@ -186,7 +186,7 @@ namespace KHMPartiturenCentrum.UserControls
 
             #region TAB: Licenses
             #region Publisher 1
-            tbAmountPublisher1.Text = selectedRow.NumberScoresPublisher1.ToString();
+            tbAmountPublisher1.Text = selectedRow.AmountPublisher1.ToString();
 
             #region Publisher1 Combobox
             comPublisher1.Text = selectedRow.Publisher1Name;
@@ -202,7 +202,7 @@ namespace KHMPartiturenCentrum.UserControls
             #endregion
 
             #region Publisher 2
-            tbAmountPublisher2.Text = selectedRow.NumberScoresPublisher2.ToString();
+            tbAmountPublisher2.Text = selectedRow.AmountPublisher2.ToString();
 
             #region Publisher2 Combobox
             comPublisher2.Text = selectedRow.Publisher2Name;
@@ -218,7 +218,7 @@ namespace KHMPartiturenCentrum.UserControls
             #endregion
 
             #region Publisher 3
-            tbAmountPublisher3.Text = selectedRow.NumberScoresPublisher3.ToString();
+            tbAmountPublisher3.Text = selectedRow.AmountPublisher3.ToString();
 
             #region Publisher3 Combobox
             comPublisher3.Text = selectedRow.Publisher3Name;
@@ -234,7 +234,7 @@ namespace KHMPartiturenCentrum.UserControls
             #endregion
 
             #region Publisher 4
-            tbAmountPublisher4.Text = selectedRow.NumberScoresPublisher4.ToString();
+            tbAmountPublisher4.Text = selectedRow.AmountPublisher4.ToString();
 
             #region Publisherr4 Combobox
             comPublisher4.Text = selectedRow.Publisher4Name;
@@ -250,7 +250,7 @@ namespace KHMPartiturenCentrum.UserControls
             #endregion
 
             #region Total
-            var Total = selectedRow.NumberScoresPublisher1 + selectedRow.NumberScoresPublisher2 + selectedRow.NumberScoresPublisher3 + selectedRow.NumberScoresPublisher4;
+            var Total = selectedRow.AmountPublisher1 + selectedRow.AmountPublisher2 + selectedRow.AmountPublisher3 + selectedRow.AmountPublisher4;
             tbAmountSupplierTotal.Text = Total.ToString();
             #endregion
             #endregion
@@ -317,16 +317,16 @@ namespace KHMPartiturenCentrum.UserControls
                         if (tbMusicPiece.Text == SelectedScore.MusicPiece) { cbMusicPiece.IsChecked = false; } else { cbMusicPiece.IsChecked = true; }
                         break;
                     case "tbAmountPublisher1":
-                        if (tbAmountPublisher1.Text == SelectedScore.NumberScoresPublisher1.ToString()) { cbAmountPublisher1.IsChecked = false; } else { cbAmountPublisher1.IsChecked = true; }
+                        if (tbAmountPublisher1.Text == SelectedScore.AmountPublisher1.ToString()) { cbAmountPublisher1.IsChecked = false; } else { cbAmountPublisher1.IsChecked = true; }
                         break;
                     case "tbAmountPublisher2":
-                        if (tbAmountPublisher2.Text == SelectedScore.NumberScoresPublisher2.ToString()) { cbAmountPublisher2.IsChecked = false; } else { cbAmountPublisher2.IsChecked = true; }
+                        if (tbAmountPublisher2.Text == SelectedScore.AmountPublisher2.ToString()) { cbAmountPublisher2.IsChecked = false; } else { cbAmountPublisher2.IsChecked = true; }
                         break;
                     case "tbAmountPublisher3":
-                        if (tbAmountPublisher3.Text == SelectedScore.NumberScoresPublisher3.ToString()) { cbAmountPublisher3.IsChecked = false; } else { cbAmountPublisher3.IsChecked = true; }
+                        if (tbAmountPublisher3.Text == SelectedScore.AmountPublisher3.ToString()) { cbAmountPublisher3.IsChecked = false; } else { cbAmountPublisher3.IsChecked = true; }
                         break;
                     case "tbAmountPublisher4":
-                        if (tbAmountPublisher4.Text == SelectedScore.NumberScoresPublisher4.ToString()) { cbAmountPublisher4.IsChecked = false; } else { cbAmountPublisher4.IsChecked = true; }
+                        if (tbAmountPublisher4.Text == SelectedScore.AmountPublisher4.ToString()) { cbAmountPublisher4.IsChecked = false; } else { cbAmountPublisher4.IsChecked = true; }
                         break;
                 }
             }
@@ -460,7 +460,7 @@ namespace KHMPartiturenCentrum.UserControls
                         if (chkByHeart.IsChecked == SelectedScore.ByHeart) { cbByHeart.IsChecked = false; } else { cbByHeart.IsChecked = true; }
                         break;
                     case "chkChecked":
-                        if (chkChecked.IsChecked == SelectedScore.Check) { cbChecked.IsChecked = false; } else { cbChecked.IsChecked = true; }
+                        if (chkChecked.IsChecked == SelectedScore.Checked) { cbChecked.IsChecked = false; } else { cbChecked.IsChecked = true; }
                         break;
                     case "chkMSCORP":
                         if (chkMSCORP.IsChecked == SelectedScore.MuseScoreORP) { cbMSCORP.IsChecked = false; } else { cbMSCORP.IsChecked = true; }

@@ -63,47 +63,48 @@
                 HorizontalAlignment="Left"
                 Orientation="Horizontal"
                 Visibility="Collapsed">
-                <CheckBox x:Name="cbRepertoire" Visibility="Visible" />
-                <CheckBox x:Name="cbArchive" Visibility="Visible" />
-                <CheckBox x:Name="cbByHeart" Visibility="Visible" />
-                <CheckBox x:Name="cbTitle" Visibility="Visible" />
-                <CheckBox x:Name="cbSubTitle" Visibility="Visible" />
-                <CheckBox x:Name="cbComposer" Visibility="Visible" />
-                <CheckBox x:Name="cbTextwriter" Visibility="Visible" />
-                <CheckBox x:Name="cbArranger" Visibility="Visible" />
-                <CheckBox x:Name="cbGenre" Visibility="Visible" />
-                <CheckBox x:Name="cbAccompaniment" Visibility="Visible" />
-                <CheckBox x:Name="cbLanguage" Visibility="Visible" />
-                <CheckBox x:Name="cbMusicPiece" Visibility="Visible" />
-                <CheckBox x:Name="cbDigitized" Visibility="Visible" />
-                <CheckBox x:Name="cbModified" Visibility="Visible" />
-                <CheckBox x:Name="cbChecked" Visibility="Visible" />
-                <CheckBox x:Name="cbPDFORP" Visibility="Visible" />
-                <CheckBox x:Name="cbPDFORK" Visibility="Visible" />
-                <CheckBox x:Name="cbPDFTOP" Visibility="Visible" />
-                <CheckBox x:Name="cbPDFTOK" Visibility="Visible" />
-                <CheckBox x:Name="cbMSCORP" Visibility="Visible" />
-                <CheckBox x:Name="cbMSCORK" Visibility="Visible" />
-                <CheckBox x:Name="cbMSCTOP" Visibility="Visible" />
-                <CheckBox x:Name="cbMSCTOK" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3B1" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3B2" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3T1" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3T2" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3SOL" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3TOT" Visibility="Visible" />
-                <CheckBox x:Name="cbMP3PIA" Visibility="Visible" />
-                <CheckBox x:Name="cbOnline" Visibility="Visible" />
-                <CheckBox x:Name="cbLyrics" Visibility="Visible" />
-                <CheckBox x:Name="cbNotes" Visibility="Visible" />
-                <CheckBox x:Name="cbAmountPublisher1" Visibility="Visible" />
-                <CheckBox x:Name="cbAmountPublisher2" Visibility="Visible" />
-                <CheckBox x:Name="cbAmountPublisher3" Visibility="Visible" />
-                <CheckBox x:Name="cbAmountPublisher4" Visibility="Visible" />
-                <CheckBox x:Name="cbPublisher1" Visibility="Visible" />
-                <CheckBox x:Name="cbPublisher2" Visibility="Visible" />
-                <CheckBox x:Name="cbPublisher3" Visibility="Visible" />
-                <CheckBox x:Name="cbPublisher4" Visibility="Visible" />
+                <CheckBox x:Name="cbRepertoire"  />
+                <CheckBox x:Name="cbArchive"  />
+                <CheckBox x:Name="cbByHeart"  />
+                <CheckBox x:Name="cbTitle"  />
+                <CheckBox x:Name="cbSubTitle"  />
+                <CheckBox x:Name="cbComposer"  />
+                <CheckBox x:Name="cbTextwriter"  />
+                <CheckBox x:Name="cbArranger"  />
+                <CheckBox x:Name="cbGenre"  />
+                <CheckBox x:Name="cbAccompaniment"  />
+                <CheckBox x:Name="cbLanguage"  />
+                <CheckBox x:Name="cbMusicPiece"  />
+                <CheckBox x:Name="cbDigitized"  />
+                <CheckBox x:Name="cbModified"  />
+                <CheckBox x:Name="cbChecked"  />
+                <CheckBox x:Name="cbPDFORP"  />
+                <CheckBox x:Name="cbPDFORK"  />
+                <CheckBox x:Name="cbPDFTOP"  />
+                <CheckBox x:Name="cbPDFTOK"  />
+                <CheckBox x:Name="cbMSCORP"  />
+                <CheckBox x:Name="cbMSCORK"  />
+                <CheckBox x:Name="cbMSCTOP"  />
+                <CheckBox x:Name="cbMSCTOK"  />
+                <CheckBox x:Name="cbMP3B1"  />
+                <CheckBox x:Name="cbMP3B2"  />
+                <CheckBox x:Name="cbMP3T1"  />
+                <CheckBox x:Name="cbMP3T2"  />
+                <CheckBox x:Name="cbMP3SOL"  />
+                <CheckBox x:Name="cbMP3TOT"  />
+                <CheckBox x:Name="cbMP3PIA"  />
+                <CheckBox x:Name="cbOnline"  />
+                <CheckBox x:Name="cbLyrics"  />
+                <CheckBox x:Name="cbNotes"  />
+                <CheckBox x:Name="cbAmountPublisher1"  />
+                <CheckBox x:Name="cbAmountPublisher2"  />
+                <CheckBox x:Name="cbAmountPublisher3"  />
+                <CheckBox x:Name="cbAmountPublisher4"  />
+                <CheckBox x:Name="cbPublisher1"  />
+                <CheckBox x:Name="cbPublisher2"  />
+                <CheckBox x:Name="cbPublisher3"  />
+                <CheckBox x:Name="cbPublisher4"  />
+                <CheckBox x:Name="cbNewScore"  />
                 <TextBlock x:Name="tbEnableEdit" Text="Collapsed"/>
                 <TextBlock x:Name="tbAdminMode" Text="Collapsed"/>
                 <TextBlock x:Name="tbEnableEditFields" Text=""/>

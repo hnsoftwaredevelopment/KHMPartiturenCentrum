@@ -26,6 +26,7 @@ using Mysqlx.Crud;
 using MySqlX.XDevAPI.Common;
 using Org.BouncyCastle.Crypto;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using static KHMPartiturenCentrum.App;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604
@@ -245,7 +246,7 @@ public class DBCommands
                         CheckInt = int.Parse(dataTable.Rows[i].ItemArray[18].ToString()),
                         DateCreatedString = dateCreated,
                         DateModifiedString = dateModified,
-                        Check = check,
+                        Checked = check,
                         AccompanimentId = int.Parse(dataTable.Rows[i].ItemArray[21].ToString()),
                         AccompanimentName = dataTable.Rows[i].ItemArray[22].ToString(),
                         PDFORPInt = int.Parse(dataTable.Rows[i].ItemArray[23].ToString()),
@@ -284,11 +285,11 @@ public class DBCommands
                         ByHeart = byHeart,
                         MusicPiece = dataTable.Rows[i].ItemArray[40].ToString(),
                         Notes = dataTable.Rows[i].ItemArray[41].ToString(),
-                        NumberScoresPublisher1 = int.Parse(dataTable.Rows[i].ItemArray[42].ToString()),
-                        NumberScoresPublisher2 = int.Parse(dataTable.Rows[i].ItemArray[43].ToString()),
-                        NumberScoresPublisher3 = int.Parse(dataTable.Rows[i].ItemArray[44].ToString()),
-                        NumberScoresPublisher4 = int.Parse(dataTable.Rows[i].ItemArray[45].ToString()),
-                        NumberScoresTotal = total,
+                        AmountPublisher1 = int.Parse(dataTable.Rows[i].ItemArray[42].ToString()),
+                        AmountPublisher2 = int.Parse(dataTable.Rows[i].ItemArray[43].ToString()),
+                        AmountPublisher3 = int.Parse(dataTable.Rows[i].ItemArray[44].ToString()),
+                        AmountPublisher4 = int.Parse(dataTable.Rows[i].ItemArray[45].ToString()),
+                        AmountTotal = total,
                         Publisher1Id = int.Parse(dataTable.Rows[i].ItemArray[46].ToString()),
                         Publisher1Name = dataTable.Rows[i].ItemArray[47].ToString(),
                         Publisher2Id = int.Parse(dataTable.Rows[i].ItemArray[48].ToString()),
@@ -341,6 +342,15 @@ public class DBCommands
                 {
                     ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
                     RemoveSubScore ( ScoreNumber );
+
+                    // Write Renumber Action to the database
+                    DBCommands.WriteLog ( int.Parse ( ScoreUsers.SelectedUserName ), DBNames.LogScoreRenumbered, $"Partituur: {ScoreNumber}" );
+
+                    // Get Added History Id
+                    int _historyId = DBCommands.GetAddedHistoryId();
+
+                    // Write detail info to the log
+                    DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreNumber, $"{ScoreNumber}-{ScoreSubNumber}", ScoreNumber );
                 }
                 else
                 {
@@ -503,7 +513,7 @@ public class DBCommands
         }
 
         var sqlQuery = DBNames.SqlUpdate + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlSet + 
-                DBNames.ScoresFieldNameTitle + " = '<nieuw>', " + 
+                DBNames.ScoresFieldNameTitle + " = + '" + DBNames.LogNew + "', " + 
                 DBNames.ScoresFieldNameAccompanimentId + " = 1, " +
                 DBNames.ScoresFieldNameArchiveId + " = 3, " +
                 DBNames.ScoresFieldNameGenreId + " = 1, " +
@@ -547,8 +557,7 @@ public class DBCommands
                 DBNames.ScoresFieldNameAmountPublisher2 + ", " +
                 DBNames.ScoresFieldNameAmountPublisher3 + ", " +
                 DBNames.ScoresFieldNameAmountPublisher4 + " )" +
-                DBNames.SqlValues + "( " +
-                "'<nieuw>', " +
+                DBNames.SqlValues + "( '" + DBNames.LogNew + "', " +
                 _score[0].AccompanimentId + ", " +
                 _score[0].ArchiveId +", " +
                 _score[0].GenreId +", " +
@@ -561,10 +570,10 @@ public class DBCommands
                 "'" + _score[0].ScoreNumber + "', " +
                 "'" + _score[0].ScoreSubNumber + "', " +
                 "'" + _score[0].MusicPiece + "', " +
-                _score[0].NumberScoresPublisher1 + ", " +
-                _score[0].NumberScoresPublisher2 + ", " +
-                _score[0].NumberScoresPublisher3 + ", " +
-                _score[0].NumberScoresPublisher4 + " );";
+                _score[0].AmountPublisher1 + ", " +
+                _score[0].AmountPublisher2 + ", " +
+                _score[0].AmountPublisher3 + ", " +
+                _score[0].AmountPublisher4 + " );";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ();
@@ -1349,8 +1358,6 @@ public class DBCommands
     #region Write History Detail Logging
     public static void WriteDetailLog(int logId, string field, string oldValue, string newValue)
     {
-        if ( oldValue == "" ) { oldValue = "<Leeg>";}
-        if ( newValue == "" ) { newValue = "<Leeg>"; }
         var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogDetailTable + " ( " +
             DBNames.LogDetailFieldNameLogId + ", " +
             DBNames.LogDetailFieldNameChanged + ", " +
