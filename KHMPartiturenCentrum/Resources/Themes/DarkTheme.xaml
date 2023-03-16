@@ -162,6 +162,13 @@
     <SolidColorBrush x:Key="Button.Delete.MouseOver.Border" Color="#f76906" />
     <SolidColorBrush x:Key="Button.Delete.Pressed.Background" Color="#6d0505" />
     <SolidColorBrush x:Key="Button.Delete.Pressed.Border" Color="#6d0505" />
+    <SolidColorBrush x:Key="Button.CoverSheet.BorderBrush" Color="#FF0615F7" />
+    <SolidColorBrush x:Key="Button.CoverSheet.BackGround" Color="Beige" />
+    <SolidColorBrush x:Key="Button.CoverSheet.TextColor" Color="white" />
+    <SolidColorBrush x:Key="Button.CoverSheet.MouseOver.Background" Color="#FFB7BCFC" />
+    <SolidColorBrush x:Key="Button.CoverSheet.MouseOver.Border" Color="#FFB7BCFC" />
+    <SolidColorBrush x:Key="Button.CoverSheet.Pressed.Background" Color="#FF0A5AB8" />
+    <SolidColorBrush x:Key="Button.CoverSheet.Pressed.Border" Color="#FF0A5AB8" />
     <SolidColorBrush x:Key="Button.Generate.BorderBrush" Color="DarkOliveGreen" />
     <SolidColorBrush x:Key="Button.Generate.BackGround" Color="LightGreen" />
     <SolidColorBrush x:Key="Button.Generate.TextColor" Color="White" />

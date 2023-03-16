@@ -314,6 +314,14 @@
                             <Setter TargetName="border" Property="ToolTip" Value="Verwijder geselecteerde record" />
                         </Trigger>
 
+                        <Trigger Property="Name" Value="btnCoverSheet">
+                            <Setter TargetName="path" Property="Data" Value="{DynamicResource coversheet}" />
+                            <Setter TargetName="path" Property="Fill" Value="{DynamicResource Button.CoverSheet.BorderBrush}" />
+                            <Setter TargetName="path" Property="Stretch" Value="Uniform" />
+                            <Setter TargetName="path" Property="Stroke" Value="{DynamicResource Button.CoverSheet.BorderBrush}" />
+                            <Setter TargetName="border" Property="ToolTip" Value="Maak een voorblad van de geselecteerd partituur" />
+                        </Trigger>
+
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Navigate.BackGround}" />
                             <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Navigate.BorderBrush}" />

@@ -345,7 +345,8 @@ public class DBCommands
                     RemoveSubScore ( ScoreNumber );
 
                     // Write Renumber Action to the database
-                    DBCommands.WriteLog ( int.Parse ( ScoreUsers.SelectedUserName ), DBNames.LogScoreRenumbered, $"Partituur: {ScoreNumber}" );
+                    var test = ScoreUsers.SelectedUserId;
+                    DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreRenumbered, $"Partituur: {ScoreNumber}" );
 
                     // Get Added History Id
                     int _historyId = DBCommands.GetAddedHistoryId();

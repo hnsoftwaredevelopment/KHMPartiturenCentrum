@@ -195,6 +195,16 @@
                     ToolTip="Geselecteerde partituur verwijderen"
                     Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
+
+                <!--#region Cover Sheet-->
+                <Button
+                    x:Name="btnCoverSheet"
+                    Click="CreateCoverSheet"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    ToolTip="Maak een voorblad van de geselecteerde partituur"
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
+                <!--#endregion-->
             </StackPanel>
             <!--#endregion-->
         </Grid>
