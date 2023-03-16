@@ -10,6 +10,7 @@ using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.ViewModels;
 using static KHMPartiturenCentrum.App;
+using Google.Protobuf.WellKnownTypes;
 
 namespace KHMPartiturenCentrum.Views;
 
@@ -62,6 +63,7 @@ public partial class Scores : Page
 
     private void SelectedScoreChanged ( object sender, SelectionChangedEventArgs e )
     {
+        ResetFields ();
         DataGrid dg = (DataGrid)sender;
 
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
@@ -1017,20 +1019,30 @@ public partial class Scores : Page
 
             if ( (bool) cbDigitized.IsChecked )
             {
-                string year = dpDigitized.SelectedDate.Value.Year.ToString();
-                string month = "0" + (dpDigitized.SelectedDate.Value.Month.ToString());
-                string day = "0" + (dpDigitized.SelectedDate.Value.Day.ToString());
-                if ( year == "1900" )
-                { DateDigitized = ""; }
+                if ( dpDigitized.SelectedDate != null )
+                {
+                    string year = dpDigitized.SelectedDate.Value.Year.ToString();
+                    string month = "0" + (dpDigitized.SelectedDate.Value.Month.ToString());
+                    string day = "0" + (dpDigitized.SelectedDate.Value.Day.ToString());
+                    if ( year == "1900" )
+                    { DateDigitized = ""; }
+                    else
+                    {
+                        DateDigitized = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
+                    }
+
+                    DateDigitizedChanged = 1;
+                    DateTime _created = DateTime.Parse(DateDigitized + " 00:00:00 AM");
+                    OldScoreValues [ 0 ].DateDigitized = SelectedScore.DateDigitized;
+                    SelectedScore.DateDigitized = DateOnly.FromDateTime ( _created );
+                }
                 else
                 {
-                    DateDigitized = $"{year}-{month.Substring ( month.Length - 2, 2 )}-{day.Substring ( day.Length - 2, 2 )}";
+                    DateDigitized = string.Empty;
+                    DateDigitizedChanged = 1;
+                    DateTime _created = DateTime.Parse(DateDigitized + " 00:00:00 AM");
+                    OldScoreValues [ 0 ].DateDigitized = SelectedScore.DateDigitized;
                 }
-
-                DateDigitizedChanged = 1;
-                DateTime _created = DateTime.Parse(DateDigitized + " 00:00:00 AM");
-                OldScoreValues[ 0 ].DateDigitized = SelectedScore.DateDigitized;
-                SelectedScore.DateDigitized = DateOnly.FromDateTime ( _created );
             }
 
             if ( (bool) cbGenre.IsChecked )
@@ -2015,7 +2027,53 @@ public partial class Scores : Page
         #endregion
     }
 
-    public void ResetChanged ()
+    public void ResetFields()
+    {
+        tbAmountPublisher1.Text = "0";
+        tbAmountPublisher2.Text = "0";
+        tbAmountPublisher3.Text = "0";
+        tbAmountPublisher4.Text = "0";
+        tbAmountSupplierTotal.Text = "0";
+        tbArranger.Text = "";
+        tbComposer.Text = "";
+        tbMusicPiece.Text = "";
+        tbScoreNumber.Text = "";
+        tbSubTitle.Text = "";
+        tbTextwriter.Text = "";
+        tbTitle.Text = "";
+        comAccompaniment.SelectedIndex = 1;
+        comArchive.SelectedIndex = 1;
+        comGenre.SelectedIndex = 1;
+        comLanguage.SelectedIndex = 1;
+        comPublisher1.SelectedIndex = 1;
+        comPublisher2.SelectedIndex = 1;
+        comPublisher3.SelectedIndex = 1;
+        comPublisher4.SelectedIndex = 1;
+        comRepertoire.SelectedIndex = 1;
+        chkByHeart.IsChecked = false;
+        chkChecked.IsChecked = false;
+        chkMP3B1.IsChecked = false;
+        chkMP3B2.IsChecked = false;
+        chkMP3T1.IsChecked = false;
+        chkMP3T2.IsChecked = false;
+        chkMP3TOT.IsChecked = false;
+        chkMP3SOL.IsChecked = false;
+        chkMP3PIA.IsChecked = false;
+        chkMSCOnline.IsChecked = false;
+        chkMSCORK.IsChecked = false;
+        chkMSCORP.IsChecked = false;
+        chkMSCTOK.IsChecked = false;
+        chkMSCTOP.IsChecked = false;
+        chkPDFORK.IsChecked = false;
+        chkPDFORP.IsChecked = false;
+        chkPDFTOK.IsChecked = false;
+        chkPDFTOP.IsChecked = false;
+        dpDigitized.SelectedDate = null;
+        dpModified.SelectedDate = null;
+
+        ResetChanged ();
+    }
+        public void ResetChanged ()
     {
         cbAccompaniment.IsChecked = false;
         cbRepertoire.IsChecked = false;

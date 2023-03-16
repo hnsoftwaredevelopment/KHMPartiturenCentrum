@@ -150,7 +150,7 @@ public partial class RenumberScore : Window
             }
             else
             {
-                // Only Current score should be copied to a new score (New score has nu subNumber
+                // Only Current score should be copied to a new score (New score has no subNumber)
 
                 // Renumber Current Score and Delete the selected Record
                 ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber [0], DBNames.ScoresFieldNameScoreSubNumber, _oldScoreNumber [1] );
@@ -260,14 +260,13 @@ public partial class RenumberScore : Window
         }
 
         // Write log info
-        DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), DBNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
 
         // GetHashCode History Id
         int _historyId = DBCommands.GetAddedHistoryId();
 
-        // Write Dertailed logging
+        // Write Detailed logging
         DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreRenumbered, tbScoreNumber.Text, _newScore );
-        //DBCommands.GetScores(DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null);
 
     }
     #endregion
