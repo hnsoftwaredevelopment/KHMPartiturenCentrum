@@ -104,4 +104,10 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\Template\CoverSheet.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

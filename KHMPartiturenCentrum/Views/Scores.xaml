@@ -63,55 +63,55 @@
                 HorizontalAlignment="Left"
                 Orientation="Horizontal"
                 Visibility="Collapsed">
-                <CheckBox x:Name="cbRepertoire"  />
-                <CheckBox x:Name="cbArchive"  />
-                <CheckBox x:Name="cbByHeart"  />
-                <CheckBox x:Name="cbTitle"  />
-                <CheckBox x:Name="cbSubTitle"  />
-                <CheckBox x:Name="cbComposer"  />
-                <CheckBox x:Name="cbTextwriter"  />
-                <CheckBox x:Name="cbArranger"  />
-                <CheckBox x:Name="cbGenre"  />
-                <CheckBox x:Name="cbAccompaniment"  />
-                <CheckBox x:Name="cbLanguage"  />
-                <CheckBox x:Name="cbMusicPiece"  />
-                <CheckBox x:Name="cbDigitized"  />
-                <CheckBox x:Name="cbModified"  />
-                <CheckBox x:Name="cbChecked"  />
-                <CheckBox x:Name="cbPDFORP"  />
-                <CheckBox x:Name="cbPDFORK"  />
-                <CheckBox x:Name="cbPDFTOP"  />
-                <CheckBox x:Name="cbPDFTOK"  />
-                <CheckBox x:Name="cbMSCORP"  />
-                <CheckBox x:Name="cbMSCORK"  />
-                <CheckBox x:Name="cbMSCTOP"  />
-                <CheckBox x:Name="cbMSCTOK"  />
-                <CheckBox x:Name="cbMP3B1"  />
-                <CheckBox x:Name="cbMP3B2"  />
-                <CheckBox x:Name="cbMP3T1"  />
-                <CheckBox x:Name="cbMP3T2"  />
-                <CheckBox x:Name="cbMP3SOL"  />
-                <CheckBox x:Name="cbMP3TOT"  />
-                <CheckBox x:Name="cbMP3PIA"  />
-                <CheckBox x:Name="cbOnline"  />
-                <CheckBox x:Name="cbLyrics"  />
-                <CheckBox x:Name="cbNotes"  />
-                <CheckBox x:Name="cbAmountPublisher1"  />
-                <CheckBox x:Name="cbAmountPublisher2"  />
-                <CheckBox x:Name="cbAmountPublisher3"  />
-                <CheckBox x:Name="cbAmountPublisher4"  />
-                <CheckBox x:Name="cbPublisher1"  />
-                <CheckBox x:Name="cbPublisher2"  />
-                <CheckBox x:Name="cbPublisher3"  />
-                <CheckBox x:Name="cbPublisher4"  />
-                <CheckBox x:Name="cbNewScore"  />
-                <TextBlock x:Name="tbEnableEdit" Text="Collapsed"/>
-                <TextBlock x:Name="tbAdminMode" Text="Collapsed"/>
-                <TextBlock x:Name="tbEnableEditFields" Text=""/>
+                <CheckBox x:Name="cbRepertoire" />
+                <CheckBox x:Name="cbArchive" />
+                <CheckBox x:Name="cbByHeart" />
+                <CheckBox x:Name="cbTitle" />
+                <CheckBox x:Name="cbSubTitle" />
+                <CheckBox x:Name="cbComposer" />
+                <CheckBox x:Name="cbTextwriter" />
+                <CheckBox x:Name="cbArranger" />
+                <CheckBox x:Name="cbGenre" />
+                <CheckBox x:Name="cbAccompaniment" />
+                <CheckBox x:Name="cbLanguage" />
+                <CheckBox x:Name="cbMusicPiece" />
+                <CheckBox x:Name="cbDigitized" />
+                <CheckBox x:Name="cbModified" />
+                <CheckBox x:Name="cbChecked" />
+                <CheckBox x:Name="cbPDFORP" />
+                <CheckBox x:Name="cbPDFORK" />
+                <CheckBox x:Name="cbPDFTOP" />
+                <CheckBox x:Name="cbPDFTOK" />
+                <CheckBox x:Name="cbMSCORP" />
+                <CheckBox x:Name="cbMSCORK" />
+                <CheckBox x:Name="cbMSCTOP" />
+                <CheckBox x:Name="cbMSCTOK" />
+                <CheckBox x:Name="cbMP3B1" />
+                <CheckBox x:Name="cbMP3B2" />
+                <CheckBox x:Name="cbMP3T1" />
+                <CheckBox x:Name="cbMP3T2" />
+                <CheckBox x:Name="cbMP3SOL" />
+                <CheckBox x:Name="cbMP3TOT" />
+                <CheckBox x:Name="cbMP3PIA" />
+                <CheckBox x:Name="cbOnline" />
+                <CheckBox x:Name="cbLyrics" />
+                <CheckBox x:Name="cbNotes" />
+                <CheckBox x:Name="cbAmountPublisher1" />
+                <CheckBox x:Name="cbAmountPublisher2" />
+                <CheckBox x:Name="cbAmountPublisher3" />
+                <CheckBox x:Name="cbAmountPublisher4" />
+                <CheckBox x:Name="cbPublisher1" />
+                <CheckBox x:Name="cbPublisher2" />
+                <CheckBox x:Name="cbPublisher3" />
+                <CheckBox x:Name="cbPublisher4" />
+                <CheckBox x:Name="cbNewScore" />
+                <TextBlock x:Name="tbEnableEdit" Text="Collapsed" />
+                <TextBlock x:Name="tbAdminMode" Text="Collapsed" />
+                <TextBlock x:Name="tbEnableEditFields" Text="" />
 
-                <TextBlock x:Name="tbLogedInUserName"/>
-                <TextBlock x:Name="tbLogedInFullName"/>
-                <TextBlock x:Name="tbLogedInUserId"/>
+                <TextBlock x:Name="tbLogedInUserName" />
+                <TextBlock x:Name="tbLogedInFullName" />
+                <TextBlock x:Name="tbLogedInUserId" />
             </StackPanel>
             <!--#endregion-->
 
@@ -120,33 +120,33 @@
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
-                
+
                 <!--#region Jump to First record-->
                 <Button
                     x:Name="btnFirst"
                     Click="BtnFirstClick"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
                 <!--#endregion-->
 
                 <!--#region Jump to Previous record-->
                 <Button
                     x:Name="btnPrev"
                     Click="BtnPreviousClick"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
                 <!--#endregion-->
 
                 <!--#region Jump to Next record-->
                 <Button
                     x:Name="btnNext"
                     Click="BtnNextClick"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
                 <!--#endregion-->
 
                 <!--#region Jump to Last record-->
                 <Button
                     x:Name="btnLast"
                     Click="BtnLastClick"
-                    Style="{DynamicResource DataGrid.Button.Navigate}"/>
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
                 <!--#endregion-->
 
                 <!--#region  Save Button-->
@@ -183,7 +183,7 @@
                     Click="NewSubScoreClicked"
                     CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
                     Style="{DynamicResource DataGrid.Button.Navigate}"
-                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}"/>
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
                 <!--#endregion-->
 
                 <!--#region Delete Score-->
@@ -1824,23 +1824,40 @@
                         <!--#endregion-->
 
                         <!--#region Memo field-->
-                        <RichTextBox
-                            x:Name="memoLyrics"
-                            Width="Auto"
-                            Height="520"
-                            Margin="5,45,5,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
-                            HorizontalScrollBarVisibility="Auto"
-                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-                            TextChanged="RichTextBoxChanged"
-                            VerticalScrollBarVisibility="Auto">
-                            <FlowDocument x:Name="inpLyricsFD">
-                                <Paragraph>
-                                    <Run Text="{Binding Lyrics}" />
-                                </Paragraph>
-                            </FlowDocument>
-                        </RichTextBox>
+                        <StackPanel Orientation="Vertical">
+                            <TextBox
+                                x:Name="tbLyrics"
+                                Width="Auto"
+                                Height="120"
+                                MinWidth="100"
+                                Margin="5,45,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                AcceptsTab="True"
+                                HorizontalScrollBarVisibility="Auto"
+                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                MaxLines="500"
+                                TextWrapping="WrapWithOverflow"
+                                VerticalScrollBarVisibility="Auto" />
+                            <RichTextBox
+                                x:Name="memoLyrics"
+                                Width="Auto"
+                                Height="120"
+                                Margin="5,45,5,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                HorizontalScrollBarVisibility="Auto"
+                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                TextChanged="RichTextBoxChanged"
+                                VerticalScrollBarVisibility="Auto">
+                                <FlowDocument x:Name="inpLyricsFD">
+                                    <Paragraph>
+                                        <Run Text="{Binding Lyrics}" />
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+                        </StackPanel>
                         <!--#endregion-->
                     </Grid>
                 </TabItem>

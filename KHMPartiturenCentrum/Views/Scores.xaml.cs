@@ -2360,217 +2360,89 @@ public partial class Scores : Page
     #region Create Cover Sheet
     private void CreateCoverSheet(object sender, RoutedEventArgs e)
     {
-        // Creating a new document.
-        WordDocument document = new WordDocument();
-        //Adding a new section to the document.
-        WSection section = document.AddSection() as WSection;
-        //Set Margin of the section
-        section.PageSetup.Margins.All = 72;
-        //Set page size of the section
-        section.PageSetup.PageSize = new SizeF(612, 792);
+        var _docname="C:\\Data\\Test05.docx";
+        var _templatename="Resources\\Template\\CoverSheet.docx";
+        var AccompanimentName = "Piano";
+        string ScoreNumber = "", B1 = "¨", B2 = "¨", T1 = "¨", T2 = "¨", Solo = "¨", Accompaniment = "¨";
+        var ScoreNumberFontSize = 80;
 
-        //Create Paragraph styles
-        WParagraphStyle style = document.AddParagraphStyle("Normal") as WParagraphStyle;
-        style.CharacterFormat.FontName = "Calibri";
-        style.CharacterFormat.FontSize = 11f;
-        style.ParagraphFormat.BeforeSpacing = 0;
-        style.ParagraphFormat.AfterSpacing = 8;
-        style.ParagraphFormat.LineSpacing = 13.8f;
+        // Use ScoreNumber or ScoreNumber-SubScorenumber
+        if (SelectedScore.ScoreSubNumber == "" )
+        { 
+            ScoreNumber = $"{SelectedScore.ScoreNumber}"; 
+        } 
+        else
+        { 
+            ScoreNumber = $"{SelectedScore.ScoreNumber}-{SelectedScore.ScoreSubNumber}";
+            ScoreNumberFontSize = 52;
+        }
 
-        style = document.AddParagraphStyle("Heading 1") as WParagraphStyle;
-        style.ApplyBaseStyle("Normal");
-        style.CharacterFormat.FontName = "Calibri Light";
-        style.CharacterFormat.FontSize = 16f;
-        style.CharacterFormat.TextColor = Color.FromArgb(46, 116, 181);
-        style.ParagraphFormat.BeforeSpacing = 12;
-        style.ParagraphFormat.AfterSpacing = 0;
-        style.ParagraphFormat.Keep = true;
-        style.ParagraphFormat.KeepFollow = true;
-        style.ParagraphFormat.OutlineLevel = OutlineLevel.Level1;
+        // Set the checkboxes
+        if(SelectedScore.MP3B1) 
+        { 
+            B1 = "þ"; 
+        } 
 
-        IWParagraph paragraph = section.HeadersFooters.Header.AddParagraph();
-        // Gets the image stream. C:\Users\hnijk\OneDrive\DevOps\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Images\logo.png
-        //IWPicture picture = paragraph.AppendPicture(new Bitmap("..\\Resources\\Images\\logo.png")) as WPicture;
-        //picture.TextWrappingStyle = TextWrappingStyle.InFrontOfText;
-        //picture.VerticalOrigin = VerticalOrigin.Margin;
-        //picture.VerticalPosition = -45;
-        //picture.HorizontalOrigin = HorizontalOrigin.Column;
-        //picture.HorizontalPosition = 263.5f;
-        //picture.WidthScale = 20;
-        //picture.HeightScale = 15;
+        if ( SelectedScore.MP3B2 )
+        {
+            B2 = "þ";
+        }
 
-        paragraph.ApplyStyle("Normal");
-        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Left;
-        WTextRange textRange = paragraph.AppendText("Adventure Works Cycles") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Calibri";
-        textRange.CharacterFormat.TextColor = Color.Red;
+        if ( SelectedScore.MP3T1 )
+        {
+            T1 = "þ";
+        }
 
-        //Appends paragraph.
-        paragraph = section.AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Center;
-        textRange = paragraph.AppendText("Adventure Works Cycles") as WTextRange;
-        textRange.CharacterFormat.FontSize = 18f;
-        textRange.CharacterFormat.FontName = "Calibri";
+        if ( SelectedScore.MP3T2 )
+        {
+            T2 = "þ";
+        }
 
-        //Appends paragraph.
-        paragraph = section.AddParagraph();
-        paragraph.ParagraphFormat.FirstLineIndent = 36;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
-        textRange = paragraph.AppendText("Adventure Works Cycles, the fictitious company on which the AdventureWorks sample databases are based, is a large, multinational manufacturing company. The company manufactures and sells metal and composite bicycles to North American, European and Asian commercial markets. While its base operation is in Bothell, Washington with 290 employees, several regional sales teams are located throughout their market base.") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
+        if ( SelectedScore.MP3SOL )
+        {
+            Solo = "þ";
+        }
 
-        //Appends paragraph.
-        paragraph = section.AddParagraph();
-        paragraph.ParagraphFormat.FirstLineIndent = 36;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
-        textRange = paragraph.AppendText("In 2000, AdventureWorks Cycles bought a small manufacturing plant, Importadores Neptuno, located in Mexico. Importadores Neptuno manufactures several critical subcomponents for the AdventureWorks Cycles product line. These subcomponents are shipped to the Bothell location for final product assembly. In 2001, Importadores Neptuno, became the sole manufacturer and distributor of the touring bicycle product group.") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
+        // Checkbox for Accompaniment should not be set when there is no accompaniment selected (Id:1) or or Piano is missing (Id:4) otherwise is will be check marked
+        // for the same Ids the AccompaimentName will be set to Piano
+        if ( SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4 )
+        {
+            Accompaniment = "þ";
+            AccompanimentName = SelectedScore.AccompanimentName;
+        }
 
-        paragraph = section.AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Left;
-        textRange = paragraph.AppendText("Product Overview") as WTextRange;
-        textRange.CharacterFormat.FontSize = 16f;
-        textRange.CharacterFormat.FontName = "Calibri";
+        // Load the template document
+        WordDocument document = new WordDocument(_templatename, FormatType.Docx);
 
-        //Appends table.
-        IWTable table = section.AddTable();
-        table.ResetCells(3, 2);
-        table.TableFormat.Borders.BorderType = BorderStyle.None;
-        table.TableFormat.IsAutoResized = true;
-        //Appends paragraph.
-        paragraph = table[0, 0].AddParagraph();
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
-        //Appends picture to the paragraph.
-        //picture = paragraph.AppendPicture(new Bitmap("Mountain-200.jpg")) as WPicture;
-        //picture.TextWrappingStyle = TextWrappingStyle.TopAndBottom;
-        //picture.VerticalOrigin = VerticalOrigin.Paragraph;
-        //picture.VerticalPosition = 4.5f;
-        //picture.HorizontalOrigin = HorizontalOrigin.Column;
-        //picture.HorizontalPosition = -2.15f;
-        //picture.WidthScale = 79;
-        //picture.HeightScale = 79;
+        // Set the font size of the ScoreNumber
+        Syncfusion.DocIO.DLS.TextSelection[] selectedText = document.FindAll("<<Nr>>", true, true);
 
-        //Appends paragraph.
-        paragraph = table[0, 1].AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.AppendText("Mountain-200");
-        //Appends paragraph.
-        paragraph = table[0, 1].AddParagraph();
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
-        paragraph.BreakCharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Product No: BK-M68B-38\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Size: 38\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Weight: 25\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Price: $2,294.99\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        //Appends paragraph.
-        paragraph = table[0, 1].AddParagraph();
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
+        for ( int i = 0; i < selectedText.Length; i++ )
+        {
+            selectedText [i].GetAsOneRange ().CharacterFormat.FontSize = ScoreNumberFontSize;
+        }
 
-        //Appends paragraph.
-        paragraph = table[1, 0].AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.AppendText("Mountain-300 ");
-        //Appends paragraph.
-        paragraph = table[1, 0].AddParagraph();
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
-        paragraph.BreakCharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Product No: BK-M47B-38\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Size: 35\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Weight: 22\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Price: $1,079.99\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        //Appends paragraph.
-        paragraph = table[1, 0].AddParagraph();
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
+        // Replace the Bookmarks with the actual text
+        document.Replace ( "<<Nr>>", ScoreNumber, true, true );
+        document.Replace ( "<<Titel>>", SelectedScore.ScoreTitle, true, true );
+        document.Replace ( "<<Ondertitel>>", SelectedScore.ScoreSubTitle, true, true );
+        document.Replace ( "<<Componist>>", SelectedScore.Composer, true, true );
+        document.Replace ( "<<Tekstschrijver>>", SelectedScore.Textwriter, true, true );
+        document.Replace ( "<<Arrangement>>", SelectedScore.Arranger, true, true );
+        document.Replace ( "<<Genre>>", SelectedScore.GenreName, true, true );
+        document.Replace ( "<<Taal>>", SelectedScore.LanguageName, true, true );
+        document.Replace ( "<<Begeleiding>>", AccompanimentName, true, true );
+        document.Replace ( "<<B1>>", B1, true, true );
+        document.Replace ( "<<B2>>", B2, true, true );
+        document.Replace ( "<<T1>>", T1, true, true );
+        document.Replace ( "<<T2>>", T2, true, true );
+        document.Replace ( "<<SOL>>", Solo, true, true );
+        document.Replace ( "<<PIA>>", Accompaniment, true, true );
 
-        //Appends paragraph.
-        paragraph = table[1, 1].AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        //Appends picture to the paragraph.
-        //picture = paragraph.AppendPicture(new Bitmap("Mountain-300.jpg")) as WPicture;
-        //picture.TextWrappingStyle = TextWrappingStyle.TopAndBottom;
-        //picture.VerticalOrigin = VerticalOrigin.Paragraph;
-        //picture.VerticalPosition = 8.2f;
-        //picture.HorizontalOrigin = HorizontalOrigin.Column;
-        //picture.HorizontalPosition = -14.95f;
-        //picture.WidthScale = 75;
-        //picture.HeightScale = 75;
-
-        //Appends paragraph.
-        paragraph = table[2, 0].AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        //Appends picture to the paragraph.
-        //picture = paragraph.AppendPicture(new Bitmap("Road-550-W.jpg")) as WPicture;
-        //picture.TextWrappingStyle = TextWrappingStyle.TopAndBottom;
-        //picture.VerticalOrigin = VerticalOrigin.Paragraph;
-        //picture.VerticalPosition = 3.75f;
-        //picture.HorizontalOrigin = HorizontalOrigin.Column;
-        //picture.HorizontalPosition = -5f;
-        //picture.WidthScale = 92;
-        //picture.HeightScale = 92;
-
-        //Appends paragraph.
-        paragraph = table[2, 1].AddParagraph();
-        paragraph.ApplyStyle("Heading 1");
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.AppendText("Road-150 ");
-        //Appends paragraph.
-        paragraph = table[2, 1].AddParagraph();
-        paragraph.ParagraphFormat.AfterSpacing = 0;
-        paragraph.ParagraphFormat.LineSpacing = 12f;
-        paragraph.BreakCharacterFormat.FontSize = 12f;
-        paragraph.BreakCharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Product No: BK-R93R-44\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Size: 44\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Weight: 14\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        textRange = paragraph.AppendText("Price: $3,578.27\r") as WTextRange;
-        textRange.CharacterFormat.FontSize = 12f;
-        textRange.CharacterFormat.FontName = "Times New Roman";
-        //Appends paragraph.
-        section.AddParagraph();
+        document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true );
 
         //Saves the Word document
-        document.Save("C:\\Data\\Sample.docx");
+        document.Save(_docname);
     }
     #endregion
 }
