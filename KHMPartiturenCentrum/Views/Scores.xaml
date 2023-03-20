@@ -1654,211 +1654,71 @@
                                 Stretch="Uniform"
                                 Stroke="{StaticResource TabItem.Icon.BorderBrush}"
                                 StrokeThickness="0.1" />
-                            <Label Content="Lied teksten" />
+                            <Label Content="Lied tekst" />
                         </StackPanel>
                     </TabItem.Header>
 
                     <Grid>
-                        <!--#region Toolbar memo field-->
-                        <ToolBarTray Margin="5,5,5,0" Style="{DynamicResource RichText.ToolBar.Tray}">
-                            <ToolBar Style="{DynamicResource RichText.ToolBar}">
-                                <!--#region General buttons-->
-                                <Button
-                                    Margin="-2,0,2,0"
-                                    Command="ApplicationCommands.Cut"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Knippen">
-                                    <Path Data="{DynamicResource editor.cut}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <Button
-                                    Command="ApplicationCommands.Copy"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Kopieer">
-                                    <Path Data="{DynamicResource editor.copy}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <Button
-                                    Command="ApplicationCommands.Paste"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Plak">
-                                    <Path Data="{DynamicResource editor.paste}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <Button
-                                    Command="ApplicationCommands.Undo"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Ongedaan maken">
-                                    <Path Data="{DynamicResource editor.undo}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <Button
-                                    Command="ApplicationCommands.Redo"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Opnieuw">
-                                    <Path Data="{DynamicResource editor.redo}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <!--#endregion-->
-
-                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
-
-                                <!--#region Font style buttons-->
-                                <Button
-                                    Command="EditingCommands.ToggleBold"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Vet">
-                                    <Path Data="{DynamicResource editor.bold}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <Button
-                                    Command="EditingCommands.ToggleItalic"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Cursief">
-                                    <Path Data="{DynamicResource editor.italic}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.ToggleUnderline"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Onderstreept">
-                                    <Path Data="{DynamicResource editor.underline}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.ToggleSubscript"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Subscript (klein teken boven)">
-                                    <Path Data="{DynamicResource editor.subscript}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.ToggleSuperscript"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Superscript (klein teken onder)">
-                                    <Path Data="{DynamicResource editor.superscript}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <!--#endregion-->
-
-                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
-
-                                <!--#region main font style buttons-->
-                                <Button
-                                    Command="EditingCommands.IncreaseFontSize"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Lettertype vergroten">
-                                    <Path Data="{DynamicResource editor.growfont}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.DecreaseFontSize"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Lettertype verkleinen">
-                                    <Path Data="{DynamicResource editor.shrinkfont}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <!--#endregion-->
-
-                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
-
-                                <!--#region Lists buttons-->
-                                <Button
-                                    Command="EditingCommands.ToggleBullets"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Punten lijst">
-                                    <Path Data="{DynamicResource editor.bulletlist}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.ToggleNumbering"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Genummerde lijst">
-                                    <Path Data="{DynamicResource editor.numberlist}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <!--#endregion-->
-
-                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
-
-                                <!--#region Indent buttons-->
-                                <Button
-                                    Command="EditingCommands.IncreaseIndentation"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Inspringen">
-                                    <Path Data="{DynamicResource editor.increaseindent}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.DecreaseIndentation"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Terugspringen">
-                                    <Path Data="{DynamicResource editor.decreaseindent}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <!--#endregion-->
-
-                                <Separator Style="{DynamicResource EditorToolbarSeparatorStyle}" />
-
-                                <!--#region Alignment buttons-->
-                                <Button
-                                    Command="EditingCommands.AlignLeft"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Tekst links uitlijnen">
-                                    <Path Data="{DynamicResource editor.alignleft}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.AlignCenter"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Tekst centreren">
-                                    <Path Data="{DynamicResource editor.aligncenter}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.AlignRight"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Tekst rechts uitlijnen">
-                                    <Path Data="{DynamicResource editor.alignright}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-
-                                <Button
-                                    Command="EditingCommands.AlignJustify"
-                                    Style="{DynamicResource EditorButtonsStyle}"
-                                    ToolTip="Tekst links en rechts uitlijnen">
-                                    <Path Data="{DynamicResource editor.alignjustify}" Style="{DynamicResource EditorButtonPathStyle}" />
-                                </Button>
-                                <!--#endregion-->
-                            </ToolBar>
-                        </ToolBarTray>
-                        <!--#endregion-->
-
-                        <!--#region Memo field-->
-                        <StackPanel Orientation="Vertical">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
                             <TextBox
                                 x:Name="tbLyrics"
                                 Width="Auto"
-                                Height="120"
-                                MinWidth="100"
-                                Margin="5,45,5,0"
+                                Height="Auto"
+                                MinWidth="450"
+                                MinHeight="800"
+                                Margin="15,15,5,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                AcceptsReturn="True"
+                                AcceptsReturn="True" Padding="5"
                                 AcceptsTab="True"
                                 HorizontalScrollBarVisibility="Auto"
                                 IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                 MaxLines="500"
+                                TextChanged="TextBoxChanged"
                                 TextWrapping="WrapWithOverflow"
                                 VerticalScrollBarVisibility="Auto" />
-                            <RichTextBox
-                                x:Name="memoLyrics"
-                                Width="Auto"
-                                Height="120"
-                                Margin="5,45,5,0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                HorizontalScrollBarVisibility="Auto"
-                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-                                TextChanged="RichTextBoxChanged"
-                                VerticalScrollBarVisibility="Auto">
-                                <FlowDocument x:Name="inpLyricsFD">
-                                    <Paragraph>
-                                        <Run Text="{Binding Lyrics}" />
-                                    </Paragraph>
-                                </FlowDocument>
-                            </RichTextBox>
+                            <TextBlock
+                                x:Name="LyricsWarning"
+                                Margin="15"
+                                FontWeight="Bold"
+                                Foreground="red"
+                                Text="Let op er zijn maximaal 98 regels verdeeld over 2 kolommen zichtbaar op het voorblad!"
+                                Visibility="Collapsed" />
                         </StackPanel>
-                        <!--#endregion-->
+                        <Grid Grid.Column="1" Margin="5,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0" VerticalAlignment="Center" FontWeight="Bold" Text="Algemene informatie over de lied tekst"/>
+                            <TextBox Grid.Row="1" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Aantal regels"/>
+                            <TextBox Grid.Row="2" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Aantal Woorden"/>
+                            <TextBox Grid.Row="3" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Maximaal aantal tekens op regel"/>
+                            <TextBox Grid.Row="4" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Aantal kolommen op voorblad"/>
+
+                            <TextBlock x:Name="tbLyricsRows"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
+                            <TextBlock x:Name="tbLyricsWords"    Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
+                            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" >
+                                <TextBlock x:Name="tbLyricsMaxWidth" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
+                                <TextBlock x:Name="tbLyricsMaxWidthRow" VerticalAlignment="Center" IsEnabled="False" Margin="10, 0, 0, 0" Text="0"/>
+                            </StackPanel>
+                            <TextBlock x:Name="tbLyricsColumns"  Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
+
+                        </Grid>
+
                     </Grid>
                 </TabItem>
                 <!--#endregion-->

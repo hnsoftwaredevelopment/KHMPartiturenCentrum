@@ -14,6 +14,7 @@ using Google.Protobuf.WellKnownTypes;
 using Syncfusion.DocIO;
 using System.Drawing;
 
+
 namespace KHMPartiturenCentrum.Views;
 
 /// <summary>
@@ -24,6 +25,7 @@ public partial class Scores : Page
     public ScoreViewModel? scores;
 
     public ScoreModel? SelectedScore;
+    public int LyricsMaxWidthRow, LyricsMaxWidth;
 
     public Scores ()
     {
@@ -47,6 +49,8 @@ public partial class Scores : Page
             tbAdminMode.Text = "Collapsed";
             tbEnableEditFields.Text = "False";
         }
+
+        GetLyricsInfo ();
     }
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
@@ -60,6 +64,7 @@ public partial class Scores : Page
         comPublisher2.ItemsSource = DBCommands.GetPublishers ();
         comPublisher3.ItemsSource = DBCommands.GetPublishers ();
         comPublisher4.ItemsSource = DBCommands.GetPublishers ();
+        GetLyricsInfo ();
         ResetChanged ();
     }
 
@@ -270,9 +275,8 @@ public partial class Scores : Page
         #endregion TAB Score Information
 
         #region TAB Lyrics
-
-        GetLyrics ();
-
+        tbLyrics.Text = selectedRow.Lyrics;
+        GetLyricsInfo ();
         #endregion TAB Lyrics
 
         #region TAB Notes
@@ -502,11 +506,77 @@ public partial class Scores : Page
                     { cbAmountPublisher4.IsChecked = true; }
                     CalculateTotal ();
                     break;
+                case "tbLyrics":
+                    if (tbLyrics.Text == SelectedScore.Lyrics )
+                    {
+                        cbLyrics.IsChecked = false;
+                    }
+                    else
+                    {
+                        cbLyrics.IsChecked = true;
+                    }
+
+                    // Check if number of lines exceeds 98 if yes, show warning
+                    if( tbLyrics.LineCount > 98 )
+                    { 
+                        LyricsWarning.Visibility = Visibility.Visible; 
+                    } else
+                    { 
+                        LyricsWarning.Visibility= Visibility.Collapsed; 
+                    }
+
+                    GetLyricsInfo ();
+
+                    break;
             }
         }
         CheckChanged ();
     }
+    private void GetLyricsInfo ()
+    {
+        // Fill the general information fields
+        // Number of lines
+        if ( tbLyrics.Text != "" )
+        {
+            tbLyricsRows.Text = tbLyrics.LineCount.ToString ();
 
+            // Number of Words
+            var words = tbLyrics.Text.Split (" ");
+            tbLyricsWords.Text = words.Length.ToString ();
+
+            // Number of Columns
+            if ( tbLyrics.LineCount == 0 )
+            { tbLyricsColumns.Text = "0"; }
+            if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 )
+            { tbLyricsColumns.Text = "1"; }
+            if ( tbLyrics.LineCount > 36 )
+            { tbLyricsColumns.Text = "2"; }
+
+            //Most Characters on row
+            LyricsMaxWidth = 0;
+            LyricsMaxWidthRow = 0;
+            for ( int i = 0; i < tbLyrics.LineCount; i++ )
+            {
+                var _rowSize = tbLyrics.GetLineLength (i);
+                if ( _rowSize > LyricsMaxWidth )
+                {
+                    LyricsMaxWidth = _rowSize;
+                    LyricsMaxWidthRow = i + 1;
+
+                    tbLyricsMaxWidth.Text = LyricsMaxWidth.ToString ();
+                    tbLyricsMaxWidthRow.Text = $"(Regel {LyricsMaxWidthRow})";
+                }
+            }
+        }
+        else
+        {
+            tbLyricsRows.Text = "Nog geen liedtekst ingevoerd";
+            tbLyricsWords.Text = "";
+            tbLyricsColumns.Text = "Sjabloon zonder liedtekst kolom zal worden gebruikt";
+            tbLyricsMaxWidth.Text = "";
+            tbLyricsMaxWidthRow.Text = "";
+        }
+    }
     private void CalculateTotal ()
     {
         int _total = 0;
@@ -694,19 +764,10 @@ public partial class Scores : Page
 
         if ( SelectedScore != null )
         {
-            //It is hard to check if the content of a richtextbox really differs, for that reason the changed is always set when triggered
+            //It is hard to check if the content of a rich text box really differs, for that reason the changed is always set when triggered
             switch ( propertyName )
             {
-                case "memoLyrics":
-                    //string _lyrics = GetRichTextFromFlowDocument(memoLyrics.Document);
-                    //string _orgLyrics = SelectedScore.Lyrics.ToString();
-
-                    cbLyrics.IsChecked = true;
-                    break;
-
                 case "memoNotes":
-                    //string _notes = GetRichTextFromFlowDocument(memoNotes.Document);
-
                     cbNotes.IsChecked = true;
                     break;
             }
@@ -1408,7 +1469,7 @@ public partial class Scores : Page
             { 
                 LyricsChanged = 1;
                 OldScoreValues [ 0 ].Lyrics = SelectedScore.Lyrics;
-                SelectedScore.Lyrics = GetRichTextFromFlowDocument ( memoLyrics.Document ).ToString (); 
+                SelectedScore.Lyrics = tbLyrics.Text; 
             }
 
             if ( (bool) cbNotes.IsChecked )
@@ -1960,7 +2021,7 @@ public partial class Scores : Page
         #region Log Lyrics Changes
         if ( ( bool ) ( cbLyrics.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLyrics, "", "" );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLyrics, "", "");
         }
         #endregion
 
@@ -2043,6 +2104,7 @@ public partial class Scores : Page
         tbSubTitle.Text = "";
         tbTextwriter.Text = "";
         tbTitle.Text = "";
+        tbLyrics.Text = "";
         comAccompaniment.SelectedIndex = 1;
         comArchive.SelectedIndex = 1;
         comGenre.SelectedIndex = 1;
@@ -2166,33 +2228,6 @@ public partial class Scores : Page
         }
         scores = new ScoreViewModel ();
         DataContext = scores;
-    }
-
-    private void GetLyrics ()
-    {
-        var ContentLyrics = string.Empty;
-
-        // Clear the current textbox
-        memoLyrics.Document.Blocks.Clear ();
-
-        if ( SelectedScore != null )
-        {
-            if ( SelectedScore.Lyrics != null && SelectedScore.Lyrics != "" )
-            {
-                ContentLyrics = SelectedScore.Lyrics.ToString ();
-
-                //convert to byte[]
-                byte[] dataArr = Encoding.UTF8.GetBytes(ContentLyrics);
-
-                using ( MemoryStream ms = new ( dataArr ) )
-                {
-                    //load data
-                    TextRange flowDocRange = new TextRange(memoLyrics.Document.ContentStart, memoLyrics.Document.ContentEnd);
-                    flowDocRange.Load ( ms, DataFormats.Rtf );
-                }
-            }
-        }
-        cbLyrics.IsChecked = false;
     }
 
     private void GetNotes ()
@@ -2360,8 +2395,16 @@ public partial class Scores : Page
     #region Create Cover Sheet
     private void CreateCoverSheet(object sender, RoutedEventArgs e)
     {
-        var _docname="C:\\Data\\Test05.docx";
-        var _templatename="Resources\\Template\\CoverSheet.docx";
+        var _outputFolder = "C:\\Data\\";
+        var _templatename="Resources\\Template\\";
+        int LyricsFontSize = 12, LineCount = 36;
+        Console.WriteLine ( tbLyrics.LineCount );
+
+        if ( tbLyrics.LineCount <= 0 ) { _templatename += "CoverSheet0.docx"; }
+        if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 ) { _templatename += "CoverSheet1.docx"; }
+        if ( tbLyrics.LineCount > 38 && tbLyrics.LineCount <= 72 ) { _templatename += "CoverSheet2.docx"; }
+        if ( tbLyrics.LineCount > 72 ) { _templatename += "CoverSheet2.docx"; LyricsFontSize = 9; LineCount = 49; }
+
         var AccompanimentName = "Piano";
         string ScoreNumber = "", B1 = "¨", B2 = "¨", T1 = "¨", T2 = "¨", Solo = "¨", Accompaniment = "¨";
         var ScoreNumberFontSize = 80;
@@ -2377,8 +2420,12 @@ public partial class Scores : Page
             ScoreNumberFontSize = 52;
         }
 
-        // Set the checkboxes
-        if(SelectedScore.MP3B1) 
+        // Set the name of the CoverSheet document and image
+        var _docname = $"{_outputFolder}{ScoreNumber}.docx";
+
+
+        // Set the check boxes
+        if (SelectedScore.MP3B1) 
         { 
             B1 = "þ"; 
         } 
@@ -2403,7 +2450,7 @@ public partial class Scores : Page
             Solo = "þ";
         }
 
-        // Checkbox for Accompaniment should not be set when there is no accompaniment selected (Id:1) or or Piano is missing (Id:4) otherwise is will be check marked
+        // Checkbox for Accompaniment should not be set when there is no accompaniment selected (Id:1) or Piano is missing (Id:4) otherwise is will be check marked
         // for the same Ids the AccompaimentName will be set to Piano
         if ( SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4 )
         {
@@ -2415,11 +2462,24 @@ public partial class Scores : Page
         WordDocument document = new WordDocument(_templatename, FormatType.Docx);
 
         // Set the font size of the ScoreNumber
-        Syncfusion.DocIO.DLS.TextSelection[] selectedText = document.FindAll("<<Nr>>", true, true);
+        Syncfusion.DocIO.DLS.TextSelection[] selectedScoreNumber = document.FindAll("<<Nr>>", true, true);
 
-        for ( int i = 0; i < selectedText.Length; i++ )
+        for ( int i = 0; i < selectedScoreNumber.Length; i++ )
         {
-            selectedText [i].GetAsOneRange ().CharacterFormat.FontSize = ScoreNumberFontSize;
+            selectedScoreNumber [i].GetAsOneRange ().CharacterFormat.FontSize = ScoreNumberFontSize;
+        }
+
+        // If the number of lines are bigger then 72, font size should be smaller to be sure all lines will fit
+        if ( tbLyrics.LineCount > 72)
+        {
+            Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics1 = document.FindAll("<<Lyrics1>>", true, true);
+            Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics2 = document.FindAll("<<Lyrics2>>", true, true);
+
+            for ( int i = 0; i < selectedLyrics1.Length; i++ )
+            {
+                selectedLyrics1 [ i ].GetAsOneRange ().CharacterFormat.FontSize = LyricsFontSize;
+                selectedLyrics2 [ i ].GetAsOneRange ().CharacterFormat.FontSize = LyricsFontSize;
+            }
         }
 
         // Replace the Bookmarks with the actual text
@@ -2439,10 +2499,52 @@ public partial class Scores : Page
         document.Replace ( "<<SOL>>", Solo, true, true );
         document.Replace ( "<<PIA>>", Accompaniment, true, true );
 
-        document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true );
+        if (tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36)
+        { 
+            document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true ); 
+        }
+
+        if ( tbLyrics.LineCount > 36 )
+        {
+            var _lyrics1 = "";
+            var _lyrics2 = "";
+
+            for ( int i = 0; i < LineCount; i++ )
+            {
+                if ( i == 0 || i == LineCount)
+                { 
+                    if (tbLyrics.GetLineText (i) != "\r\n" )
+                    { 
+                        _lyrics1 += tbLyrics.GetLineText ( i ); 
+                    }
+                }
+                else
+                {
+                    _lyrics1 += tbLyrics.GetLineText ( i );
+                }
+            }
+
+            for ( int i = LineCount; i < tbLyrics.LineCount; i++ )
+            {
+                if ( i == LineCount || i == tbLyrics.LineCount )
+                {
+                    if ( tbLyrics.GetLineText ( i ) != "\r\n" )
+                    {
+                        _lyrics2 += tbLyrics.GetLineText ( i );
+                    }
+                }
+                else
+                {
+                    _lyrics2 += tbLyrics.GetLineText ( i );
+                }
+            }
+
+            document.Replace ( "<<Lyrics1>>", _lyrics1, true, true );
+            document.Replace ( "<<Lyrics2>>", _lyrics2, true, true );
+        }
 
         //Saves the Word document
         document.Save(_docname);
-    }
+        }
     #endregion
 }
