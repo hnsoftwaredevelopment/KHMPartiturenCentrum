@@ -153,6 +153,7 @@ public class DBNames
     public static readonly string UsersFieldNameFullName = "Fullname";
     public static readonly string UsersFieldNamePW = "Password";
     public static readonly string UsersFieldNameRoleId = "RoleId";
+    public static readonly string UsersFieldNameCoverSheetFolder = "CoverSheetFolder";
 
     public static readonly string UsersView = "view_Users";
     public static readonly string UsersViewFieldNameRoleOrder = "RoleOrder";
@@ -213,6 +214,8 @@ public class DBNames
     public static readonly string LogUserPassword = "Wachtwoord gewijzigd";
     public static readonly string LogUserLoggedIn = "Gebruiker ingelogt";
     public static readonly string LogUserLoggedOut = "Gebruiker uitgelogt";
+    public static readonly string LogUserCoverSheetFolder = "Map voor de voorbladen aangepast";
+    public static readonly string LogCoverSheetCreated = "Voorblad aangemaakt";
 
     public static readonly string LogScoreAdded = "Partituur toegevoegd";
     public static readonly string LogScoreChanged = "Partituur gewijzigd";

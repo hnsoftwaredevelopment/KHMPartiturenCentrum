@@ -209,5 +209,8 @@
     <SolidColorBrush x:Key="Button.Editor.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Button.Editor.Disabled.Foreground" Color="#FF838383" />
 
-
+    <SolidColorBrush x:Key="Button.BrowseFolder.Static.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="Button.BrowseFolder.Static.Foreground" Color="#28349B" />
+    <SolidColorBrush x:Key="Button.BrowseFolder.MouseOver.Background" Color="Beige" />
+    <SolidColorBrush x:Key="Button.BrowseFolder.Presend.Background" Color="#1690E9" />
 </ResourceDictionary>

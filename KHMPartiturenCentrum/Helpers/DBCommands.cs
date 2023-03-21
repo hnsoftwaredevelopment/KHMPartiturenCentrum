@@ -898,6 +898,9 @@ public class DBCommands
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
+
+            if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
+            { sqlQuery += ", `" + DBNames.UsersFieldNameCoverSheetFolder + "` = @" + DBNames.UsersFieldNameCoverSheetFolder; }
         }
 
         // Add the filter to the sqlQuery
@@ -1444,6 +1447,9 @@ public class DBCommands
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }
+
+            if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameCoverSheetFolder, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].CoverSheetFolder; }
         }
 
         // Add the userId value for the user that has to be modified
@@ -1614,6 +1620,16 @@ public class DBCommands
         {
             for ( int i = 0; i < dataTable.Rows.Count; i++ )
             {
+                string CoverSheetPath = "";
+                if ( dataTable.Rows [ i ].ItemArray [ 9 ].ToString () == "" )
+                {
+                    CoverSheetPath = System.Environment.GetFolderPath ( Environment.SpecialFolder.MyDocuments );
+                }
+                else
+                {
+                    CoverSheetPath = dataTable.Rows [ i ].ItemArray [ 9 ].ToString ();
+                }
+
                 users.Add ( new UserModel
                 {
                     UserId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString () ),
@@ -1623,7 +1639,8 @@ public class DBCommands
                     UserFullName = dataTable.Rows [ i ].ItemArray [ 5 ].ToString (),
                     UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString () ),
                     RoleName= dataTable.Rows [ i ].ItemArray [7].ToString(),
-                    RoleDescription= dataTable.Rows [ i ].ItemArray [ 8 ].ToString ()
+                    RoleDescription= dataTable.Rows [ i ].ItemArray [ 8 ].ToString (),
+                    CoverSheetFolder = CoverSheetPath
                 } );
             }
         }

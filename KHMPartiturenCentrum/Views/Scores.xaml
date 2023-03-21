@@ -111,7 +111,6 @@
 
                 <TextBlock x:Name="tbLogedInUserName" />
                 <TextBlock x:Name="tbLogedInFullName" />
-                <TextBlock x:Name="tbLogedInUserId" />
             </StackPanel>
             <!--#endregion-->
 
@@ -1660,62 +1659,137 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="500"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        
-                        <StackPanel Orientation="Vertical" Grid.Column="0">
-                            <TextBox
-                                x:Name="tbLyrics"
-                                Width="Auto"
-                                Height="Auto"
-                                MinWidth="450"
-                                MinHeight="800"
-                                Margin="15,15,5,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                AcceptsReturn="True" Padding="5"
-                                AcceptsTab="True"
-                                HorizontalScrollBarVisibility="Auto"
-                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-                                MaxLines="500"
-                                TextChanged="TextBoxChanged"
-                                TextWrapping="WrapWithOverflow"
-                                VerticalScrollBarVisibility="Auto" />
-                            <TextBlock
-                                x:Name="LyricsWarning"
-                                Margin="15"
-                                FontWeight="Bold"
-                                Foreground="red"
-                                Text="Let op er zijn maximaal 98 regels verdeeld over 2 kolommen zichtbaar op het voorblad!"
-                                Visibility="Collapsed" />
-                        </StackPanel>
+
+                        <TextBox
+                            x:Name="tbLyrics"
+                            Grid.Column="0"
+                            Width="Auto"
+                            Height="800"
+                            MinWidth="450"
+                            MinHeight="800"
+                            Margin="15,15,5,0"
+                            Padding="5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            AcceptsTab="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                            MaxLines="500"
+                            TextChanged="TextBoxChanged"
+                            TextWrapping="WrapWithOverflow"
+                            VerticalScrollBarVisibility="Visible" />
+
                         <Grid Grid.Column="1" Margin="5,10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0" VerticalAlignment="Center" FontWeight="Bold" Text="Algemene informatie over de lied tekst"/>
-                            <TextBox Grid.Row="1" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Aantal regels"/>
-                            <TextBox Grid.Row="2" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Aantal Woorden"/>
-                            <TextBox Grid.Row="3" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Maximaal aantal tekens op regel"/>
-                            <TextBox Grid.Row="4" Grid.Column="0" BorderThickness="0" VerticalAlignment="Center" Text="Aantal kolommen op voorblad"/>
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                FontWeight="Bold"
+                                Text="Algemene informatie over de lied tekst" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Text="Aantal regels" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Text="Aantal woorden" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Text="Maximaal aantal tekens op regel" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Text="Aantal kolommen op voorblad" />
 
-                            <TextBlock x:Name="tbLyricsRows"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
-                            <TextBlock x:Name="tbLyricsWords"    Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
-                            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" >
-                                <TextBlock x:Name="tbLyricsMaxWidth" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
-                                <TextBlock x:Name="tbLyricsMaxWidthRow" VerticalAlignment="Center" IsEnabled="False" Margin="10, 0, 0, 0" Text="0"/>
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    x:Name="tbLyricsRows"
+                                    IsEnabled="False"
+                                    Text="0" />
+                                <TextBlock
+                                    x:Name="LyricsWarning"
+                                    Margin="15,0,0,0"
+                                    FontWeight="Bold"
+                                    Foreground="red"
+                                    Text="Let op! Maximaal 98 regels verdeeld over 2 kolommen zichtbaar op voorblad!"
+                                    Visibility="Collapsed" />
                             </StackPanel>
-                            <TextBlock x:Name="tbLyricsColumns"  Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Text="0"/>
+                            <TextBlock
+                                x:Name="tbLyricsWords"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsEnabled="False"
+                                Text="0" />
+                            <StackPanel
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock
+                                    x:Name="tbLyricsMaxWidth"
+                                    VerticalAlignment="Center"
+                                    IsEnabled="False"
+                                    Text="0" />
+                                <TextBlock
+                                    x:Name="tbLyricsMaxWidthRow"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    IsEnabled="False"
+                                    Text="0" />
+                                <TextBlock
+                                    x:Name="LyricsWidthWarning2"
+                                    Margin="15,0,0,0"
+                                    FontWeight="Bold"
+                                    Foreground="red"
+                                    Text="Let op! Gebruik maximaal 55 tekens per regel"
+                                    Visibility="Collapsed"/>
+                                <TextBlock
+                                    x:Name="LyricsWidthWarning1"
+                                    Margin="15,0,0,0"
+                                    FontWeight="Bold"
+                                    Foreground="red"
+                                    Text="Let op! Gebruik maximaal 199 tekens per regel"
+                                    Visibility="Collapsed"/>
+                            </StackPanel>
+                            <TextBlock
+                                x:Name="tbLyricsColumns"
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsEnabled="False"
+                                Text="0" />
 
                         </Grid>
 
@@ -1724,7 +1798,7 @@
                 <!--#endregion-->
 
                 <!--#region TAB: Notes-->
-                <TabItem>
+                <TabItem x:Name="TabNotes">
                     <TabItem.Header>
                         <StackPanel Orientation="Vertical">
                             <Path
@@ -1929,7 +2003,7 @@
                 <!--#endregion-->
 
                 <!--#region TAB: Licenses-->
-                <TabItem>
+                <TabItem x:Name="TabLicenses">
                     <TabItem.Header>
                         <StackPanel Orientation="Vertical">
                             <Path

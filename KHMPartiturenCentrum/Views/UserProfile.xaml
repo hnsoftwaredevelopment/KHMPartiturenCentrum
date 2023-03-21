@@ -44,53 +44,156 @@
             </StackPanel>
         </Border>
         <!--#endregion-->
-        
+
         <!--#region Hidden fields area-->
         <StackPanel Orientation="Horizontal" Visibility="Collapsed">
-        <TextBlock x:Name="tbEnableSave" Text="False"/>
-            <TextBlock x:Name="tbCheckFullName" Text="False"/>
-            <TextBlock x:Name="tbCheckEMail" Text="False"/>
-            <TextBlock x:Name="tbCheckPassword" Text="False"/>
+            <TextBlock x:Name="tbEnableSave" Text="False" />
+            <TextBlock x:Name="tbCheckFullName" Text="False" />
+            <TextBlock x:Name="tbCheckEMail" Text="False" />
+            <TextBlock x:Name="tbCheckPassword" Text="False" />
+            <TextBlock x:Name="tbCheckCoverSheets" Text="False" />
 
-            <CheckBox x:Name="cbFullNameChanged"/>
-            <CheckBox x:Name="cbEMailChanged"/>
-            <CheckBox x:Name="cbPasswordChanged"/>
+            <CheckBox x:Name="cbFullNameChanged" />
+            <CheckBox x:Name="cbEMailChanged" />
+            <CheckBox x:Name="cbPasswordChanged" />
+            <CheckBox x:Name="cbCoverSheetsFolderChanged" />
         </StackPanel>
 
         <!--#endregion-->
 
-        <!--#region User Information -->
-        <Border Grid.Row="3"
+        <!--#region User Information-->
+        <Border
+            Grid.Row="3"
             Margin="10,0,10,15"
-            Padding="3" Background="White"
+            Padding="3"
+            Background="White"
             BorderBrush="Gainsboro"
             BorderThickness="0,1,1,1"
-            CornerRadius="7" >
-            <Grid Margin="7, 7, 7, 7">
+            CornerRadius="7">
+            <Grid Margin="7,7,7,7">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="45"/>
-                    <RowDefinition Height="45"/>
-                    <RowDefinition Height="45"/>
-                    <RowDefinition Height="70"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text = "Gebruikersnaam" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" ToolTip="De gebruikersnaam kan niet worden gewijzigd"/>
-                <TextBlock Text = "Volledige naam" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <TextBlock Text = "E-Mail adres" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                <TextBlock Text = "Nieuw wachtwoord" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" ToolTip="Verander je wachtwoord om in te loggen"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Gebruikersnaam"
+                    ToolTip="De gebruikersnaam kan niet worden gewijzigd" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Volledige naam" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="E-Mail adres" />
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Voorbladen" />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    FontWeight="Bold"
+                    Text="Nieuw wachtwoord"
+                    ToolTip="Verander je wachtwoord om in te loggen" />
 
-                <TextBox x:Name="tbUserName" IsEnabled="False" Grid.Row="0" Grid.Column="1" Width="250" Margin="5,0,0,0" VerticalAlignment="Center" Style="{DynamicResource UserNameTextBox}"/>
-                <TextBox x:Name="tbFullName" IsEnabled="True" Grid.Row="1" Grid.Column="1" Width="350" Margin="5,0,0,0" VerticalAlignment="Center" Style="{DynamicResource UserNameTextBox}" TextChanged="TextBoxChanged"/>
-                <TextBox x:Name="tbEMail" IsEnabled="True" Grid.Row="2" Grid.Column="1" Width="350" Margin="5,0,0,0" VerticalAlignment="Center" Style="{DynamicResource UserNameTextBox}" TextChanged="TextBoxChanged"/>
-                <PasswordBox x:Name="pbPassword" IsEnabled="True" Grid.Row="3" Grid.Column="1" Width="350" Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{DynamicResource PasswordBox}" PasswordChanged="PasswordChanged"/>
+                <TextBox
+                    x:Name="tbUserName"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="250"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    IsEnabled="False"
+                    Style="{DynamicResource UserNameTextBox}" />
+                <TextBox
+                    x:Name="tbFullName"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="350"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    IsEnabled="True"
+                    Style="{DynamicResource UserNameTextBox}"
+                    TextChanged="TextBoxChanged" />
+                <TextBox
+                    x:Name="tbEMail"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="350"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    IsEnabled="True"
+                    Style="{DynamicResource UserNameTextBox}"
+                    TextChanged="TextBoxChanged" />
 
-                <Button x:Name="btnSaveUserProfile" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Width="130" Content="Gegevens opslaan" Click="SaveUserProfileClicked" Style="{DynamicResource RoundedButtonStyle}"/>
+                <StackPanel
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBox
+                        x:Name="tbCoverSheets"
+                        Width="500"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        IsEnabled="True"
+                        Style="{DynamicResource UserNameTextBox}"
+                        TextChanged="TextBoxChanged"
+                        ToolTip="Waar moeten de gegenereerde voorbladen worden opgeslagen" />
+                    <Button
+                        x:Name="BrowsToFolder"
+                        Click="BrowseToFolder_Click" Margin="25,0,0,0"
+                        Content="{DynamicResource browsefolder}"
+                        Style="{DynamicResource BrowseFolderButton}" />
+                </StackPanel>
+
+                <PasswordBox
+                    x:Name="pbPassword"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Width="350"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Bottom"
+                    IsEnabled="True"
+                    PasswordChanged="PasswordChanged"
+                    Style="{DynamicResource PasswordBox}" />
+
+                <Button
+                    x:Name="btnSaveUserProfile"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Width="130"
+                    Click="SaveUserProfileClicked"
+                    Content="Gegevens opslaan"
+                    Style="{DynamicResource RoundedButtonStyle}" />
             </Grid>
         </Border>
 

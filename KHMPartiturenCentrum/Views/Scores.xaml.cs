@@ -13,6 +13,7 @@ using static KHMPartiturenCentrum.App;
 using Google.Protobuf.WellKnownTypes;
 using Syncfusion.DocIO;
 using System.Drawing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 
 namespace KHMPartiturenCentrum.Views;
@@ -33,7 +34,6 @@ public partial class Scores : Page
 
         tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
         tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
-        tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString ();
 
         scores = new ScoreViewModel ();
         DataContext = scores;
@@ -49,8 +49,6 @@ public partial class Scores : Page
             tbAdminMode.Text = "Collapsed";
             tbEnableEditFields.Text = "False";
         }
-
-        GetLyricsInfo ();
     }
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
@@ -64,7 +62,6 @@ public partial class Scores : Page
         comPublisher2.ItemsSource = DBCommands.GetPublishers ();
         comPublisher3.ItemsSource = DBCommands.GetPublishers ();
         comPublisher4.ItemsSource = DBCommands.GetPublishers ();
-        GetLyricsInfo ();
         ResetChanged ();
     }
 
@@ -516,57 +513,95 @@ public partial class Scores : Page
                         cbLyrics.IsChecked = true;
                     }
 
-                    // Check if number of lines exceeds 98 if yes, show warning
-                    if( tbLyrics.LineCount > 98 )
-                    { 
-                        LyricsWarning.Visibility = Visibility.Visible; 
-                    } else
-                    { 
-                        LyricsWarning.Visibility= Visibility.Collapsed; 
-                    }
-
                     GetLyricsInfo ();
-
                     break;
             }
         }
         CheckChanged ();
     }
+
     private void GetLyricsInfo ()
     {
+        //tbLyrics.Text = SelectedScore.Lyrics.ToString();
         // Fill the general information fields
-        // Number of lines
         if ( tbLyrics.Text != "" )
         {
-            tbLyricsRows.Text = tbLyrics.LineCount.ToString ();
+            SelectedScore.Lyrics = tbLyrics.Text;
+            // Number of lines
+            tbLyricsRows.Text = SelectedScore.Lyrics.Split ( "\r\n" ).Length.ToString ();
+
+            // Check if number of lines exceeds 98 if yes, show warning
+            if ( SelectedScore.Lyrics.Split ( "\r\n" ).Length > 98 )
+            {
+                LyricsWarning.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                LyricsWarning.Visibility = Visibility.Collapsed;
+            }
 
             // Number of Words
-            var words = tbLyrics.Text.Split (" ");
-            tbLyricsWords.Text = words.Length.ToString ();
+            tbLyricsWords.Text = SelectedScore.Lyrics.Split ( " " ).Length.ToString ();
 
             // Number of Columns
-            if ( tbLyrics.LineCount == 0 )
+            if ( SelectedScore.Lyrics.Split ( "\r\n" ).Length == 0 )
             { tbLyricsColumns.Text = "0"; }
-            if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 )
+            if ( SelectedScore.Lyrics.Split ( "\r\n" ).Length > 0 && SelectedScore.Lyrics.Split ( "\r\n" ).Length <= 36 )
             { tbLyricsColumns.Text = "1"; }
-            if ( tbLyrics.LineCount > 36 )
+            if ( SelectedScore.Lyrics.Split ( "\r\n" ).Length > 36 )
             { tbLyricsColumns.Text = "2"; }
 
             //Most Characters on row
             LyricsMaxWidth = 0;
             LyricsMaxWidthRow = 0;
-            for ( int i = 0; i < tbLyrics.LineCount; i++ )
+
+            var _rowNumber = 0;
+
+            var rows = SelectedScore.Lyrics.Split ( "\r\n" );
+            foreach ( var row in rows )
             {
-                var _rowSize = tbLyrics.GetLineLength (i);
+                var _rowSize = row.Length;
                 if ( _rowSize > LyricsMaxWidth )
                 {
                     LyricsMaxWidth = _rowSize;
-                    LyricsMaxWidthRow = i + 1;
+                    LyricsMaxWidthRow = _rowNumber + 1;
 
                     tbLyricsMaxWidth.Text = LyricsMaxWidth.ToString ();
                     tbLyricsMaxWidthRow.Text = $"(Regel {LyricsMaxWidthRow})";
                 }
+                _rowNumber++;
             }
+
+            // Check if the Number of characters on row doesn't exceed the maximum
+            if( int.Parse(tbLyricsColumns.Text) == 2 )
+            {
+                // When 2 Columns are used
+                if ( LyricsMaxWidth > 55 )
+                {
+                    LyricsWidthWarning2.Visibility = Visibility.Visible;
+                    LyricsWidthWarning1.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LyricsWidthWarning2.Visibility= Visibility.Collapsed;
+                    LyricsWidthWarning1.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                // When 1 Column is used
+                if ( LyricsMaxWidth > 199 )
+                {
+                    LyricsWidthWarning1.Visibility = Visibility.Visible;
+                    LyricsWidthWarning2.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LyricsWidthWarning1.Visibility = Visibility.Collapsed;
+                    LyricsWidthWarning2.Visibility = Visibility.Collapsed;
+                }
+            }
+
         }
         else
         {
@@ -577,6 +612,7 @@ public partial class Scores : Page
             tbLyricsMaxWidthRow.Text = "";
         }
     }
+
     private void CalculateTotal ()
     {
         int _total = 0;
@@ -2137,7 +2173,8 @@ public partial class Scores : Page
 
         ResetChanged ();
     }
-        public void ResetChanged ()
+
+    public void ResetChanged ()
     {
         cbAccompaniment.IsChecked = false;
         cbRepertoire.IsChecked = false;
@@ -2201,7 +2238,7 @@ public partial class Scores : Page
                     {
                         DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber );
                         // Write log info
-                        DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), DBNames.LogScoreDeleted, $"Partituur: {tbScoreNumber.Text}" );
+                        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreDeleted, $"Partituur: {tbScoreNumber.Text}" );
                         DBCommands.ReAddScore ( SelectedScore.ScoreNumber );
 
                         // If the selected (Sub) score has number "01" and there is only 1 Score Left and the subscorenumber should be removed from the datagrid
@@ -2395,10 +2432,9 @@ public partial class Scores : Page
     #region Create Cover Sheet
     private void CreateCoverSheet(object sender, RoutedEventArgs e)
     {
-        var _outputFolder = "C:\\Data\\";
+        var _outputFolder = @ScoreUsers.SelectedUserCoverSheetFolder + "\\";
         var _templatename="Resources\\Template\\";
         int LyricsFontSize = 12, LineCount = 36;
-        Console.WriteLine ( tbLyrics.LineCount );
 
         if ( tbLyrics.LineCount <= 0 ) { _templatename += "CoverSheet0.docx"; }
         if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 ) { _templatename += "CoverSheet1.docx"; }
@@ -2545,6 +2581,8 @@ public partial class Scores : Page
 
         //Saves the Word document
         document.Save(_docname);
-        }
+
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
+    }
     #endregion
 }

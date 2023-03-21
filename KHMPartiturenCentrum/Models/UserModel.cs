@@ -15,4 +15,5 @@ public class UserModel
     public int UserRoleId { get; set; }
     public string RoleName { get; set; }
     public string RoleDescription { get; set; }
+    public string CoverSheetFolder { get; set; }
 }

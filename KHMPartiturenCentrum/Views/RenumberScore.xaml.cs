@@ -33,8 +33,6 @@ public partial class RenumberScore : Window
     {
         InitializeComponent ();
 
-        tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString ();
-
         DataContext = selectedRow;
         if ( selectedSubScore != "" && selectedSubScore != null )
         {

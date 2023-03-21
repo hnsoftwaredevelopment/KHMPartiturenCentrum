@@ -34,6 +34,9 @@ public partial class UserViewModel : ObservableObject
     public int userRoleId;
 
     [ObservableProperty]
+    public string coverSheetFolder;
+
+    [ObservableProperty]
     public string roleName;
 
     [ObservableProperty]

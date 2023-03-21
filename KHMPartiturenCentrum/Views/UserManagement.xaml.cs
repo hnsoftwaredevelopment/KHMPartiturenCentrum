@@ -38,7 +38,6 @@ public partial class UserManagement : Page
 
         tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
         tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
-        tbLogedInUserId.Text = ScoreUsers.SelectedUserId.ToString();
 
         if ( cbDisableSave.IsChecked == false && ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 ) )
         {
@@ -297,7 +296,7 @@ public partial class UserManagement : Page
             DBCommands.UpdateUser ( modifiedUser );
 
             // Write log info
-            DBCommands.WriteLog ( int.Parse ( tbLogedInUserId.Text ), _action, $"Gebruiker: {tbUserName.Text}" );
+            DBCommands.WriteLog ( ScoreUsers.SelectedUserId, _action, $"Gebruiker: {tbUserName.Text}" );
 
             // Get Added History Id
             int _historyId = DBCommands.GetAddedHistoryId();
@@ -412,7 +411,7 @@ public partial class UserManagement : Page
                         DBCommands.DeleteUser(SelectedUser.UserId.ToString());
 
                         // Write action to History Log
-                        DBCommands.WriteLog ( int.Parse(tbLogedInUserId.Text), DBNames.LogUserDeleted, SelectedUserName );
+                        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogUserDeleted, SelectedUserName );
 
                         // Refresh DataGrid
                         users = new UserViewModel ();

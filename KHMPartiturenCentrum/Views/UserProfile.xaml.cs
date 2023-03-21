@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -35,17 +36,19 @@ public partial class UserProfile : Page
         tbCheckFullName.Text = ScoreUsers.SelectedUserFullName;
         tbCheckEMail.Text = ScoreUsers.SelectedUserEmail;
         tbCheckPassword.Text = ScoreUsers.SelectedUserPassword;
+        tbCheckCoverSheets.Text = ScoreUsers.SelectedUserCoverSheetFolder;
 
         // Fill The Form fields
         tbUserName.Text = ScoreUsers.SelectedUserName;
         tbFullName.Text = ScoreUsers.SelectedUserFullName;
         tbEMail.Text = ScoreUsers.SelectedUserEmail;
+        tbCoverSheets.Text = ScoreUsers.SelectedUserCoverSheetFolder;
 
         ResetChanged ();
     }
     private void TextBoxChanged ( object sender, TextChangedEventArgs e )
     {
-        var propertyName = ((TextBox)sender).Name;
+        var propertyName = ((System.Windows.Controls.TextBox)sender).Name;
 
             switch ( propertyName )
             {
@@ -61,7 +64,13 @@ public partial class UserProfile : Page
                     else
                     { cbEMailChanged.IsChecked = true; }
                     break;
-            }
+            case "tbCoverSheets":
+                if ( tbCoverSheets.Text == tbCheckCoverSheets.Text )
+                { cbCoverSheetsFolderChanged.IsChecked = false; }
+                else
+                { cbCoverSheetsFolderChanged.IsChecked = true; }
+                break;
+        }
         CheckChanged ();
     }
     private void PasswordChanged ( object sender, RoutedEventArgs e )
@@ -77,7 +86,7 @@ public partial class UserProfile : Page
     {
         if ( cbFullNameChanged.IsChecked == true ||
             cbEMailChanged.IsChecked == true ||
-            cbPasswordChanged.IsChecked == true )
+            cbPasswordChanged.IsChecked == true || cbCoverSheetsFolderChanged.IsChecked == true )
         {
             btnSaveUserProfile.IsEnabled = true;
             btnSaveUserProfile.ToolTip = "Sla de gewijzigde gegevens op";
@@ -94,6 +103,7 @@ public partial class UserProfile : Page
         cbFullNameChanged.IsChecked = false;
         cbEMailChanged.IsChecked = false;
         cbPasswordChanged.IsChecked = false;
+        cbCoverSheetsFolderChanged.IsChecked = false;
         btnSaveUserProfile.IsEnabled = false;
         btnSaveUserProfile.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
     }
@@ -101,7 +111,7 @@ public partial class UserProfile : Page
     {
         ObservableCollection<UserModel> ModifiedUser = new();
 
-        string _FullName = "", _EMail = "", _Password = "";
+        string _FullName = "", _EMail = "", _Password = "", _CoverSheetsFolder = "";
 
         if ( (bool) cbFullNameChanged.IsChecked )
         { 
@@ -122,18 +132,122 @@ public partial class UserProfile : Page
             ScoreUsers.SelectedUserPassword = _Password;
         }
 
+        if ( (bool) cbCoverSheetsFolderChanged.IsChecked )
+        {
+            _CoverSheetsFolder = tbCoverSheets.Text;
+            ScoreUsers.SelectedUserCoverSheetFolder = _CoverSheetsFolder;
+        }
+
         ModifiedUser.Add ( new UserModel
         {
-            UserName = tbUserName.Text,
+            UserId=ScoreUsers.SelectedUserId,
+            UserName = ScoreUsers.SelectedUserName,
             UserFullName = _FullName,
             UserEmail = _EMail,
-            UserPassword = _Password
+            UserPassword = _Password,
+            CoverSheetFolder = _CoverSheetsFolder
         } );
 
         DBCommands.UpdateUser ( ModifiedUser );
 
+        WriteHistory ( ModifiedUser );
+
+        ModifyScoreUserData( ModifiedUser );
+
         ResetChanged ();
 
         MainWindow.ReloadMainWindow ();
+    }
+
+    private void WriteHistory(ObservableCollection<UserModel> modifiedUser )
+    {
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogUserChanged, ScoreUsers.SelectedUserFullName );
+
+        int historyId = DBCommands.GetAddedHistoryId ();
+
+        if ( modifiedUser [ 0 ].UserFullName != "" )
+        {
+            DBCommands.WriteDetailLog(historyId, DBNames.LogUserFullName, tbCheckFullName.Text, modifiedUser [ 0 ].UserFullName );
+        }
+
+        if ( modifiedUser [ 0 ].UserEmail != "" )
+        {
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserEMail, tbCheckEMail.Text, modifiedUser [ 0 ].UserEmail );
+        }
+
+        if ( modifiedUser [ 0 ].UserPassword != "" )
+        {
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserPassword, "", "" );
+        }
+
+        if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
+        {
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserCoverSheetFolder, @tbCheckCoverSheets.Text, @modifiedUser [ 0 ].CoverSheetFolder );
+        }
+    }
+
+    private void ModifyScoreUserData ( ObservableCollection<UserModel> modifiedUser )
+    {
+        if ( modifiedUser [ 0 ].UserFullName != "" )
+        {
+            ScoreUsers.SelectedUserFullName = modifiedUser [ 0 ].UserFullName;
+        }
+
+        if ( modifiedUser [ 0 ].UserEmail != "" )
+        {
+            ScoreUsers.SelectedUserEmail = modifiedUser [ 0 ].UserEmail;
+        }
+
+        if ( modifiedUser [ 0 ].UserPassword != "" )
+        {
+            ScoreUsers.SelectedUserPassword = modifiedUser [ 0 ].UserPassword;
+        }
+
+        if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
+        {
+            ScoreUsers.SelectedUserCoverSheetFolder = modifiedUser [ 0 ].CoverSheetFolder;
+        }
+    }
+
+    private void BrowseToFolder_Click ( object sender, RoutedEventArgs e )
+    {
+        var senderButton = sender as System.Windows.Controls.Button;
+
+        var dialogDescription = "Selecteer de map om de voorbladen op te slaan";
+        var dialogSelectedPath = '"' + ScoreUsers.SelectedUserCoverSheetFolder.Replace(@"\", @"\\") +'"';
+
+        using ( var dialog = new FolderBrowserDialog () )
+        {
+            dialog.SelectedPath = @dialogSelectedPath;
+            dialog.Description = dialogDescription;
+            dialog.ShowNewFolderButton = true;
+            dialog.UseDescriptionForTitle = true;
+
+            if ( dialog.ShowDialog () == DialogResult.OK )
+            {
+                if ( senderButton != null )
+                {
+                    tbCoverSheets.Text = dialog.SelectedPath;
+                }
+            }
+        }
+    }
+
+    private void FolderChanged ( object sender, TextChangedEventArgs e )
+    {
+        //var senderButton = sender as System.Windows.Controls.Button;
+        var senderTextBox = sender as System.Windows.Controls.TextBox;
+
+        if ( senderTextBox != null )
+        {
+            if ( tbCoverSheets.Text != ScoreUsers.SelectedUserCoverSheetFolder )
+            { 
+                cbCoverSheetsFolderChanged.IsChecked = true; 
+            }
+            else
+            { 
+                cbCoverSheetsFolderChanged.IsChecked = false; 
+            }
+        }
     }
 }

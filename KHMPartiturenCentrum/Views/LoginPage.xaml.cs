@@ -84,6 +84,7 @@ public partial class LoginPage : Window
                     ScoreUsers.SelectedUserPassword = user.UserPassword;
                     ScoreUsers.SelectedUserEmail = user.UserEmail;
                     ScoreUsers.SelectedUserRoleId = user.UserRoleId;
+                    ScoreUsers.SelectedUserCoverSheetFolder = user.CoverSheetFolder;
                 }
             }
 
