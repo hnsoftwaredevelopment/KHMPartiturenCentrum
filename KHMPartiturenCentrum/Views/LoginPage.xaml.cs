@@ -1,23 +1,10 @@
-﻿using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using KHMPartiturenCentrum.Converters;
-using static KHMPartiturenCentrum.App;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using KHMPartiturenCentrum.Helpers;
+using KHMPartiturenCentrum.Models;
+using static KHMPartiturenCentrum.App;
 
 namespace KHMPartiturenCentrum.Views;
 /// <summary>
@@ -25,23 +12,23 @@ namespace KHMPartiturenCentrum.Views;
 /// </summary>
 public partial class LoginPage : Window
 {
-    public LoginPage()
+    public LoginPage ( )
     {
-        InitializeComponent();
+        InitializeComponent ( );
     }
 
     #region Button Close | Restore | Minimize 
     #region Button Close
-    private void btnClose_Click(object sender, RoutedEventArgs e)
+    private void btnClose_Click ( object sender, RoutedEventArgs e )
     {
-        Close();
+        Close ( );
     }
     #endregion
 
     #region Button Restore
-    private void btnRestore_Click(object sender, RoutedEventArgs e)
+    private void btnRestore_Click ( object sender, RoutedEventArgs e )
     {
-        if (WindowState == WindowState.Normal)
+        if ( WindowState == WindowState.Normal )
             WindowState = WindowState.Maximized;
         else
             WindowState = WindowState.Normal;
@@ -49,7 +36,7 @@ public partial class LoginPage : Window
     #endregion
 
     #region Button Minimize
-    private void btnMinimize_Click(object sender, RoutedEventArgs e)
+    private void btnMinimize_Click ( object sender, RoutedEventArgs e )
     {
         WindowState = WindowState.Minimized;
     }
@@ -57,20 +44,20 @@ public partial class LoginPage : Window
     #endregion
 
     #region Drag Widow
-    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+    private void Window_MouseDown ( object sender, MouseButtonEventArgs e )
     {
-        if (e.LeftButton == MouseButtonState.Pressed)
+        if ( e.LeftButton == MouseButtonState.Pressed )
         {
-            DragMove();
+            DragMove ( );
         }
     }
     #endregion
 
-    private void btnLogin_Click(object sender, RoutedEventArgs e)
+    private void btnLogin_Click ( object sender, RoutedEventArgs e )
     {
         tbInvalidLogin.Visibility = Visibility.Collapsed;
         int UserId = DBCommands.CheckUserPassword(tbUserName.Text, tbPassword.Password);
-        if (UserId != 0)
+        if ( UserId != 0 )
         {
             ScoreUsers.SelectedUserId = UserId;
             ObservableCollection<UserModel> Users = DBCommands.GetUsers ( );
@@ -89,10 +76,10 @@ public partial class LoginPage : Window
             }
 
             // Write Login to Logfile
-            DBCommands.WriteLog(UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogt");
+            DBCommands.WriteLog ( UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogt" );
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            mainWindow.Show ( );
+            this.Close ( );
         }
         else
         {

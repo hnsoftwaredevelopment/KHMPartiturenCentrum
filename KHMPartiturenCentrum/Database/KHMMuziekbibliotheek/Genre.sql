@@ -1,0 +1,43 @@
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+CREATE TABLE IF NOT EXISTS `Genre` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Genre` varchar(50) DEFAULT NULL,
+  `Created` datetime DEFAULT current_timestamp(),
+  `Modifief` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+
+DELETE FROM `Genre`;
+INSERT INTO `Genre` (`Id`, `Genre`, `Created`, `Modifief`) VALUES
+	(1, '<Niet geselecteerd>', '2023-02-03 12:08:49', '2023-02-03 14:50:02'),
+	(2, 'Balade', '2023-01-26 20:31:51', '2023-02-03 13:55:41'),
+	(3, 'Byzantijns', '2023-01-26 20:34:03', '2023-02-03 13:55:38'),
+	(4, 'Country', '2023-01-26 20:34:03', '2023-02-03 13:55:35'),
+	(5, 'Drinklied', '2023-01-26 20:34:03', '2023-02-03 13:55:33'),
+	(6, 'Gospel', '2023-01-26 20:34:03', '2023-02-03 13:55:29'),
+	(7, 'Kerst', '2023-01-26 20:34:04', '2023-02-03 13:55:25'),
+	(8, 'Klassiek', '2023-01-26 20:34:04', '2023-02-03 13:55:21'),
+	(9, 'Musical', '2023-01-26 20:34:04', '2023-02-03 13:55:17'),
+	(10, 'Opera', '2023-01-26 20:34:04', '2023-02-03 13:55:14'),
+	(11, 'Operette', '2023-01-26 20:34:04', '2023-02-03 13:55:11'),
+	(12, 'Pop', '2023-01-26 20:34:04', '2023-02-03 13:55:08'),
+	(13, 'Religieus', '2023-01-26 20:34:05', '2023-02-03 13:55:05'),
+	(14, 'Rock', '2023-01-26 20:34:05', '2023-02-03 13:55:01'),
+	(15, 'Volksmuziek', '2023-01-26 20:34:05', '2023-02-06 14:47:30'),
+	(16, 'Wereldmuziek', '2023-01-26 20:36:44', '2023-02-06 14:47:39'),
+	(17, 'Traditioneel Mannenkoor', '2023-02-06 14:47:55', '2023-02-07 14:28:27'),
+	(18, 'Negro Spiritual', '2023-02-06 14:48:06', '2023-02-07 14:28:33');
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

@@ -216,6 +216,7 @@ public class DBNames
     public static readonly string LogUserLoggedOut = "Gebruiker uitgelogt";
     public static readonly string LogUserCoverSheetFolder = "Map voor de voorbladen aangepast";
     public static readonly string LogCoverSheetCreated = "Voorblad aangemaakt";
+    public static readonly string LogUserInvalidLogin = "Foutieve inlog poging";
 
     public static readonly string LogScoreAdded = "Partituur toegevoegd";
     public static readonly string LogScoreChanged = "Partituur gewijzigd";
@@ -261,6 +262,8 @@ public class DBNames
     public static readonly string LogYes = "Ja";
     public static readonly string LogNo = "Nee";
     public static readonly string LogNew = "<Nieuw>";
+    public static readonly string LogInvalidLoginUsername = "Ingevoerde gebruikersnaam";
+    public static readonly string LogInvalidLoginPassword = "Ingevoerd wachtwoord";
     #endregion
     #endregion
 }
