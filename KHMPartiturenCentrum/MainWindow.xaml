@@ -94,6 +94,21 @@
                         </Button>
 
                         <Button
+                            x:Name="btnArchiveList"
+                            Click="btnArchiveList_Click"
+                            MouseEnter="btnArchiveList_MouseEnter"
+                            MouseLeave="btnArchiveList_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}">
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource scores.list}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Archief lijsten" />
+                        </Button>
+
+                        <Button
                             x:Name="btnUserProfile"
                             Click="btnUserProfile_Click"
                             MouseEnter="btnUserProfile_MouseEnter"

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using KHMPartiturenCentrum.Models;
 
@@ -238,6 +234,9 @@ public partial class BaseScoreViewModel : ObservableObject
 
     [ObservableProperty]
     public string publisher4Name = "" ;
+
+    [ObservableProperty]
+    public int duration = 0 ;
 
     [ObservableProperty]
     public int numberScoresTotal = 0 ;

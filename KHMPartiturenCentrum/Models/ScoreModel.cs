@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace KHMPartiturenCentrum.Models;
 
@@ -83,5 +78,6 @@ public class ScoreModel
     public string? ScoreSubNumber { get; set; } // Only the SubNumber
     public string? ScoreSubTitle { get; set; }
     public string? ScoreTitle { get; set; }
-    public string? Textwriter{ get; set; }
+    public string? Textwriter { get; set; }
+    public int Duration { get; set; }
 }

@@ -125,6 +125,7 @@ public class DBNames
     public static readonly string ScoresFieldNamePublisher2Id = "Uitgever2Id";
     public static readonly string ScoresFieldNamePublisher3Id = "Uitgever3Id";
     public static readonly string ScoresFieldNamePublisher4Id = "Uitgever4Id";
+    public static readonly string ScoresFieldDuration = "Duur";
 
     public static readonly string ScoresView = "Bibliotheek_View";
     public static readonly string ScoresViewFieldNameScore = "PartituurNummer";
