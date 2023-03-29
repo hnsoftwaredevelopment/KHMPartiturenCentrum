@@ -242,6 +242,9 @@ public partial class BaseScoreViewModel : ObservableObject
     public int numberScoresTotal = 0 ;
 
     [ObservableProperty]
+    public string searchField = "" ;
+
+    [ObservableProperty]
     public object selectedItem ="";
 
     public ScoreModel? SelectedScoreModel { get; set; }

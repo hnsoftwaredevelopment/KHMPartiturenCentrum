@@ -334,8 +334,10 @@ public class DBCommands
                         Publisher3Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString ( ),
                         Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString ( ) ),
                         Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ( ),
-                        Duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) )
+                        Duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ),
+                        SearchField = $"{dataTable.Rows [ i ].ItemArray [ 2 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 5 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 6 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 7 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 8 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 12 ].ToString ( )}"
                     } );
+                    ;
                 }
             }
         }

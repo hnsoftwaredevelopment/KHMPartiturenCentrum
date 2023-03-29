@@ -80,4 +80,5 @@ public class ScoreModel
     public string? ScoreTitle { get; set; }
     public string? Textwriter { get; set; }
     public int Duration { get; set; }
+    public string SearchField { get; set; }
 }

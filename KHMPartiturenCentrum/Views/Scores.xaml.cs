@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using WinForms = System.Windows.Forms;
 using KHMPartiturenCentrum.Helpers;
 using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.ViewModels;
-using static KHMPartiturenCentrum.App;
-using Google.Protobuf.WellKnownTypes;
 using Syncfusion.DocIO;
-using System.Drawing;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-
+using static KHMPartiturenCentrum.App;
 
 namespace KHMPartiturenCentrum.Views;
 
@@ -28,15 +24,16 @@ public partial class Scores : Page
     public ScoreModel? SelectedScore;
     public int LyricsMaxWidthRow, LyricsMaxWidth;
 
-    public Scores ()
+    public Scores ( )
     {
-        InitializeComponent ();
+        InitializeComponent ( );
 
         tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
         tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
 
-        scores = new ScoreViewModel ();
-        DataContext = scores;
+        scores = new ScoreViewModel ( );
+        ScoresDataGrid.ItemsSource = scores.Scores;
+        //DataContext = scores;
 
         if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 )
         {
@@ -53,21 +50,21 @@ public partial class Scores : Page
 
     private void PageLoaded ( object sender, RoutedEventArgs e )
     {
-        comAccompaniment.ItemsSource = DBCommands.GetAccompaniments ();
-        comArchive.ItemsSource = DBCommands.GetArchives ();
-        comGenre.ItemsSource = DBCommands.GetGenres ();
-        comLanguage.ItemsSource = DBCommands.GetLanguages ();
-        comRepertoire.ItemsSource = DBCommands.GetRepertoires ();
-        comPublisher1.ItemsSource = DBCommands.GetPublishers ();
-        comPublisher2.ItemsSource = DBCommands.GetPublishers ();
-        comPublisher3.ItemsSource = DBCommands.GetPublishers ();
-        comPublisher4.ItemsSource = DBCommands.GetPublishers ();
-        ResetChanged ();
+        comAccompaniment.ItemsSource = DBCommands.GetAccompaniments ( );
+        comArchive.ItemsSource = DBCommands.GetArchives ( );
+        comGenre.ItemsSource = DBCommands.GetGenres ( );
+        comLanguage.ItemsSource = DBCommands.GetLanguages ( );
+        comRepertoire.ItemsSource = DBCommands.GetRepertoires ( );
+        comPublisher1.ItemsSource = DBCommands.GetPublishers ( );
+        comPublisher2.ItemsSource = DBCommands.GetPublishers ( );
+        comPublisher3.ItemsSource = DBCommands.GetPublishers ( );
+        comPublisher4.ItemsSource = DBCommands.GetPublishers ( );
+        ResetChanged ( );
     }
 
     private void SelectedScoreChanged ( object sender, SelectionChangedEventArgs e )
     {
-        ResetFields ();
+        ResetFields ( );
         DataGrid dg = (DataGrid)sender;
 
         ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
@@ -76,7 +73,7 @@ public partial class Scores : Page
         {
             object item = dg.Items[0];
             dg.SelectedItem = item;
-            selectedRow = (ScoreModel) dg.SelectedItem;
+            selectedRow = ( ScoreModel ) dg.SelectedItem;
 
             // Scroll to he itew in the Datagrid
             dg.ScrollIntoView ( dg.Items [ 0 ] );
@@ -97,7 +94,7 @@ public partial class Scores : Page
         {
             if ( comRepertoire.Text == null )
             { comRepertoire.Text = ""; }
-            if ( repertoire.RepertoireName == comRepertoire.Text.ToString () )
+            if ( repertoire.RepertoireName == comRepertoire.Text.ToString ( ) )
             {
                 comRepertoire.SelectedItem = repertoire;
             }
@@ -112,7 +109,7 @@ public partial class Scores : Page
         {
             if ( comArchive.Text == null )
             { comArchive.Text = ""; }
-            if ( archive.ArchiveName == comArchive.Text.ToString () )
+            if ( archive.ArchiveName == comArchive.Text.ToString ( ) )
             {
                 comArchive.SelectedItem = archive;
             }
@@ -152,7 +149,7 @@ public partial class Scores : Page
         {
             if ( comGenre.Text == null )
             { comGenre.Text = ""; }
-            if ( genre.GenreName == comGenre.Text.ToString () )
+            if ( genre.GenreName == comGenre.Text.ToString ( ) )
             {
                 comGenre.SelectedItem = genre;
             }
@@ -167,7 +164,7 @@ public partial class Scores : Page
         {
             if ( comAccompaniment.Text == null )
             { comAccompaniment.Text = ""; }
-            if ( accompaniment.AccompanimentName == comAccompaniment.Text.ToString () )
+            if ( accompaniment.AccompanimentName == comAccompaniment.Text.ToString ( ) )
             {
                 comAccompaniment.SelectedItem = accompaniment;
             }
@@ -182,7 +179,7 @@ public partial class Scores : Page
         {
             if ( comLanguage.Text == null )
             { comLanguage.Text = ""; }
-            if ( language.LanguageName == comLanguage.Text.ToString () )
+            if ( language.LanguageName == comLanguage.Text.ToString ( ) )
             {
                 comLanguage.SelectedItem = language;
             }
@@ -273,12 +270,12 @@ public partial class Scores : Page
 
         #region TAB Lyrics
         tbLyrics.Text = selectedRow.Lyrics;
-        GetLyricsInfo ();
+        GetLyricsInfo ( );
         #endregion TAB Lyrics
 
         #region TAB Notes
 
-        GetNotes ();
+        GetNotes ( );
 
         #endregion TAB Notes
 
@@ -286,7 +283,7 @@ public partial class Scores : Page
 
         #region Publisher 1
 
-        tbAmountPublisher1.Text = selectedRow.AmountPublisher1.ToString ();
+        tbAmountPublisher1.Text = selectedRow.AmountPublisher1.ToString ( );
 
         #region Publisher1 Combobox
 
@@ -294,7 +291,7 @@ public partial class Scores : Page
         foreach ( PublisherModel publisher in comPublisher1.Items )
         {
             comPublisher1.Text ??= "";
-            if ( publisher.PublisherName == comPublisher1.Text.ToString () )
+            if ( publisher.PublisherName == comPublisher1.Text.ToString ( ) )
             {
                 comPublisher1.SelectedItem = publisher;
             }
@@ -306,7 +303,7 @@ public partial class Scores : Page
 
         #region Publisher 2
 
-        tbAmountPublisher2.Text = selectedRow.AmountPublisher2.ToString ();
+        tbAmountPublisher2.Text = selectedRow.AmountPublisher2.ToString ( );
 
         #region Publisher2 Combobox
 
@@ -314,7 +311,7 @@ public partial class Scores : Page
         foreach ( PublisherModel publisher in comPublisher2.Items )
         {
             comPublisher2.Text ??= "";
-            if ( publisher.PublisherName == comPublisher2.Text.ToString () )
+            if ( publisher.PublisherName == comPublisher2.Text.ToString ( ) )
             {
                 comPublisher2.SelectedItem = publisher;
             }
@@ -326,7 +323,7 @@ public partial class Scores : Page
 
         #region Publisher 3
 
-        tbAmountPublisher3.Text = selectedRow.AmountPublisher3.ToString ();
+        tbAmountPublisher3.Text = selectedRow.AmountPublisher3.ToString ( );
 
         #region Publisher3 Combobox
 
@@ -334,7 +331,7 @@ public partial class Scores : Page
         foreach ( PublisherModel publisher in comPublisher3.Items )
         {
             comPublisher3.Text ??= "";
-            if ( publisher.PublisherName == comPublisher3.Text.ToString () )
+            if ( publisher.PublisherName == comPublisher3.Text.ToString ( ) )
             {
                 comPublisher3.SelectedItem = publisher;
             }
@@ -346,7 +343,7 @@ public partial class Scores : Page
 
         #region Publisher 4
 
-        tbAmountPublisher4.Text = selectedRow.AmountPublisher4.ToString ();
+        tbAmountPublisher4.Text = selectedRow.AmountPublisher4.ToString ( );
 
         #region Publisherr4 Combobox
 
@@ -354,7 +351,7 @@ public partial class Scores : Page
         foreach ( PublisherModel publisher in comPublisher4.Items )
         {
             comPublisher4.Text ??= "";
-            if ( publisher.PublisherName == comPublisher4.Text.ToString () )
+            if ( publisher.PublisherName == comPublisher4.Text.ToString ( ) )
             {
                 comPublisher4.SelectedItem = publisher;
             }
@@ -367,13 +364,13 @@ public partial class Scores : Page
         #region Total
 
         var Total = selectedRow.AmountPublisher1 + selectedRow.AmountPublisher2 + selectedRow.AmountPublisher3 + selectedRow.AmountPublisher4;
-        tbAmountSupplierTotal.Text = Total.ToString ();
+        tbAmountSupplierTotal.Text = Total.ToString ( );
 
         #endregion Total
 
         #endregion TAB: Licenses
 
-        ResetChanged ();
+        ResetChanged ( );
     }
 
     private void BtnNextClick ( object sender, RoutedEventArgs e )
@@ -473,38 +470,38 @@ public partial class Scores : Page
                     break;
 
                 case "tbAmountPublisher1":
-                    if ( tbAmountPublisher1.Text == SelectedScore.AmountPublisher1.ToString () )
+                    if ( tbAmountPublisher1.Text == SelectedScore.AmountPublisher1.ToString ( ) )
                     { cbAmountPublisher1.IsChecked = false; }
                     else
                     { cbAmountPublisher1.IsChecked = true; }
-                    CalculateTotal ();
+                    CalculateTotal ( );
                     break;
 
                 case "tbAmountPublisher2":
-                    if ( tbAmountPublisher2.Text == SelectedScore.AmountPublisher2.ToString () )
+                    if ( tbAmountPublisher2.Text == SelectedScore.AmountPublisher2.ToString ( ) )
                     { cbAmountPublisher2.IsChecked = false; }
                     else
                     { cbAmountPublisher2.IsChecked = true; }
-                    CalculateTotal ();
+                    CalculateTotal ( );
                     break;
 
                 case "tbAmountPublisher3":
-                    if ( tbAmountPublisher3.Text == SelectedScore.AmountPublisher3.ToString () )
+                    if ( tbAmountPublisher3.Text == SelectedScore.AmountPublisher3.ToString ( ) )
                     { cbAmountPublisher3.IsChecked = false; }
                     else
                     { cbAmountPublisher3.IsChecked = true; }
-                    CalculateTotal ();
+                    CalculateTotal ( );
                     break;
 
                 case "tbAmountPublisher4":
-                    if ( tbAmountPublisher4.Text == SelectedScore.AmountPublisher4.ToString () )
+                    if ( tbAmountPublisher4.Text == SelectedScore.AmountPublisher4.ToString ( ) )
                     { cbAmountPublisher4.IsChecked = false; }
                     else
                     { cbAmountPublisher4.IsChecked = true; }
-                    CalculateTotal ();
+                    CalculateTotal ( );
                     break;
                 case "tbLyrics":
-                    if (tbLyrics.Text == SelectedScore.Lyrics )
+                    if ( tbLyrics.Text == SelectedScore.Lyrics )
                     {
                         cbLyrics.IsChecked = false;
                     }
@@ -513,14 +510,14 @@ public partial class Scores : Page
                         cbLyrics.IsChecked = true;
                     }
 
-                    GetLyricsInfo ();
+                    GetLyricsInfo ( );
                     break;
             }
         }
-        CheckChanged ();
+        CheckChanged ( );
     }
 
-    private void GetLyricsInfo ()
+    private void GetLyricsInfo ( )
     {
         //tbLyrics.Text = SelectedScore.Lyrics.ToString();
         // Fill the general information fields
@@ -528,7 +525,7 @@ public partial class Scores : Page
         {
             SelectedScore.Lyrics = tbLyrics.Text;
             // Number of lines
-            tbLyricsRows.Text = SelectedScore.Lyrics.Split ( "\r\n" ).Length.ToString ();
+            tbLyricsRows.Text = SelectedScore.Lyrics.Split ( "\r\n" ).Length.ToString ( );
 
             // Check if number of lines exceeds 98 if yes, show warning
             if ( SelectedScore.Lyrics.Split ( "\r\n" ).Length > 98 )
@@ -541,7 +538,7 @@ public partial class Scores : Page
             }
 
             // Number of Words
-            tbLyricsWords.Text = SelectedScore.Lyrics.Split ( " " ).Length.ToString ();
+            tbLyricsWords.Text = SelectedScore.Lyrics.Split ( " " ).Length.ToString ( );
 
             // Number of Columns
             if ( SelectedScore.Lyrics.Split ( "\r\n" ).Length == 0 )
@@ -566,14 +563,14 @@ public partial class Scores : Page
                     LyricsMaxWidth = _rowSize;
                     LyricsMaxWidthRow = _rowNumber + 1;
 
-                    tbLyricsMaxWidth.Text = LyricsMaxWidth.ToString ();
+                    tbLyricsMaxWidth.Text = LyricsMaxWidth.ToString ( );
                     tbLyricsMaxWidthRow.Text = $"(Regel {LyricsMaxWidthRow})";
                 }
                 _rowNumber++;
             }
 
             // Check if the Number of characters on row doesn't exceed the maximum
-            if( int.Parse(tbLyricsColumns.Text) == 2 )
+            if ( int.Parse ( tbLyricsColumns.Text ) == 2 )
             {
                 // When 2 Columns are used
                 if ( LyricsMaxWidth > 55 )
@@ -583,7 +580,7 @@ public partial class Scores : Page
                 }
                 else
                 {
-                    LyricsWidthWarning2.Visibility= Visibility.Collapsed;
+                    LyricsWidthWarning2.Visibility = Visibility.Collapsed;
                     LyricsWidthWarning1.Visibility = Visibility.Collapsed;
                 }
             }
@@ -613,7 +610,7 @@ public partial class Scores : Page
         }
     }
 
-    private void CalculateTotal ()
+    private void CalculateTotal ( )
     {
         int _total = 0;
         if ( tbAmountPublisher1.Text != "" )
@@ -625,7 +622,7 @@ public partial class Scores : Page
         if ( tbAmountPublisher4.Text != "" )
         { _total += int.Parse ( tbAmountPublisher4.Text ); }
 
-        tbAmountSupplierTotal.Text = _total.ToString ();
+        tbAmountSupplierTotal.Text = _total.ToString ( );
     }
 
     private void ComboBoxChanged ( object sender, SelectionChangedEventArgs e )
@@ -639,7 +636,7 @@ public partial class Scores : Page
                 case "comRepertoire":
                     if ( comRepertoire.SelectedItem != null )
                     {
-                        if ( ( (RepertoireModel) comRepertoire.SelectedItem ).RepertoireId == SelectedScore.RepertoireId )
+                        if ( ( ( RepertoireModel ) comRepertoire.SelectedItem ).RepertoireId == SelectedScore.RepertoireId )
                         { cbRepertoire.IsChecked = false; }
                         else
                         { cbRepertoire.IsChecked = true; }
@@ -649,7 +646,7 @@ public partial class Scores : Page
                 case "comArchive":
                     if ( comArchive.SelectedItem != null )
                     {
-                        if ( ( (ArchiveModel) comArchive.SelectedItem ).ArchiveId == SelectedScore.ArchiveId )
+                        if ( ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveId == SelectedScore.ArchiveId )
                         { cbArchive.IsChecked = false; }
                         else
                         { cbArchive.IsChecked = true; }
@@ -659,7 +656,7 @@ public partial class Scores : Page
                 case "comGenre":
                     if ( comGenre.SelectedItem != null )
                     {
-                        if ( ( (GenreModel) comGenre.SelectedItem ).GenreId == SelectedScore.GenreId )
+                        if ( ( ( GenreModel ) comGenre.SelectedItem ).GenreId == SelectedScore.GenreId )
                         { cbGenre.IsChecked = false; }
                         else
                         { cbGenre.IsChecked = true; }
@@ -669,7 +666,7 @@ public partial class Scores : Page
                 case "comAccompaniment":
                     if ( comAccompaniment.SelectedItem != null )
                     {
-                        if ( ( (AccompanimentModel) comAccompaniment.SelectedItem ).AccompanimentId == SelectedScore.AccompanimentId )
+                        if ( ( ( AccompanimentModel ) comAccompaniment.SelectedItem ).AccompanimentId == SelectedScore.AccompanimentId )
                         { cbAccompaniment.IsChecked = false; }
                         else
                         { cbAccompaniment.IsChecked = true; }
@@ -679,7 +676,7 @@ public partial class Scores : Page
                 case "comLanguage":
                     if ( comLanguage.SelectedItem != null )
                     {
-                        if ( ( (LanguageModel) comLanguage.SelectedItem ).LanguageId == SelectedScore.LanguageId )
+                        if ( ( ( LanguageModel ) comLanguage.SelectedItem ).LanguageId == SelectedScore.LanguageId )
                         { cbLanguage.IsChecked = false; }
                         else
                         { cbLanguage.IsChecked = true; }
@@ -689,7 +686,7 @@ public partial class Scores : Page
                 case "comPublisher1":
                     if ( comPublisher1.SelectedItem != null )
                     {
-                        if ( ( (PublisherModel) comPublisher1.SelectedItem ).PublisherId == SelectedScore.Publisher1Id )
+                        if ( ( ( PublisherModel ) comPublisher1.SelectedItem ).PublisherId == SelectedScore.Publisher1Id )
                         { cbPublisher1.IsChecked = false; }
                         else
                         { cbPublisher1.IsChecked = true; }
@@ -699,7 +696,7 @@ public partial class Scores : Page
                 case "comPublisher2":
                     if ( comPublisher2.SelectedItem != null )
                     {
-                        if ( ( (PublisherModel) comPublisher2.SelectedItem ).PublisherId == SelectedScore.Publisher2Id )
+                        if ( ( ( PublisherModel ) comPublisher2.SelectedItem ).PublisherId == SelectedScore.Publisher2Id )
                         { cbPublisher2.IsChecked = false; }
                         else
                         { cbPublisher2.IsChecked = true; }
@@ -709,7 +706,7 @@ public partial class Scores : Page
                 case "comPublisher3":
                     if ( comPublisher3.SelectedItem != null )
                     {
-                        if ( ( (PublisherModel) comPublisher3.SelectedItem ).PublisherId == SelectedScore.Publisher3Id )
+                        if ( ( ( PublisherModel ) comPublisher3.SelectedItem ).PublisherId == SelectedScore.Publisher3Id )
                         { cbPublisher3.IsChecked = false; }
                         else
                         { cbPublisher3.IsChecked = true; }
@@ -719,7 +716,7 @@ public partial class Scores : Page
                 case "comPublisher4":
                     if ( comPublisher4.SelectedItem != null )
                     {
-                        if ( ( (PublisherModel) comPublisher4.SelectedItem ).PublisherId == SelectedScore.Publisher4Id )
+                        if ( ( ( PublisherModel ) comPublisher4.SelectedItem ).PublisherId == SelectedScore.Publisher4Id )
                         { cbPublisher4.IsChecked = false; }
                         else
                         { cbPublisher4.IsChecked = true; }
@@ -727,10 +724,10 @@ public partial class Scores : Page
                     break;
             }
         }
-        CheckChanged ();
+        CheckChanged ( );
     }
 
-    private void CheckChanged ()
+    private void CheckChanged ( )
     {
         if ( cbAccompaniment.IsChecked == true ||
             cbRepertoire.IsChecked == true ||
@@ -808,7 +805,7 @@ public partial class Scores : Page
                     break;
             }
         }
-        CheckChanged ();
+        CheckChanged ( );
     }
 
     private void CheckBoxChanged ( object sender, RoutedEventArgs e )
@@ -946,7 +943,7 @@ public partial class Scores : Page
                     break;
             }
         }
-        CheckChanged ();
+        CheckChanged ( );
     }
 
     private void DatePickerChanged ( object sender, SelectionChangedEventArgs e )
@@ -1000,16 +997,16 @@ public partial class Scores : Page
                     break;
             }
         }
-        CheckChanged ();
+        CheckChanged ( );
     }
 
     private void BtnSaveClick ( object sender, RoutedEventArgs e )
     {
         ObservableCollection<SaveScoreModel> ScoreList = new();
         ObservableCollection<ScoreModel> OldScoreValues = new();
-        
+
         // Add an empty row in the OldScoreValues
-        OldScoreValues.Add (new ScoreModel {} );
+        OldScoreValues.Add ( new ScoreModel { } );
 
         //OldScoreValues [ 0 ].AccompanimentId = SelectedScore.AccompanimentId;
         if ( SelectedScore != null )
@@ -1020,103 +1017,104 @@ public partial class Scores : Page
                 ComposerChanged = -1, TextwriterChanged = -1, ArrangerChanged = -1,
                 DateDigitizedChanged = -1, DateModifiedChanged = -1,
                 LyricsChanged = -1, MusicPieceChanged = -1, NotesChanged = -1,
-                AccompanimentChanged = -1, ArchiveChanged = -1, RepertoireChanged = -1, LanguageChanged = -1, GenreChanged = -1, Check = -1, ByHeart = -1, 
+                AccompanimentChanged = -1, ArchiveChanged = -1, RepertoireChanged = -1, LanguageChanged = -1, GenreChanged = -1, Check = -1, ByHeart = -1,
                 Publisher1Changed = -1, Publisher2Changed = -1, Publisher3Changed = -1, Publisher4Changed = -1,
                 MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1, MuseScoreOnline = -1,
                 PDFORP = -1, PDFORK = -1, PDFTOP = -1, PDFTOK = -1,
                 MP3B1 = -1, MP3B2 = -1, MP3T1 = -1, MP3T2 = -1, MP3SOL = -1, MP3TOT = -1, MP3PIA = -1,
                 AmountPublisher1Changed = -1, AmountPublisher2Changed = -1, AmountPublisher3Changed = -1, AmountPublisher4Changed = -1;
 
-            if ( (bool) cbAccompaniment.IsChecked )
+            if ( ( bool ) cbAccompaniment.IsChecked )
             {
                 AccompanimentChanged = 1;
                 OldScoreValues [ 0 ].AccompanimentId = SelectedScore.AccompanimentId;
                 OldScoreValues [ 0 ].AccompanimentName = SelectedScore.AccompanimentName;
-                SelectedScore.AccompanimentId = ( (AccompanimentModel) comAccompaniment.SelectedItem ).AccompanimentId;
-                SelectedScore.AccompanimentName = ( (AccompanimentModel) comAccompaniment.SelectedItem ).AccompanimentName; }
+                SelectedScore.AccompanimentId = ( ( AccompanimentModel ) comAccompaniment.SelectedItem ).AccompanimentId;
+                SelectedScore.AccompanimentName = ( ( AccompanimentModel ) comAccompaniment.SelectedItem ).AccompanimentName;
+            }
 
-            if ( (bool) cbAmountPublisher1.IsChecked )
+            if ( ( bool ) cbAmountPublisher1.IsChecked )
             {
                 AmountPublisher1Changed = 1;
                 OldScoreValues [ 0 ].AmountPublisher1 = SelectedScore.AmountPublisher1;
-                SelectedScore.AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text ); 
+                SelectedScore.AmountPublisher1 = int.Parse ( tbAmountPublisher1.Text );
             }
 
-            if ( (bool) cbAmountPublisher2.IsChecked )
+            if ( ( bool ) cbAmountPublisher2.IsChecked )
             {
                 AmountPublisher2Changed = 1;
                 OldScoreValues [ 0 ].AmountPublisher2 = SelectedScore.AmountPublisher2;
-                SelectedScore.AmountPublisher2 = int.Parse ( tbAmountPublisher2.Text ); 
+                SelectedScore.AmountPublisher2 = int.Parse ( tbAmountPublisher2.Text );
             }
 
-            if ( (bool) cbAmountPublisher3.IsChecked )
-            { 
+            if ( ( bool ) cbAmountPublisher3.IsChecked )
+            {
                 AmountPublisher3Changed = 1;
                 OldScoreValues [ 0 ].AmountPublisher3 = SelectedScore.AmountPublisher3;
-                SelectedScore.AmountPublisher3 = int.Parse ( tbAmountPublisher3.Text ); 
+                SelectedScore.AmountPublisher3 = int.Parse ( tbAmountPublisher3.Text );
             }
-            
-            if ( (bool) cbAmountPublisher4.IsChecked )
-            { 
+
+            if ( ( bool ) cbAmountPublisher4.IsChecked )
+            {
                 AmountPublisher4Changed = 1;
                 OldScoreValues [ 0 ].AmountPublisher4 = SelectedScore.AmountPublisher4;
-                SelectedScore.AmountPublisher4 = int.Parse ( tbAmountPublisher4.Text ); 
+                SelectedScore.AmountPublisher4 = int.Parse ( tbAmountPublisher4.Text );
             }
-            
-            if ( (bool) cbArchive.IsChecked )
-            { 
+
+            if ( ( bool ) cbArchive.IsChecked )
+            {
                 ArchiveChanged = 1;
                 OldScoreValues [ 0 ].ArchiveId = SelectedScore.ArchiveId;
                 OldScoreValues [ 0 ].ArchiveName = SelectedScore.ArchiveName;
-                SelectedScore.ArchiveId = ( (ArchiveModel) comArchive.SelectedItem ).ArchiveId;
-                SelectedScore.ArchiveName = ( (ArchiveModel) comArchive.SelectedItem ).ArchiveName; 
-            }
-            
-            if ( (bool) cbArranger.IsChecked )
-            { 
-                ArrangerChanged = 1;
-                OldScoreValues[ 0 ].Arranger = SelectedScore.Arranger;
-                SelectedScore.Arranger = tbArranger.Text; 
+                SelectedScore.ArchiveId = ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveId;
+                SelectedScore.ArchiveName = ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveName;
             }
 
-            if ( (bool) cbByHeart.IsChecked )
+            if ( ( bool ) cbArranger.IsChecked )
+            {
+                ArrangerChanged = 1;
+                OldScoreValues [ 0 ].Arranger = SelectedScore.Arranger;
+                SelectedScore.Arranger = tbArranger.Text;
+            }
+
+            if ( ( bool ) cbByHeart.IsChecked )
             {
                 OldScoreValues [ 0 ].ByHeart = SelectedScore.ByHeart;
-                if ( (bool) chkByHeart.IsChecked ) 
-                { 
+                if ( ( bool ) chkByHeart.IsChecked )
+                {
                     ByHeart = 1;
-                    SelectedScore.ByHeart = true; 
-                } 
-                else 
-                { 
-                    ByHeart = 0; 
-                    SelectedScore.ByHeart = false; 
-                } 
+                    SelectedScore.ByHeart = true;
+                }
+                else
+                {
+                    ByHeart = 0;
+                    SelectedScore.ByHeart = false;
+                }
             }
 
-            if ( (bool) cbChecked.IsChecked )
+            if ( ( bool ) cbChecked.IsChecked )
             {
                 OldScoreValues [ 0 ].Checked = SelectedScore.Checked;
-                if ( (bool) chkChecked.IsChecked ) 
-                { 
-                    Check = 1; 
-                    SelectedScore.Checked = true; 
-                } 
-                else 
-                { 
-                    Check = 0; 
-                    SelectedScore.Checked = false; 
-                } 
+                if ( ( bool ) chkChecked.IsChecked )
+                {
+                    Check = 1;
+                    SelectedScore.Checked = true;
+                }
+                else
+                {
+                    Check = 0;
+                    SelectedScore.Checked = false;
+                }
             }
 
-            if ( (bool) cbComposer.IsChecked )
-            { 
+            if ( ( bool ) cbComposer.IsChecked )
+            {
                 ComposerChanged = 1;
-                OldScoreValues[ 0 ].Composer = SelectedScore.Composer;
-                SelectedScore.Composer = tbComposer.Text; 
+                OldScoreValues [ 0 ].Composer = SelectedScore.Composer;
+                SelectedScore.Composer = tbComposer.Text;
             }
 
-            if ( (bool) cbDigitized.IsChecked )
+            if ( ( bool ) cbDigitized.IsChecked )
             {
                 if ( dpDigitized.SelectedDate != null )
                 {
@@ -1144,25 +1142,25 @@ public partial class Scores : Page
                 }
             }
 
-            if ( (bool) cbGenre.IsChecked )
+            if ( ( bool ) cbGenre.IsChecked )
             {
                 GenreChanged = 1;
                 OldScoreValues [ 0 ].GenreId = SelectedScore.GenreId;
                 OldScoreValues [ 0 ].GenreName = SelectedScore.GenreName;
-                SelectedScore.GenreId = ( (GenreModel) comGenre.SelectedItem ).GenreId; 
-                SelectedScore.GenreName = ( (GenreModel) comGenre.SelectedItem ).GenreName; 
+                SelectedScore.GenreId = ( ( GenreModel ) comGenre.SelectedItem ).GenreId;
+                SelectedScore.GenreName = ( ( GenreModel ) comGenre.SelectedItem ).GenreName;
             }
 
-            if ( (bool) cbLanguage.IsChecked )
+            if ( ( bool ) cbLanguage.IsChecked )
             {
                 LanguageChanged = 1;
                 OldScoreValues [ 0 ].LanguageId = SelectedScore.LanguageId;
                 OldScoreValues [ 0 ].LanguageName = SelectedScore.LanguageName;
-                SelectedScore.LanguageId = ( (LanguageModel) comLanguage.SelectedItem ).LanguageId; 
-                SelectedScore.LanguageName = ( (LanguageModel) comLanguage.SelectedItem ).LanguageName; 
+                SelectedScore.LanguageId = ( ( LanguageModel ) comLanguage.SelectedItem ).LanguageId;
+                SelectedScore.LanguageName = ( ( LanguageModel ) comLanguage.SelectedItem ).LanguageName;
             }
 
-            if ( (bool) cbModified.IsChecked )
+            if ( ( bool ) cbModified.IsChecked )
             {
                 string year = dpModified.SelectedDate.Value.Year.ToString();
                 string month = "0" + dpModified.SelectedDate.Value.Month.ToString();
@@ -1179,340 +1177,340 @@ public partial class Scores : Page
                 SelectedScore.DateModified = DateOnly.FromDateTime ( _modified );
             }
 
-            if ( (bool) cbMP3B1.IsChecked )
+            if ( ( bool ) cbMP3B1.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3B1 = SelectedScore.MP3B1;
-                if ( (bool) chkMP3B1.IsChecked ) 
-                { 
-                    MP3B1 = 1; 
-                    SelectedScore.MP3B1 = true; 
-                } 
-                else 
-                { 
-                    MP3B1 = 0; 
-                    SelectedScore.MP3B1 = false; 
-                } 
+                if ( ( bool ) chkMP3B1.IsChecked )
+                {
+                    MP3B1 = 1;
+                    SelectedScore.MP3B1 = true;
+                }
+                else
+                {
+                    MP3B1 = 0;
+                    SelectedScore.MP3B1 = false;
+                }
             }
 
-            if ( (bool) cbMP3B2.IsChecked )
+            if ( ( bool ) cbMP3B2.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3B2 = SelectedScore.MP3B2;
-                if ( (bool) chkMP3B2.IsChecked ) 
-                { 
-                    MP3B2 = 1; 
-                    SelectedScore.MP3B2 = true; 
-                } 
-                else 
-                { 
-                    MP3B2 = 0; 
-                    SelectedScore.MP3B2 = false; 
-                } 
+                if ( ( bool ) chkMP3B2.IsChecked )
+                {
+                    MP3B2 = 1;
+                    SelectedScore.MP3B2 = true;
+                }
+                else
+                {
+                    MP3B2 = 0;
+                    SelectedScore.MP3B2 = false;
+                }
             }
 
-            if ( (bool) cbMP3PIA.IsChecked )
+            if ( ( bool ) cbMP3PIA.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3PIA = SelectedScore.MP3PIA;
-                if ( (bool) chkMP3PIA.IsChecked ) 
-                { 
-                    MP3PIA = 1; 
-                    SelectedScore.MP3PIA = true; 
-                } 
-                else 
-                { 
-                    MP3PIA = 0; 
-                    SelectedScore.MP3PIA = false; 
-                } 
+                if ( ( bool ) chkMP3PIA.IsChecked )
+                {
+                    MP3PIA = 1;
+                    SelectedScore.MP3PIA = true;
+                }
+                else
+                {
+                    MP3PIA = 0;
+                    SelectedScore.MP3PIA = false;
+                }
             }
 
-            if ( (bool) cbMP3SOL.IsChecked )
+            if ( ( bool ) cbMP3SOL.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3SOL = SelectedScore.MP3SOL;
-                if ( (bool) chkMP3SOL.IsChecked ) 
-                { 
-                    MP3SOL = 1; 
-                    SelectedScore.MP3SOL = true; 
-                } 
-                else 
-                { 
-                    MP3SOL = 0; 
-                    SelectedScore.MP3SOL = false; 
-                } 
+                if ( ( bool ) chkMP3SOL.IsChecked )
+                {
+                    MP3SOL = 1;
+                    SelectedScore.MP3SOL = true;
+                }
+                else
+                {
+                    MP3SOL = 0;
+                    SelectedScore.MP3SOL = false;
+                }
             }
 
-            if ( (bool) cbMP3T1.IsChecked )
+            if ( ( bool ) cbMP3T1.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3T1 = SelectedScore.MP3T1;
-                if ( (bool) chkMP3T1.IsChecked ) 
-                { 
-                    MP3T1 = 1; 
-                    SelectedScore.MP3T1 = true; 
-                } 
-                else 
-                { 
-                    MP3T1 = 0; 
-                    SelectedScore.MP3T1 = false; 
-                } 
+                if ( ( bool ) chkMP3T1.IsChecked )
+                {
+                    MP3T1 = 1;
+                    SelectedScore.MP3T1 = true;
+                }
+                else
+                {
+                    MP3T1 = 0;
+                    SelectedScore.MP3T1 = false;
+                }
             }
 
-            if ( (bool) cbMP3T2.IsChecked )
+            if ( ( bool ) cbMP3T2.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3T2 = SelectedScore.MP3T2;
-                if ( (bool) chkMP3T2.IsChecked ) 
-                { 
-                    MP3T2 = 1; 
-                    SelectedScore.MP3T2 = true; 
-                } 
-                else 
-                { 
-                    MP3T2 = 0; 
-                    SelectedScore.MP3T2 = false; 
-                } 
+                if ( ( bool ) chkMP3T2.IsChecked )
+                {
+                    MP3T2 = 1;
+                    SelectedScore.MP3T2 = true;
+                }
+                else
+                {
+                    MP3T2 = 0;
+                    SelectedScore.MP3T2 = false;
+                }
             }
-            
-            if ( (bool) cbMP3TOT.IsChecked )
+
+            if ( ( bool ) cbMP3TOT.IsChecked )
             {
                 OldScoreValues [ 0 ].MP3TOT = SelectedScore.MP3TOT;
-                if ( (bool) chkMP3TOT.IsChecked ) 
-                { 
-                    MP3TOT = 1; 
-                    SelectedScore.MP3TOT = true; 
-                } 
-                else 
-                { 
-                    MP3TOT = 0; 
-                    SelectedScore.MP3TOT = false; 
-                } 
+                if ( ( bool ) chkMP3TOT.IsChecked )
+                {
+                    MP3TOT = 1;
+                    SelectedScore.MP3TOT = true;
+                }
+                else
+                {
+                    MP3TOT = 0;
+                    SelectedScore.MP3TOT = false;
+                }
             }
 
-            if ( (bool) cbMSCORK.IsChecked )
+            if ( ( bool ) cbMSCORK.IsChecked )
             {
                 OldScoreValues [ 0 ].MuseScoreORK = SelectedScore.MuseScoreORK;
-                if ( (bool) chkMSCORK.IsChecked ) 
-                { 
-                    MuseScoreORK = 1; 
-                    SelectedScore.MuseScoreORK = true; 
-                } 
-                else 
-                { 
-                    MuseScoreORK = 0; 
-                    SelectedScore.MuseScoreORK = false; 
-                } 
+                if ( ( bool ) chkMSCORK.IsChecked )
+                {
+                    MuseScoreORK = 1;
+                    SelectedScore.MuseScoreORK = true;
+                }
+                else
+                {
+                    MuseScoreORK = 0;
+                    SelectedScore.MuseScoreORK = false;
+                }
             }
 
-            if ( (bool) cbMSCORP.IsChecked )
+            if ( ( bool ) cbMSCORP.IsChecked )
             {
                 OldScoreValues [ 0 ].MuseScoreORP = SelectedScore.MuseScoreORP;
-                if ( (bool) chkMSCORP.IsChecked ) 
-                { 
-                    MuseScoreORP = 1; 
-                    SelectedScore.MuseScoreORP = true; 
-                } 
-                else 
-                { 
-                    MuseScoreORP = 0; 
-                    SelectedScore.MuseScoreORP = false; 
-                } 
+                if ( ( bool ) chkMSCORP.IsChecked )
+                {
+                    MuseScoreORP = 1;
+                    SelectedScore.MuseScoreORP = true;
+                }
+                else
+                {
+                    MuseScoreORP = 0;
+                    SelectedScore.MuseScoreORP = false;
+                }
             }
 
-            if ( (bool) cbMSCTOK.IsChecked )
+            if ( ( bool ) cbMSCTOK.IsChecked )
             {
                 OldScoreValues [ 0 ].MuseScoreTOK = SelectedScore.MuseScoreTOK;
-                if ( (bool) chkMSCTOK.IsChecked ) 
-                { 
-                    MuseScoreTOK = 1; 
-                    SelectedScore.MuseScoreTOK = true; 
-                } 
-                else 
-                { 
-                    MuseScoreTOK = 0; 
-                    SelectedScore.MuseScoreTOK = false; 
-                } 
+                if ( ( bool ) chkMSCTOK.IsChecked )
+                {
+                    MuseScoreTOK = 1;
+                    SelectedScore.MuseScoreTOK = true;
+                }
+                else
+                {
+                    MuseScoreTOK = 0;
+                    SelectedScore.MuseScoreTOK = false;
+                }
             }
 
-            if ( (bool) cbMSCTOP.IsChecked )
+            if ( ( bool ) cbMSCTOP.IsChecked )
             {
                 OldScoreValues [ 0 ].MuseScoreTOP = SelectedScore.MuseScoreTOP;
-                if ( (bool) chkMSCTOP.IsChecked ) 
-                { 
-                    MuseScoreTOP = 1; 
-                    SelectedScore.MuseScoreORK = true; 
-                } 
-                else 
-                { 
-                    MuseScoreTOP = 0; 
-                    SelectedScore.MuseScoreTOP = false; 
-                } 
+                if ( ( bool ) chkMSCTOP.IsChecked )
+                {
+                    MuseScoreTOP = 1;
+                    SelectedScore.MuseScoreORK = true;
+                }
+                else
+                {
+                    MuseScoreTOP = 0;
+                    SelectedScore.MuseScoreTOP = false;
+                }
             }
 
-            if ( (bool) cbMusicPiece.IsChecked )
-            { 
+            if ( ( bool ) cbMusicPiece.IsChecked )
+            {
                 MusicPieceChanged = 1;
                 OldScoreValues [ 0 ].MusicPiece = SelectedScore.MusicPiece;
-                SelectedScore.MusicPiece = tbMusicPiece.Text; 
+                SelectedScore.MusicPiece = tbMusicPiece.Text;
             }
 
-            if ( (bool) cbOnline.IsChecked )
+            if ( ( bool ) cbOnline.IsChecked )
             {
                 OldScoreValues [ 0 ].MuseScoreOnline = SelectedScore.MuseScoreOnline;
-                if ( (bool) chkMSCOnline.IsChecked ) 
-                { 
-                    MuseScoreOnline = 1; 
-                    SelectedScore.MuseScoreOnline = true; 
-                } 
-                else 
-                { 
-                    MuseScoreOnline = 0; 
-                    SelectedScore.MuseScoreOnline = false; 
-                } 
+                if ( ( bool ) chkMSCOnline.IsChecked )
+                {
+                    MuseScoreOnline = 1;
+                    SelectedScore.MuseScoreOnline = true;
+                }
+                else
+                {
+                    MuseScoreOnline = 0;
+                    SelectedScore.MuseScoreOnline = false;
+                }
             }
 
-            if ( (bool) cbPDFORK.IsChecked )
+            if ( ( bool ) cbPDFORK.IsChecked )
             {
                 OldScoreValues [ 0 ].PDFORK = SelectedScore.PDFORK;
-                if ( (bool) chkPDFORK.IsChecked ) 
-                { 
-                    PDFORK = 1; 
-                    SelectedScore.PDFORK = true; 
-                } 
-                else 
-                { 
-                    PDFORK = 0; 
-                    SelectedScore.PDFORK = false; 
-                } 
+                if ( ( bool ) chkPDFORK.IsChecked )
+                {
+                    PDFORK = 1;
+                    SelectedScore.PDFORK = true;
+                }
+                else
+                {
+                    PDFORK = 0;
+                    SelectedScore.PDFORK = false;
+                }
             }
 
-            if ( (bool) cbPDFORP.IsChecked )
+            if ( ( bool ) cbPDFORP.IsChecked )
             {
                 OldScoreValues [ 0 ].PDFORP = SelectedScore.PDFORP;
-                if ( (bool) chkPDFORP.IsChecked ) 
-                { 
-                    PDFORP = 1; 
-                    SelectedScore.PDFORP = true; 
-                } 
-                else 
-                { 
-                    PDFORP = 0; 
-                    SelectedScore.PDFORP = false; 
-                } 
+                if ( ( bool ) chkPDFORP.IsChecked )
+                {
+                    PDFORP = 1;
+                    SelectedScore.PDFORP = true;
+                }
+                else
+                {
+                    PDFORP = 0;
+                    SelectedScore.PDFORP = false;
+                }
             }
 
-            if ( (bool) cbPDFTOK.IsChecked )
+            if ( ( bool ) cbPDFTOK.IsChecked )
             {
                 OldScoreValues [ 0 ].PDFTOK = SelectedScore.PDFTOK;
-                if ( (bool) chkPDFTOK.IsChecked ) 
-                { 
-                    PDFTOK = 1; 
-                    SelectedScore.PDFTOK = true; 
-                } 
-                else 
-                { 
-                    PDFTOK = 0; 
-                    SelectedScore.PDFTOK = false; 
-                } 
+                if ( ( bool ) chkPDFTOK.IsChecked )
+                {
+                    PDFTOK = 1;
+                    SelectedScore.PDFTOK = true;
+                }
+                else
+                {
+                    PDFTOK = 0;
+                    SelectedScore.PDFTOK = false;
+                }
             }
 
-            if ( (bool) cbPDFTOP.IsChecked )
+            if ( ( bool ) cbPDFTOP.IsChecked )
             {
                 OldScoreValues [ 0 ].PDFTOP = SelectedScore.PDFTOP;
-                if ( (bool) chkPDFTOP.IsChecked ) 
-                { 
-                    PDFTOP = 1; 
-                    SelectedScore.PDFTOP = true; 
-                } 
-                else 
-                { 
-                    PDFTOP = 0; 
-                    SelectedScore.PDFTOP = false; 
-                } 
+                if ( ( bool ) chkPDFTOP.IsChecked )
+                {
+                    PDFTOP = 1;
+                    SelectedScore.PDFTOP = true;
+                }
+                else
+                {
+                    PDFTOP = 0;
+                    SelectedScore.PDFTOP = false;
+                }
             }
 
-            if ( (bool) cbPublisher1.IsChecked )
+            if ( ( bool ) cbPublisher1.IsChecked )
             {
                 Publisher1Changed = 1;
-                OldScoreValues [ 0 ].Publisher1Id   = SelectedScore.Publisher1Id;
+                OldScoreValues [ 0 ].Publisher1Id = SelectedScore.Publisher1Id;
                 OldScoreValues [ 0 ].Publisher1Name = SelectedScore.Publisher1Name;
-                SelectedScore.Publisher1Id = ( (PublisherModel) comPublisher1.SelectedItem ).PublisherId; 
-                SelectedScore.Publisher1Name = ( (PublisherModel) comPublisher1.SelectedItem ).PublisherName; 
+                SelectedScore.Publisher1Id = ( ( PublisherModel ) comPublisher1.SelectedItem ).PublisherId;
+                SelectedScore.Publisher1Name = ( ( PublisherModel ) comPublisher1.SelectedItem ).PublisherName;
             }
 
-            if ( (bool) cbPublisher2.IsChecked )
-            { 
+            if ( ( bool ) cbPublisher2.IsChecked )
+            {
                 Publisher2Changed = 1;
-                OldScoreValues [ 0 ].Publisher2Id   = SelectedScore.Publisher2Id;
+                OldScoreValues [ 0 ].Publisher2Id = SelectedScore.Publisher2Id;
                 OldScoreValues [ 0 ].Publisher2Name = SelectedScore.Publisher2Name;
-                SelectedScore.Publisher2Id = ( (PublisherModel) comPublisher2.SelectedItem ).PublisherId; 
-                SelectedScore.Publisher2Name = ( (PublisherModel) comPublisher2.SelectedItem ).PublisherName; 
+                SelectedScore.Publisher2Id = ( ( PublisherModel ) comPublisher2.SelectedItem ).PublisherId;
+                SelectedScore.Publisher2Name = ( ( PublisherModel ) comPublisher2.SelectedItem ).PublisherName;
             }
 
-            if ( (bool) cbPublisher3.IsChecked )
-            { 
+            if ( ( bool ) cbPublisher3.IsChecked )
+            {
                 Publisher3Changed = 1;
-                OldScoreValues [ 0 ].Publisher3Id   = SelectedScore.Publisher3Id;
+                OldScoreValues [ 0 ].Publisher3Id = SelectedScore.Publisher3Id;
                 OldScoreValues [ 0 ].Publisher3Name = SelectedScore.Publisher3Name;
-                SelectedScore.Publisher3Id = ( (PublisherModel) comPublisher3.SelectedItem ).PublisherId; 
-                SelectedScore.Publisher3Name = ( (PublisherModel) comPublisher3.SelectedItem ).PublisherName; 
+                SelectedScore.Publisher3Id = ( ( PublisherModel ) comPublisher3.SelectedItem ).PublisherId;
+                SelectedScore.Publisher3Name = ( ( PublisherModel ) comPublisher3.SelectedItem ).PublisherName;
             }
 
-            if ( (bool) cbPublisher4.IsChecked )
-            { 
+            if ( ( bool ) cbPublisher4.IsChecked )
+            {
                 Publisher4Changed = 1;
-                OldScoreValues [ 0 ].Publisher4Id   = SelectedScore.Publisher4Id;
+                OldScoreValues [ 0 ].Publisher4Id = SelectedScore.Publisher4Id;
                 OldScoreValues [ 0 ].Publisher4Name = SelectedScore.Publisher4Name;
-                SelectedScore.Publisher4Id = ( (PublisherModel) comPublisher3.SelectedItem ).PublisherId; 
-                SelectedScore.Publisher4Name = ( (PublisherModel) comPublisher4.SelectedItem ).PublisherName; 
+                SelectedScore.Publisher4Id = ( ( PublisherModel ) comPublisher3.SelectedItem ).PublisherId;
+                SelectedScore.Publisher4Name = ( ( PublisherModel ) comPublisher4.SelectedItem ).PublisherName;
             }
 
-            if ( (bool) cbArchive.IsChecked )
-            { 
+            if ( ( bool ) cbArchive.IsChecked )
+            {
                 ArchiveChanged = 1;
-                OldScoreValues [ 0 ].ArchiveId   = SelectedScore.ArchiveId;
+                OldScoreValues [ 0 ].ArchiveId = SelectedScore.ArchiveId;
                 OldScoreValues [ 0 ].ArchiveName = SelectedScore.ArchiveName;
-                SelectedScore.ArchiveId = ( (ArchiveModel) comArchive.SelectedItem ).ArchiveId; 
-                SelectedScore.ArchiveName = ( (ArchiveModel) comArchive.SelectedItem ).ArchiveName; 
+                SelectedScore.ArchiveId = ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveId;
+                SelectedScore.ArchiveName = ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveName;
             }
 
-            if ( (bool) cbRepertoire.IsChecked )
-            { 
+            if ( ( bool ) cbRepertoire.IsChecked )
+            {
                 RepertoireChanged = 1;
-                OldScoreValues [ 0 ].RepertoireId   = SelectedScore.RepertoireId;
+                OldScoreValues [ 0 ].RepertoireId = SelectedScore.RepertoireId;
                 OldScoreValues [ 0 ].RepertoireName = SelectedScore.RepertoireName;
-                SelectedScore.RepertoireId = ( (RepertoireModel) comRepertoire.SelectedItem ).RepertoireId; 
-                SelectedScore.RepertoireName = ( (RepertoireModel) comRepertoire.SelectedItem ).RepertoireName; 
+                SelectedScore.RepertoireId = ( ( RepertoireModel ) comRepertoire.SelectedItem ).RepertoireId;
+                SelectedScore.RepertoireName = ( ( RepertoireModel ) comRepertoire.SelectedItem ).RepertoireName;
             }
 
-            if ( (bool) cbSubTitle.IsChecked )
-            { 
+            if ( ( bool ) cbSubTitle.IsChecked )
+            {
                 SubTitleChanged = 1;
                 OldScoreValues [ 0 ].ScoreSubTitle = SelectedScore.ScoreSubTitle;
-                SelectedScore.ScoreSubTitle = tbSubTitle.Text; 
+                SelectedScore.ScoreSubTitle = tbSubTitle.Text;
             }
 
-            if ( (bool) cbTextwriter.IsChecked )
-            { 
+            if ( ( bool ) cbTextwriter.IsChecked )
+            {
                 TextwriterChanged = 1;
                 OldScoreValues [ 0 ].Textwriter = SelectedScore.Textwriter;
-                SelectedScore.Textwriter = tbTextwriter.Text; 
+                SelectedScore.Textwriter = tbTextwriter.Text;
             }
 
-            if ( (bool) cbTitle.IsChecked )
-            { 
+            if ( ( bool ) cbTitle.IsChecked )
+            {
                 TitleChanged = 1;
                 OldScoreValues [ 0 ].ScoreTitle = SelectedScore.ScoreTitle;
-                SelectedScore.ScoreTitle = tbTitle.Text; 
+                SelectedScore.ScoreTitle = tbTitle.Text;
             }
 
-            if ( (bool) cbLyrics.IsChecked )
-            { 
+            if ( ( bool ) cbLyrics.IsChecked )
+            {
                 LyricsChanged = 1;
                 OldScoreValues [ 0 ].Lyrics = SelectedScore.Lyrics;
-                SelectedScore.Lyrics = tbLyrics.Text; 
+                SelectedScore.Lyrics = tbLyrics.Text;
             }
 
-            if ( (bool) cbNotes.IsChecked )
-            { 
+            if ( ( bool ) cbNotes.IsChecked )
+            {
                 NotesChanged = 1;
                 OldScoreValues [ 0 ].Notes = SelectedScore.Notes;
-                SelectedScore.Notes = GetRichTextFromFlowDocument ( memoNotes.Document ).ToString (); 
+                SelectedScore.Notes = GetRichTextFromFlowDocument ( memoNotes.Document ).ToString ( );
             }
 
             ScoreList.Add ( new SaveScoreModel
@@ -1600,7 +1598,7 @@ public partial class Scores : Page
 
             SaveHistory ( ScoreList, OldScoreValues );
 
-            ResetChanged ();
+            ResetChanged ( );
         }
     }
 
@@ -1608,7 +1606,8 @@ public partial class Scores : Page
     {
 
         string _action = DBNames.LogScoreChanged;
-        if ( (bool) cbNewScore.IsChecked ) { _action = DBNames.LogScoreAdded; }
+        if ( ( bool ) cbNewScore.IsChecked )
+        { _action = DBNames.LogScoreAdded; }
 
         // Write log info
         DBCommands.WriteLog ( ScoreUsers.SelectedUserId, _action, $"Partituur: {tbScoreNumber.Text}" );
@@ -1624,25 +1623,25 @@ public partial class Scores : Page
         #endregion
 
         #region Log Repertoire Changes
-        if ( (bool) ( cbRepertoire.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogRepertoire, _oldScoreList [ 0 ].RepertoireName, _scoreList [ 0 ].RepertoireName ); 
+        if ( ( bool ) ( cbRepertoire.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogRepertoire, _oldScoreList [ 0 ].RepertoireName, _scoreList [ 0 ].RepertoireName );
         }
         #endregion
 
         #region Log Archive Changes
-        if ( (bool) ( cbArchive.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogArchive, _oldScoreList [ 0 ].ArchiveName, _scoreList [ 0 ].ArchiveName ); 
+        if ( ( bool ) ( cbArchive.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogArchive, _oldScoreList [ 0 ].ArchiveName, _scoreList [ 0 ].ArchiveName );
         }
         #endregion
 
         #region Log Sing By Heart Changes
-        if ( (bool) ( cbByHeart.IsChecked ) )
+        if ( ( bool ) ( cbByHeart.IsChecked ) )
         {
             string oldValue = "", newValue = "";
 
-            if ( (bool) ( _oldScoreList [ 0 ].ByHeart == true ) )
+            if ( ( bool ) ( _oldScoreList [ 0 ].ByHeart == true ) )
             { oldValue = DBNames.LogYes; }
             else
             { oldValue = DBNames.LogNo; }
@@ -1657,81 +1656,82 @@ public partial class Scores : Page
         #endregion
 
         #region Log Title Changes
-        if ( ( bool ) ( cbTitle.IsChecked ) ) 
+        if ( ( bool ) ( cbTitle.IsChecked ) )
         {
             // Prevent the Title "<Nieuw>" (for new scores) to be written to the log
             string? _oldTitle = _oldScoreList [ 0 ].ScoreTitle;
-            if(_oldTitle == DBNames.LogNew) { _oldTitle = "" ; }
+            if ( _oldTitle == DBNames.LogNew )
+            { _oldTitle = ""; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTitle, _oldTitle, _scoreList [ 0 ].Title ); 
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTitle, _oldTitle, _scoreList [ 0 ].Title );
         }
         #endregion
 
         #region Log SubTitle Changes
-        if ( ( bool ) ( cbSubTitle.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogSubTitle, _oldScoreList [ 0 ].ScoreSubTitle, _scoreList [ 0 ].SubTitle ); 
+        if ( ( bool ) ( cbSubTitle.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogSubTitle, _oldScoreList [ 0 ].ScoreSubTitle, _scoreList [ 0 ].SubTitle );
         }
         #endregion
 
         #region Log Composer Changes
-        if ( ( bool ) ( cbComposer.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogComposer, _oldScoreList [ 0 ].Composer, _scoreList [ 0 ].Composer ); 
+        if ( ( bool ) ( cbComposer.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogComposer, _oldScoreList [ 0 ].Composer, _scoreList [ 0 ].Composer );
         }
         #endregion
 
         #region Log Textwriter Changes
-        if ( ( bool ) ( cbTextwriter.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTextwriter, _oldScoreList [ 0 ].Textwriter, _scoreList [ 0 ].Textwriter ); 
+        if ( ( bool ) ( cbTextwriter.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTextwriter, _oldScoreList [ 0 ].Textwriter, _scoreList [ 0 ].Textwriter );
         }
         #endregion
 
         #region Log Arranger Changes
-        if ( ( bool ) ( cbArranger.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogArranger, _oldScoreList [ 0 ].Arranger, _scoreList [ 0 ].Arranger ); 
+        if ( ( bool ) ( cbArranger.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogArranger, _oldScoreList [ 0 ].Arranger, _scoreList [ 0 ].Arranger );
         }
         #endregion
 
         #region Log Genre Changes
-        if ( ( bool ) ( cbGenre.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogGenre, _oldScoreList [ 0 ].GenreName, _scoreList [ 0 ].GenreName ); 
+        if ( ( bool ) ( cbGenre.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogGenre, _oldScoreList [ 0 ].GenreName, _scoreList [ 0 ].GenreName );
         }
         #endregion
 
         #region Log Language Changes
-        if ( ( bool ) ( cbLanguage.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLanguage, _oldScoreList [ 0 ].LanguageName, _scoreList [ 0 ].LanguageName ); 
+        if ( ( bool ) ( cbLanguage.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLanguage, _oldScoreList [ 0 ].LanguageName, _scoreList [ 0 ].LanguageName );
         }
         #endregion
 
         #region Log Music piece Changes
-        if ( ( bool ) ( cbMusicPiece.IsChecked ) ) 
-        { 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMusicPiece, _oldScoreList [ 0 ].MusicPiece, _scoreList [ 0 ].MusicPiece ); 
+        if ( ( bool ) ( cbMusicPiece.IsChecked ) )
+        {
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMusicPiece, _oldScoreList [ 0 ].MusicPiece, _scoreList [ 0 ].MusicPiece );
         }
         #endregion
 
         #region Log Date Digitized Changes
-        if ( ( bool ) ( cbDigitized.IsChecked ) ) 
+        if ( ( bool ) ( cbDigitized.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogDigitized, (_oldScoreList [ 0 ].DateDigitized.ToDateTime ( TimeOnly.Parse ( "00:00 AM" )).ToString()), _scoreList [ 0 ].DateDigitized );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogDigitized, ( _oldScoreList [ 0 ].DateDigitized.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString ( ) ), _scoreList [ 0 ].DateDigitized );
         }
         #endregion
 
         #region Log Date Modified Changes
-        if ( ( bool ) ( cbModified.IsChecked ) ) 
+        if ( ( bool ) ( cbModified.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogModified, ( _oldScoreList [ 0 ].DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString () ), _scoreList [ 0 ].DateModified );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogModified, ( _oldScoreList [ 0 ].DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString ( ) ), _scoreList [ 0 ].DateModified );
         }
         #endregion
 
         #region Log Checked digitized score Changes
-        if ( ( bool ) ( cbChecked.IsChecked ) ) 
+        if ( ( bool ) ( cbChecked.IsChecked ) )
         {
             string oldValue = "", newValue = "";
 
@@ -1750,7 +1750,7 @@ public partial class Scores : Page
         #endregion
 
         #region Log PDF ORP Changes
-        if ( ( bool ) ( cbPDFORP.IsChecked ) ) 
+        if ( ( bool ) ( cbPDFORP.IsChecked ) )
         {
             string oldValue = "", newValue = "";
 
@@ -1998,7 +1998,7 @@ public partial class Scores : Page
         #endregion
 
         #region Log MP3 TOT Changes
-        if ( ( bool ) ( cbMP3TOT.IsChecked ) ) 
+        if ( ( bool ) ( cbMP3TOT.IsChecked ) )
         {
             string oldValue = "", newValue = "";
 
@@ -2017,7 +2017,7 @@ public partial class Scores : Page
         #endregion
 
         #region Log MP3 PIA Changes
-        if ( ( bool ) ( cbMP3PIA.IsChecked ) ) 
+        if ( ( bool ) ( cbMP3PIA.IsChecked ) )
         {
             string oldValue = "", newValue = "";
 
@@ -2036,7 +2036,7 @@ public partial class Scores : Page
         #endregion
 
         #region Log MuseScore Online Changes
-        if ( ( bool ) ( cbOnline.IsChecked ) ) 
+        if ( ( bool ) ( cbOnline.IsChecked ) )
         {
             string oldValue = "", newValue = "";
 
@@ -2057,7 +2057,7 @@ public partial class Scores : Page
         #region Log Lyrics Changes
         if ( ( bool ) ( cbLyrics.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLyrics, "", "");
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLyrics, "", "" );
         }
         #endregion
 
@@ -2069,35 +2069,35 @@ public partial class Scores : Page
         #endregion
 
         #region Log Amount Publisher 1 Changes
-        if ( ( bool ) ( cbAmountPublisher1.IsChecked ) ) 
+        if ( ( bool ) ( cbAmountPublisher1.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher1.ToString(), _scoreList [ 0 ].AmountPublisher1.ToString() );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher1.ToString ( ), _scoreList [ 0 ].AmountPublisher1.ToString ( ) );
         }
         #endregion
 
         #region Log Amount Publisher 2 Changes
-        if ( ( bool ) ( cbAmountPublisher2.IsChecked ) ) 
+        if ( ( bool ) ( cbAmountPublisher2.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher2.ToString (), _scoreList [ 0 ].AmountPublisher2.ToString () );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher2.ToString ( ), _scoreList [ 0 ].AmountPublisher2.ToString ( ) );
         }
         #endregion
 
         #region Log Amount Publisher 3 Changes
-        if ( ( bool ) ( cbAmountPublisher3.IsChecked ) ) 
+        if ( ( bool ) ( cbAmountPublisher3.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher3.ToString (), _scoreList [ 0 ].AmountPublisher3.ToString () );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher3.ToString ( ), _scoreList [ 0 ].AmountPublisher3.ToString ( ) );
         }
         #endregion
 
         #region Log Amount Publisher 4 Changes
-        if ( ( bool ) ( cbAmountPublisher4.IsChecked ) ) 
+        if ( ( bool ) ( cbAmountPublisher4.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher4.ToString (), _scoreList [ 0 ].AmountPublisher4.ToString () );
+            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher4.ToString ( ), _scoreList [ 0 ].AmountPublisher4.ToString ( ) );
         }
         #endregion
 
         #region Log Publisher 1 Changes
-        if ( ( bool ) ( cbPublisher1.IsChecked ) ) 
+        if ( ( bool ) ( cbPublisher1.IsChecked ) )
         {
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher1Name, _scoreList [ 0 ].Publisher1Name );
         }
@@ -2105,28 +2105,28 @@ public partial class Scores : Page
         #endregion
 
         #region Log Publisher 2 Changes
-        if ( ( bool ) ( cbPublisher2.IsChecked ) ) 
+        if ( ( bool ) ( cbPublisher2.IsChecked ) )
         {
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher2Name, _scoreList [ 0 ].Publisher2Name );
         }
         #endregion
 
         #region Log Publisher 3 Changes
-        if ( ( bool ) ( cbPublisher3.IsChecked ) ) 
+        if ( ( bool ) ( cbPublisher3.IsChecked ) )
         {
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher3Name, _scoreList [ 0 ].Publisher3Name );
         }
         #endregion
 
         #region Log Publisher 4 Changes
-        if ( ( bool ) ( cbPublisher4.IsChecked ) ) 
+        if ( ( bool ) ( cbPublisher4.IsChecked ) )
         {
             DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher4Name, _scoreList [ 0 ].Publisher4Name );
         }
         #endregion
     }
 
-    public void ResetFields()
+    public void ResetFields ( )
     {
         tbAmountPublisher1.Text = "0";
         tbAmountPublisher2.Text = "0";
@@ -2171,10 +2171,10 @@ public partial class Scores : Page
         dpDigitized.SelectedDate = null;
         dpModified.SelectedDate = null;
 
-        ResetChanged ();
+        ResetChanged ( );
     }
 
-    public void ResetChanged ()
+    public void ResetChanged ( )
     {
         cbAccompaniment.IsChecked = false;
         cbRepertoire.IsChecked = false;
@@ -2227,7 +2227,7 @@ public partial class Scores : Page
     private void DeleteScore ( object sender, RoutedEventArgs e )
     {
         if ( SelectedScore != null )
-        {  
+        {
             MessageBoxResult messageBoxResult = MessageBox.Show ( $"Weet je zeker dat je {SelectedScore.Score} - {SelectedScore.ScoreTitle} wilt verwijderen?", $"Verwijder partituur {SelectedScore.ScoreNumber}", MessageBoxButton.YesNoCancel );
 
             switch ( messageBoxResult )
@@ -2263,22 +2263,22 @@ public partial class Scores : Page
                     break;
             }
         }
-        scores = new ScoreViewModel ();
+        scores = new ScoreViewModel ( );
         DataContext = scores;
     }
 
-    private void GetNotes ()
+    private void GetNotes ( )
     {
         var ContentNotes = string.Empty;
 
         // Clear the current textbox
-        memoNotes.Document.Blocks.Clear ();
+        memoNotes.Document.Blocks.Clear ( );
 
         if ( SelectedScore != null )
         {
             if ( SelectedScore.Notes != null && SelectedScore.Notes != "" )
             {
-                ContentNotes = SelectedScore.Notes.ToString ();
+                ContentNotes = SelectedScore.Notes.ToString ( );
 
                 //convert to byte[]
                 byte[] dataArr = Encoding.UTF8.GetBytes(ContentNotes);
@@ -2305,10 +2305,10 @@ public partial class Scores : Page
         {
             TextRange tr = new TextRange(fDoc.ContentStart, fDoc.ContentEnd);
 
-            using ( MemoryStream ms = new MemoryStream () )
+            using ( MemoryStream ms = new MemoryStream ( ) )
             {
                 tr.Save ( ms, DataFormats.Rtf );
-                result = System.Text.Encoding.UTF8.GetString ( ms.ToArray () );
+                result = System.Text.Encoding.UTF8.GetString ( ms.ToArray ( ) );
             }
         }
         return result;
@@ -2321,12 +2321,12 @@ public partial class Scores : Page
         if ( SelectedScore != null )
         {
             RenumberScore renumberScore = new RenumberScore(SelectedScore, SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber);
-            renumberScore.Show ();
+            renumberScore.Show ( );
 
             renumberScore.Closed += delegate
             {
                 //  The user has closed the dialog.
-                scores = new ScoreViewModel ();
+                scores = new ScoreViewModel ( );
                 DataContext = scores;
             };
         }
@@ -2337,18 +2337,18 @@ public partial class Scores : Page
         if ( SelectedScore != null )
         {
             NewScore newScore = new(SelectedScore, SelectedScore.ScoreNumber);
-            newScore.Show ();
+            newScore.Show ( );
 
             newScore.Closed += delegate
             {
                 //  The user has closed the dialog.
-                scores = new ScoreViewModel ();
+                scores = new ScoreViewModel ( );
                 DataContext = scores;
 
                 // Select the Newly created Score
-                for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+                for ( int i = 0 ; i < ScoresDataGrid.Items.Count ; i++ )
                 {
-                    if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
+                    if ( ( ( ScoreModel ) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
                     {
                         ScoresDataGrid.SelectedIndex = i;
                         ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
@@ -2410,13 +2410,13 @@ public partial class Scores : Page
 
             DBCommands.AddNewScoreAsSubscore ( selectedScore );
 
-            scores = new ScoreViewModel ();
+            scores = new ScoreViewModel ( );
             DataContext = scores;
 
             // Select the Newly created Score
-            for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+            for ( int i = 0 ; i < ScoresDataGrid.Items.Count ; i++ )
             {
-                if ( ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == _selectedScore && ( (ScoreModel) ( ScoresDataGrid.Items [ i ] ) ).ScoreSubNumber == SubScore )
+                if ( ( ( ScoreModel ) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == _selectedScore && ( ( ScoreModel ) ( ScoresDataGrid.Items [ i ] ) ).ScoreSubNumber == SubScore )
                 {
                     ScoresDataGrid.SelectedIndex = i;
                     ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
@@ -2429,29 +2429,57 @@ public partial class Scores : Page
         }
     }
 
+    private void btnClearSearch_Click ( object sender, RoutedEventArgs e )
+    {
+        tbSearch.Text = "";
+        ScoresDataGrid.ItemsSource = scores.Scores;
+    }
+
+    private void tbSearch_TextChanged ( object sender, TextChangedEventArgs e )
+    {
+        var search = sender as TextBox;
+
+        if ( search.Text.Length > 1 )
+        {
+            if ( !string.IsNullOrEmpty ( search.Text ) )
+            {
+                var filteredList = scores.Scores.Where(x=> x.SearchField.ToLower().Contains(tbSearch.Text.ToLower()));
+                ScoresDataGrid.ItemsSource = filteredList;
+            }
+            else
+            {
+                ScoresDataGrid.ItemsSource = scores.Scores;
+            }
+        }
+    }
+
     #region Create Cover Sheet
-    private void CreateCoverSheet(object sender, RoutedEventArgs e)
+    private void CreateCoverSheet ( object sender, RoutedEventArgs e )
     {
         var _outputFolder = @ScoreUsers.SelectedUserCoverSheetFolder + "\\";
         var _templatename="Resources\\Template\\";
         int LyricsFontSize = 12, LineCount = 36;
 
-        if ( tbLyrics.LineCount <= 0 ) { _templatename += "CoverSheet0.docx"; }
-        if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 ) { _templatename += "CoverSheet1.docx"; }
-        if ( tbLyrics.LineCount > 38 && tbLyrics.LineCount <= 72 ) { _templatename += "CoverSheet2.docx"; }
-        if ( tbLyrics.LineCount > 72 ) { _templatename += "CoverSheet2.docx"; LyricsFontSize = 9; LineCount = 49; }
+        if ( tbLyrics.LineCount <= 0 )
+        { _templatename += "CoverSheet0.docx"; }
+        if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 )
+        { _templatename += "CoverSheet1.docx"; }
+        if ( tbLyrics.LineCount > 38 && tbLyrics.LineCount <= 72 )
+        { _templatename += "CoverSheet2.docx"; }
+        if ( tbLyrics.LineCount > 72 )
+        { _templatename += "CoverSheet2.docx"; LyricsFontSize = 9; LineCount = 49; }
 
         var AccompanimentName = "Piano";
         string ScoreNumber = "", B1 = "¨", B2 = "¨", T1 = "¨", T2 = "¨", Solo = "¨", Accompaniment = "¨";
         var ScoreNumberFontSize = 80;
 
         // Use ScoreNumber or ScoreNumber-SubScorenumber
-        if (SelectedScore.ScoreSubNumber == "" )
-        { 
-            ScoreNumber = $"{SelectedScore.ScoreNumber}"; 
-        } 
+        if ( SelectedScore.ScoreSubNumber == "" )
+        {
+            ScoreNumber = $"{SelectedScore.ScoreNumber}";
+        }
         else
-        { 
+        {
             ScoreNumber = $"{SelectedScore.ScoreNumber}-{SelectedScore.ScoreSubNumber}";
             ScoreNumberFontSize = 52;
         }
@@ -2461,10 +2489,10 @@ public partial class Scores : Page
 
 
         // Set the check boxes
-        if (SelectedScore.MP3B1) 
-        { 
-            B1 = "þ"; 
-        } 
+        if ( SelectedScore.MP3B1 )
+        {
+            B1 = "þ";
+        }
 
         if ( SelectedScore.MP3B2 )
         {
@@ -2500,21 +2528,21 @@ public partial class Scores : Page
         // Set the font size of the ScoreNumber
         Syncfusion.DocIO.DLS.TextSelection[] selectedScoreNumber = document.FindAll("<<Nr>>", true, true);
 
-        for ( int i = 0; i < selectedScoreNumber.Length; i++ )
+        for ( int i = 0 ; i < selectedScoreNumber.Length ; i++ )
         {
-            selectedScoreNumber [i].GetAsOneRange ().CharacterFormat.FontSize = ScoreNumberFontSize;
+            selectedScoreNumber [ i ].GetAsOneRange ( ).CharacterFormat.FontSize = ScoreNumberFontSize;
         }
 
         // If the number of lines are bigger then 72, font size should be smaller to be sure all lines will fit
-        if ( tbLyrics.LineCount > 72)
+        if ( tbLyrics.LineCount > 72 )
         {
             Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics1 = document.FindAll("<<Lyrics1>>", true, true);
             Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics2 = document.FindAll("<<Lyrics2>>", true, true);
 
-            for ( int i = 0; i < selectedLyrics1.Length; i++ )
+            for ( int i = 0 ; i < selectedLyrics1.Length ; i++ )
             {
-                selectedLyrics1 [ i ].GetAsOneRange ().CharacterFormat.FontSize = LyricsFontSize;
-                selectedLyrics2 [ i ].GetAsOneRange ().CharacterFormat.FontSize = LyricsFontSize;
+                selectedLyrics1 [ i ].GetAsOneRange ( ).CharacterFormat.FontSize = LyricsFontSize;
+                selectedLyrics2 [ i ].GetAsOneRange ( ).CharacterFormat.FontSize = LyricsFontSize;
             }
         }
 
@@ -2535,9 +2563,9 @@ public partial class Scores : Page
         document.Replace ( "<<SOL>>", Solo, true, true );
         document.Replace ( "<<PIA>>", Accompaniment, true, true );
 
-        if (tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36)
-        { 
-            document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true ); 
+        if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 )
+        {
+            document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true );
         }
 
         if ( tbLyrics.LineCount > 36 )
@@ -2545,13 +2573,13 @@ public partial class Scores : Page
             var _lyrics1 = "";
             var _lyrics2 = "";
 
-            for ( int i = 0; i < LineCount; i++ )
+            for ( int i = 0 ; i < LineCount ; i++ )
             {
-                if ( i == 0 || i == LineCount)
-                { 
-                    if (tbLyrics.GetLineText (i) != "\r\n" )
-                    { 
-                        _lyrics1 += tbLyrics.GetLineText ( i ); 
+                if ( i == 0 || i == LineCount )
+                {
+                    if ( tbLyrics.GetLineText ( i ) != "\r\n" )
+                    {
+                        _lyrics1 += tbLyrics.GetLineText ( i );
                     }
                 }
                 else
@@ -2560,7 +2588,7 @@ public partial class Scores : Page
                 }
             }
 
-            for ( int i = LineCount; i < tbLyrics.LineCount; i++ )
+            for ( int i = LineCount ; i < tbLyrics.LineCount ; i++ )
             {
                 if ( i == LineCount || i == tbLyrics.LineCount )
                 {
@@ -2580,7 +2608,7 @@ public partial class Scores : Page
         }
 
         //Saves the Word document
-        document.Save(_docname);
+        document.Save ( _docname );
 
         DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
     }
