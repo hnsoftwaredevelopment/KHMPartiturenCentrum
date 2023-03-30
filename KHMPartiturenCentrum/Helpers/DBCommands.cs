@@ -256,6 +256,14 @@ public class DBCommands
                     dateModified = _tempModified [ 0 ];
                 }
 
+                var _duration="";
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) != 0 )
+                {
+                    var _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) / 60;
+                    var _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) % 60;
+                    _duration = $"{_minutes}:{_seconds.ToString ( "00" )}";
+                }
+
                 // When Title is empty don't add that row to the list
                 if ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( ) != string.Empty )
                 {
@@ -334,7 +342,7 @@ public class DBCommands
                         Publisher3Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString ( ),
                         Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString ( ) ),
                         Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ( ),
-                        Duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ),
+                        Duration = _duration,
                         SearchField = $"{dataTable.Rows [ i ].ItemArray [ 2 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 5 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 6 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 7 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 8 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 12 ].ToString ( )}"
                     } );
                     ;

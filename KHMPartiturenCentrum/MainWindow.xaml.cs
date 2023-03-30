@@ -243,7 +243,7 @@ public partial class MainWindow : Window
     {
         if ( Tg_Btn.IsChecked == false )
         {
-            Popup.PlacementTarget = btnScores;
+            Popup.PlacementTarget = btnArchiveList;
             Popup.Placement = PlacementMode.Right;
             Popup.IsOpen = true;
             Header.PopupText.Text = "Partituren overzicht per archief";

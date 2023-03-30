@@ -7,16 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:KHMPartiturenCentrum.ViewModels"
     Title="ArchiveList"
-    d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"
     d:DesignHeight="750"
     d:DesignWidth="1600"
     DataContext="viewmodel:ScoreViewModel"
     mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"  -->
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="10" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -38,6 +38,7 @@
                     Margin="5,0,5,0"
                     Source="..\Resources\Images\logo.png" />
                 <Label
+                    Name="lblListTitle"
                     Margin="0,3"
                     HorizontalAlignment="Center"
                     Content="Partituren per archief"
@@ -49,31 +50,104 @@
         <!--#endregion-->
 
         <!--#region Action Buttons-->
-        <Grid
-            Grid.Row="1"
-            Margin="25,0,25,0">
+        <Grid Grid.Row="1" Margin="25,0,25,0">
 
             <!--#region Button section-->
             <StackPanel
                 Grid.Column="1"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 Orientation="Horizontal">
 
-                <!--#region Personal archive -->
-                <RadioButton Style="{DynamicResource DefaultRadioButtonStyle}" Foreground="Beige" FontSize="14" x:Name="rbPersonalArchive" Content="Huisarchief" ToolTip="Welke partituren hebben de koorleden thuis (inclusief standaard repertoire)" />
-                <!--#endregion-->
-                
-                <!--#region Default repertoire -->
-                <RadioButton Style="{DynamicResource DefaultRadioButtonStyle}" Foreground="Beige" FontSize="14" x:Name="rbDefaultRepertoure" Content="Standaard repertoire" ToolTip="Partituren die blijvend (meesten UHH) gekend moeten zijn" Margin="20,0,0,0"/>
-                <!--#endregion-->
+                <!--#region Personal archive-->
+                <Border
+                    Grid.Row="2"
+                    Margin="0,0,10,0"
+                    Padding="7"
+                    BorderBrush="Beige"
+                    BorderThickness=".5"
+                    CornerRadius="5">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="Beige"
+                            Text="Huisarchief:" />
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton
+                                x:Name="rbPersonalArchive"
+                                Margin="0"
+                                Checked="rbChecked"
+                                Content="Alles"
+                                Foreground="Beige"
+                                GroupName="rbGroup"
+                                Style="{DynamicResource ArchiveList.RadioButtonStyle}"
+                                ToolTip="Welke partituren hebben de koorleden thuis (inclusief standaard repertoire)" />
+                            <!--#endregion-->
 
-                <!--#region Choire archive -->
-                <RadioButton Style="{DynamicResource DefaultRadioButtonStyle}" Foreground="Beige" FontSize="14" x:Name="rbChoirArchive" Content="Koor archief" ToolTip="Alle aanwezige partituren (dus inclusief huisarchief)" Margin="20,0,0,0"/>
-                <!--#endregion-->
+                            <!--#region Default repertoire-->
+                            <RadioButton
+                                x:Name="rbDefaultRepertoire"
+                                Checked="rbChecked"
+                                Content="Standaard repertoire"
+                                GroupName="rbGroup"
+                                Style="{DynamicResource ArchiveList.RadioButtonStyle}"
+                                ToolTip="Partituren die blijvend (meesten UHH) gekend moeten zijn" />
+                            <!--#endregion-->
 
-                <!--#region Choire archive without personal archive -->
-                <RadioButton Style="{DynamicResource DefaultRadioButtonStyle}" Foreground="Beige" FontSize="14" x:Name="rbExclusiveChoirArchive" Content="Uitsluitend koorarchief" ToolTip="Koorarchief zonder de partituren uit het huisarchief" Margin="20,0,0,0"/>
-                <!--#endregion-->
+                            <!--#region Personal Christmas archive-->
+                            <RadioButton
+                                x:Name="rbPersonalChristmasArchive"
+                                Checked="rbChecked"
+                                Content="Kerst repertoire"
+                                GroupName="rbGroup"
+                                Style="{DynamicResource ArchiveList.RadioButtonStyle}"
+                                ToolTip="Kerstnummers in het huisarchief)" />
+                            <!--#endregion-->
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border
+                    Grid.Row="2"
+                    Padding="7"
+                    BorderBrush="Beige"
+                    BorderThickness=".5"
+                    CornerRadius="5">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="Beige"
+                            Text="Koorarchief:" />
+                        <StackPanel Orientation="Horizontal">
+                            <!--#region Choire archive-->
+                            <RadioButton
+                                x:Name="rbChoirArchive"
+                                Checked="rbChecked"
+                                Content="Alles"
+                                GroupName="rbGroup"
+                                Style="{DynamicResource ArchiveList.RadioButtonStyle}"
+                                ToolTip="Alle aanwezige partituren (dus inclusief huisarchief)" />
+                            <!--#endregion-->
+
+                            <!--#region Choire Christmas archive-->
+                            <RadioButton
+                                x:Name="rbChoirChristmasArchive"
+                                Checked="rbChecked"
+                                Content="Kerst archief"
+                                GroupName="rbGroup"
+                                Style="{DynamicResource ArchiveList.RadioButtonStyle}"
+                                ToolTip="Alle aanwezige Kerstnummers (dus inclusief huisarchief)" />
+                            <!--#endregion-->
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Button Content="PDF" ToolTip="Genereer een PDF bestand van de geselecteerde lijst" Click="GeneratePDFButton_Click"/>
             </StackPanel>
             <!--#endregion-->
         </Grid>
@@ -81,129 +155,142 @@
 
         <!--#region Datagrid Scores-->
         <DataGrid
-                x:Name="ScoresDataGrid"
-                Grid.Row="3"
-                Margin="0,7,0,2"
-                Padding="5,0,5,0"
-                AlternationCount="1"
-                AutoGenerateColumns="false"
-                IsReadOnly="true"
-                ItemsSource="{Binding Scores, Mode=TwoWay}"
-                Style="{DynamicResource CustomDataGrid}">
+            x:Name="ScoresDataGrid"
+            Grid.Row="3"
+            Margin="10,7,10,20"
+            Padding="5,0,5,0"
+            AlternationCount="1"
+            AutoGenerateColumns="false"
+            IsReadOnly="true"
+            ItemsSource="{Binding Scores, Mode=TwoWay}"
+            Style="{DynamicResource CustomDataGrid}">
 
             <DataGrid.Columns>
                 <!--#region Column definitions-->
                 <!--#region Id (Hidden)-->
                 <DataGridTextColumn
-                        x:Name="id"
-                        Width="Auto"
-                        Binding="{Binding ScoreId}"
-                        Visibility="Collapsed" />
+                    x:Name="id"
+                    Width="Auto"
+                    Binding="{Binding ScoreId}"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region  Score Number-->
                 <DataGridTextColumn
-                        x:Name="Score"
-                        Width="100"
-                        Binding="{Binding Score}"
-                        Header="Partituur" />
+                    x:Name="Score"
+                    Width="Auto"
+                    Binding="{Binding Score}"
+                    Header="Nr" />
                 <!--#endregion-->
 
                 <!--#region  Title-->
                 <DataGridTextColumn
-                        x:Name="ScoreName"
-                        Width="*"
-                        Binding="{Binding ScoreTitle}"
-                        Header="Titel" />
+                    x:Name="ScoreName"
+                    Width=".5*"
+                    Binding="{Binding ScoreTitle}"
+                    Header="Titel" />
                 <!--#endregion-->
 
-                <!--#region SubTitle -->
+                <!--#region SubTitle-->
                 <DataGridTextColumn
-                        x:Name="ScoreSubTitle"
-                        Width=".5*"
-                        Binding="{Binding ScoreSubTitle}" Header="Ondertitel"/>
+                    x:Name="ScoreSubTitle"
+                    Width=".5*"
+                    Binding="{Binding ScoreSubTitle}"
+                    Header="Ondertitel" Visibility="Collapsed"/>
                 <!--#endregion-->
 
-                <!--#region Composer -->
+                <!--#region Composer-->
                 <DataGridTextColumn
-                        x:Name="Composer"
-                        Width="150"
-                        Binding="{Binding Composer}" Header="Componist"/>
+                    x:Name="Composer"
+                    Width=".25*"
+                    Binding="{Binding Composer}"
+                    Header="Componist" />
                 <!--#endregion-->
 
                 <!--#region TextWriter-->
                 <DataGridTextColumn
-                        x:Name="TextWriter"
-                        Width="150"
-                        Binding="{Binding Textwriter}" Header="Tekstschrijver"/>
+                    x:Name="TextWriter"
+                    Width="150"
+                    Binding="{Binding Textwriter}"
+                    Header="Tekstschrijver" 
+                    Visibility="Collapsed"/>
                 <!--#endregion-->
 
                 <!--#region Arranger-->
                 <DataGridTextColumn
-                        x:Name="Arranger"
-                        Width="150"
-                        Binding="{Binding Arranger}" Header="Arrangement" Visibility="Collapsed"/>
+                    x:Name="Arranger"
+                    Width="150"
+                    Binding="{Binding Arranger}"
+                    Header="Arrangement"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region RepertoireName (Hidden)-->
                 <DataGridTextColumn
-                        x:Name="RepertoireName"
-                        Width="150"
-                        Binding="{Binding RepertoireName}" Header="Repertoire"
-                        Visibility="Collapsed" />
+                    x:Name="RepertoireName"
+                    Width=".06*"
+                    Binding="{Binding RepertoireName}"
+                    Header="Repertoire"
+                    Visibility="Visible" />
                 <!--#endregion-->
 
                 <!--#region ArchiveId (Hidden)-->
                 <DataGridTextColumn
-                        x:Name="ArchiveId"
-                        Width="Auto"
-                        Binding="{Binding ArchiveId}"
-                        Visibility="Collapsed" />
+                    x:Name="ArchiveId"
+                    Width="Auto"
+                    Binding="{Binding ArchiveId}"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region ArchiveName-->
                 <DataGridTextColumn
-                        x:Name="ArchiveName"
-                        Width="150"
-                        Binding="{Binding ArchiveName}" Header="Archief"/>
+                    x:Name="ArchiveName"
+                    Width="0.06*"
+                    Binding="{Binding ArchiveName}"
+                    Header="Archief" />
                 <!--#endregion-->
 
                 <!--#region GenreName (Hidden)-->
                 <DataGridTextColumn
-                        x:Name="GenreName"
-                        Width="150"
-                        Binding="{Binding GenreName}" Header="Genre"
-                        Visibility="Collapsed" />
+                    x:Name="GenreName"
+                    Width=".06*"
+                    Binding="{Binding GenreName}"
+                    Header="Genre"
+                    Visibility="Visible" />
                 <!--#endregion-->
 
                 <!--#region AccompanimentName (Hidden)-->
                 <DataGridTextColumn
-                        x:Name="AccompanimentName"
-                        Width="150"
-                        Binding="{Binding AccompanimentName}" Header="Begeleiding"
-                        Visibility="Collapsed" />
+                    x:Name="AccompanimentName"
+                    Width="150"
+                    Binding="{Binding AccompanimentName}"
+                    Header="Begeleiding"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region LanguageName-->
                 <DataGridTextColumn
-                        x:Name="LanguageName"
-                        Width="150"
-                        Binding="{Binding LanguageName}" Header="Taal"/>
+                    x:Name="LanguageName"
+                    Width=".06*"
+                    Binding="{Binding LanguageName}"
+                    Header="Taal" />
                 <!--#endregion-->
 
                 <!--#region Sing By Heart (Hidden)-->
                 <DataGridCheckBoxColumn
-                        x:Name="BYHEART"
-                        Width="Auto"
-                        Binding="{Binding ByHeart}" Header="UHH"
-                        Visibility="Collapsed" />
+                    x:Name="BYHEART"
+                    Width="Auto"
+                    Binding="{Binding ByHeart}"
+                    Header="UHH"
+                    Visibility="Visible" />
                 <!--#endregion-->
 
                 <!--#region Duration-->
                 <DataGridTextColumn
-                        x:Name="Duration"
-                        Width="80"
-                        Binding="{Binding Duration}" Header="Duur"/>
+                    x:Name="Duration"
+                    Width="80"
+                    Binding="{Binding Duration}"
+                    Header="Duur" />
                 <!--#endregion-->
             </DataGrid.Columns>
             <!--#endregion-->

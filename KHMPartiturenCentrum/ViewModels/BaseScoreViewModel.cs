@@ -247,8 +247,6 @@ public partial class BaseScoreViewModel : ObservableObject
     [ObservableProperty]
     public object selectedItem ="";
 
-    public ScoreModel? SelectedScoreModel { get; set; }
-
     public ObservableCollection<ScoreModel> Scores { get; set; }
     public ObservableCollection<ScoreModel> AvailableScores { get; set; }
 }

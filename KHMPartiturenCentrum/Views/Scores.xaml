@@ -12,7 +12,6 @@
     DataContext="viewmodel:ScoreViewModel"
     mc:Ignorable="d">
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -263,7 +262,6 @@
                         </Button>
                     </StackPanel>
                 </Border>
-                <Image Source="file:///C:/Users/herbert.nijkamp/OneDrive%20-%20Wolters%20Kluwer/Downloads/200.webp"/>
                 <DataGrid
                     x:Name="ScoresDataGrid"
                     Grid.Column="0"

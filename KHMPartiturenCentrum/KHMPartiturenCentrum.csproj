@@ -32,9 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview2" />
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
-    <PackageReference Include="Syncfusion.DocIO.Wpf" Version="20.4.0.54" />
+    <PackageReference Include="Syncfusion.DocIO.Wpf" Version="21.1.37" />
+    <PackageReference Include="Syncfusion.Pdf.NET" Version="21.1.37" />
   </ItemGroup>
 
   <ItemGroup>

@@ -57,14 +57,17 @@
         </Setter>
     </Style>
     <!--#endregion-->
-    
+   
     <!--#region Radiobuttons-->
-    <Style x:Key="DefaultRadioButtonStyle" TargetType="{x:Type RadioButton}">
+    <Style x:Key="ArchiveList.RadioButtonStyle" TargetType="{x:Type RadioButton}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
         <Setter Property="Foreground" Value="{DynamicResource RadioButton.Static.Foreground}"/>
         <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
