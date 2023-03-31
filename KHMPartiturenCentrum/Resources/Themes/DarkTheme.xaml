@@ -34,9 +34,46 @@
     <SolidColorBrush x:Key="DataGrid.Grid.HorizontalLineBrush" Color="Silver" />
     <SolidColorBrush x:Key="DataGrid.Row.NotSelected.Text" Color="{DynamicResource DataGrid.Row.NotSelected.ForegroundColor}" />
     <SolidColorBrush x:Key="DataGrid.Row.NotSelected.Stroke" Color="{DynamicResource DataGrid.Row.NotSelected.ForegroundColor}" />
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="OptionMarkFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="14,0,0,0" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <SolidColorBrush x:Key="DataGrid.Row.Selected.Text" Color="{DynamicResource DataGrid.Row.Selected.ForegroundColor}" />
     <SolidColorBrush x:Key="DataGrid.Row.Selected.Stroke" Color="{DynamicResource DataGrid.Row.Selected.ForegroundColor}" />
     <SolidColorBrush x:Key="DataGrid.Row.Selected.Background" Color="{DynamicResource DataGrid.Row.Selected.BackgroundColor}" />
+
+
+    <!-- Radio button colors-->
+    <SolidColorBrush x:Key="RadioButton.Static.Foreground" Color="Beige"/>
+    <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070"/>
+    <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFF3F9FF"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF5593FF"/>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FFD9ECFF"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF3C77DD"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070"/>
+    <!--#endregion-->
+
 
     <!--  Settings Colors  -->
     <Color x:Key="Settings.Textbox.BackgroundColor.Base">#FFEBEBEB</Color>
@@ -70,7 +107,7 @@
     <SolidColorBrush x:Key="Navigation.Button.Disabled.Background" Color="#FFF4F4F4" />
     <SolidColorBrush x:Key="Navigation.Button.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Navigation.Button.Disabled.Foreground" Color="#FF838383" />
-
+    
     <!--#region ComboBox Colors-->
     <SolidColorBrush x:Key="ComboBox.TextBox.Background" Color="{DynamicResource Details.BackgroundColor.Base}" />
     <SolidColorBrush x:Key="ComboBox.TextBox.Foreground" Color="White" />
@@ -183,8 +220,14 @@
     <SolidColorBrush x:Key="Button.Navigate.MouseOver.Border" Color="#1690E9" />
     <SolidColorBrush x:Key="Button.Navigate.Pressed.Background" Color="#4C548E" />
     <SolidColorBrush x:Key="Button.Navigate.Pressed.Border" Color="#4C548E" />
-    <SolidColorBrush x:Key="TabItem.Icon.BorderBrush" Color="#4C548E" />
-    <SolidColorBrush x:Key="TabItem.Icon.FillBrush" Color="#4C548E" />
+    <SolidColorBrush x:Key="TabItem.Icon.BorderBrush" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="TabItem.Icon.FillBrush" Color="#FFADB2B5" />
+
+    <SolidColorBrush x:Key="SearchField.Border.BorderBrush" Color="#28349B" />
+    <SolidColorBrush x:Key="SearchField.Icon.Search.BorderBrush" Color="#4C548E" />
+    <SolidColorBrush x:Key="SearchField.Icon.Search.FillBrush" Color="#4C548E" />
+    <SolidColorBrush x:Key="SearchField.Icon.Cancel.BorderBrush" Color="#4C548E" />
+    <SolidColorBrush x:Key="SearchField.Icon.Cancel.FillBrush" Color="#4C548E" />
 
 
     <SolidColorBrush x:Key="Settings.Button.Text.Foreground" Color="#FF1C2EC6" />

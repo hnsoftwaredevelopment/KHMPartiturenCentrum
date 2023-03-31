@@ -1,31 +1,10 @@
 ﻿global using Syncfusion.DocIO.DLS;
-global using System.ComponentModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
-using KHMPartiturenCentrum.Views;
-using System.Configuration;
-using KHMPartiturenCentrum.ViewModels;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static KHMPartiturenCentrum.App;
-using System.Collections.ObjectModel;
-using KHMPartiturenCentrum.Models;
 using KHMPartiturenCentrum.Helpers;
-using Microsoft.VisualBasic.ApplicationServices;
+using static KHMPartiturenCentrum.App;
 
 namespace KHMPartiturenCentrum;
 /// <summary>
@@ -33,15 +12,15 @@ namespace KHMPartiturenCentrum;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
-    {      
-        InitializeComponent ();
+    public MainWindow ( )
+    {
+        InitializeComponent ( );
         tbUserName.Text = ScoreUsers.SelectedUserFullName;
         tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
         tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
 
         // Set the value to control weather or not an administrator has logged in
-        if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 15)
+        if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 15 )
         {
             tbShowAdmin.Text = "Visible";
         }
@@ -53,17 +32,17 @@ public partial class MainWindow : Window
 
     #region Button Close | Restore | Minimize 
     #region Button Close
-    private void btnClose_Click(object sender, RoutedEventArgs e)
+    private void btnClose_Click ( object sender, RoutedEventArgs e )
     {
         DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogUserLoggedOut, $"{tbLogedInFullName.Text} heeft de applicatie afgesloten" );
-        Close ();
+        Close ( );
     }
     #endregion
 
     #region Button Restore
-    private void btnRestore_Click(object sender, RoutedEventArgs e)
+    private void btnRestore_Click ( object sender, RoutedEventArgs e )
     {
-        if (WindowState == WindowState.Normal)
+        if ( WindowState == WindowState.Normal )
             WindowState = WindowState.Maximized;
         else
             WindowState = WindowState.Normal;
@@ -71,7 +50,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region Button Minimize
-    private void btnMinimize_Click(object sender, RoutedEventArgs e)
+    private void btnMinimize_Click ( object sender, RoutedEventArgs e )
     {
         WindowState = WindowState.Minimized;
     }
@@ -79,11 +58,11 @@ public partial class MainWindow : Window
     #endregion
 
     #region Drag Window
-    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+    private void Window_MouseDown ( object sender, MouseButtonEventArgs e )
     {
-        if (e.LeftButton == MouseButtonState.Pressed)
+        if ( e.LeftButton == MouseButtonState.Pressed )
         {
-            DragMove();
+            DragMove ( );
         }
     }
     #endregion
@@ -91,16 +70,16 @@ public partial class MainWindow : Window
     #region MenuLeft PopupButton
     #region Score Menu
     #region On Click
-    private void btnScores_Click(object sender, RoutedEventArgs e)
+    private void btnScores_Click ( object sender, RoutedEventArgs e )
     {
-        fContainer.Navigate(new System.Uri("Views/Scores.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate ( new System.Uri ( "Views/Scores.xaml", UriKind.RelativeOrAbsolute ) );
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnScores_MouseEnter(object sender, MouseEventArgs e)
+    private void btnScores_MouseEnter ( object sender, MouseEventArgs e )
     {
-        if (Tg_Btn.IsChecked == false)
+        if ( Tg_Btn.IsChecked == false )
         {
             Popup.PlacementTarget = btnScores;
             Popup.Placement = PlacementMode.Right;
@@ -111,7 +90,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region On Mouse Leave
-    private void btnScores_MouseLeave(object sender, MouseEventArgs e)
+    private void btnScores_MouseLeave ( object sender, MouseEventArgs e )
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
@@ -121,16 +100,16 @@ public partial class MainWindow : Window
 
     #region Available scores Menu
     #region On Click
-    private void btnAvailableScores_Click(object sender, RoutedEventArgs e)
+    private void btnAvailableScores_Click ( object sender, RoutedEventArgs e )
     {
-        fContainer.Navigate(new System.Uri("Views/AvailableScores.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate ( new System.Uri ( "Views/AvailableScores.xaml", UriKind.RelativeOrAbsolute ) );
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnAvailableScores_MouseEnter(object sender, MouseEventArgs e)
+    private void btnAvailableScores_MouseEnter ( object sender, MouseEventArgs e )
     {
-        if (Tg_Btn.IsChecked == false)
+        if ( Tg_Btn.IsChecked == false )
         {
             Popup.PlacementTarget = btnFreeNumbers;
             Popup.Placement = PlacementMode.Right;
@@ -141,7 +120,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region On Mouse Leave
-    private void btnAvailableScores_MouseLeave(object sender, MouseEventArgs e)
+    private void btnAvailableScores_MouseLeave ( object sender, MouseEventArgs e )
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
@@ -151,16 +130,16 @@ public partial class MainWindow : Window
 
     #region Users Profile Menu
     #region On Click
-    private void btnUserProfile_Click ( object sender, RoutedEventArgs e)
+    private void btnUserProfile_Click ( object sender, RoutedEventArgs e )
     {
-        fContainer.Navigate(new System.Uri("Views/UserProfile.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate ( new System.Uri ( "Views/UserProfile.xaml", UriKind.RelativeOrAbsolute ) );
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnUserProfile_MouseEnter ( object sender, MouseEventArgs e)
+    private void btnUserProfile_MouseEnter ( object sender, MouseEventArgs e )
     {
-        if (Tg_Btn.IsChecked == false)
+        if ( Tg_Btn.IsChecked == false )
         {
             Popup.PlacementTarget = btnUserProfile;
             Popup.Placement = PlacementMode.Right;
@@ -171,7 +150,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region On Mouse Leave
-    private void btnUserProfile_MouseLeave ( object sender, MouseEventArgs e)
+    private void btnUserProfile_MouseLeave ( object sender, MouseEventArgs e )
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
@@ -181,16 +160,16 @@ public partial class MainWindow : Window
 
     #region Users Management
     #region On Click
-    private void btnUsersManagement_Click(object sender, RoutedEventArgs e)
+    private void btnUsersManagement_Click ( object sender, RoutedEventArgs e )
     {
-        fContainer.Navigate(new System.Uri("Views/UserManagement.xaml", UriKind.RelativeOrAbsolute));
+        fContainer.Navigate ( new System.Uri ( "Views/UserManagement.xaml", UriKind.RelativeOrAbsolute ) );
     }
     #endregion
 
     #region On Mouse Enter
-    private void btnUsersManagement_MouseEnter ( object sender, MouseEventArgs e)
+    private void btnUsersManagement_MouseEnter ( object sender, MouseEventArgs e )
     {
-        if (Tg_Btn.IsChecked == false)
+        if ( Tg_Btn.IsChecked == false )
         {
             Popup.PlacementTarget = btnUsersManagement;
             Popup.Placement = PlacementMode.Right;
@@ -201,7 +180,7 @@ public partial class MainWindow : Window
     #endregion
 
     #region On Mouse Leave
-    private void btnUsersManagement_MouseLeave ( object sender, MouseEventArgs e)
+    private void btnUsersManagement_MouseLeave ( object sender, MouseEventArgs e )
     {
         Popup.Visibility = Visibility.Collapsed;
         Popup.IsOpen = false;
@@ -242,13 +221,43 @@ public partial class MainWindow : Window
 
     #region Reload MainPage (After UserFullName update)
     // Make reload of the MainWindow possible from the age where the UserName can be changed, so it will be updated in the MainWindow after save
-    public static void ReloadMainWindow ()
+    public static void ReloadMainWindow ( )
     {
         MainWindow newMainWindow = new MainWindow();
-        newMainWindow.Show ();
-        Application.Current.MainWindow.Close ();
+        newMainWindow.Show ( );
+        Application.Current.MainWindow.Close ( );
         Application.Current.MainWindow = newMainWindow;
     }
+    #endregion
+
+    #region Archive List Menu
+    #region On Click
+    private void btnArchiveList_Click ( object sender, RoutedEventArgs e )
+    {
+        fContainer.Navigate ( new System.Uri ( "Views/ArchiveList.xaml", UriKind.RelativeOrAbsolute ) );
+    }
+    #endregion
+
+    #region On Mouse Enter
+    private void btnArchiveList_MouseEnter ( object sender, MouseEventArgs e )
+    {
+        if ( Tg_Btn.IsChecked == false )
+        {
+            Popup.PlacementTarget = btnArchiveList;
+            Popup.Placement = PlacementMode.Right;
+            Popup.IsOpen = true;
+            Header.PopupText.Text = "Partituren overzicht per archief";
+        }
+    }
+    #endregion
+
+    #region On Mouse Leave
+    private void btnArchiveList_MouseLeave ( object sender, MouseEventArgs e )
+    {
+        Popup.Visibility = Visibility.Collapsed;
+        Popup.IsOpen = false;
+    }
+    #endregion
     #endregion
 }
 

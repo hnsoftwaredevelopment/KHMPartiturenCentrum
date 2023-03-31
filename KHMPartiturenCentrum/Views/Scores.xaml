@@ -211,485 +211,531 @@
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400*" />
-                <ColumnDefinition Width="1001*" />
-                <ColumnDefinition Width="199*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!--#region Datagrid Scores-->
-            <DataGrid
-                x:Name="ScoresDataGrid"
-                Grid.Column="0"
-                Margin="0,7,0,2"
-                Padding="5,0,5,0"
-                AlternationCount="1"
-                AutoGenerateColumns="false"
-                IsReadOnly="true"
-                ItemsSource="{Binding Scores, Mode=TwoWay}"
-                SelectedIndex="0"
-                SelectedItem="0"
-                SelectionChanged="SelectedScoreChanged"
-                SelectionMode="Single"
-                Style="{DynamicResource CustomDataGrid}">
+            <StackPanel Orientation="Vertical">
+                <Border
+                    Margin="5"
+                    Padding="3"
+                    BorderBrush="{DynamicResource SearchField.Border.BorderBrush}"
+                    BorderThickness=".1"
+                    CornerRadius="7">
+                    <StackPanel Orientation="Horizontal">
+                        <Path
+                            Height="20"
+                            Margin="4"
+                            Data="{StaticResource search}"
+                            Fill="{StaticResource TabItem.Icon.FillBrush}"
+                            Stretch="Uniform" ToolTip="Zoek op (onder)titel, nummer, componist, tekstschrijver of arrangement"
+                            Stroke="{StaticResource SearchField.Icon.Search.BorderBrush}"
+                            StrokeThickness="0.1" />
+                        <TextBox
+                            x:Name="tbSearch"
+                            Height="26"
+                            MinWidth="320"
+                            Margin="4,0,4,0"
+                            VerticalContentAlignment="Center"
+                            FontSize="14"
+                            Style="{DynamicResource placeholderTextBox}"
+                            Tag="Zoek op (onder)titel, nummer, componist, tekstschrijver of arrangement"
+                            TextChanged="tbSearch_TextChanged" />
+                        <Button
+                            x:Name="btnClearSearch"
+                            Width="14"
+                            Height="14"
+                            Margin="4"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="btnClearSearch_Click"
+                            ToolTip="Maak zoekscherm leeg">
+                            <Path
+                                Height="14"
+                                Data="{StaticResource cancel}"
+                                Fill="{StaticResource TabItem.Icon.FillBrush}"
+                                Stretch="Uniform"
+                                Stroke="{StaticResource SearchField.Icon.Cancel.BorderBrush}"
+                                StrokeThickness="0.1" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <DataGrid
+                    x:Name="ScoresDataGrid"
+                    Grid.Column="0"
+                    Margin="0,7,0,2"
+                    Padding="5,0,5,0"
+                    AlternationCount="1"
+                    AutoGenerateColumns="false"
+                    IsReadOnly="true"
+                    ItemsSource="{Binding Scores, Mode=TwoWay}"
+                    SelectedIndex="0"
+                    SelectedItem="0"
+                    SelectionChanged="SelectedScoreChanged"
+                    SelectionMode="Single"
+                    Style="{DynamicResource CustomDataGrid}">
 
-                <!--#region Context Menu-->
-                <DataGrid.ContextMenu>
-                    <ContextMenu Visibility="{Binding ElementName=tbAdminMode, Path=Text}">
-                        <MenuItem Click="NewScoreClicked" Header="Nieuwe partituur toevoegen" />
-                        <MenuItem Click="NewSubScoreClicked" Header="Sub partituur voor geselecteerde partituur maken" />
-                        <Separator />
-                        <MenuItem Click="RenumberClick" Header="Geselecteerde partituur omnummeren" />
-                        <Separator />
-                        <MenuItem Click="DeleteScore" Header="Verwijder geselecteerde partituur" />
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-                <!--#endregion-->
-                <DataGrid.Columns>
-                    <!--#region Column definitions-->
-                    <!--#region Id (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="id"
-                        Width="Auto"
-                        Binding="{Binding ScoreId}"
-                        Visibility="Collapsed" />
+                    <!--#region Context Menu-->
+                    <DataGrid.ContextMenu>
+                        <ContextMenu Visibility="{Binding ElementName=tbAdminMode, Path=Text}">
+                            <MenuItem Click="NewScoreClicked" Header="Nieuwe partituur toevoegen" />
+                            <MenuItem Click="NewSubScoreClicked" Header="Sub partituur voor geselecteerde partituur maken" />
+                            <Separator />
+                            <MenuItem Click="RenumberClick" Header="Geselecteerde partituur omnummeren" />
+                            <Separator />
+                            <MenuItem Click="DeleteScore" Header="Verwijder geselecteerde partituur" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <!--#endregion-->
+                    <DataGrid.Columns>
+                        <!--#region Column definitions-->
+                        <!--#region Id (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="id"
+                            Width="Auto"
+                            Binding="{Binding ScoreId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region  Score Number (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="ScoreNumber"
-                        Width="1*"
-                        Binding="{Binding ScoreNumber}"
-                        Header="PartituurNummer"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region  Score Number (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="ScoreNumber"
+                            Width="1*"
+                            Binding="{Binding ScoreNumber}"
+                            Header="PartituurNummer"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region  Score SubNumber (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="ScoreSubNumber"
-                        Width="1*"
-                        Binding="{Binding ScoreSubNumber}"
-                        Header="Partituur"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region  Score SubNumber (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="ScoreSubNumber"
+                            Width="1*"
+                            Binding="{Binding ScoreSubNumber}"
+                            Header="Partituur"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region  Score Number-->
-                    <DataGridTextColumn
-                        x:Name="Score"
-                        Width="1*"
-                        Binding="{Binding Score}"
-                        Header="Partituur" />
-                    <!--#endregion-->
+                        <!--#region  Score Number-->
+                        <DataGridTextColumn
+                            x:Name="Score"
+                            Width="1*"
+                            Binding="{Binding Score}"
+                            Header="Partituur" />
+                        <!--#endregion-->
 
-                    <!--#region  Title-->
-                    <DataGridTextColumn
-                        x:Name="ScoreName"
-                        Width="2.5*"
-                        Binding="{Binding ScoreTitle}"
-                        Header="Titel" />
-                    <!--#endregion-->
+                        <!--#region  Title-->
+                        <DataGridTextColumn
+                            x:Name="ScoreName"
+                            Width="2.5*"
+                            Binding="{Binding ScoreTitle}"
+                            Header="Titel" />
+                        <!--#endregion-->
 
-                    <!--#region SubTitle (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="ScoreSubTitle"
-                        Width="Auto"
-                        Binding="{Binding ScoreSubTitle}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region SubTitle (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="ScoreSubTitle"
+                            Width="Auto"
+                            Binding="{Binding ScoreSubTitle}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Composer (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Composer"
-                        Width="Auto"
-                        Binding="{Binding Composer}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Composer (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Composer"
+                            Width="Auto"
+                            Binding="{Binding Composer}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region TextWriter (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="TextWriter"
-                        Width="Auto"
-                        Binding="{Binding TextWriter}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region TextWriter (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="TextWriter"
+                            Width="Auto"
+                            Binding="{Binding TextWriter}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Arranger (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Arranger"
-                        Width="Auto"
-                        Binding="{Binding Arranger}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Arranger (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Arranger"
+                            Width="Auto"
+                            Binding="{Binding Arranger}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region RepertoireId (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="RepertoireId"
-                        Width="Auto"
-                        Binding="{Binding RepertoireId}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region RepertoireId (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="RepertoireId"
+                            Width="Auto"
+                            Binding="{Binding RepertoireId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region RepertoireName (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="RepertoireName"
-                        Width="Auto"
-                        Binding="{Binding RepertoireName}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region RepertoireName (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="RepertoireName"
+                            Width="Auto"
+                            Binding="{Binding RepertoireName}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region ArchiveId (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="ArchiveId"
-                        Width="Auto"
-                        Binding="{Binding ArchiveId}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region ArchiveId (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="ArchiveId"
+                            Width="Auto"
+                            Binding="{Binding ArchiveId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region ArchiveName (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="ArchiveName"
-                        Width="Auto"
-                        Binding="{Binding ArchiveName}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region ArchiveName (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="ArchiveName"
+                            Width="Auto"
+                            Binding="{Binding ArchiveName}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region GenreId (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="GenreId"
-                        Width="Auto"
-                        Binding="{Binding GenreId}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region GenreId (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="GenreId"
+                            Width="Auto"
+                            Binding="{Binding GenreId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region GenreName (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="GenreName"
-                        Width="Auto"
-                        Binding="{Binding GenreName}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region GenreName (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="GenreName"
+                            Width="Auto"
+                            Binding="{Binding GenreName}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region AccompanimentId (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="AccompanimentId"
-                        Width="Auto"
-                        Binding="{Binding AccompanimentId}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region AccompanimentId (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="AccompanimentId"
+                            Width="Auto"
+                            Binding="{Binding AccompanimentId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region AccompanimentName (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="AccompanimentName"
-                        Width="Auto"
-                        Binding="{Binding AccompanimentName}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region AccompanimentName (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="AccompanimentName"
+                            Width="Auto"
+                            Binding="{Binding AccompanimentName}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region LanguageId (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="LanguageId"
-                        Width="Auto"
-                        Binding="{Binding LanguageId}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region LanguageId (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="LanguageId"
+                            Width="Auto"
+                            Binding="{Binding LanguageId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region LanguageName (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="LanguageName"
-                        Width="Auto"
-                        Binding="{Binding LanguageName}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region LanguageName (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="LanguageName"
+                            Width="Auto"
+                            Binding="{Binding LanguageName}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region DateCreated (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="DateCreated"
-                        Width="Auto"
-                        Binding="{Binding DateCreated}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region DateCreated (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="DateCreated"
+                            Width="Auto"
+                            Binding="{Binding DateCreated}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region DateModified (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="DateModified"
-                        Width="Auto"
-                        Binding="{Binding DateModified}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region DateModified (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="DateModified"
+                            Width="Auto"
+                            Binding="{Binding DateModified}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Checked (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="Checked"
-                        Width="Auto"
-                        Binding="{Binding Check}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Checked (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="Checked"
+                            Width="Auto"
+                            Binding="{Binding Check}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Sing By Heart (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="BYHEART"
-                        Width="Auto"
-                        Binding="{Binding ByHeart}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Sing By Heart (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="BYHEART"
+                            Width="Auto"
+                            Binding="{Binding ByHeart}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MuseScoreORP (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MuseScoreORP"
-                        Width="Auto"
-                        Binding="{Binding MuseScoreORP}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MuseScoreORP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MuseScoreORP"
+                            Width="Auto"
+                            Binding="{Binding MuseScoreORP}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MuseScoreORK (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MuseScoreORK"
-                        Width="Auto"
-                        Binding="{Binding MuseScoreORK}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MuseScoreORK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MuseScoreORK"
+                            Width="Auto"
+                            Binding="{Binding MuseScoreORK}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MuseScoreTOP (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MuseScoreTOP"
-                        Width="Auto"
-                        Binding="{Binding MuseScoreTOP}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MuseScoreTOP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MuseScoreTOP"
+                            Width="Auto"
+                            Binding="{Binding MuseScoreTOP}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MuseScoreTOK (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MuseScoreTOK"
-                        Width="Auto"
-                        Binding="{Binding MuseScoreTOK}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MuseScoreTOK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MuseScoreTOK"
+                            Width="Auto"
+                            Binding="{Binding MuseScoreTOK}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region PDFORP (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="PDFORP"
-                        Width="Auto"
-                        Binding="{Binding PDFORP}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region PDFORP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFORP"
+                            Width="Auto"
+                            Binding="{Binding PDFORP}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region PDFORK (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="PDFORK"
-                        Width="Auto"
-                        Binding="{Binding PDFORK}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region PDFORK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFORK"
+                            Width="Auto"
+                            Binding="{Binding PDFORK}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region PDFTOP (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="PDFTOP"
-                        Width="Auto"
-                        Binding="{Binding PDFTOP}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region PDFTOP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFTOP"
+                            Width="Auto"
+                            Binding="{Binding PDFTOP}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region PDFTOK (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="PDFTOK"
-                        Width="Auto"
-                        Binding="{Binding PDFTOK}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region PDFTOK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFTOK"
+                            Width="Auto"
+                            Binding="{Binding PDFTOK}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3B1 (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3B1"
-                        Width="Auto"
-                        Binding="{Binding MP3B1}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3B1 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3B1"
+                            Width="Auto"
+                            Binding="{Binding MP3B1}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3B2 (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3B2"
-                        Width="Auto"
-                        Binding="{Binding MP3B2}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3B2 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3B2"
+                            Width="Auto"
+                            Binding="{Binding MP3B2}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3T1 (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3T1"
-                        Width="Auto"
-                        Binding="{Binding MP3T1}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3T1 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3T1"
+                            Width="Auto"
+                            Binding="{Binding MP3T1}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3T2 (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3T2"
-                        Width="Auto"
-                        Binding="{Binding MP3T2}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3T2 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3T2"
+                            Width="Auto"
+                            Binding="{Binding MP3T2}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3SOL (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3SOL"
-                        Width="Auto"
-                        Binding="{Binding MP3SOL}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3SOL (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3SOL"
+                            Width="Auto"
+                            Binding="{Binding MP3SOL}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3TOT (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3TOT"
-                        Width="Auto"
-                        Binding="{Binding MP3TOT}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3TOT (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3TOT"
+                            Width="Auto"
+                            Binding="{Binding MP3TOT}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MP3PIA (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MP3PIA"
-                        Width="Auto"
-                        Binding="{Binding MP3PIA}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MP3PIA (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3PIA"
+                            Width="Auto"
+                            Binding="{Binding MP3PIA}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region MuseScoreOnline (Hidden)-->
-                    <DataGridCheckBoxColumn
-                        x:Name="MuseScoreOnline"
-                        Width="Auto"
-                        Binding="{Binding MuseScoreOnline}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region MuseScoreOnline (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MuseScoreOnline"
+                            Width="Auto"
+                            Binding="{Binding MuseScoreOnline}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Lyrics (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Lyrics"
-                        Width="Auto"
-                        Binding="{Binding Lyrics}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Lyrics (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Lyrics"
+                            Width="Auto"
+                            Binding="{Binding Lyrics}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Music Piece (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="MusinPiece"
-                        Width="Auto"
-                        Binding="{Binding MusicPiece}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Music Piece (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="MusinPiece"
+                            Width="Auto"
+                            Binding="{Binding MusicPiece}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Notes (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Notes"
-                        Width="Auto"
-                        Binding="{Binding Notes}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Notes (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Notes"
+                            Width="Auto"
+                            Binding="{Binding Notes}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region NumberScoresPublisher1 (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="NumberScoresPublisher1"
-                        Width="Auto"
-                        Binding="{Binding NumberScoresPublisher1}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region NumberScoresPublisher1 (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="NumberScoresPublisher1"
+                            Width="Auto"
+                            Binding="{Binding NumberScoresPublisher1}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher1Id (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher1Id"
-                        Width="Auto"
-                        Binding="{Binding Publisher1Id}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher1Id (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher1Id"
+                            Width="Auto"
+                            Binding="{Binding Publisher1Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher1Name (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher1Name"
-                        Width="Auto"
-                        Binding="{Binding Publisher1Name}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher1Name (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher1Name"
+                            Width="Auto"
+                            Binding="{Binding Publisher1Name}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region NumberScoresPublisher2 (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="NumberScoresPublisher2"
-                        Width="Auto"
-                        Binding="{Binding NumberScoresPublisher2}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region NumberScoresPublisher2 (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="NumberScoresPublisher2"
+                            Width="Auto"
+                            Binding="{Binding NumberScoresPublisher2}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher2Id (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher2Id"
-                        Width="Auto"
-                        Binding="{Binding Publisher2Id}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher2Id (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher2Id"
+                            Width="Auto"
+                            Binding="{Binding Publisher2Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher2Name (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher2Name"
-                        Width="Auto"
-                        Binding="{Binding Publisher2Name}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher2Name (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher2Name"
+                            Width="Auto"
+                            Binding="{Binding Publisher2Name}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region NumberScoresPublisher3 (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="NumberScoresPublisher3"
-                        Width="Auto"
-                        Binding="{Binding NumberScoresPublisher3}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region NumberScoresPublisher3 (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="NumberScoresPublisher3"
+                            Width="Auto"
+                            Binding="{Binding NumberScoresPublisher3}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher3Id (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher3Id"
-                        Width="Auto"
-                        Binding="{Binding Publisher3Id}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher3Id (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher3Id"
+                            Width="Auto"
+                            Binding="{Binding Publisher3Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher3Name (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher3Name"
-                        Width="Auto"
-                        Binding="{Binding Publisher3Name}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher3Name (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher3Name"
+                            Width="Auto"
+                            Binding="{Binding Publisher3Name}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region NumberScoresPublisher4 (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="NumberScoresPublisher4"
-                        Width="Auto"
-                        Binding="{Binding NumberScoresPublisher4}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region NumberScoresPublisher4 (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="NumberScoresPublisher4"
+                            Width="Auto"
+                            Binding="{Binding NumberScoresPublisher4}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher4Id (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher4Id"
-                        Width="Auto"
-                        Binding="{Binding Publisher4Id}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher4Id (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher4Id"
+                            Width="Auto"
+                            Binding="{Binding Publisher4Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region Publisher4Name (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="Publisher4Name"
-                        Width="Auto"
-                        Binding="{Binding Publisher4Name}"
-                        Visibility="Collapsed" />
-                    <!--#endregion-->
+                        <!--#region Publisher4Name (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="Publisher4Name"
+                            Width="Auto"
+                            Binding="{Binding Publisher4Name}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
 
-                    <!--#region NumberScoresTotal (Hidden)-->
-                    <DataGridTextColumn
-                        x:Name="NumberScoresTotal"
-                        Width="Auto"
-                        Binding="{Binding NumberScoresTotal}"
-                        Visibility="Collapsed" />
+                        <!--#region NumberScoresTotal (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="NumberScoresTotal"
+                            Width="Auto"
+                            Binding="{Binding NumberScoresTotal}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+                    </DataGrid.Columns>
                     <!--#endregion-->
-                </DataGrid.Columns>
-                <!--#endregion-->
-            </DataGrid>
+                </DataGrid>
+            </StackPanel>
             <!--#endregion-->
 
             <!--#region Tabcontrol defenition-->
@@ -1756,7 +1802,8 @@
                             <StackPanel
                                 Grid.Row="3"
                                 Grid.Column="1"
-                                Orientation="Horizontal" VerticalAlignment="Center">
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
                                 <TextBlock
                                     x:Name="tbLyricsMaxWidth"
                                     VerticalAlignment="Center"
@@ -1774,14 +1821,14 @@
                                     FontWeight="Bold"
                                     Foreground="red"
                                     Text="Let op! Gebruik maximaal 55 tekens per regel"
-                                    Visibility="Collapsed"/>
+                                    Visibility="Collapsed" />
                                 <TextBlock
                                     x:Name="LyricsWidthWarning1"
                                     Margin="15,0,0,0"
                                     FontWeight="Bold"
                                     Foreground="red"
                                     Text="Let op! Gebruik maximaal 199 tekens per regel"
-                                    Visibility="Collapsed"/>
+                                    Visibility="Collapsed" />
                             </StackPanel>
                             <TextBlock
                                 x:Name="tbLyricsColumns"
