@@ -51,6 +51,7 @@
 
         <!--#region Action Buttons-->
         <Grid Grid.Row="1" Margin="25,0,25,0">
+            <TextBlock x:Name="tbFileName" Visibility="Collapsed" />
 
             <!--#region Button section-->
             <StackPanel
@@ -147,7 +148,10 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Button Content="PDF" ToolTip="Genereer een PDF bestand van de geselecteerde lijst" Click="GeneratePDFButton_Click"/>
+                <Button
+                    Click="GeneratePDFButton_Click"
+                    Content="PDF"
+                    ToolTip="Genereer een PDF bestand van de geselecteerde lijst" />
             </StackPanel>
             <!--#endregion-->
         </Grid>
@@ -196,7 +200,8 @@
                     x:Name="ScoreSubTitle"
                     Width=".5*"
                     Binding="{Binding ScoreSubTitle}"
-                    Header="Ondertitel" Visibility="Collapsed"/>
+                    Header="Ondertitel"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region Composer-->
@@ -212,8 +217,8 @@
                     x:Name="TextWriter"
                     Width="150"
                     Binding="{Binding Textwriter}"
-                    Header="Tekstschrijver" 
-                    Visibility="Collapsed"/>
+                    Header="Tekstschrijver"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region Arranger-->
@@ -231,7 +236,7 @@
                     Width=".06*"
                     Binding="{Binding RepertoireName}"
                     Header="Repertoire"
-                    Visibility="Visible" />
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region ArchiveId (Hidden)-->
@@ -247,7 +252,8 @@
                     x:Name="ArchiveName"
                     Width="0.06*"
                     Binding="{Binding ArchiveName}"
-                    Header="Archief" />
+                    Header="Archief"
+                    Visibility="Visible" />
                 <!--#endregion-->
 
                 <!--#region GenreName (Hidden)-->
@@ -256,7 +262,7 @@
                     Width=".06*"
                     Binding="{Binding GenreName}"
                     Header="Genre"
-                    Visibility="Visible" />
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region AccompanimentName (Hidden)-->
@@ -273,7 +279,8 @@
                     x:Name="LanguageName"
                     Width=".06*"
                     Binding="{Binding LanguageName}"
-                    Header="Taal" />
+                    Header="Taal"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region Sing By Heart (Hidden)-->
@@ -282,7 +289,7 @@
                     Width="Auto"
                     Binding="{Binding ByHeart}"
                     Header="UHH"
-                    Visibility="Visible" />
+                    Visibility="Collapsed" />
                 <!--#endregion-->
 
                 <!--#region Duration-->
@@ -290,7 +297,8 @@
                     x:Name="Duration"
                     Width="80"
                     Binding="{Binding Duration}"
-                    Header="Duur" />
+                    Header="Duur"
+                    Visibility="Collapsed" />
                 <!--#endregion-->
             </DataGrid.Columns>
             <!--#endregion-->
