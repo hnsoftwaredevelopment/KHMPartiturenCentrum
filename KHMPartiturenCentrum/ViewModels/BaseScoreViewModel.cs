@@ -239,6 +239,12 @@ public partial class BaseScoreViewModel : ObservableObject
     public int duration = 0 ;
 
     [ObservableProperty]
+    public int durationMinutes = 0 ;
+
+    [ObservableProperty]
+    public int durationSeconds = 0 ;
+
+    [ObservableProperty]
     public int numberScoresTotal = 0 ;
 
     [ObservableProperty]
