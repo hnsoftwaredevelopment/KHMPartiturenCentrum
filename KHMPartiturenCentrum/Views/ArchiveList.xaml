@@ -148,10 +148,9 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Button
-                    Click="GeneratePDFButton_Click"
-                    Content="PDF"
-                    ToolTip="Genereer een PDF bestand van de geselecteerde lijst" />
+                <Button Click="GeneratePDFButton_Click" ToolTip="Genereer een PDF bestand van de geselecteerde lijst" Style="{StaticResource ScoreList.Button.SavePDF}">
+                    <Image Source="..\Resources\Images\pdfdownload.png" Margin="0,3,3,0"/>
+                </Button>
             </StackPanel>
             <!--#endregion-->
         </Grid>

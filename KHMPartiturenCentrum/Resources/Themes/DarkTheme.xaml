@@ -171,6 +171,12 @@
     <SolidColorBrush x:Key="Header.Title.TextColor" Color="#FF000086" />
 
     <!--  Button Colors  -->
+    <SolidColorBrush x:Key="Button.PDF.ArchiveList.BackGround" Color="White" />
+    <SolidColorBrush x:Key="Button.PDF.ArchiveList.MouseOver.Background" Color="Beige" />
+    <SolidColorBrush x:Key="Button.PDF.ArchiveList.MouseOver.Border" Color="Beige" />
+    <SolidColorBrush x:Key="Button.PDF.ArchiveList.Pressed.Background" Color="LightYellow" />
+    <SolidColorBrush x:Key="Button.PDF.ArchiveList.Pressed.Border" Color="LightYellow" />
+
     <SolidColorBrush x:Key="Button.Add.BorderBrush" Color="#FF47B847" />
     <SolidColorBrush x:Key="Button.Add.BackGround" Color="Beige" />
     <SolidColorBrush x:Key="Button.Add.TextColor" Color="White" />

@@ -1,12 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KHMPartiturenCentrum.Models;
+﻿namespace KHMPartiturenCentrum.Models;
 
 public class SaveScoreModel
 {
@@ -88,4 +80,10 @@ public class SaveScoreModel
     public string SubTitle = "";
     public string Textwriter = "";
     public string Title = "";
+    public int Duration = 0;
+    public int DurationMinutes = 0;
+    public int DurationSeconds = 0;
+    public int DurationChanged = 0;
+    public int DurationMinutesChanged = 0;
+    public int DurationSecondsChanged = 0;
 }

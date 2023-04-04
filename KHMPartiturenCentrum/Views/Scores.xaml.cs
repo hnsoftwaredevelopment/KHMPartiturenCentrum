@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -75,14 +76,13 @@ public partial class Scores : Page
             dg.SelectedItem = item;
             selectedRow = ( ScoreModel ) dg.SelectedItem;
 
-            // Scroll to he itew in the Datagrid
+            // Scroll to the item in the DataGrid
             dg.ScrollIntoView ( dg.Items [ 0 ] );
         }
 
         SelectedScore = selectedRow;
 
         #region TAB Score Information
-
         #region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
 
         tbScoreNumber.Text = selectedRow.Score;
@@ -193,9 +193,18 @@ public partial class Scores : Page
 
         tbMusicPiece.Text = selectedRow.MusicPiece;
 
-        #endregion 5th Row (Music Piece)
+        #endregion
 
-        #region 6th Row (Date created, Date Modified and Checked)
+        #region 6th Row (Duration)
+
+        tbMinutes.Text = selectedRow.DurationMinutes.ToString ( );
+        tbSeconds.Text = selectedRow.DurationSeconds.ToString ( "00 " );
+
+        #endregion
+        #endregion
+
+        #region TAB Digitizing information
+        #region 1th Row (Date created, Date Modified and Checked)
 
         #region Date Digitized
 
@@ -223,9 +232,9 @@ public partial class Scores : Page
 
         #endregion Checked
 
-        #endregion 6th Row (Date created, Date Modified and Checked)
+        #endregion
 
-        #region 7th Row (Checkboxes for MuseScore, PDF and MP3)
+        #region 2th Row (Checkboxes for MuseScore, PDF and MP3)
 
         #region MuseScore checkboxes
 
@@ -264,9 +273,8 @@ public partial class Scores : Page
 
         #endregion MuseScore Online checkbox
 
-        #endregion 7th Row (Checkboxes for MuseScore, PDF and MP3)
-
-        #endregion TAB Score Information
+        #endregion
+        #endregion
 
         #region TAB Lyrics
         tbLyrics.Text = selectedRow.Lyrics;
@@ -512,6 +520,26 @@ public partial class Scores : Page
 
                     GetLyricsInfo ( );
                     break;
+                case "tbMinutes":
+                    if ( tbMinutes.Text == SelectedScore.DurationMinutes.ToString ( ) )
+                    { cbDurationMinutes.IsChecked = false; }
+                    else
+                    { cbDurationMinutes.IsChecked = true; }
+                    break;
+                case "tbSeconds":
+                    int value;
+                    if ( !int.TryParse ( tbSeconds.Text, out value ) || value < 0 || value > 59 )
+                    {
+                        MessageBox.Show ( "Gelieve een numerieke waarde tussen 0 en 59 in te voeren." );
+                        tbSeconds.Focus ( );
+                        return;
+                    }
+
+                    if ( tbSeconds.Text == SelectedScore.DurationSeconds.ToString ( "00" ) )
+                    { cbDurationSeconds.IsChecked = false; }
+                    else
+                    { cbDurationSeconds.IsChecked = true; }
+                    break;
             }
         }
         CheckChanged ( );
@@ -729,6 +757,11 @@ public partial class Scores : Page
 
     private void CheckChanged ( )
     {
+        if ( cbDurationMinutes.IsChecked == true || cbDurationSeconds.IsChecked == true )
+        { cbDuration.IsChecked = true; }
+        else
+        { cbDuration.IsChecked = false; }
+
         if ( cbAccompaniment.IsChecked == true ||
             cbRepertoire.IsChecked == true ||
             cbArchive.IsChecked == true ||
@@ -770,7 +803,9 @@ public partial class Scores : Page
             cbPublisher1.IsChecked == true ||
             cbPublisher2.IsChecked == true ||
             cbPublisher3.IsChecked == true ||
-            cbPublisher4.IsChecked == true )
+            cbPublisher4.IsChecked == true ||
+            cbDuration.IsChecked == true )
+
         {
             if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 )
             {
@@ -1022,7 +1057,7 @@ public partial class Scores : Page
                 MuseScoreORP = -1, MuseScoreORK = -1, MuseScoreTOP = -1, MuseScoreTOK = -1, MuseScoreOnline = -1,
                 PDFORP = -1, PDFORK = -1, PDFTOP = -1, PDFTOK = -1,
                 MP3B1 = -1, MP3B2 = -1, MP3T1 = -1, MP3T2 = -1, MP3SOL = -1, MP3TOT = -1, MP3PIA = -1,
-                AmountPublisher1Changed = -1, AmountPublisher2Changed = -1, AmountPublisher3Changed = -1, AmountPublisher4Changed = -1;
+                AmountPublisher1Changed = -1, AmountPublisher2Changed = -1, AmountPublisher3Changed = -1, AmountPublisher4Changed = -1, DurationChanged = -1,DurationMinutesChanged = -1, DurationSecondsChanged = -1;
 
             if ( ( bool ) cbAccompaniment.IsChecked )
             {
@@ -1069,6 +1104,25 @@ public partial class Scores : Page
                 SelectedScore.ArchiveId = ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveId;
                 SelectedScore.ArchiveName = ( ( ArchiveModel ) comArchive.SelectedItem ).ArchiveName;
             }
+
+            if ( ( bool ) cbDurationMinutes.IsChecked )
+            {
+                DurationMinutesChanged = 1;
+                DurationChanged = 1;
+                OldScoreValues [ 0 ].DurationMinutes = SelectedScore.DurationMinutes;
+                SelectedScore.DurationMinutes = int.Parse ( tbMinutes.Text );
+                SelectedScore.Duration = ( int.Parse ( tbMinutes.Text ) * 60 ) + int.Parse ( tbSeconds.Text );
+            }
+
+            if ( ( bool ) cbDurationSeconds.IsChecked )
+            {
+                DurationSecondsChanged = 1;
+                DurationChanged = 1;
+                OldScoreValues [ 0 ].DurationSeconds = SelectedScore.DurationSeconds;
+                SelectedScore.DurationSeconds = int.Parse ( tbSeconds.Text );
+                SelectedScore.Duration = ( int.Parse ( tbMinutes.Text ) * 60 ) + int.Parse ( tbSeconds.Text );
+            }
+
 
             if ( ( bool ) cbArranger.IsChecked )
             {
@@ -1590,7 +1644,13 @@ public partial class Scores : Page
                 Title = SelectedScore.ScoreTitle,
                 TitleChanged = TitleChanged,
                 Textwriter = SelectedScore.Textwriter,
-                TextwriterChanged = TextwriterChanged
+                TextwriterChanged = TextwriterChanged,
+                Duration = SelectedScore.Duration,
+                DurationChanged = DurationChanged,
+                DurationMinutes = SelectedScore.DurationMinutes,
+                DurationMinutesChanged = DurationMinutesChanged,
+                DurationSeconds = SelectedScore.DurationSeconds,
+                DurationSecondsChanged = DurationSecondsChanged
             } );
 
             DBCommands.SaveScore ( ScoreList );
@@ -2219,6 +2279,9 @@ public partial class Scores : Page
         cbPublisher3.IsChecked = false;
         cbPublisher4.IsChecked = false;
         cbNewScore.IsChecked = false;
+        cbDuration.IsChecked = false;
+        cbDurationMinutes.IsChecked = false;
+        cbDurationSeconds.IsChecked = false;
         tbEnableEdit.Text = "Collapsed";
         btnSave.IsEnabled = false;
         btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
@@ -2450,6 +2513,82 @@ public partial class Scores : Page
             {
                 ScoresDataGrid.ItemsSource = scores.Scores;
             }
+        }
+    }
+
+    private void ButtonDeIncreaseTimeClick ( object sender, RoutedEventArgs e )
+    {
+        var propertyName = ((Button)sender).Name;
+        var _minutes = int.Parse(tbMinutes.Text);
+        var _seconds = int.Parse(tbSeconds.Text);
+
+        switch ( propertyName )
+        {
+            case "btnIncreaseMin":
+                _minutes++;
+                tbMinutes.Text = _minutes.ToString ( );
+                break;
+            case "btnIncreaseSec":
+                _seconds++;
+                if ( _seconds > 59 )
+                { _seconds = 0; }
+                tbSeconds.Text = _seconds.ToString ( "00" );
+                break;
+            case "btnDecreaseMin":
+                if ( _minutes > 0 )
+                {
+                    _minutes--;
+                    tbMinutes.Text = _minutes.ToString ( );
+                }
+                else
+                {
+                    _minutes = 0;
+                }
+                break;
+            case "btnDecreaseSec":
+                if ( _seconds > 0 )
+                {
+                    _seconds--;
+                    tbSeconds.Text = _seconds.ToString ( "00" );
+                }
+                else
+                {
+                    _seconds = 59;
+                    tbSeconds.Text = _seconds.ToString ( "00" );
+                }
+                break;
+        }
+    }
+
+    private void tbSecondsChanged ( object sender, TextChangedEventArgs e )
+    {
+        int value;
+        if ( !int.TryParse ( tbSeconds.Text, out value ) || value < 0 || value > 59 )
+        {
+            MessageBox.Show ( "Gelieve een numerieke waarde tussen 0 en 59 in te voeren." );
+            tbSeconds.Focus ( );
+            return;
+        }
+        cbDurationSeconds.IsChecked = true;
+    }
+
+    private void TimeSpan_PreviewTextInput ( object sender, System.Windows.Input.TextCompositionEventArgs e )
+    {
+        var propertyName = ((TextBox)sender).Name;
+        var _input ="";
+        switch ( propertyName )
+        {
+            case "tbMinutes":
+                _input = tbMinutes.Text;
+                break;
+            case "tbSeconds":
+                _input = tbSeconds.Text;
+                break;
+        }
+
+        if ( !Regex.IsMatch ( e.Text, "^[0-9]$" ) || _input.Length >= 2 )
+        {
+            e.Handled = true;
         }
     }
 

@@ -79,6 +79,8 @@ public class ScoreModel
     public string? ScoreSubTitle { get; set; }
     public string? ScoreTitle { get; set; }
     public string? Textwriter { get; set; }
-    public string Duration { get; set; }
+    public int Duration { get; set; }
+    public int DurationMinutes { get; set; }
+    public int DurationSeconds { get; set; }
     public string SearchField { get; set; }
 }

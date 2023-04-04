@@ -256,12 +256,15 @@ public class DBCommands
                     dateModified = _tempModified [ 0 ];
                 }
 
-                var _duration="";
+                //var _duration="";
+                int _minutes=0, _seconds = 0, _duration = 0;
+
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) != 0 )
                 {
-                    var _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) / 60;
-                    var _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) % 60;
-                    _duration = $"{_minutes}:{_seconds.ToString ( "00" )}";
+                    _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) / 60;
+                    _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) % 60;
+                    //_duration = $"{_minutes}:{_seconds.ToString ( "00" )}";
+                    _duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) );
                 }
 
                 // When Title is empty don't add that row to the list
@@ -343,6 +346,8 @@ public class DBCommands
                         Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString ( ) ),
                         Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ( ),
                         Duration = _duration,
+                        DurationMinutes = _minutes,
+                        DurationSeconds = _seconds,
                         SearchField = $"{dataTable.Rows [ i ].ItemArray [ 2 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 5 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 6 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 7 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 8 ].ToString ( )} {dataTable.Rows [ i ].ItemArray [ 12 ].ToString ( )}"
                     } );
                     ;
@@ -944,6 +949,9 @@ public class DBCommands
         if ( scoreList [ 0 ].Publisher4Id != -1 )
         { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher4Id + " = @" + DBNames.ScoresFieldNamePublisher4Id; }
 
+        if ( scoreList [ 0 ].DurationChanged != -1 )
+        { sqlQuery += ", " + DBNames.ScoresFieldNameDuration + " = @" + DBNames.ScoresFieldNameDuration; }
+
         // Add the filter to the sqlQuery
         sqlQuery += DBNames.SqlWhere + DBNames.ScoresFieldNameId + " = @" + DBNames.ScoresFieldNameId + ";";
         //sqlQuery += DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = @" + DBNames.ScoresFieldNameScoreNumber + ";";
@@ -981,6 +989,9 @@ public class DBCommands
 
             if ( modifiedUser [ 0 ].UserEmail != "" )
             { sqlQuery += ", " + DBNames.UsersFieldNameLogin + " = @" + DBNames.UsersFieldNameLogin; }
+
+            if ( modifiedUser [ 0 ].UserRoleId != 0 )
+            { sqlQuery += ", " + DBNames.UsersFieldNameRoleId + " = @" + DBNames.UsersFieldNameRoleId; }
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
@@ -1455,6 +1466,9 @@ public class DBCommands
         if ( scoreList [ 0 ].ByHeart != -1 )
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameByHeart, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ByHeart; }
 
+        if ( scoreList [ 0 ].DurationChanged != -1 )
+        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameDuration, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Duration; }
+
         if ( scoreList [ 0 ].TitleChanged != -1 )
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameTitle, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Title; }
         if ( scoreList [ 0 ].SubTitleChanged != -1 )
@@ -1569,6 +1583,9 @@ public class DBCommands
 
             if ( modifiedUser [ 0 ].UserFullName != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameLogin, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserEmail; }
+
+            if ( modifiedUser [ 0 ].UserRoleId != 0 )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameRoleId, MySqlDbType.Int32 ).Value = modifiedUser [ 0 ].UserRoleId; }
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }

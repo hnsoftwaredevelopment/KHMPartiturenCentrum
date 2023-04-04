@@ -77,6 +77,12 @@ public partial class LoginPage : Window
 
             // Write Login to Logfile
             DBCommands.WriteLog ( UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogt" );
+
+            int ForcePasswordReset = 1;
+            if ( ForcePasswordReset != 0 )
+            { }
+
+
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show ( );
             this.Close ( );
