@@ -990,6 +990,9 @@ public class DBCommands
             if ( modifiedUser [ 0 ].UserEmail != "" )
             { sqlQuery += ", " + DBNames.UsersFieldNameLogin + " = @" + DBNames.UsersFieldNameLogin; }
 
+            if ( modifiedUser [ 0 ].UserRoleId != 0 )
+            { sqlQuery += ", " + DBNames.UsersFieldNameRoleId + " = @" + DBNames.UsersFieldNameRoleId; }
+
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
 
@@ -1580,6 +1583,9 @@ public class DBCommands
 
             if ( modifiedUser [ 0 ].UserFullName != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameLogin, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserEmail; }
+
+            if ( modifiedUser [ 0 ].UserRoleId != 0 )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameRoleId, MySqlDbType.Int32 ).Value = modifiedUser [ 0 ].UserRoleId; }
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }

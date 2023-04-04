@@ -76,7 +76,7 @@ public partial class Scores : Page
             dg.SelectedItem = item;
             selectedRow = ( ScoreModel ) dg.SelectedItem;
 
-            // Scroll to he itew in the Datagrid
+            // Scroll to the item in the DataGrid
             dg.ScrollIntoView ( dg.Items [ 0 ] );
         }
 

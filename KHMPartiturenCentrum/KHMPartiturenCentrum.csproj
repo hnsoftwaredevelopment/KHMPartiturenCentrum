@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>Resources\Icons\applogo.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,12 +25,17 @@
     <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\next.png" />
     <None Remove="Resources\Images\openfolder.png" />
+    <None Remove="Resources\Images\pdfdownload.png" />
     <None Remove="Resources\Images\previous.png" />
     <None Remove="Resources\Images\save.png" />
     <None Remove="Resources\Images\sheet_music.jpg" />
     <None Remove="Resources\Images\start.png" />
     <None Remove="Resources\Images\stopeditting.png" />
     <None Remove="Resources\Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icons\applogo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +86,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\openfolder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\pdfdownload.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\previous.png">
