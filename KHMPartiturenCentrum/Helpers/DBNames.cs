@@ -102,6 +102,7 @@ public class DBNames
     public static readonly string ScoresFieldNamePDFORK = "PDFORK";
     public static readonly string ScoresFieldNamePDFTOP = "PDFTOP";
     public static readonly string ScoresFieldNamePDFTOK = "PDFTOK";
+    public static readonly string ScoresFieldNamePDFPIA = "PDFPIA";
     public static readonly string ScoresFieldNameMuseScoreORP = "MSCORP";
     public static readonly string ScoresFieldNameMuseScoreORK = "MSCORK";
     public static readonly string ScoresFieldNameMuseScoreTOP = "MSCTOP";
@@ -113,6 +114,7 @@ public class DBNames
     public static readonly string ScoresFieldNameMP3B2 = "MP3B2";
     public static readonly string ScoresFieldNameMP3SOL = "MP3SOL";
     public static readonly string ScoresFieldNameMP3PIA = "MP3PIA";
+    public static readonly string ScoresFieldNameMP3UITV = "MP3UTIV";
     public static readonly string ScoresFieldNameOnline = "Online";
     public static readonly string ScoresFieldNameByHeart = "UHH";
     public static readonly string ScoresFieldNameMusicPiece = "Muziekstuk";

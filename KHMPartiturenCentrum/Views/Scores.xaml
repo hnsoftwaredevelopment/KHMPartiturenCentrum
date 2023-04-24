@@ -1822,7 +1822,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="120" />
-                            <RowDefinition Height="160" />
+                            <RowDefinition Height="170" />
                         </Grid.RowDefinitions>
 
                         <!--#region Score Digtizing Section-->
@@ -1884,6 +1884,7 @@
                             Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
                             <Grid Margin="7">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -2047,7 +2048,21 @@
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
                                 <!--#endregion-->
-                                <!--#endregion-->
+
+                                <!--#region PDF PIA-->
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="5"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="PIA (Piano)" />
+                                <CheckBox
+                                    x:Name="chkPDFPIA"
+                                    Grid.Row="4"
+                                    Grid.Column="6"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+                                <!--#endregion-->                                <!--#endregion-->
 
                                 <!--#region MP3 files-->
                                 <!--#region Filetype Logo-->
@@ -2156,6 +2171,21 @@
                                 <CheckBox
                                     x:Name="chkMP3PIA"
                                     Grid.Row="2"
+                                    Grid.Column="13"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 UITV-->
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="12"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="UITV" />
+                                <CheckBox
+                                    x:Name="chkMP3UITV"
+                                    Grid.Row="3"
                                     Grid.Column="13"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"

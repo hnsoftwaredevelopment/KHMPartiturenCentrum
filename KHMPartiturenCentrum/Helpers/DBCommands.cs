@@ -156,79 +156,106 @@ public class DBCommands
             {
                 // Set the bools
                 bool check = false, byHeart = false;
-                bool pdfORP = false, pdfORK = false, pdfTOP = false, pdfTOK = false;
+                bool pdfORP = false, pdfORK = false, pdfTOP = false, pdfTOK = false, pdfPIA = false;
                 bool mscORP = false, mscORK = false, mscTOP = false, mscTOK = false, mscOnline = false;
-                bool mp3B1 = false, mp3B2 = false, mp3T1 = false, mp3T2 = false, mp3SOL = false, mp3TOT = false, mp3PIA = false;
+                bool mp3B1 = false, mp3B2 = false, mp3T1 = false, mp3T2 = false, mp3SOL = false, mp3TOT = false, mp3PIA = false, mp3UITV = false;
 
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 18 ].ToString ( ) ) == 0 )
                 { check = false; }
                 else
                 { check = true; }
+
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 23 ].ToString ( ) ) == 0 )
                 { pdfORP = false; }
                 else
                 { pdfORP = true; }
+
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 24 ].ToString ( ) ) == 0 )
                 { pdfORK = false; }
                 else
                 { pdfORK = true; }
+
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 25 ].ToString ( ) ) == 0 )
                 { pdfTOP = false; }
                 else
                 { pdfTOP = true; }
+
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 26 ].ToString ( ) ) == 0 )
                 { pdfTOK = false; }
                 else
                 { pdfTOK = true; }
+
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString ( ) ) == 0 )
+                { pdfPIA = false; }
+                else
+                { pdfPIA = true; }
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ) == 0 )
                 { mscORP = false; }
                 else
                 { mscORP = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ) == 0 )
                 { mscORK = false; }
                 else
                 { mscORK = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ) == 0 )
                 { mscTOP = false; }
                 else
                 { mscTOP = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ) == 0 )
                 { mscTOK = false; }
                 else
                 { mscTOK = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ) == 0 )
                 { mp3TOT = false; }
                 else
                 { mp3TOT = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ) == 0 )
                 { mp3T1 = false; }
                 else
                 { mp3T1 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ) == 0 )
                 { mp3T2 = false; }
                 else
                 { mp3T2 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ) == 0 )
                 { mp3B1 = false; }
                 else
                 { mp3B1 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ) == 0 )
                 { mp3B2 = false; }
                 else
                 { mp3B2 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ) == 0 )
                 { mp3SOL = false; }
                 else
                 { mp3SOL = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ) == 0 )
                 { mp3PIA = false; }
                 else
                 { mp3PIA = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ) == 0 )
+                { mp3UITV = false; }
+                else
+                { mp3UITV = true; }
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString ( ) ) == 0 )
                 { mscOnline = false; }
                 else
                 { mscOnline = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ) == 0 )
+
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString ( ) ) == 0 )
                 { byHeart = false; }
                 else
                 { byHeart = true; }
@@ -236,10 +263,10 @@ public class DBCommands
                 // Set total
                 var total = 0;
 
-                total = int.Parse ( dataTable.Rows [ i ].ItemArray [ 42 ].ToString ( ) ) +
-                        int.Parse ( dataTable.Rows [ i ].ItemArray [ 43 ].ToString ( ) ) +
-                        int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString ( ) ) +
-                        int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString ( ) );
+                total = int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString ( ) ) +
+                        int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString ( ) ) +
+                        int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString ( ) ) +
+                        int.Parse ( dataTable.Rows [ i ].ItemArray [ 47 ].ToString ( ) );
 
                 // Set the datestrings
                 string dateCreated = "";
@@ -259,12 +286,12 @@ public class DBCommands
                 //var _duration="";
                 int _minutes=0, _seconds = 0, _duration = 0;
 
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) != 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) ) != 0 )
                 {
-                    _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) / 60;
-                    _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) % 60;
+                    _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) ) / 60;
+                    _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) ) % 60;
                     //_duration = $"{_minutes}:{_seconds.ToString ( "00" )}";
-                    _duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) );
+                    _duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) );
                 }
 
                 // When Title is empty don't add that row to the list
@@ -304,47 +331,52 @@ public class DBCommands
                         PDFTOP = pdfTOP,
                         PDFTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 26 ].ToString ( ) ),
                         PDFTOK = pdfTOK,
-                        MuseScoreORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString ( ) ),
+                        PDFPIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ),
+                        PDFPIA = pdfPIA,
+
+                        MuseScoreORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ),
                         MuseScoreORP = mscORP,
-                        MuseScoreORKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ),
+                        MuseScoreORKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ),
                         MuseScoreORK = mscORK,
-                        MuseScoreTOPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ),
+                        MuseScoreTOPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ),
                         MuseScoreTOP = mscTOP,
-                        MuseScoreTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ),
+                        MuseScoreTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ),
                         MuseScoreTOK = mscTOK,
-                        MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ),
+                        MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ),
                         MP3TOT = mp3TOT,
-                        MP3T1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ),
+                        MP3T1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ),
                         MP3T1 = mp3T1,
-                        MP3T2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ),
+                        MP3T2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ),
                         MP3T2 = mp3T2,
-                        MP3B1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ),
+                        MP3B1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ),
                         MP3B1 = mp3B1,
-                        MP3B2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ),
+                        MP3B2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ),
                         MP3B2 = mp3B2,
-                        MP3SOLInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ),
+                        MP3SOLInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ),
                         MP3SOL = mp3SOL,
-                        MP3PIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ),
+                        MP3PIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ),
                         MP3PIA = mp3PIA,
-                        MuseScoreOnlineInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ),
+                        MP3UITVInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ),
+                        MP3UITV = mp3UITV,
+                        MuseScoreOnlineInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString ( ) ),
                         MuseScoreOnline = mscOnline,
-                        ByHeartInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ),
+                        ByHeartInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString ( ) ),
                         ByHeart = byHeart,
-                        MusicPiece = dataTable.Rows [ i ].ItemArray [ 40 ].ToString ( ),
-                        Notes = dataTable.Rows [ i ].ItemArray [ 41 ].ToString ( ),
-                        AmountPublisher1 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 42 ].ToString ( ) ),
-                        AmountPublisher2 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 43 ].ToString ( ) ),
-                        AmountPublisher3 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString ( ) ),
-                        AmountPublisher4 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString ( ) ),
+                        MusicPiece = dataTable.Rows [ i ].ItemArray [ 42 ].ToString ( ),
+                        Notes = dataTable.Rows [ i ].ItemArray [ 43 ].ToString ( ),
+                        AmountPublisher1 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString ( ) ),
+                        AmountPublisher2 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString ( ) ),
+                        AmountPublisher3 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString ( ) ),
+                        AmountPublisher4 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 47 ].ToString ( ) ),
                         AmountTotal = total,
-                        Publisher1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString ( ) ),
-                        Publisher1Name = dataTable.Rows [ i ].ItemArray [ 47 ].ToString ( ),
-                        Publisher2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 48 ].ToString ( ) ),
-                        Publisher2Name = dataTable.Rows [ i ].ItemArray [ 49 ].ToString ( ),
-                        Publisher3Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 50 ].ToString ( ) ),
-                        Publisher3Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString ( ),
-                        Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString ( ) ),
-                        Publisher4Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ( ),
+                        Publisher1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 48 ].ToString ( ) ),
+                        Publisher1Name = dataTable.Rows [ i ].ItemArray [ 49 ].ToString ( ),
+                        Publisher2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 50 ].ToString ( ) ),
+                        Publisher2Name = dataTable.Rows [ i ].ItemArray [ 51 ].ToString ( ),
+                        Publisher3Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 52 ].ToString ( ) ),
+                        Publisher3Name = dataTable.Rows [ i ].ItemArray [ 53 ].ToString ( ),
+                        Publisher4Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ),
+                        Publisher4Name = dataTable.Rows [ i ].ItemArray [ 55 ].ToString ( ),
                         Duration = _duration,
                         DurationMinutes = _minutes,
                         DurationSeconds = _seconds,
@@ -906,6 +938,8 @@ public class DBCommands
         { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOP + " = @" + DBNames.ScoresFieldNamePDFTOP; }
         if ( scoreList [ 0 ].PDFTOK != -1 )
         { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOK + " = @" + DBNames.ScoresFieldNamePDFTOK; }
+        if ( scoreList [ 0 ].PDFPIA != -1 )
+        { sqlQuery += ", " + DBNames.ScoresFieldNamePDFPIA + " = @" + DBNames.ScoresFieldNamePDFPIA; }
 
         if ( scoreList [ 0 ].MP3B1 != -1 )
         { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B1 + " = @" + DBNames.ScoresFieldNameMP3B1; }
@@ -922,6 +956,8 @@ public class DBCommands
         { sqlQuery += ", " + DBNames.ScoresFieldNameMP3TOT + " = @" + DBNames.ScoresFieldNameMP3TOT; }
         if ( scoreList [ 0 ].MP3PIA != -1 )
         { sqlQuery += ", " + DBNames.ScoresFieldNameMP3PIA + " = @" + DBNames.ScoresFieldNameMP3PIA; }
+        if ( scoreList [ 0 ].MP3UITV != -1 )
+        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3UITV + " = @" + DBNames.ScoresFieldNameMP3UITV; }
 
         if ( scoreList [ 0 ].MuseScoreOnline != -1 )
         { sqlQuery += ", " + DBNames.ScoresFieldNameOnline + " = @" + DBNames.ScoresFieldNameOnline; }
@@ -1515,6 +1551,8 @@ public class DBCommands
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFTOP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOP; }
         if ( scoreList [ 0 ].PDFTOK != -1 )
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFTOK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOK; }
+        if ( scoreList [ 0 ].PDFPIA != -1 )
+        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFPIA, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFPIA; }
 
         if ( scoreList [ 0 ].MP3B1 != -1 )
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3B1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B1; }
@@ -1531,6 +1569,8 @@ public class DBCommands
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3TOT, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3TOT; }
         if ( scoreList [ 0 ].MP3PIA != -1 )
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3PIA, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3PIA; }
+        if ( scoreList [ 0 ].MP3UITV != -1 )
+        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3UITV, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3UITV; }
 
         if ( scoreList [ 0 ].MuseScoreOnline != -1 )
         { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameOnline, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreOnline; }

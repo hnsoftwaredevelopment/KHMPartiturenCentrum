@@ -32,6 +32,7 @@ public class SaveScoreModel
     public int MP3T1= 0;
     public int MP3T2= 0;
     public int MP3TOT= 0;
+    public int MP3UITV= 0;
     public int MuseScoreOnline= 0;
     public int MuseScoreORK= 0;
     public int MuseScoreORP= 0;
@@ -44,6 +45,7 @@ public class SaveScoreModel
     public int PDFORP= 0;
     public int PDFTOK= 0;
     public int PDFTOP= 0;
+    public int PDFPIA= 0;
     public int Publisher1Changed = 0;
     public int Publisher1Id = 0;
     public int Publisher2Changed = 0;

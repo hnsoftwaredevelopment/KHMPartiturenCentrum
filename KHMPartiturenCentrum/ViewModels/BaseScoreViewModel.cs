@@ -119,6 +119,12 @@ public partial class BaseScoreViewModel : ObservableObject
     public int pDFORKInt = 0 ;
 
     [ObservableProperty]
+    public bool pDFPIA = false ;
+
+    [ObservableProperty]
+    public int pDFPIAInt = 0 ;
+
+    [ObservableProperty]
     public bool pDFTOP = false ;
 
     [ObservableProperty]
@@ -168,6 +174,12 @@ public partial class BaseScoreViewModel : ObservableObject
 
     [ObservableProperty]
     public bool mP3PIA = false ;
+
+    [ObservableProperty]
+    public int mP3UITVInt = 0 ;
+
+    [ObservableProperty]
+    public bool mP3UITV = false ;
 
     [ObservableProperty]
     public int mP3PIAInt = 0 ;

@@ -9,6 +9,7 @@ public class ScoreModel
     public bool MP3B1 { get; set; }
     public bool MP3B2 { get; set; }
     public bool MP3PIA { get; set; }
+    public bool MP3UITV { get; set; }
     public bool MP3SOL { get; set; }
     public bool MP3T1 { get; set; }
     public bool MP3T2 { get; set; }
@@ -22,6 +23,7 @@ public class ScoreModel
     public bool PDFORP { get; set; }
     public bool PDFTOK { get; set; }
     public bool PDFTOP { get; set; }
+    public bool PDFPIA { get; set; }
     public DateOnly DateDigitized { get; set; }
     public DateOnly DateModified { get; set; }
     public int AccompanimentId { get; set; }
@@ -37,6 +39,7 @@ public class ScoreModel
     public int MP3T1Int { get; set; }
     public int MP3T2Int { get; set; }
     public int MP3TOTInt { get; set; }
+    public int MP3UITVInt { get; set; }
     public int MuseScoreOnlineInt { get; set; }
     public int MuseScoreORKInt { get; set; }
     public int MuseScoreORPInt { get; set; }
@@ -51,6 +54,7 @@ public class ScoreModel
     public int PDFORPInt { get; set; }
     public int PDFTOKInt { get; set; }
     public int PDFTOPInt { get; set; }
+    public int PDFPIAInt { get; set; }
     public int Publisher1Id { get; set; }
     public int Publisher2Id { get; set; }
     public int Publisher3Id { get; set; }
