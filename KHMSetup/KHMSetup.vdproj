@@ -43,6 +43,12 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_F2AD516B4ACC46F2A5D7E34E3366C9EE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -51,7 +57,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\KHMSetup.msi"
+        "OutputFilename" = "8:Debug\\KHMPartiturenCentrum.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -68,6 +74,24 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 6.0.16 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.7.0.x64"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 7.0.5 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.7.0.x64"
+                    }
+                }
             }
         }
         "Release"
@@ -212,6 +236,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2AD516B4ACC46F2A5D7E34E3366C9EE"
+            {
+            "SourcePath" = "8:C:\\Data\\Stack\\KHMMuseScore\\Afbeeldingen\\khm-logo.jpg"
+            "TargetName" = "8:khm-logo.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_59607C06F13B4810B0BC0141D932EBD9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -302,7 +346,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:KHMPartiturenCentrum"
         "ProductCode" = "8:{8B968DAE-BA1E-42D5-A18A-E7EC312003C5}"
-        "PackageCode" = "8:{6FD0E699-057F-437F-9F90-3A03AB0486E2}"
+        "PackageCode" = "8:{D7C9597D-BFCB-4855-BA7F-282DBD5F2CDF}"
         "UpgradeCode" = "8:{126AFACD-2F04-4DF0-ABB9-52169D8EC63A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -527,7 +571,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_F2AD516B4ACC46F2A5D7E34E3366C9EE"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -538,8 +583,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:WAARSCHUWING: Dit computerprogramma wordt beschermd door het auteursrecht en internationale verdragen. Ongeoorloofde vermenigvuldiging of distributie van dit programma, of een deel ervan, kan leiden tot ernstige civielrechtelijke of strafrechtelijke straffen en zal worden vervolgd voor zover wettelijk mogelijk."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -551,8 +596,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1203"
+                            "Setting" = "3:2"
+                            "Value" = "8:Het installatieprogramma leidt u door de stappen die nodig zijn om [ProductName] op uw computer te installeren."
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -683,8 +728,8 @@
                             "Type" = "3:15"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1258"
+                            "Setting" = "3:2"
+                            "Value" = "8:[ProductName] is geïnstalleerd op uw computer."
                             "DefaultValue" = "8:#1258"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -733,8 +778,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:WAARSCHUWING: Dit computerprogramma wordt beschermd door het auteursrecht en internationale verdragen. Ongeoorloofde vermenigvuldiging of distributie van dit programma, of een deel ervan, kan leiden tot ernstige civielrechtelijke of strafrechtelijke straffen en zal worden vervolgd voor zover wettelijk mogelijk."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -746,8 +791,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1203"
+                            "Setting" = "3:2"
+                            "Value" = "8:Het installatieprogramma leidt u door de stappen die nodig zijn om [ProductName] op uw computer te installeren."
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -851,7 +896,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_02D1B7DFABA94CC6A7DBAAEF0B072076"
             {
-            "SourcePath" = "8:..\\KHMPartiturenCentrum\\obj\\x64\\Release\\net7.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\KHMPartiturenCentrum\\obj\\Release\\net7.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_59607C06F13B4810B0BC0141D932EBD9"
