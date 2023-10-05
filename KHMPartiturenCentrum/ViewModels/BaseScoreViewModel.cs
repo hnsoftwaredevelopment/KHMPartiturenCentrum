@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using KHMPartiturenCentrum.Models;
+using KHM.Models;
 
-namespace KHMPartiturenCentrum.ViewModels;
+namespace KHM.ViewModels;
 
 public partial class BaseScoreViewModel : ObservableObject
 {

@@ -1,4 +1,4 @@
-﻿namespace KHMPartiturenCentrum.Helpers;
+﻿namespace KHM.Helpers;
 
 public class DBNames
 {
@@ -114,7 +114,7 @@ public class DBNames
     public static readonly string ScoresFieldNameMP3B2 = "MP3B2";
     public static readonly string ScoresFieldNameMP3SOL = "MP3SOL";
     public static readonly string ScoresFieldNameMP3PIA = "MP3PIA";
-    public static readonly string ScoresFieldNameMP3UITV = "MP3UTIV";
+    public static readonly string ScoresFieldNameMP3UITV = "MP3UITV";
     public static readonly string ScoresFieldNameOnline = "Online";
     public static readonly string ScoresFieldNameByHeart = "UHH";
     public static readonly string ScoresFieldNameMusicPiece = "Muziekstuk";

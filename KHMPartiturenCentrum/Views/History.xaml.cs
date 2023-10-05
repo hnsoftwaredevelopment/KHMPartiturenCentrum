@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.ViewModels;
+using KHM.Models;
+using KHM.ViewModels;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace KHMPartiturenCentrum.Views
+namespace KHM.Views
 {
     /// <summary>
     /// Interaction logic for History.xaml

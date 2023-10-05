@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KHMPartiturenCentrum.Helpers
+namespace KHM.Helpers
 {
     public static class NewScoreNo
     {

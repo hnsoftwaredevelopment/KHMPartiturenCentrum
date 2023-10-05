@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using KHMPartiturenCentrum.Converters;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.ViewModels;
-using static KHMPartiturenCentrum.App;
+using KHM.Converters;
+using KHM.Helpers;
+using KHM.Models;
+using KHM.ViewModels;
+using static KHM.App;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 /// <summary>
 /// Interaction logic for UserManagement.xaml
 /// </summary>

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KHMPartiturenCentrum.Views
+namespace KHM.Views
 {
     /// <summary>
     /// Interaction logic for Licenses.xaml

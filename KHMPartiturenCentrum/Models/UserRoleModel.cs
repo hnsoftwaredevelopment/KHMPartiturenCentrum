@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KHMPartiturenCentrum.Models;
+namespace KHM.Models;
 public class UserRoleModel
 {
     public int RoleId { get; set; }

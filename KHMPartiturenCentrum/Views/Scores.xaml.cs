@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.ViewModels;
+using KHM.Helpers;
+using KHM.Models;
+using KHM.ViewModels;
 using Syncfusion.DocIO;
-using static KHMPartiturenCentrum.App;
+using static KHM.App;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 
 /// <summary>
 /// Interaction logic for Scores.xaml

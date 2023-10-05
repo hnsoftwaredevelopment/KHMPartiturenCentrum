@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
-using KHMPartiturenCentrum.ViewModels;
+using KHM.ViewModels;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Grid;
@@ -12,7 +12,7 @@ using Color = Syncfusion.Drawing.Color;
 using PointF = Syncfusion.Drawing.PointF;
 using RectangleF = Syncfusion.Drawing.RectangleF;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 /// <summary>
 /// Interaction logic for ArchiveList.xaml
 /// </summary>
@@ -171,10 +171,10 @@ public partial class ArchiveList : Page
         {
             dataTable.Rows.Add ( new object [ ]
             {
-                ((KHMPartiturenCentrum.Models.ScoreModel)Score).Score,
-                ((KHMPartiturenCentrum.Models.ScoreModel)Score).ScoreTitle,
-                ((KHMPartiturenCentrum.Models.ScoreModel)Score).Composer,
-                ((KHMPartiturenCentrum.Models.ScoreModel)Score).ArchiveName
+                ((KHM.Models.ScoreModel)Score).Score,
+                ((KHM.Models.ScoreModel)Score).ScoreTitle,
+                ((KHM.Models.ScoreModel)Score).Composer,
+                ((KHM.Models.ScoreModel)Score).ArchiveName
             } );
         }
 

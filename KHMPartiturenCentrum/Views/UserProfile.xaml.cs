@@ -15,13 +15,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KHMPartiturenCentrum.Converters;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
+using KHM.Converters;
+using KHM.Helpers;
+using KHM.Models;
 using Org.BouncyCastle.Utilities;
-using static KHMPartiturenCentrum.App;
+using static KHM.App;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 
 /// <summary>
 /// Interaction logic for UserProfile.xaml

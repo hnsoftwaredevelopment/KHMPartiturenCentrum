@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.Views;
+using KHM.Helpers;
+using KHM.Models;
+using KHM.Views;
 
 using Microsoft.VisualBasic.ApplicationServices;
 
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KHMPartiturenCentrum.ViewModels;
+namespace KHM.ViewModels;
 public partial class UserViewModel : ObservableObject
 {
     [ObservableProperty]

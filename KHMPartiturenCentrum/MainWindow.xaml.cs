@@ -3,10 +3,10 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using KHMPartiturenCentrum.Helpers;
-using static KHMPartiturenCentrum.App;
+using KHM.Helpers;
+using static KHM.App;
 
-namespace KHMPartiturenCentrum;
+namespace KHM;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>

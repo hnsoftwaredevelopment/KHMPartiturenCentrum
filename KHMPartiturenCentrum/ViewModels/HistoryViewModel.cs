@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
+using KHM.Helpers;
+using KHM.Models;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace KHMPartiturenCentrum.ViewModels
+namespace KHM.ViewModels
 {
     public partial class HistoryViewModel : ObservableObject
     {

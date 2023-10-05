@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KHMPartiturenCentrum.Helpers;
+using KHM.Helpers;
 
-namespace KHMPartiturenCentrum.ViewModels;
+namespace KHM.ViewModels;
 
 public class NewScoreViewModel : BaseScoreViewModel
 {

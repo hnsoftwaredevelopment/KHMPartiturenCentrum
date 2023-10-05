@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace KHMPartiturenCentrum.Converters;
+namespace KHM.Converters;
 
 public class Helper
 {

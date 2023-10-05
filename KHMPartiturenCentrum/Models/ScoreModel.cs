@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KHMPartiturenCentrum.Models;
+namespace KHM.Models;
 
 public class ScoreModel
 {

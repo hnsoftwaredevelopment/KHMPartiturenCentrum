@@ -1,9 +1,9 @@
 ﻿<Page
-    x:Class="KHMPartiturenCentrum.Views.UserProfile"
+    x:Class="KHM.Views.UserProfile"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:KHMPartiturenCentrum.Views"
+    xmlns:local="clr-namespace:KHM.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="UserProfile"
     d:DesignHeight="450"

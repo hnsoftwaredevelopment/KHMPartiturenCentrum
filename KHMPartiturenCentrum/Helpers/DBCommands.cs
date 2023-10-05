@@ -4,16 +4,16 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using KHMPartiturenCentrum.Converters;
-using KHMPartiturenCentrum.Models;
+using KHM.Converters;
+using KHM.Models;
 using MySql.Data.MySqlClient;
-using static KHMPartiturenCentrum.App;
+using static KHM.App;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
 
-namespace KHMPartiturenCentrum.Helpers;
+namespace KHM.Helpers;
 
 public class DBCommands
 {

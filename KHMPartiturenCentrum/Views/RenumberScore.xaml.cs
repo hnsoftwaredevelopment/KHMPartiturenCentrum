@@ -1,7 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.ViewModels;
+using KHM.Helpers;
+using KHM.Models;
+using KHM.ViewModels;
 using MySqlX.XDevAPI.Relational;
 using Org.BouncyCastle.Utilities;
 using System;
@@ -20,9 +20,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static KHMPartiturenCentrum.App;
+using static KHM.App;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 
 /// <summary>
 /// Interaction logic for RenumberScore.xaml

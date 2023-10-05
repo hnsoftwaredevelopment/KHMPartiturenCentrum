@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace KHMPartiturenCentrum.Controls;
+namespace KHM.Controls;
 
 /// <summary>
 /// Interaction logic for MenuItem.xaml

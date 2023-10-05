@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.ViewModels;
+using KHM.Helpers;
+using KHM.Models;
+using KHM.ViewModels;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 
 /// <summary>
 /// Interaction logic for NewScores.xaml

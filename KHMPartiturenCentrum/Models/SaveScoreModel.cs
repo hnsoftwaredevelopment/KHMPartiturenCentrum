@@ -1,4 +1,4 @@
-﻿namespace KHMPartiturenCentrum.Models;
+﻿namespace KHM.Models;
 
 public class SaveScoreModel
 {

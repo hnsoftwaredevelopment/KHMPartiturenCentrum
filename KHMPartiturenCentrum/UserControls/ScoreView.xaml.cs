@@ -1,6 +1,6 @@
-﻿using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.ViewModels;
+﻿using KHM.Helpers;
+using KHM.Models;
+using KHM.ViewModels;
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KHMPartiturenCentrum.UserControls
+namespace KHM.UserControls
 {
     /// <summary>
     /// Interaction logic for ScoreView.xaml

@@ -10,11 +10,11 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using KHMPartiturenCentrum.Views;
+using KHM.Helpers;
+using KHM.Models;
+using KHM.Views;
 
-namespace KHMPartiturenCentrum.ViewModels;
+namespace KHM.ViewModels;
 
 public partial class ScoreViewModel: BaseScoreViewModel
 {

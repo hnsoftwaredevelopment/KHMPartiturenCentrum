@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 
-namespace KHMPartiturenCentrum.Helpers;
+namespace KHM.Helpers;
 
 public class DBConnect
 {

@@ -2,11 +2,11 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using KHMPartiturenCentrum.Helpers;
-using KHMPartiturenCentrum.Models;
-using static KHMPartiturenCentrum.App;
+using KHM.Helpers;
+using KHM.Models;
+using static KHM.App;
 
-namespace KHMPartiturenCentrum.Views;
+namespace KHM.Views;
 /// <summary>
 /// Interaction logic for LoginPage.xaml
 /// </summary>
