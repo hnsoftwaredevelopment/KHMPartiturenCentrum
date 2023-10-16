@@ -1,0 +1,55 @@
+﻿namespace KHM.Models;
+public class MusicFilesModel
+{
+    public int? ScoreId { get; set; }
+    public string? ScoreNumber { get; set; }
+    public string? ScoreTitle { get; set; }
+    public int? FilesIndexId { get; set; }
+    public bool PDFORP { get; set; }
+    public int? PDFORPId { get; set; }
+    public bool PDFORK { get; set; }
+    public int? PDFORKId { get; set; }
+    public bool PDFTOP { get; set; }
+    public int? PDFTOPId { get; set; }
+    public bool PDFTOK { get; set; }
+    public int? PDFTOKId { get; set; }
+    public bool PDFPIA { get; set; }
+    public int? PDFPIAId { get; set; }
+    public bool MSCORP { get; set; }
+    public int? MSCORPId { get; set; }
+    public bool MSCORK { get; set; }
+    public int? MSCORKId { get; set; }
+    public bool MSCTOP { get; set; }
+    public int? MSCTOPId { get; set; }
+    public bool MSCTOK { get; set; }
+    public int? MSCTOKId { get; set; }
+    public bool MP3TOT { get; set; }
+    public int? MP3TOTId { get; set; }
+    public bool MP3T1 { get; set; }
+    public int? MP3T1Id { get; set; }
+    public bool MP3T2 { get; set; }
+    public int? MP3T2Id { get; set; }
+    public bool MP3B1 { get; set; }
+    public int? MP3B1Id { get; set; }
+    public bool MP3B2 { get; set; }
+    public int? MP3B2Id { get; set; }
+    public bool MP3SOL { get; set; }
+    public int? MP3SOLId { get; set; }
+    public bool MP3PIA { get; set; }
+    public int? MP3PIAId { get; set; }
+    public bool MP3UITV { get; set; }
+    public int? MP3UITVId { get; set; }
+    public bool MP3TOTVoice { get; set; }
+    public int? MP3TOTVoiceId { get; set; }
+    public bool MP3T1Voice { get; set; }
+    public int? MP3T1VoiceId { get; set; }
+    public bool MP3T2Voice { get; set; }
+    public int? MP3T2VoiceId { get; set; }
+    public bool MP3B1Voice { get; set; }
+    public int? MP3B1VoiceId { get; set; }
+    public bool MP3B2Voice { get; set; }
+    public int? MP3B2VoiceId { get; set; }
+    public bool MP3SOLVoice { get; set; }
+    public int? MP3SOLVoiceId { get; set; }
+    public string? SearchField { get; set; }
+}

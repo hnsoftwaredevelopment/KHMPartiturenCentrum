@@ -68,6 +68,36 @@ public partial class MainWindow : Window
     #endregion
 
     #region MenuLeft PopupButton
+    #region Files (Library) Menu
+    #region On Click
+    private void btnFiles_Click(object sender, RoutedEventArgs e)
+    {
+        fContainer.Navigate(new System.Uri("Views/Files.xaml", UriKind.RelativeOrAbsolute));
+    }
+    #endregion
+
+    #region On Mouse Enter
+    private void btnFiles_MouseEnter(object sender, MouseEventArgs e)
+    {
+        if (Tg_Btn.IsChecked == false)
+        {
+            Popup.PlacementTarget = btnScores;
+            Popup.Placement = PlacementMode.Right;
+            Popup.IsOpen = true;
+            Header.PopupText.Text = "KHM Muziek Bibliotheek";
+        }
+    }
+    #endregion
+
+    #region On Mouse Leave
+    private void btnFiles_MouseLeave(object sender, MouseEventArgs e)
+    {
+        Popup.Visibility = Visibility.Collapsed;
+        Popup.IsOpen = false;
+    }
+    #endregion
+    #endregion
+
     #region Score Menu
     #region On Click
     private void btnScores_Click ( object sender, RoutedEventArgs e )
@@ -258,6 +288,7 @@ public partial class MainWindow : Window
         Popup.IsOpen = false;
     }
     #endregion
+
     #endregion
 }
 

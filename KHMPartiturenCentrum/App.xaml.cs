@@ -1,6 +1,21 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using KHM.Models;
+﻿global using System.Collections.ObjectModel;
+global using System.Windows;
+global using KHM.Models;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using KHM.Helpers;
+global using Microsoft.VisualBasic.ApplicationServices;
+global using System.Data;
+global using System.IO;
+global using System.Windows.Controls;
+global using KHM.ViewModels;
+global using Syncfusion.Pdf;
+global using Syncfusion.Pdf.Graphics;
+global using Syncfusion.Pdf.Grid;
 
 namespace KHM;
 /// <summary>
@@ -25,5 +40,10 @@ public partial class App : Application
         public static int SelectedUserRoleName { get; set; }
         public static int SelectedUserRoleDescription { get; set; }
         public static ObservableCollection<UserModel> User { get; set; }
+    }
+
+    public class FilePaths
+    {
+        public static string? DownloadPath { get; set; }
     }
 }

@@ -43,8 +43,13 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview2" />
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Syncfusion.DocIO.Wpf" Version="23.1.40" />
     <PackageReference Include="Syncfusion.Pdf.NET" Version="23.1.40" />
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="23.1.40" />
+    <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="23.1.40" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="23.1.40" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="23.1.40" />
   </ItemGroup>
 
   <ItemGroup>

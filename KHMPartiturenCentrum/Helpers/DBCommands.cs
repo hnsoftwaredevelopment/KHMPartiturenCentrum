@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 using KHM.Converters;
 using KHM.Models;
 using MySql.Data.MySqlClient;
+
+using NAudio.Wave;
+
 using static KHM.App;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
@@ -1005,6 +1008,377 @@ public class DBCommands
         {
             Debug.WriteLine ( "Fout (UpdateScoresTable): " + ex.Message );
             throw;
+        }
+    }
+    #endregion
+
+    #region Store file in database table
+    public static void StoreFile(string _table, int _scoreId, string _path, string _fileName)
+    {
+        int fileSize;
+        string sqlQuery;
+        byte[] rawData;
+        FileStream fs;
+
+        try
+        {
+            fs = new FileStream(@_path, FileMode.Open, FileAccess.Read);
+            fileSize = Convert.ToInt32(fs.Length);
+
+            rawData = new byte[fileSize];
+            fs.Read(rawData, 0, Convert.ToInt32(fs.Length));
+            fs.Close();
+
+            using MySqlConnection connection = new(DBConnect.ConnectionString);
+            connection.Open();
+
+            sqlQuery = $"{DBNames.SqlInsert} {_table} ( {DBNames.FilesFieldNameScoreId}, {DBNames.FilesFieldNameFileName}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile} ) {DBNames.SqlValues} ( @ScoreId, @FileName, @FileSize, @File );";
+
+            using MySqlCommand cmd = new(sqlQuery, connection);
+
+            cmd.Connection = connection;
+            cmd.CommandText = sqlQuery;
+            cmd.Parameters.AddWithValue("@ScoreId", _scoreId);
+            cmd.Parameters.AddWithValue("@FileName", _fileName);
+            cmd.Parameters.AddWithValue("@FileSize", fileSize);
+            cmd.Parameters.AddWithValue("@File", rawData);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Close();
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            MessageBox.Show("Error " + ex.Number + " is opgetreden: " + ex.Message,
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    #endregion
+
+    #region Update file in database table
+    public static void UpdateFile(string _table, string _path, string _fileName, int _fileId)
+    {
+        int fileSize;
+        string sqlQuery;
+        byte[] rawData;
+        FileStream fs;
+
+        try
+        {
+            fs = new FileStream(@_path, FileMode.Open, FileAccess.Read);
+            fileSize = Convert.ToInt32(fs.Length);
+
+            rawData = new byte[fileSize];
+            fs.Read(rawData, 0, Convert.ToInt32(fs.Length));
+            fs.Close();
+
+            using MySqlConnection connection = new(DBConnect.ConnectionString);
+            connection.Open();
+
+            sqlQuery = DBNames.SqlUpdate + _table + DBNames.SqlSet + DBNames.FilesFieldNameFileName + " = @FileName, " + DBNames.FilesFieldNameFileSize + " = @FileSize, " + DBNames.FilesFieldNameFile + " = @File" + DBNames.SqlWhere + DBNames.FilesFieldNameId + " = " + _fileId + ";";
+
+            using MySqlCommand cmd = new(sqlQuery, connection);
+
+            cmd.Connection = connection;
+            cmd.CommandText = sqlQuery;
+            cmd.Parameters.AddWithValue("@FileName", _fileName);
+            cmd.Parameters.AddWithValue("@FileSize", fileSize);
+            cmd.Parameters.AddWithValue("@File", rawData);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Close();
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            MessageBox.Show("Error " + ex.Number + " is opgetreden: " + ex.Message,
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    #endregion
+
+    #region update FilesIndex tables, set the correct FileId for a specific Score
+    public static void UpdateFilesIndex(string _fieldName, int _fileId, string _whereIdField, int _whereId)
+    {
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        var sqlQuery = $"{DBNames.SqlUpdate} {DBNames.FilesIndexTable} {DBNames.SqlSet} {_fieldName}=@FileId {DBNames.SqlWhere} {_whereIdField} = {_whereId};";
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        cmd.Connection = connection;
+        cmd.CommandText = sqlQuery;
+        cmd.Parameters.AddWithValue("@FileId", _fileId);
+
+        cmd.ExecuteNonQuery();
+
+        connection.Close();
+    }
+    #endregion
+
+    #region update Library table, set the field for the available file for a specific Score
+    public static void UpdateLibraryForFile(string _fieldName, int _fieldValue, string _whereIdField, int _whereId)
+    {
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        var sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + _fieldName + " = " + _fieldValue + DBNames.SqlWhere + _whereIdField + " = " + _whereId + ";";
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        cmd.Connection = connection;
+        cmd.CommandText = sqlQuery;
+
+        cmd.ExecuteNonQuery();
+
+        connection.Close();
+    }
+    #endregion
+
+    #region Get latest FileId
+    public static int GetAddedFileId(string _tableName)
+    {
+        int fileId;
+        var sqlQuery = DBNames.SqlSelectAll +
+            DBNames.SqlFrom + DBNames.Database + "." + _tableName +
+            DBNames.SqlOrder + DBNames.FilesFieldNameId + DBNames.SqlDesc + DBNames.SqlLimit + "1";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open();
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        fileId = (int)cmd.ExecuteScalar();
+
+        return fileId;
+    }
+    #endregion
+
+
+    #region Get MusicInformation
+    public static ObservableCollection<MusicFilesModel> GetMusicFileInfo(string _table, string _orderByFieldName = "nosort", string _whereFieldName = null, string _whereFieldValue = null)
+    {
+        ObservableCollection<MusicFilesModel> Scores = new();
+
+        _ = new DataTable();
+
+        DataTable dataTable;
+        if (_whereFieldName != null)
+        {
+            dataTable = GetData(_table, _orderByFieldName, _whereFieldName, _whereFieldValue);
+        }
+        else
+        {
+            dataTable = GetData(_table, _orderByFieldName);
+        }
+
+        if (dataTable.Rows.Count > 0)
+        {
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+#pragma warning disable IDE0059 // Unnecessary assignment of a value                
+                bool pdfORP = int.Parse(dataTable.Rows[i].ItemArray[4].ToString()) == 0 ? false : true;
+                bool pdfORK = int.Parse(dataTable.Rows[i].ItemArray[6].ToString()) == 0 ? false : true;
+                bool pdfTOP = int.Parse(dataTable.Rows[i].ItemArray[8].ToString()) == 0 ? false : true;
+                bool pdfTOK = int.Parse(dataTable.Rows[i].ItemArray[10].ToString()) == 0 ? false : true;
+                bool pdfPIA = int.Parse(dataTable.Rows[i].ItemArray[12].ToString()) == 0 ? false : true;
+
+                bool mscORP = int.Parse(dataTable.Rows[i].ItemArray[14].ToString()) == 0 ? false : true;
+                bool mscORK = int.Parse(dataTable.Rows[i].ItemArray[16].ToString()) == 0 ? false : true;
+                bool mscTOP = int.Parse(dataTable.Rows[i].ItemArray[18].ToString()) == 0 ? false : true;
+                bool mscTOK = int.Parse(dataTable.Rows[i].ItemArray[20].ToString()) == 0 ? false : true;
+
+                bool mp3TOT = int.Parse(dataTable.Rows[i].ItemArray[22].ToString()) == 0 ? false : true;
+                bool mp3T1 = int.Parse(dataTable.Rows[i].ItemArray[24].ToString()) == 0 ? false : true;
+                bool mp3T2 = int.Parse(dataTable.Rows[i].ItemArray[26].ToString()) == 0 ? false : true;
+                bool mp3B1 = int.Parse(dataTable.Rows[i].ItemArray[28].ToString()) == 0 ? false : true;
+                bool mp3B2 = int.Parse(dataTable.Rows[i].ItemArray[30].ToString()) == 0 ? false : true;
+                bool mp3SOL = int.Parse(dataTable.Rows[i].ItemArray[32].ToString()) == 0 ? false : true;
+                bool mp3PIA = int.Parse(dataTable.Rows[i].ItemArray[34].ToString()) == 0 ? false : true;
+                bool mp3UITV = int.Parse(dataTable.Rows[i].ItemArray[36].ToString()) == 0 ? false : true;
+
+                bool mp3TOTVoice = int.Parse(dataTable.Rows[i].ItemArray[38].ToString()) == 0 ? false : true;
+                bool mp3T1Voice = int.Parse(dataTable.Rows[i].ItemArray[40].ToString()) == 0 ? false : true;
+                bool mp3T2Voice = int.Parse(dataTable.Rows[i].ItemArray[42].ToString()) == 0 ? false : true;
+                bool mp3B1Voice = int.Parse(dataTable.Rows[i].ItemArray[44].ToString()) == 0 ? false : true;
+                bool mp3B2Voice = int.Parse(dataTable.Rows[i].ItemArray[46].ToString()) == 0 ? false : true;
+                bool mp3SOLVoice = int.Parse(dataTable.Rows[i].ItemArray[48].ToString()) == 0 ? false : true;
+
+                // When Title is empty don't add that row to the list
+                if (dataTable.Rows[i].ItemArray[2].ToString() != string.Empty)
+                {
+                    Scores.Add(new MusicFilesModel
+                    {
+                        ScoreId = int.Parse(dataTable.Rows[i].ItemArray[0].ToString()),
+                        ScoreNumber = dataTable.Rows[i].ItemArray[1].ToString(),
+                        ScoreTitle = dataTable.Rows[i].ItemArray[2].ToString(),
+                        FilesIndexId = int.Parse(dataTable.Rows[i].ItemArray[3].ToString()),
+                        PDFORP = pdfORP,
+                        PDFORPId = int.Parse(dataTable.Rows[i].ItemArray[5].ToString()),
+                        PDFORK = pdfORK,
+                        PDFORKId = int.Parse(dataTable.Rows[i].ItemArray[7].ToString()),
+                        PDFTOP = pdfTOP,
+                        PDFTOPId = int.Parse(dataTable.Rows[i].ItemArray[9].ToString()),
+                        PDFTOK = pdfTOK,
+                        PDFTOKId = int.Parse(dataTable.Rows[i].ItemArray[11].ToString()),
+                        PDFPIA = pdfPIA,
+                        PDFPIAId = int.Parse(dataTable.Rows[i].ItemArray[13].ToString()),
+                        MSCORP = mscORP,
+                        MSCORPId = int.Parse(dataTable.Rows[i].ItemArray[15].ToString()),
+                        MSCORK = mscORK,
+                        MSCORKId = int.Parse(dataTable.Rows[i].ItemArray[17].ToString()),
+                        MSCTOP = mscTOP,
+                        MSCTOPId = int.Parse(dataTable.Rows[i].ItemArray[19].ToString()),
+                        MSCTOK = mscTOK,
+                        MSCTOKId = int.Parse(dataTable.Rows[i].ItemArray[21].ToString()),
+                        MP3TOT = mp3TOT,
+                        MP3TOTId = int.Parse(dataTable.Rows[i].ItemArray[23].ToString()),
+                        MP3T1 = mp3T1,
+                        MP3T1Id = int.Parse(dataTable.Rows[i].ItemArray[25].ToString()),
+                        MP3T2 = mp3T2,
+                        MP3T2Id = int.Parse(dataTable.Rows[i].ItemArray[27].ToString()),
+                        MP3B1 = mp3B1,
+                        MP3B1Id = int.Parse(dataTable.Rows[i].ItemArray[29].ToString()),
+                        MP3B2 = mp3B2,
+                        MP3B2Id = int.Parse(dataTable.Rows[i].ItemArray[31].ToString()),
+                        MP3SOL = mp3SOL,
+                        MP3SOLId = int.Parse(dataTable.Rows[i].ItemArray[33].ToString()),
+                        MP3PIA = mp3PIA,
+                        MP3PIAId = int.Parse(dataTable.Rows[i].ItemArray[35].ToString()),
+                        MP3UITV = mp3UITV,
+                        MP3UITVId = int.Parse(dataTable.Rows[i].ItemArray[37].ToString()),
+                        MP3TOTVoice = mp3TOTVoice,
+                        MP3TOTVoiceId = int.Parse(dataTable.Rows[i].ItemArray[39].ToString()),
+                        MP3T1Voice = mp3T1Voice,
+                        MP3T1VoiceId = int.Parse(dataTable.Rows[i].ItemArray[41].ToString()),
+                        MP3T2Voice = mp3T2Voice,
+                        MP3T2VoiceId = int.Parse(dataTable.Rows[i].ItemArray[43].ToString()),
+                        MP3B1Voice = mp3B1Voice,
+                        MP3B1VoiceId = int.Parse(dataTable.Rows[i].ItemArray[45].ToString()),
+                        MP3B2Voice = mp3B2Voice,
+                        MP3B2VoiceId = int.Parse(dataTable.Rows[i].ItemArray[47].ToString()),
+                        MP3SOLVoice = mp3SOLVoice,
+                        MP3SOLVoiceId = int.Parse(dataTable.Rows[i].ItemArray[49].ToString()),
+                        SearchField = $"{dataTable.Rows[i].ItemArray[1].ToString()} {dataTable.Rows[i].ItemArray[2].ToString()}"
+                    });
+                    ;
+                }
+            }
+        }
+        return Scores;
+    }
+    #endregion
+
+    #region Check existence of DownloadPath, if not exists create it
+    public static void CheckFolder(string _path)
+    {
+        if (!Directory.Exists(_path))
+        {
+            Directory.CreateDirectory(_path);
+        }
+    }
+
+    #endregion
+
+    #region Download File
+    public static void DownloadFile(int _fileId, string _fileTable, string _filePathSuffix, string _fileName)
+    {
+        string? _downloadPath, selectQuery;
+
+        _downloadPath = $"{FilePaths.DownloadPath}\\{_filePathSuffix}";
+        CheckFolder(_downloadPath);
+
+        selectQuery = $"{DBNames.SqlSelect}{DBNames.FilesFieldNameFile}{DBNames.SqlFrom}{_fileTable}{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @{DBNames.FilesFieldNameId};";
+
+        // Verbinding maken met de MySQL-database
+        using (MySqlConnection connection = new MySqlConnection(DBConnect.ConnectionString))
+        {
+            connection.Open();
+
+            using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
+            {
+                command.Parameters.AddWithValue($"@{DBNames.FilesFieldNameId}", _fileId);
+
+                using (MySqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleRow))
+                {
+                    if (reader.Read())
+                    {
+                        using (FileStream fileStream = new(@$"{_downloadPath}\{_fileName}", FileMode.Create, FileAccess.Write))
+                        {
+                            using (BinaryWriter binaryWriter = new(fileStream))
+                            {
+                                long startIndex = 0;
+                                const int bufferSize = 1024;
+                                byte[] buffer = new byte[bufferSize];
+
+                                long bytesRead = reader.GetBytes(0, startIndex, buffer, 0, bufferSize);
+
+                                while (bytesRead == bufferSize)
+                                {
+                                    binaryWriter.Write(buffer);
+                                    binaryWriter.Flush();
+
+                                    startIndex += bufferSize;
+                                    bytesRead = reader.GetBytes(0, startIndex, buffer, 0, bufferSize);
+                                }
+
+                                // Schrijf de resterende bytes naar het bestand
+                                binaryWriter.Write(buffer, 0, (int)bytesRead);
+                                binaryWriter.Flush();
+                            }
+                        }
+                    }
+                }
+            }
+            connection.Close();
+        }
+    }
+    #endregion
+
+    #region Play MP3 File
+    public static void PlayMP3File(int _fileId, string _fileTable, string _filePathSuffix, string _fileName)
+    {
+        string? _downloadPath, selectQuery;
+
+        _downloadPath = $"{FilePaths.DownloadPath}\\{_filePathSuffix}";
+
+
+        selectQuery = $"{DBNames.SqlSelect}{DBNames.FilesFieldNameFile}{DBNames.SqlFrom}{_fileTable}{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @{DBNames.FilesFieldNameId};";
+
+        // Verbinding maken met de MySQL-database
+        using (MySqlConnection connection = new MySqlConnection(DBConnect.ConnectionString))
+        {
+            connection.Open();
+
+            using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
+            {
+                command.Parameters.AddWithValue($"@{DBNames.FilesFieldNameId}", _fileId);
+
+                using (MySqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleRow))
+                {
+                    if (reader.Read())
+                    {
+                        byte[] mp3Data = (byte[])reader[$"{DBNames.FilesFieldNameFile}"]; // Het mp3-bestand als byte-array uit de database halen
+
+                        using (MemoryStream ms = new(mp3Data))
+                        {
+                            using (Mp3FileReader mp3Reader = new(ms))
+                            {
+                                using (WaveOutEvent waveOut = new())
+                                {
+                                    waveOut.Init(mp3Reader);
+                                    waveOut.Play();
+
+                                    Console.WriteLine("Het mp3-bestand wordt afgespeeld. Druk op Enter om te stoppen.");
+                                    Console.ReadLine();
+                                }
+                            }
+                        }
+                    }
+                }
+                connection.Close();
+            }
         }
     }
     #endregion

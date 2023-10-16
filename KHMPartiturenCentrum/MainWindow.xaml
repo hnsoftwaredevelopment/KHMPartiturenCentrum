@@ -65,6 +65,21 @@
                     <!--#region MenuItem-->
                     <StackPanel Grid.Row="1" Margin="-1,40,0,20">
                         <Button
+                            x:Name="btnFiles"
+                            Click="btnFiles_Click"
+                            MouseEnter="btnFiles_MouseEnter"
+                            MouseLeave="btnFiles_MouseLeave"
+                            Style="{DynamicResource PopupButtonStyle}">
+                            <ctls:MenuItem
+                                VerticalAlignment="Center"
+                                GroupName="MenuItem"
+                                Icon="{DynamicResource files}"
+                                IconWidth="16"
+                                IndicatorBrush="{DynamicResource PrimaryBlueColor}"
+                                Text="Bibliotheek" />
+                        </Button>
+
+                        <Button
                             x:Name="btnScores"
                             Click="btnScores_Click"
                             MouseEnter="btnScores_MouseEnter"

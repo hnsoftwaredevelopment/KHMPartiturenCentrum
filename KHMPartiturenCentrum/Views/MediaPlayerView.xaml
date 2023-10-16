@@ -1,0 +1,167 @@
+﻿<Window
+    x:Class="KHM.Views.MediaPlayerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:KHM.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KHM.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="KHM's MP3 Speler"
+    Width="450"
+    Height="450"
+    Closing="Window_Closing"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converter:VolumeConverter x:Key="VolumeConverter" />
+    </Window.Resources>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+            <MediaElement
+                x:Name="MP3MediaElement"
+                LoadedBehavior="Manual"
+                MediaEnded="Element_MediaEnded"
+                MediaOpened="Element_MediaOpened"
+                Stretch="Fill"
+                UnloadedBehavior="Stop" />
+            <!--#region File information-->
+            <TextBox
+                x:Name="tbFileName"
+                Margin="0,15,0,15"
+                HorizontalAlignment="Center"
+                FontFamily="Comic Sans"
+                FontSize="14"
+                Text="[filename]"
+                TextAlignment="Center" />
+            <TextBox
+                x:Name="tbTotalTime"
+                HorizontalAlignment="Center"
+                FontFamily="Comic Sans"
+                FontSize="12"
+                FontStyle="Italic"
+                Text=""
+                TextAlignment="Center"
+                Visibility="Hidden" />
+            <!--#endregion-->
+
+            <!--#region Media buttons-->
+            <Border
+                Width="150"
+                Height="35"
+                Margin="0,40,0,40"
+                HorizontalAlignment="Center"
+                BorderBrush="DarkBlue"
+                BorderThickness=".5"
+                CornerRadius="5">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button
+                        x:Name="btnPlay"
+                        Click="btnPlayClick"
+                        Style="{DynamicResource MusicFiles.Buttons.Style}"
+                        ToolTip="Afspelen">
+                        <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                    </Button>
+
+                    <Button
+                        x:Name="btnPause"
+                        Margin="25,0,25,0"
+                        Click="btnPauseClick"
+                        Style="{DynamicResource MusicFiles.Buttons.Style}"
+                        ToolTip="Pauze">
+                        <Path Data="{DynamicResource MusicFiles.Pause}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                    </Button>
+
+                    <Button
+                        x:Name="btnStop"
+                        Click="btnStopClick"
+                        Style="{DynamicResource MusicFiles.Buttons.Style}"
+                        ToolTip="Stop">
+                        <Path Data="{DynamicResource MusicFiles.Stop}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                    </Button>
+                </StackPanel>
+            </Border>
+            <!--#endregion-->
+
+            <!--#region Sliders-->
+            <StackPanel
+                Width="150"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <!--  Volume slider. This slider allows a Volume range between 0 and 1.  -->
+                <Border
+                    Width="60"
+                    HorizontalAlignment="Left"
+                    BorderBrush="DarkBlue"
+                    BorderThickness=".5"
+                    CornerRadius="5">
+                    <StackPanel
+                        Margin="15,3,15,3"
+                        HorizontalAlignment="Center"
+                        Orientation="Vertical">
+                        <Path
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,0,5"
+                            HorizontalAlignment="Center"
+                            Data="{StaticResource MusicFiles.Volume}"
+                            Fill="DarkSlateBlue"
+                            Stretch="Uniform" />
+                        <Slider
+                            Name="volumeSlider"
+                            Height="150"
+                            HorizontalAlignment="Center"
+                            Maximum="1"
+                            Minimum="0"
+                            Orientation="Vertical"
+                            ValueChanged="ChangeMediaVolume"
+                            Value="0.5" />
+                        <TextBlock
+                            x:Name="tbVolume"
+                            Height="13"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Center"
+                            FontSize="10"
+                            Text="{Binding ElementName=volumeSlider, Path=Value, Converter={StaticResource VolumeConverter}}" />
+                    </StackPanel>
+                </Border>
+                <!--#endregion-->
+
+                <Border Width="30" />
+
+                <!--  Seek to slider. This slider allows you to jump to different parts of the media playback.  -->
+                <Border
+                    Width="60"
+                    HorizontalAlignment="Center"
+                    BorderBrush="DarkBlue"
+                    BorderThickness=".5"
+                    CornerRadius="5">
+                    <StackPanel
+                        Margin="15,3,15,3"
+                        HorizontalAlignment="Center"
+                        Orientation="Vertical">
+                        <Path
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            Data="{StaticResource MusicFiles.Position}"
+                            Fill="DarkSlateBlue"
+                            Stretch="Uniform" />
+                        <Slider
+                            Name="timelineSlider"
+                            Height="150"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical"
+                            ValueChanged="SeekToMediaPosition" />
+                        <TextBlock
+                            Name="tbDuration"
+                            Height="13"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Center"
+                            FontSize="8" />
+                    </StackPanel>
+                </Border>
+                <!--#endregion-->
+            </StackPanel>
+            <!--#endregion-->
+        </StackPanel>
+    </Grid>
+</Window>

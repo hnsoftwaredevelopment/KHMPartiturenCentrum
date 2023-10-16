@@ -1,0 +1,1489 @@
+﻿<Page
+    x:Class="KHM.Views.Files"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KHM.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:KHM.ViewModels"
+    Title="MusicFiles"
+    DataContext="viewmodel:MusicFilesViewModel">
+
+    <Grid>
+        <!--#region Row definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+
+        <!--#region Header-->
+        <Border
+            Grid.Row="0"
+            Height="50"
+            Margin="10"
+            Padding="0"
+            Background="{DynamicResource Header.BackGround}"
+            BorderBrush="{DynamicResource Header.BorderBrush}"
+            BorderThickness=".5"
+            CornerRadius="10">
+
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Height="30"
+                    Margin="5,0,5,0"
+                    Source="..\Resources\Images\logo.png" />
+                <Label
+                    Margin="0,3"
+                    HorizontalAlignment="Center"
+                    Content="Muziek bibliotheek"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Header.Title.TextColor}" />
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+        <!--#region Action Buttons and hidden fields-->
+        <Grid Grid.Row="2" Margin="25,0,25,0">
+            <!--#region Column definitions-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!--#endregion-->
+
+            <!--#region Hidden fields section-->
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Visibility="Collapsed">
+                <TextBlock x:Name="tbEnableEdit" Text="Collapsed" />
+                <TextBlock x:Name="tbAdminMode" Text="Collapsed" />
+                <TextBlock x:Name="tbEnableEditFields" Text="" />
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region Button section-->
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <!--#region Jump to First record-->
+                <Button
+                    x:Name="btnFirst"
+                    Click="BtnFirstClick"
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
+                <!--#endregion-->
+
+                <!--#region Jump to Previous record-->
+                <Button
+                    x:Name="btnPrev"
+                    Click="BtnPreviousClick"
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
+                <!--#endregion-->
+
+                <!--#region Jump to Next record-->
+                <Button
+                    x:Name="btnNext"
+                    Click="BtnNextClick"
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
+                <!--#endregion-->
+
+                <!--#region Jump to Last record-->
+                <Button
+                    x:Name="btnLast"
+                    Click="BtnLastClick"
+                    Style="{DynamicResource DataGrid.Button.Navigate}" />
+                <!--#endregion-->
+
+                <!--#region  Save Button-->
+                <Button
+                    x:Name="btnSave"
+                    Click="BtnSaveClick"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    Visibility="{Binding ElementName=tbEnableEdit, Path=Text}" />
+                <!--#endregion-->
+
+                <!--#region Generate Cover Sheet Button-->
+                <Button
+                    x:Name="btnCoverSheet"
+                    Click="CreateCoverSheet"
+                    CommandParameter="{Binding SelectedItem, ElementName=ScoresDataGrid}"
+                    Style="{DynamicResource DataGrid.Button.Navigate}"
+                    ToolTip="Maak een voorblad van de geselecteerde partituur"
+                    Visibility="{Binding ElementName=tbAdminMode, Path=Text}" />
+                <!--#endregion-->
+            </StackPanel>
+            <!--#endregion-->
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Score information secion-->
+        <Grid Grid.Row="4" Margin="0,0,0,17">
+            <!--#region Column definitions-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <!--#endregion-->
+
+            <!--#region Datagrid Section-->
+            <StackPanel Orientation="Vertical">
+                <!--#region Data grid Search Section-->
+                <Border
+                    Margin="5"
+                    Padding="3"
+                    BorderBrush="{DynamicResource SearchField.Border.BorderBrush}"
+                    BorderThickness=".1"
+                    CornerRadius="7">
+                    <StackPanel Orientation="Horizontal">
+                        <Path
+                            Height="20"
+                            Margin="4"
+                            Data="{StaticResource search}"
+                            Fill="{StaticResource TabItem.Icon.FillBrush}"
+                            Stretch="Uniform"
+                            Stroke="{StaticResource SearchField.Icon.Search.BorderBrush}"
+                            StrokeThickness="0.1"
+                            ToolTip="Zoek op Titel of partituurnummer" />
+                        <TextBox
+                            x:Name="tbSearch"
+                            Height="26"
+                            MinWidth="320"
+                            Margin="4,0,4,0"
+                            VerticalContentAlignment="Center"
+                            FontSize="14"
+                            Style="{DynamicResource placeholderTextBox}"
+                            Tag="Zoek op titel of nummer"
+                            TextChanged="tbSearch_TextChanged" />
+                        <Button
+                            x:Name="btnClearSearch"
+                            Width="14"
+                            Height="14"
+                            Margin="4"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="btnClearSearch_Click"
+                            ToolTip="Maak zoekscherm leeg">
+                            <Path
+                                Height="14"
+                                Data="{StaticResource cancel}"
+                                Fill="{StaticResource TabItem.Icon.FillBrush}"
+                                Stretch="Uniform"
+                                Stroke="{StaticResource SearchField.Icon.Cancel.BorderBrush}"
+                                StrokeThickness="0.1" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <!--#endregion-->
+
+                <!--#region DataGrid ScoresDataGrid-->
+                <DataGrid
+                    x:Name="ScoresDataGrid"
+                    Grid.Column="0"
+                    Margin="5,7,5,7"
+                    Padding="5,0,5,0"
+                    AlternationCount="1"
+                    AutoGenerateColumns="false"
+                    DataContext="viewmodel:MusicFilesViewModel"
+                    IsReadOnly="true"
+                    ItemsSource="{Binding Scores, Mode=TwoWay}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding SelectedScore}"
+                    SelectionChanged="SelectedScoreChanged"
+                    SelectionMode="Single"
+                    Style="{DynamicResource CustomDataGrid}"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <!--#region Column definitions-->
+                    <DataGrid.Columns>
+                        <!--#region Id (Hidden)-->
+                        <DataGridTextColumn
+                            x:Name="ScoreId"
+                            Width="Auto"
+                            Binding="{Binding ScoreId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region  Score Number-->
+                        <DataGridTextColumn
+                            x:Name="ScoreNumber"
+                            Width=".5*"
+                            Binding="{Binding ScoreNumber}"
+                            Header="Partituur" />
+                        <!--#endregion-->
+
+                        <!--#region  Title-->
+                        <DataGridTextColumn
+                            x:Name="ScoreTitle"
+                            Width="2.5*"
+                            Binding="{Binding ScoreTitle}"
+                            Header="Titel" />
+                        <!--#endregion-->
+
+                        <!--#region MuseScoreORP (Hidden)-->
+                        <!-- <DataGridCheckBoxColumn x:Name="MSCORP" Width="Auto" Binding="{Binding MSCORP}" Visibility="Collapsed" /> -->
+                        <DataGridTextColumn
+                            x:Name="MSCORPId"
+                            Width="Auto"
+                            Binding="{Binding MSCORPId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MuseScoreORK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MSCORK"
+                            Width="Auto"
+                            Binding="{Binding MSCORK}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MSCORKId"
+                            Width="Auto"
+                            Binding="{Binding MSCORKId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MuseScoreTOP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MSCTOP"
+                            Width="Auto"
+                            Binding="{Binding MSCTOP}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MSCTOPId"
+                            Width="Auto"
+                            Binding="{Binding MSCTOPId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MuseScoreTOK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MSCTOK"
+                            Width="Auto"
+                            Binding="{Binding MSCTOK}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MSCTOKId"
+                            Width="Auto"
+                            Binding="{Binding MSCTOKId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region PDFORP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFORP"
+                            Width="Auto"
+                            Binding="{Binding PDFORP}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="PDFORPId"
+                            Width="Auto"
+                            Binding="{Binding PDFORPId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region PDFORK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFORK"
+                            Width="Auto"
+                            Binding="{Binding PDFORK}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="PDFORKId"
+                            Width="Auto"
+                            Binding="{Binding PDFORKId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region PDFTOP (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFTOP"
+                            Width="Auto"
+                            Binding="{Binding PDFTOP}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="PDFTOPId"
+                            Width="Auto"
+                            Binding="{Binding PDFTOPId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region PDFTOK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFTOK"
+                            Width="Auto"
+                            Binding="{Binding PDFTOK}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="PDFTOKId"
+                            Width="Auto"
+                            Binding="{Binding PDFTOKId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region PDFTOK (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFPIA"
+                            Width="Auto"
+                            Binding="{Binding PDFPIA}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="PDFPIAId"
+                            Width="Auto"
+                            Binding="{Binding PDFPIAId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3B1 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3B1"
+                            Width="Auto"
+                            Binding="{Binding MP3B1}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3B1Id"
+                            Width="Auto"
+                            Binding="{Binding MP3B1Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3B2 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3B2"
+                            Width="Auto"
+                            Binding="{Binding MP3B2}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3B2Id"
+                            Width="Auto"
+                            Binding="{Binding MP3B2Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3T1 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3T1"
+                            Width="Auto"
+                            Binding="{Binding MP3T1}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3T1Id"
+                            Width="Auto"
+                            Binding="{Binding MP3T1Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3T2 (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3T2"
+                            Width="Auto"
+                            Binding="{Binding MP3T2}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3T2Id"
+                            Width="Auto"
+                            Binding="{Binding MP3T2Id}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3SOL (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3SOL"
+                            Width="Auto"
+                            Binding="{Binding MP3SOL}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3SOLId"
+                            Width="Auto"
+                            Binding="{Binding MP3SOLId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3TOT (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3TOT"
+                            Width="Auto"
+                            Binding="{Binding MP3TOT}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3TOTId"
+                            Width="Auto"
+                            Binding="{Binding MP3TOTId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region MP3PIA (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="MP3PIA"
+                            Width="Auto"
+                            Binding="{Binding MP3PIA}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="MP3PIAId"
+                            Width="Auto"
+                            Binding="{Binding MP3PIAId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+
+                        <!--#region PDFUITV (Hidden)-->
+                        <DataGridCheckBoxColumn
+                            x:Name="PDFUITV"
+                            Width="Auto"
+                            Binding="{Binding PDFUITV}"
+                            Visibility="Collapsed" />
+
+                        <DataGridTextColumn
+                            x:Name="PDFUITVId"
+                            Width="Auto"
+                            Binding="{Binding PDFUITVId}"
+                            Visibility="Collapsed" />
+                        <!--#endregion-->
+                    </DataGrid.Columns>
+                    <!--#endregion-->
+                </DataGrid>
+                <!--#endregion-->
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region  Score and File information section-->
+            <Border
+                Grid.Column="1"
+                Margin="10,0,10,1"
+                Padding="3"
+                Background="White"
+                BorderBrush="Gainsboro"
+                BorderThickness="0,1,1,1"
+                CornerRadius="7"
+                DataContext="{Binding SelectedScore, Mode=TwoWay}">
+                <Grid>
+                    <!--#region Row definitions-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110" />
+                        <RowDefinition Height="220" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <!--#endregion-->
+
+                    <!--#region General Score Information Section-->
+                    <GroupBox
+                        Grid.Row="0"
+                        DataContext="{Binding SelectedScore}"
+                        Header="Partituur gegevens"
+                        Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                        <Grid Margin="5,1,5,1">
+                            <!--#region Score number and Title-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".1*" MinWidth="80" />
+                                <ColumnDefinition Width="*" MinWidth="450" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--#region Score Number-->
+                            <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Partituur" />
+                                <TextBox
+                                    x:Name="tbScoreNumber"
+                                    MinWidth="70"
+                                    MaxWidth="80"
+                                    IsEnabled="False"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <!--#endregion-->
+
+                            <!--#region Score Title-->
+                            <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
+                                <TextBox
+                                    x:Name="tbTitle"
+                                    MinWidth="450"
+                                    IsEnabled="False"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding ScoreTitle, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <!--#endregion-->
+                            <!--#endregion-->
+                        </Grid>
+                    </GroupBox>
+                    <!--#endregion-->
+
+                    <!--#region File Section-->
+                    <GroupBox
+                        Grid.Row="1"
+                        Header="Bestanden"
+                        Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                        <Grid Margin="5,1,5,1">
+                            <!--#region Row and Column definitions-->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="0" />
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="35" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="35" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="25" />
+                            </Grid.ColumnDefinitions>
+                            <!--#endregion-->
+
+                            <!--#region MuseScore Files Section-->
+                            <!--#region File type Logo-->
+                            <Image
+                                Grid.RowSpan="4"
+                                Grid.Column="0"
+                                Source="..\Resources\Images\filetypemscx.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region MuseScore ORP-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORP (Totaal)" />
+
+                            <CheckBox
+                                x:Name="chkMSCORP"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCORPDownload"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MuseScore ORK-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORK (Koor)" />
+
+                            <CheckBox
+                                x:Name="chkMSCORK"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCORKDownload"
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MuseScore TOP-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOP (Totaal)" />
+
+                            <CheckBox
+                                x:Name="chkMSCTOP"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCTOPDownload"
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MuseScore TOK-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOK (Koor)" />
+
+                            <CheckBox
+                                x:Name="chkMSCTOK"
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCTOKDownload"
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF Files Section-->
+                            <!--#region Filetype Logo-->
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="5"
+                                Source="..\Resources\Images\filetypepdf.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region PDF ORP-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORP (Totaal)" />
+
+                            <CheckBox
+                                x:Name="chkPDFORP"
+                                Grid.Row="0"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFORPDownload"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFORPView"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF ORK-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORK (Koor)" />
+
+                            <CheckBox
+                                x:Name="chkPDFORK"
+                                Grid.Row="1"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFORKDownload"
+                                Grid.Row="1"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFORKView"
+                                Grid.Row="1"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF TOP-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOP (Totaal)" />
+
+                            <CheckBox
+                                x:Name="chkPDFTOP"
+                                Grid.Row="2"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFTOPDownload"
+                                Grid.Row="2"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFTOPView"
+                                Grid.Row="2"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF TOK-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOK (Koor)" />
+
+                            <CheckBox
+                                x:Name="chkPDFTOK"
+                                Grid.Row="3"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFTOKDownload"
+                                Grid.Row="3"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFTOKView"
+                                Grid.Row="3"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF PIA-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="PIA (Piano)" />
+
+                            <CheckBox
+                                x:Name="chkPDFPIA"
+                                Grid.Row="4"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFPIADownload"
+                                Grid.Row="4"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFPIAView"
+                                Grid.Row="4"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 Audio Files Section-->
+                            <!--#region Filetype Logo-->
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="10"
+                                Source="..\Resources\Images\filetypemp3.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 B1-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Bariton" />
+
+                            <CheckBox
+                                x:Name="chkMP3B1"
+                                Grid.Row="0"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3B1Download"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3B1Play"
+                                Grid.Row="0"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 B2-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Bas" />
+
+                            <CheckBox
+                                x:Name="chkMP3B2"
+                                Grid.Row="1"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3B2Download"
+                                Grid.Row="1"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3B2Play"
+                                Grid.Row="1"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 T1-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Tenor 1" />
+
+                            <CheckBox
+                                x:Name="chkMP3T1"
+                                Grid.Row="2"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3T1Download"
+                                Grid.Row="2"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3T1Play"
+                                Grid.Row="2"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 T2-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Tenor 2" />
+
+                            <CheckBox
+                                x:Name="chkMP3T2"
+                                Grid.Row="3"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3T2Download"
+                                Grid.Row="3"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3T2Play"
+                                Grid.Row="3"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 Solo-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Solo" />
+
+                            <CheckBox
+                                x:Name="chkMP3SOL"
+                                Grid.Row="4"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3SOLDownload"
+                                Grid.Row="4"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3SOLPlay"
+                                Grid.Row="4"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 TOT-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Totaal" />
+
+                            <CheckBox
+                                x:Name="chkMP3TOT"
+                                Grid.Row="5"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3TOTDownload"
+                                Grid.Row="5"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3TOTPlay"
+                                Grid.Row="5"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 PIA-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Piano" />
+
+                            <CheckBox
+                                x:Name="chkMP3PIA"
+                                Grid.Row="6"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3PIADownload"
+                                Grid.Row="6"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3PIAPlay"
+                                Grid.Row="6"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 UITV-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="7"
+                                Grid.Column="11"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Uitvoering" />
+
+                            <CheckBox
+                                x:Name="chkMP3UITV"
+                                Grid.Row="7"
+                                Grid.Column="12"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3UITVDownload"
+                                Grid.Row="7"
+                                Grid.Column="13"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3UITVPlay"
+                                Grid.Row="7"
+                                Grid.Column="14"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 Voice Audio Files Section-->
+                            <!--#region Filetype Logo-->
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="15"
+                                Source="..\Resources\Images\filetypemp3voice.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 B1 Voice-->
+                            <!--#region Label-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="16"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Bariton" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3B1VoiceDownload"
+                                Grid.Column="17"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3B1VoicePlay"
+                                Grid.Row="0"
+                                Grid.Column="18"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 B2 Voice-->
+                            <!--#region Label-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="16"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Bas" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3B2VoiceDownload"
+                                Grid.Row="1"
+                                Grid.Column="17"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3B2VoicePlay"
+                                Grid.Row="1"
+                                Grid.Column="19"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 T1-->
+                            <!--#region Label-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="16"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Tenor 1" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3T1VoiceDownload"
+                                Grid.Row="2"
+                                Grid.Column="17"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3T1VoicePlay"
+                                Grid.Row="2"
+                                Grid.Column="18"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 T2-->
+                            <!--#region Label-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="16"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Tenor 2" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3T2VoiceDownload"
+                                Grid.Row="3"
+                                Grid.Column="17"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3T2VoicePlay"
+                                Grid.Row="3"
+                                Grid.Column="18"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 Solo-->
+                            <!--#region Label-->
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="16"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Solo" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3SOLVoiceDownload"
+                                Grid.Row="4"
+                                Grid.Column="17"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3SOLVoicePlay"
+                                Grid.Row="4"
+                                Grid.Column="18"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 TOT-->
+                            <!--#region Label-->
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="16"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Totaal" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMP3TOTVoiceDownload"
+                                Grid.Row="5"
+                                Grid.Column="17"
+                                Click="btnDownloadClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMP3TOTVoicePlay"
+                                Grid.Row="5"
+                                Grid.Column="18"
+                                Click="btnPlayClick"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#endregion-->
+                        </Grid>
+                    </GroupBox>
+                    <!--#endregion-->
+
+                </Grid>
+            </Border>
+            <!--#endregion-->
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+</Page>

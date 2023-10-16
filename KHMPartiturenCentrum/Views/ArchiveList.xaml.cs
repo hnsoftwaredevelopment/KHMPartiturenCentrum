@@ -1,14 +1,4 @@
-﻿using System;
-using System.Data;
-//using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Controls;
-using KHM.ViewModels;
-using Syncfusion.Pdf;
-using Syncfusion.Pdf.Graphics;
-using Syncfusion.Pdf.Grid;
-using Color = Syncfusion.Drawing.Color;
+﻿using Color = Syncfusion.Drawing.Color;
 using PointF = Syncfusion.Drawing.PointF;
 using RectangleF = Syncfusion.Drawing.RectangleF;
 
