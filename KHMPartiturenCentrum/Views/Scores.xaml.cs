@@ -2599,13 +2599,15 @@ public partial class Scores : Page
         var _templatename="Resources\\Template\\";
         int LyricsFontSize = 12, LineCount = 36;
 
-        if ( tbLyrics.LineCount <= 0 )
+        var LyricsRows = int.Parse(SelectedScore.Lyrics.Split("\r\n").Length.ToString());
+
+        if (LyricsRows <= 0)
         { _templatename += "CoverSheet0.docx"; }
-        if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 )
+        if (LyricsRows > 0 && LyricsRows <= LineCount)
         { _templatename += "CoverSheet1.docx"; }
-        if ( tbLyrics.LineCount > 38 && tbLyrics.LineCount <= 72 )
+        if (LyricsRows > LineCount && LyricsRows <= LineCount * 2)
         { _templatename += "CoverSheet2.docx"; }
-        if ( tbLyrics.LineCount > 72 )
+        if (LyricsRows > LineCount * 2)
         { _templatename += "CoverSheet2.docx"; LyricsFontSize = 9; LineCount = 49; }
 
         var AccompanimentName = "Piano";
@@ -2613,7 +2615,7 @@ public partial class Scores : Page
         var ScoreNumberFontSize = 80;
 
         // Use ScoreNumber or ScoreNumber-SubScorenumber
-        if ( SelectedScore.ScoreSubNumber == "" )
+        if (SelectedScore.ScoreSubNumber == "")
         {
             ScoreNumber = $"{SelectedScore.ScoreNumber}";
         }
@@ -2628,34 +2630,34 @@ public partial class Scores : Page
 
 
         // Set the check boxes
-        if ( SelectedScore.MP3B1 )
+        if (SelectedScore.MP3B1)
         {
             B1 = "þ";
         }
 
-        if ( SelectedScore.MP3B2 )
+        if (SelectedScore.MP3B2)
         {
             B2 = "þ";
         }
 
-        if ( SelectedScore.MP3T1 )
+        if (SelectedScore.MP3T1)
         {
             T1 = "þ";
         }
 
-        if ( SelectedScore.MP3T2 )
+        if (SelectedScore.MP3T2)
         {
             T2 = "þ";
         }
 
-        if ( SelectedScore.MP3SOL )
+        if (SelectedScore.MP3SOL)
         {
             Solo = "þ";
         }
 
         // Checkbox for Accompaniment should not be set when there is no accompaniment selected (Id:1) or Piano is missing (Id:4) otherwise is will be check marked
         // for the same Ids the AccompaimentName will be set to Piano
-        if ( SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4 )
+        if (SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4)
         {
             Accompaniment = "þ";
             AccompanimentName = SelectedScore.AccompanimentName;
@@ -2667,83 +2669,83 @@ public partial class Scores : Page
         // Set the font size of the ScoreNumber
         Syncfusion.DocIO.DLS.TextSelection[] selectedScoreNumber = document.FindAll("<<Nr>>", true, true);
 
-        for ( int i = 0 ; i < selectedScoreNumber.Length ; i++ )
+        for (int i = 0; i < selectedScoreNumber.Length; i++)
         {
-            selectedScoreNumber [ i ].GetAsOneRange ( ).CharacterFormat.FontSize = ScoreNumberFontSize;
+            selectedScoreNumber[i].GetAsOneRange().CharacterFormat.FontSize = ScoreNumberFontSize;
         }
 
         // If the number of lines are bigger then 72, font size should be smaller to be sure all lines will fit
-        if ( tbLyrics.LineCount > 72 )
+        if (LyricsRows > LineCount * 2)
         {
             Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics1 = document.FindAll("<<Lyrics1>>", true, true);
             Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics2 = document.FindAll("<<Lyrics2>>", true, true);
 
-            for ( int i = 0 ; i < selectedLyrics1.Length ; i++ )
+            for (int i = 0; i < selectedLyrics1.Length; i++)
             {
-                selectedLyrics1 [ i ].GetAsOneRange ( ).CharacterFormat.FontSize = LyricsFontSize;
-                selectedLyrics2 [ i ].GetAsOneRange ( ).CharacterFormat.FontSize = LyricsFontSize;
+                selectedLyrics1[i].GetAsOneRange().CharacterFormat.FontSize = LyricsFontSize;
+                selectedLyrics2[i].GetAsOneRange().CharacterFormat.FontSize = LyricsFontSize;
             }
         }
 
         // Replace the Bookmarks with the actual text
-        document.Replace ( "<<Nr>>", ScoreNumber, true, true );
-        document.Replace ( "<<Titel>>", SelectedScore.ScoreTitle, true, true );
-        document.Replace ( "<<Ondertitel>>", SelectedScore.ScoreSubTitle, true, true );
-        document.Replace ( "<<Componist>>", SelectedScore.Composer, true, true );
-        document.Replace ( "<<Tekstschrijver>>", SelectedScore.Textwriter, true, true );
-        document.Replace ( "<<Arrangement>>", SelectedScore.Arranger, true, true );
-        document.Replace ( "<<Genre>>", SelectedScore.GenreName, true, true );
-        document.Replace ( "<<Taal>>", SelectedScore.LanguageName, true, true );
-        document.Replace ( "<<Begeleiding>>", AccompanimentName, true, true );
-        document.Replace ( "<<B1>>", B1, true, true );
-        document.Replace ( "<<B2>>", B2, true, true );
-        document.Replace ( "<<T1>>", T1, true, true );
-        document.Replace ( "<<T2>>", T2, true, true );
-        document.Replace ( "<<SOL>>", Solo, true, true );
-        document.Replace ( "<<PIA>>", Accompaniment, true, true );
+        document.Replace("<<Nr>>", ScoreNumber, true, true);
+        document.Replace("<<Titel>>", SelectedScore.ScoreTitle, true, true);
+        document.Replace("<<Ondertitel>>", SelectedScore.ScoreSubTitle, true, true);
+        document.Replace("<<Componist>>", SelectedScore.Composer, true, true);
+        document.Replace("<<Tekstschrijver>>", SelectedScore.Textwriter, true, true);
+        document.Replace("<<Arrangement>>", SelectedScore.Arranger, true, true);
+        document.Replace("<<Genre>>", SelectedScore.GenreName, true, true);
+        document.Replace("<<Taal>>", SelectedScore.LanguageName, true, true);
+        document.Replace("<<Begeleiding>>", AccompanimentName, true, true);
+        document.Replace("<<B1>>", B1, true, true);
+        document.Replace("<<B2>>", B2, true, true);
+        document.Replace("<<T1>>", T1, true, true);
+        document.Replace("<<T2>>", T2, true, true);
+        document.Replace("<<SOL>>", Solo, true, true);
+        document.Replace("<<PIA>>", Accompaniment, true, true);
 
-        if ( tbLyrics.LineCount > 0 && tbLyrics.LineCount <= 36 )
+        if (LyricsRows > 0 && LyricsRows <= LineCount)
         {
-            document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true );
+            document.Replace("<<Lyrics>>", tbLyrics.Text, true, true);
         }
 
-        if ( tbLyrics.LineCount > 36 )
+        if (LyricsRows > LineCount)
         {
             var _lyrics1 = "";
             var _lyrics2 = "";
 
-            for ( int i = 0 ; i < LineCount ; i++ )
+            for (int i = 0; i < LineCount; i++)
             {
-                if ( i == 0 || i == LineCount )
+                if (i == 0 || i == LineCount)
                 {
-                    if ( tbLyrics.GetLineText ( i ) != "\r\n" )
+                    if (tbLyrics.GetLineText(i) != "\r\n")
                     {
-                        _lyrics1 += tbLyrics.GetLineText ( i );
+                        _lyrics1 += tbLyrics.GetLineText(i);
                     }
                 }
                 else
                 {
-                    _lyrics1 += tbLyrics.GetLineText ( i );
+                    _lyrics1 += tbLyrics.GetLineText(i);
                 }
             }
 
-            for ( int i = LineCount ; i < tbLyrics.LineCount ; i++ )
+            for (int i = LineCount; i < LyricsRows; i++)
             {
-                if ( i == LineCount || i == tbLyrics.LineCount )
+                if (i == LineCount || i == LyricsRows)
                 {
-                    if ( tbLyrics.GetLineText ( i ) != "\r\n" )
+                    if (tbLyrics.GetLineText(i) != "\r\n")
                     {
-                        _lyrics2 += tbLyrics.GetLineText ( i );
+                        _lyrics2 += tbLyrics.GetLineText(i);
                     }
                 }
                 else
                 {
-                    _lyrics2 += tbLyrics.GetLineText ( i );
+                    _lyrics2 += tbLyrics.GetLineText(i);
                 }
             }
 
-            document.Replace ( "<<Lyrics1>>", _lyrics1, true, true );
-            document.Replace ( "<<Lyrics2>>", _lyrics2, true, true );
+            document.Replace("<<Lyrics1>>", _lyrics1, true, true);
+            document.Replace("<<Lyrics2>>", _lyrics2, true, true);
         }
 
         //Saves the Word document

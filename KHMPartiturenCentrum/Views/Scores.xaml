@@ -2064,7 +2064,7 @@
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
-                                <!--#endregion-->                                
+                                <!--#endregion-->
                                 <!--#endregion-->
 
                                 <!--#region MP3 files-->

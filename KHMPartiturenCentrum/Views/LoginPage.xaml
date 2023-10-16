@@ -188,22 +188,6 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center"
-                                Margin="0,15,0,0">
-                    <TextBlock Text="Wachtwoord vergeten?"
-                               Foreground="DarkGray"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"/>
-                    <TextBlock Text="Opnieuw instellen"
-                               Foreground="White"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               Cursor="Hand"
-                               Margin="8,0,0,0"/>
-                </StackPanel>
             </StackPanel>
         </Grid>
         </Border>

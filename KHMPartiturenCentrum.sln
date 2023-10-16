@@ -65,6 +65,7 @@ Global
 		{EBF2C960-A478-4C22-9EB8-4FE3406FC32A}.DefaultBuild|Any CPU.ActiveCfg = Debug
 		{EBF2C960-A478-4C22-9EB8-4FE3406FC32A}.DefaultBuild|x64.ActiveCfg = Debug
 		{EBF2C960-A478-4C22-9EB8-4FE3406FC32A}.Release|Any CPU.ActiveCfg = Release
+		{EBF2C960-A478-4C22-9EB8-4FE3406FC32A}.Release|Any CPU.Build.0 = Release
 		{EBF2C960-A478-4C22-9EB8-4FE3406FC32A}.Release|x64.ActiveCfg = Release
 		{EBF2C960-A478-4C22-9EB8-4FE3406FC32A}.Release|x64.Build.0 = Release
 	EndGlobalSection

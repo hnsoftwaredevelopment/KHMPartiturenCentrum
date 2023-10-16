@@ -8,6 +8,8 @@
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\applogo.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
+    <AssemblyVersion>2.1.0</AssemblyVersion>
+    <FileVersion>2.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,8 +43,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview2" />
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
-    <PackageReference Include="Syncfusion.DocIO.Wpf" Version="21.1.37" />
-    <PackageReference Include="Syncfusion.Pdf.NET" Version="21.1.37" />
+    <PackageReference Include="Syncfusion.DocIO.Wpf" Version="23.1.40" />
+    <PackageReference Include="Syncfusion.Pdf.NET" Version="23.1.40" />
   </ItemGroup>
 
   <ItemGroup>

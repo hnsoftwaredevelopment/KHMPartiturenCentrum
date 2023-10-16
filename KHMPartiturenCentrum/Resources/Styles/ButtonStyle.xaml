@@ -9,7 +9,7 @@
     <SolidColorBrush x:Key="Button.TimeSpan.Disabled.Background" Color="#FFF4F4F4" />
     <SolidColorBrush x:Key="Button.TimeSpan.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Button.TimeSpan.Disabled.Foreground" Color="#FF838383" />
-    
+
     <!--#region TimeSpan buttons-->
     <!--#region Increase Time-->
     <Style x:Key="Score.Buttons.TimeSpan.Increase" TargetType="{x:Type Button}">
@@ -23,8 +23,8 @@
         <Setter Property="Padding" Value="-1" />
         <Setter Property="Width" Value="10" />
         <Setter Property="Height" Value="10" />
-        <Setter Property="Content" Value="+"/>
-        <Setter Property="FontSize" Value="9"/>
+        <Setter Property="Content" Value="+" />
+        <Setter Property="FontSize" Value="9" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -80,8 +80,8 @@
         <Setter Property="Padding" Value="-1" />
         <Setter Property="Width" Value="10" />
         <Setter Property="Height" Value="10" />
-        <Setter Property="Content" Value="-"/>
-        <Setter Property="FontSize" Value="9"/>
+        <Setter Property="Content" Value="-" />
+        <Setter Property="FontSize" Value="9" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -133,8 +133,8 @@
         TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Button.PDF.ArchiveList.BackGround}" />
         <Setter Property="Margin" Value="40,0,0,0" />
-        <Setter Property="Height" Value="50"/>
-        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
