@@ -1824,7 +1824,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="120" />
-                            <RowDefinition Height="170" />
+                            <RowDefinition Height="220" />
                         </Grid.RowDefinitions>
 
                         <!--#region Score Digtizing Section-->
@@ -1884,31 +1884,42 @@
                             Grid.Row="1"
                             Header="Beschikbare bestanden"
                             Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
-                            <Grid Margin="7">
+                            <Grid Margin="5,1,5,1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="18" />
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="76" />
                                     <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="20" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width=".1" />
                                     <ColumnDefinition Width="76" />
                                     <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="20" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width=".1" />
                                     <ColumnDefinition Width="76" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="20" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="20" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="37" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width=".1" />
+                                    <ColumnDefinition Width="76" />
+                                    <ColumnDefinition Width="37" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width=".1" />
                                     <ColumnDefinition Width="76" />
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="20" />
@@ -1918,6 +1929,7 @@
                                 <!--#region Filetype Logo-->
                                 <Image
                                     Grid.Column="0"
+                                    HorizontalAlignment="Center"
                                     Source="..\Resources\Images\filetypemscx.png"
                                     Style="{DynamicResource TabItem.Page.Image.Style}" />
                                 <!--#endregion-->
@@ -1928,13 +1940,24 @@
                                     Grid.Column="1"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORP (Totaal)" />
+
                                 <CheckBox
                                     x:Name="chkMSCORP"
                                     Grid.Row="0"
                                     Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMSCORPDownload"
+                                    Grid.Column="3"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MuseScore ORK-->
@@ -1943,13 +1966,24 @@
                                     Grid.Column="1"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORK (Koor)" />
+
                                 <CheckBox
                                     x:Name="chkMSCORK"
                                     Grid.Row="1"
                                     Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+                                <Button
+                                    x:Name="btnMSCORKDownload"
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MuseScore TOP-->
@@ -1958,13 +1992,25 @@
                                     Grid.Column="1"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOP (Totaal)" />
+
                                 <CheckBox
                                     x:Name="chkMSCTOP"
                                     Grid.Row="2"
                                     Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMSCTOPDownload"
+                                    Grid.Row="2"
+                                    Grid.Column="3"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MuseScore TOK-->
@@ -1973,20 +2019,40 @@
                                     Grid.Column="1"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOK (Koor)" />
+
                                 <CheckBox
                                     x:Name="chkMSCTOK"
                                     Grid.Row="3"
                                     Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMSCTOKDownload"
+                                    Grid.Row="3"
+                                    Grid.Column="3"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region Separator-->
+                                <Border
+                                    Grid.RowSpan="9"
+                                    Grid.Column="4"
+                                    Background="DarkBlue" />
                                 <!--#endregion-->
 
                                 <!--#region PDF files-->
                                 <!--#region Filetype Logo-->
                                 <Image
-                                    Grid.Column="4"
+                                    Grid.Column="5"
+                                    HorizontalAlignment="Center"
                                     Source="..\Resources\Images\filetypepdf.png"
                                     Style="{DynamicResource TabItem.Page.Image.Style}" />
                                 <!--#endregion-->
@@ -1994,83 +2060,194 @@
                                 <!--#region PDF ORP-->
                                 <TextBlock
                                     Grid.Row="0"
-                                    Grid.Column="5"
+                                    Grid.Column="6"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORP (Totaal)" />
+
                                 <CheckBox
                                     x:Name="chkPDFORP"
                                     Grid.Row="0"
-                                    Grid.Column="6"
+                                    Grid.Column="7"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnPDFORPDownload"
+                                    Grid.Column="8"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnPDFORPView"
+                                    Grid.Column="9"
+                                    Click="btnViewClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region PDF ORK-->
                                 <TextBlock
                                     Grid.Row="1"
-                                    Grid.Column="5"
+                                    Grid.Column="6"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="ORK (Koor)" />
+
                                 <CheckBox
                                     x:Name="chkPDFORK"
                                     Grid.Row="1"
-                                    Grid.Column="6"
+                                    Grid.Column="7"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnPDFORKDownload"
+                                    Grid.Row="1"
+                                    Grid.Column="8"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnPDFORKView"
+                                    Grid.Row="1"
+                                    Grid.Column="9"
+                                    Click="btnViewClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region PDF TOP-->
                                 <TextBlock
                                     Grid.Row="2"
-                                    Grid.Column="5"
+                                    Grid.Column="6"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOP (Totaal)" />
+
                                 <CheckBox
                                     x:Name="chkPDFTOP"
                                     Grid.Row="2"
-                                    Grid.Column="6"
+                                    Grid.Column="7"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnPDFTOPDownload"
+                                    Grid.Row="2"
+                                    Grid.Column="8"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnPDFTOPView"
+                                    Grid.Row="2"
+                                    Grid.Column="9"
+                                    Click="btnViewClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region PDF TOK-->
                                 <TextBlock
                                     Grid.Row="3"
-                                    Grid.Column="5"
+                                    Grid.Column="6"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="TOK (Koor)" />
+
                                 <CheckBox
                                     x:Name="chkPDFTOK"
                                     Grid.Row="3"
-                                    Grid.Column="6"
+                                    Grid.Column="7"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnPDFTOKDownload"
+                                    Grid.Row="3"
+                                    Grid.Column="8"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnPDFTOKView"
+                                    Grid.Row="3"
+                                    Grid.Column="9"
+                                    Click="btnViewClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region PDF PIA-->
                                 <TextBlock
                                     Grid.Row="4"
-                                    Grid.Column="5"
+                                    Grid.Column="6"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="PIA (Piano)" />
+
                                 <CheckBox
                                     x:Name="chkPDFPIA"
                                     Grid.Row="4"
-                                    Grid.Column="6"
+                                    Grid.Column="7"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnPDFPIADownload"
+                                    Grid.Row="4"
+                                    Grid.Column="8"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnPDFPIAView"
+                                    Grid.Row="4"
+                                    Grid.Column="9"
+                                    Click="btnViewClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region Separator-->
+                                <Border
+                                    Grid.RowSpan="9"
+                                    Grid.Column="10"
+                                    Background="DarkBlue" />
                                 <!--#endregion-->
 
                                 <!--#region MP3 files-->
                                 <!--#region Filetype Logo-->
                                 <Image
-                                    Grid.Column="8"
+                                    Grid.Column="11"
+                                    HorizontalAlignment="Center"
                                     Source="..\Resources\Images\filetypemp3.png"
                                     Style="{DynamicResource TabItem.Page.Image.Style}" />
                                 <!--#endregion-->
@@ -2078,128 +2255,542 @@
                                 <!--#region MP3 B1-->
                                 <TextBlock
                                     Grid.Row="0"
-                                    Grid.Column="9"
+                                    Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="B1" />
+                                    Text="Bariton" />
+
                                 <CheckBox
                                     x:Name="chkMP3B1"
                                     Grid.Row="0"
-                                    Grid.Column="10"
+                                    Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3B1Download"
+                                    Grid.Row="0"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3B1Play"
+                                    Grid.Row="0"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 B2-->
                                 <TextBlock
                                     Grid.Row="1"
-                                    Grid.Column="9"
+                                    Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="B2" />
+                                    Text="Bas" />
+
                                 <CheckBox
                                     x:Name="chkMP3B2"
                                     Grid.Row="1"
-                                    Grid.Column="10"
+                                    Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3B2Download"
+                                    Grid.Row="1"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3B2Play"
+                                    Grid.Row="1"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 T1-->
                                 <TextBlock
                                     Grid.Row="2"
-                                    Grid.Column="9"
+                                    Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="T1" />
+                                    Text="Tenor 1" />
+
                                 <CheckBox
                                     x:Name="chkMP3T1"
                                     Grid.Row="2"
-                                    Grid.Column="10"
+                                    Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3T1Download"
+                                    Grid.Row="2"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3T1Play"
+                                    Grid.Row="2"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 T2-->
                                 <TextBlock
                                     Grid.Row="3"
-                                    Grid.Column="9"
+                                    Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="T2" />
+                                    Text="Tenor 2" />
+
                                 <CheckBox
                                     x:Name="chkMP3T2"
                                     Grid.Row="3"
-                                    Grid.Column="10"
+                                    Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3T2Download"
+                                    Grid.Row="3"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3T2Play"
+                                    Grid.Row="3"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 Solo-->
                                 <TextBlock
-                                    Grid.Row="0"
+                                    Grid.Row="4"
                                     Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="SOL" />
+                                    Text="Solo" />
+
                                 <CheckBox
                                     x:Name="chkMP3SOL"
-                                    Grid.Row="0"
+                                    Grid.Row="4"
                                     Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3SOLDownload"
+                                    Grid.Row="4"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3SOLPlay"
+                                    Grid.Row="4"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 TOT-->
                                 <TextBlock
-                                    Grid.Row="1"
+                                    Grid.Row="5"
                                     Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="TOT" />
+                                    Text="Totaal" />
+
                                 <CheckBox
                                     x:Name="chkMP3TOT"
-                                    Grid.Row="1"
+                                    Grid.Row="5"
                                     Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3TOTDownload"
+                                    Grid.Row="5"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3TOTPlay"
+                                    Grid.Row="5"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 PIA-->
                                 <TextBlock
-                                    Grid.Row="2"
+                                    Grid.Row="6"
                                     Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="PIA" />
+                                    Text="Piano" />
+
                                 <CheckBox
                                     x:Name="chkMP3PIA"
-                                    Grid.Row="2"
+                                    Grid.Row="6"
                                     Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3PIADownload"
+                                    Grid.Row="6"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3PIAPlay"
+                                    Grid.Row="6"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
 
                                 <!--#region MP3 UITV-->
                                 <TextBlock
-                                    Grid.Row="3"
+                                    Grid.Row="7"
                                     Grid.Column="12"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
-                                    Text="UITV" />
+                                    Text="Uitvoering" />
+
                                 <CheckBox
                                     x:Name="chkMP3UITV"
-                                    Grid.Row="3"
+                                    Grid.Row="7"
                                     Grid.Column="13"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3UITVDownload"
+                                    Grid.Row="7"
+                                    Grid.Column="14"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3UITVPlay"
+                                    Grid.Row="7"
+                                    Grid.Column="15"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
                                 <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region Separator-->
+                                <Border
+                                    Grid.RowSpan="9"
+                                    Grid.Column="16"
+                                    Background="DarkBlue" />
+                                <!--#endregion-->
+
+                                <!--#region MP3 Voice Audio Files-->
+                                <!--#region Filetype Logo-->
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.RowSpan="4"
+                                    Grid.Column="17"
+                                    HorizontalAlignment="Center"
+                                    Source="..\Resources\Images\filetypemp3voice.png"
+                                    Style="{DynamicResource TabItem.Page.Image.Style}" />
+                                <!--#endregion-->
+                                
+                                <!--#region MP3 B1 Voice-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="18"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Bariton" />
+
+                                <CheckBox
+                                    x:Name="chkMP3B1Voice"
+                                    Grid.Row="0"
+                                    Grid.Column="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3B1VoiceDownload"
+                                    Grid.Row="0"
+                                    Grid.Column="20"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3B1VoicePlay"
+                                    Grid.Row="0"
+                                    Grid.Column="21"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <!--#region MP3 B2 Voice-->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="18"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Bas" />
+
+                                <CheckBox
+                                    x:Name="chkMP3B2Voice"
+                                    Grid.Row="1"
+                                    Grid.Column="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3B2VoiceDownload"
+                                    Grid.Row="1"
+                                    Grid.Column="20"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3B2VoicePlay"
+                                    Grid.Row="1"
+                                    Grid.Column="21"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <!--#region MP3 T1 Voice-->
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="18"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Tenor 1" />
+
+                                <CheckBox
+                                    x:Name="chkMP3T1Voice"
+                                    Grid.Row="2"
+                                    Grid.Column="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3T1VoiceDownload"
+                                    Grid.Row="2"
+                                    Grid.Column="20"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3T1VoicePlay"
+                                    Grid.Row="2"
+                                    Grid.Column="21"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <!--#region MP3 T2 Voice-->
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="18"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Tenor 2" />
+
+                                <CheckBox
+                                    x:Name="chkMP3T2Voice"
+                                    Grid.Row="3"
+                                    Grid.Column="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3T2VoiceDownload"
+                                    Grid.Row="3"
+                                    Grid.Column="20"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3T2VoicePlay"
+                                    Grid.Row="3"
+                                    Grid.Column="21"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <!--#region MP3 Solo Voice-->
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="18"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Solo" />
+
+                                <CheckBox
+                                    x:Name="chkMP3SOLVoice"
+                                    Grid.Row="4"
+                                    Grid.Column="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3SOLVoiceDownload"
+                                    Grid.Row="4"
+                                    Grid.Column="20"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3SOLVoicePlay"
+                                    Grid.Row="4"
+                                    Grid.Column="21"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+                                <!--#endregion-->
+
+                                <!--#region MP3 TOT-->
+                                <TextBlock
+                                    Grid.Row="5"
+                                    Grid.Column="18"
+                                    Style="{DynamicResource TabItem.Page.Label.Style}"
+                                    Text="Totaal" />
+
+                                <CheckBox
+                                    x:Name="chkMP3TOTVoice"
+                                    Grid.Row="5"
+                                    Grid.Column="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+
+                                <Button
+                                    x:Name="btnMP3TOTVoiceDownload"
+                                    Grid.Row="5"
+                                    Grid.Column="20"
+                                    Click="btnDownloadClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+
+                                <Button
+                                    x:Name="btnMP3TOTVoicePlay"
+                                    Grid.Row="5"
+                                    Grid.Column="21"
+                                    Click="btnPlayClick"
+                                    Style="{DynamicResource MusicFiles.Buttons.Style}">
+                                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                                </Button>
+                                <!--#endregion-->
+                                <!--#endregion-->
+
+                                <!--#region Separator-->
+                                <Border
+                                    Grid.RowSpan="9"
+                                    Grid.Column="22"
+                                    Background="DarkBlue" />
                                 <!--#endregion-->
 
                                 <!--#region MuseScore Online-->
                                 <!--#region Filetype Logo-->
                                 <Image
-                                    Grid.Column="15"
+                                    Grid.Column="23" HorizontalAlignment="Center"
                                     Source="..\Resources\Images\filetypemscxonline.png"
                                     Style="{DynamicResource TabItem.Page.Image.Style}" />
                                 <!--#endregion-->
@@ -2207,13 +2798,15 @@
                                 <!--#region MuseScore Online-->
                                 <TextBlock
                                     Grid.Row="0"
-                                    Grid.Column="16"
+                                    Grid.Column="24"
                                     Style="{DynamicResource TabItem.Page.Label.Style}"
                                     Text="Online" />
                                 <CheckBox
                                     x:Name="chkMSCOnline"
                                     Grid.Row="0"
-                                    Grid.Column="17"
+                                    Grid.Column="25"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Checked="CheckBoxChanged"
                                     IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                     Unchecked="CheckBoxChanged" />

@@ -8,8 +8,8 @@
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\applogo.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyVersion>2.1.0</AssemblyVersion>
-    <FileVersion>2.1.0</FileVersion>
+    <AssemblyVersion>23.10.2</AssemblyVersion>
+    <FileVersion>23.10.17</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +18,7 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\filetypemp3.png" />
+    <None Remove="Resources\Images\filetypemp3voice.png" />
     <None Remove="Resources\Images\filetypemscx.png" />
     <None Remove="Resources\Images\filetypemscxonline.png" />
     <None Remove="Resources\Images\filetypepdf.png" />
@@ -61,6 +62,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\filetypemp3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filetypemp3voice.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\filetypemscx.png">
