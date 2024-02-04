@@ -25,6 +25,7 @@ public class RegHelper
         }
         catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
         {
+            Console.WriteLine( ex );
             //react appropriately
         }
 

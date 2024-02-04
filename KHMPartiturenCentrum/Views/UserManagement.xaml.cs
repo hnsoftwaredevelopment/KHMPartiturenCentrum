@@ -393,17 +393,14 @@ public partial class UserManagement : Page
             {
                 case MessageBoxResult.Yes:
                     // Continue Deleting User
-                    if ( SelectedUser.UserId != null )
-                    {
-                        DBCommands.DeleteUser ( SelectedUser.UserId.ToString ( ) );
+                    DBCommands.DeleteUser(SelectedUser.UserId.ToString());
 
-                        // Write action to History Log
-                        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogUserDeleted, SelectedUserName );
+                    // Write action to History Log
+                    DBCommands.WriteLog(ScoreUsers.SelectedUserId, DBNames.LogUserDeleted, SelectedUserName);
 
-                        // Refresh DataGrid
-                        users = new UserViewModel ( );
-                        DataContext = users;
-                    }
+                    // Refresh DataGrid
+                    users = new UserViewModel();
+                    DataContext = users;
                     break;
                 case MessageBoxResult.No:
                     // Do nothing no deletion wanted

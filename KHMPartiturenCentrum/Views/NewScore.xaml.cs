@@ -35,7 +35,6 @@ namespace KHM.Views
         #region Selected a new Score number
         private void NewScoreChanged ( object sender, SelectionChangedEventArgs e )
         {
-            var _newScore = "";
             btnCreate.Visibility = Visibility.Visible;
 
             btnText.Text = cbxNewScores.SelectedValue.ToString ();

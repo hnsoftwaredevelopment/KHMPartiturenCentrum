@@ -622,8 +622,6 @@ public class DBCommands
     #region Add New Score as Subscore
     public static void AddNewScoreAsSubscore ( ObservableCollection<ScoreModel> _score )
     {
-        var repertoire = 1;
-
         var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " +
                 DBNames.ScoresFieldNameTitle + ", " +
                 DBNames.ScoresFieldNameAccompanimentId + ", " +
@@ -1652,7 +1650,6 @@ public class DBCommands
     #region Check valid user password
     public static int CheckUserPassword ( string login, string password )
     {
-        int UserId = 0;
         var _pwLogedInUser = Helper.HashPepperPassword(password, login);
 
         ObservableCollection<UserModel> Users = GetUsers();
@@ -1744,10 +1741,12 @@ public class DBCommands
         }
         catch ( RegexMatchTimeoutException e )
         {
+            Console.WriteLine(e);
             return false;
         }
         catch ( ArgumentException e )
         {
+            Console.WriteLine(e);
             return false;
         }
 
