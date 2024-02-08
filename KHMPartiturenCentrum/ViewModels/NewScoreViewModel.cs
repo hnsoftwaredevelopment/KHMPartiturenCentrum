@@ -11,7 +11,7 @@ public class NewScoreViewModel : BaseScoreViewModel
 {
     public NewScoreViewModel ()
     {
-        //Scores = DBCommands.GetEmptyScores ( DBNames.AvailableScoresView, DBNames.AvailableScoresFieldNameNumber );
+        //Scores = DBCommands.GetEmptyScores ( DbNames.AvailableScoresView, DbNames.AvailableScoresFieldNameNumber );
         AvailableScores = DBCommands.GetAvailableScores ();
     }
 }

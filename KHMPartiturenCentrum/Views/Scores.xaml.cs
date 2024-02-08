@@ -1654,7 +1654,7 @@ public partial class Scores : Page
             } );
 
             DBCommands.SaveScore ( ScoreList );
-            DBCommands.GetScores ( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null );
+            DBCommands.GetScores ( DbNames.ScoresView, DbNames.ScoresFieldNameScoreNumber, null, null );
 
             SaveHistory ( ScoreList, OldScoreValues );
 
@@ -1665,9 +1665,9 @@ public partial class Scores : Page
     public void SaveHistory ( ObservableCollection<SaveScoreModel> _scoreList, ObservableCollection<ScoreModel> _oldScoreList )
     {
 
-        string _action = DBNames.LogScoreChanged;
+        string _action = DbNames.LogScoreChanged;
         if ( ( bool ) cbNewScore.IsChecked )
-        { _action = DBNames.LogScoreAdded; }
+        { _action = DbNames.LogScoreAdded; }
 
         // Write log info
         DBCommands.WriteLog ( ScoreUsers.SelectedUserId, _action, $"Partituur: {tbScoreNumber.Text}" );
@@ -1678,21 +1678,21 @@ public partial class Scores : Page
         #region Log Accompaniment changes
         if ( ( bool ) ( cbAccompaniment.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAccompaniment, _oldScoreList [ 0 ].AccompanimentName, _scoreList [ 0 ].AccompanimentName );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogAccompaniment, _oldScoreList [ 0 ].AccompanimentName, _scoreList [ 0 ].AccompanimentName );
         }
         #endregion
 
         #region Log Repertoire Changes
         if ( ( bool ) ( cbRepertoire.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogRepertoire, _oldScoreList [ 0 ].RepertoireName, _scoreList [ 0 ].RepertoireName );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogRepertoire, _oldScoreList [ 0 ].RepertoireName, _scoreList [ 0 ].RepertoireName );
         }
         #endregion
 
         #region Log Archive Changes
         if ( ( bool ) ( cbArchive.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogArchive, _oldScoreList [ 0 ].ArchiveName, _scoreList [ 0 ].ArchiveName );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogArchive, _oldScoreList [ 0 ].ArchiveName, _scoreList [ 0 ].ArchiveName );
         }
         #endregion
 
@@ -1702,16 +1702,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].ByHeart == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].ByHeart == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogByHeart, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogByHeart, oldValue, newValue );
         }
         #endregion
 
@@ -1720,73 +1720,73 @@ public partial class Scores : Page
         {
             // Prevent the Title "<Nieuw>" (for new scores) to be written to the log
             string? _oldTitle = _oldScoreList [ 0 ].ScoreTitle;
-            if ( _oldTitle == DBNames.LogNew )
+            if ( _oldTitle == DbNames.LogNew )
             { _oldTitle = ""; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTitle, _oldTitle, _scoreList [ 0 ].Title );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogTitle, _oldTitle, _scoreList [ 0 ].Title );
         }
         #endregion
 
         #region Log SubTitle Changes
         if ( ( bool ) ( cbSubTitle.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogSubTitle, _oldScoreList [ 0 ].ScoreSubTitle, _scoreList [ 0 ].SubTitle );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogSubTitle, _oldScoreList [ 0 ].ScoreSubTitle, _scoreList [ 0 ].SubTitle );
         }
         #endregion
 
         #region Log Composer Changes
         if ( ( bool ) ( cbComposer.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogComposer, _oldScoreList [ 0 ].Composer, _scoreList [ 0 ].Composer );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogComposer, _oldScoreList [ 0 ].Composer, _scoreList [ 0 ].Composer );
         }
         #endregion
 
         #region Log Textwriter Changes
         if ( ( bool ) ( cbTextwriter.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogTextwriter, _oldScoreList [ 0 ].Textwriter, _scoreList [ 0 ].Textwriter );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogTextwriter, _oldScoreList [ 0 ].Textwriter, _scoreList [ 0 ].Textwriter );
         }
         #endregion
 
         #region Log Arranger Changes
         if ( ( bool ) ( cbArranger.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogArranger, _oldScoreList [ 0 ].Arranger, _scoreList [ 0 ].Arranger );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogArranger, _oldScoreList [ 0 ].Arranger, _scoreList [ 0 ].Arranger );
         }
         #endregion
 
         #region Log Genre Changes
         if ( ( bool ) ( cbGenre.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogGenre, _oldScoreList [ 0 ].GenreName, _scoreList [ 0 ].GenreName );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogGenre, _oldScoreList [ 0 ].GenreName, _scoreList [ 0 ].GenreName );
         }
         #endregion
 
         #region Log Language Changes
         if ( ( bool ) ( cbLanguage.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLanguage, _oldScoreList [ 0 ].LanguageName, _scoreList [ 0 ].LanguageName );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogLanguage, _oldScoreList [ 0 ].LanguageName, _scoreList [ 0 ].LanguageName );
         }
         #endregion
 
         #region Log Music piece Changes
         if ( ( bool ) ( cbMusicPiece.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMusicPiece, _oldScoreList [ 0 ].MusicPiece, _scoreList [ 0 ].MusicPiece );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMusicPiece, _oldScoreList [ 0 ].MusicPiece, _scoreList [ 0 ].MusicPiece );
         }
         #endregion
 
         #region Log Date Digitized Changes
         if ( ( bool ) ( cbDigitized.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogDigitized, ( _oldScoreList [ 0 ].DateDigitized.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString ( ) ), _scoreList [ 0 ].DateDigitized );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogDigitized, ( _oldScoreList [ 0 ].DateDigitized.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString ( ) ), _scoreList [ 0 ].DateDigitized );
         }
         #endregion
 
         #region Log Date Modified Changes
         if ( ( bool ) ( cbModified.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogModified, ( _oldScoreList [ 0 ].DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString ( ) ), _scoreList [ 0 ].DateModified );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogModified, ( _oldScoreList [ 0 ].DateModified.ToDateTime ( TimeOnly.Parse ( "00:00 AM" ) ).ToString ( ) ), _scoreList [ 0 ].DateModified );
         }
         #endregion
 
@@ -1796,16 +1796,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].Checked == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].Checked == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogChecked, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogChecked, oldValue, newValue );
         }
         #endregion
 
@@ -1815,16 +1815,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].PDFORP == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].PDFORP == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFORP, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPDFORP, oldValue, newValue );
         }
         #endregion
 
@@ -1834,16 +1834,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].PDFORK == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].PDFORK == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFORK, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPDFORK, oldValue, newValue );
         }
         #endregion
 
@@ -1853,16 +1853,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].PDFTOP == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].PDFTOP == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFTOP, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPDFTOP, oldValue, newValue );
         }
         #endregion
 
@@ -1872,16 +1872,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].PDFTOK == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].PDFTOK == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPDFTOK, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPDFTOK, oldValue, newValue );
         }
         #endregion
 
@@ -1891,16 +1891,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreORP == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MuseScoreORP == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCORP, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMSCORP, oldValue, newValue );
         }
         #endregion
 
@@ -1910,16 +1910,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreORK == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MuseScoreORK == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCORK, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMSCORK, oldValue, newValue );
         }
         #endregion
 
@@ -1929,16 +1929,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreTOP == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MuseScoreTOP == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCTOP, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMSCTOP, oldValue, newValue );
         }
         #endregion
 
@@ -1948,16 +1948,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreTOK == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MuseScoreTOK == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCTOK, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMSCTOK, oldValue, newValue );
         }
 
         #endregion
@@ -1968,16 +1968,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3B1 == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3B1 == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3B1, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3B1, oldValue, newValue );
         }
         #endregion
 
@@ -1987,16 +1987,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3B2 == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3B2 == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3B2, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3B2, oldValue, newValue );
         }
         #endregion
 
@@ -2006,16 +2006,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3T1 == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3T1 == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3T1, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3T1, oldValue, newValue );
         }
         #endregion
 
@@ -2025,16 +2025,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3T2 == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3T2 == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3T2, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3T2, oldValue, newValue );
         }
         #endregion
 
@@ -2044,16 +2044,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3SOL == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3SOL, oldValue, newValue );
         }
         #endregion
 
@@ -2063,16 +2063,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3TOT == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3TOT == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3TOT, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3TOT, oldValue, newValue );
         }
         #endregion
 
@@ -2082,16 +2082,16 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MP3PIA == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MP3PIA == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3PIA, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMP3PIA, oldValue, newValue );
         }
         #endregion
 
@@ -2101,65 +2101,65 @@ public partial class Scores : Page
             string oldValue = "", newValue = "";
 
             if ( ( bool ) ( _oldScoreList [ 0 ].MuseScoreOnline == true ) )
-            { oldValue = DBNames.LogYes; }
+            { oldValue = DbNames.LogYes; }
             else
-            { oldValue = DBNames.LogNo; }
+            { oldValue = DbNames.LogNo; }
 
             if ( _scoreList [ 0 ].MuseScoreOnline == 1 )
-            { newValue = DBNames.LogYes; }
+            { newValue = DbNames.LogYes; }
             else
-            { newValue = DBNames.LogNo; }
+            { newValue = DbNames.LogNo; }
 
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogMSCOnline, oldValue, newValue );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogMSCOnline, oldValue, newValue );
         }
         #endregion
 
         #region Log Lyrics Changes
         if ( ( bool ) ( cbLyrics.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogLyrics, "", "" );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogLyrics, "", "" );
         }
         #endregion
 
         #region Log Notes Changes
         if ( ( bool ) ( cbNotes.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogNotes, "", "" );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogNotes, "", "" );
         }
         #endregion
 
         #region Log Amount Publisher 1 Changes
         if ( ( bool ) ( cbAmountPublisher1.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher1.ToString ( ), _scoreList [ 0 ].AmountPublisher1.ToString ( ) );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher1.ToString ( ), _scoreList [ 0 ].AmountPublisher1.ToString ( ) );
         }
         #endregion
 
         #region Log Amount Publisher 2 Changes
         if ( ( bool ) ( cbAmountPublisher2.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher2.ToString ( ), _scoreList [ 0 ].AmountPublisher2.ToString ( ) );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher2.ToString ( ), _scoreList [ 0 ].AmountPublisher2.ToString ( ) );
         }
         #endregion
 
         #region Log Amount Publisher 3 Changes
         if ( ( bool ) ( cbAmountPublisher3.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher3.ToString ( ), _scoreList [ 0 ].AmountPublisher3.ToString ( ) );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher3.ToString ( ), _scoreList [ 0 ].AmountPublisher3.ToString ( ) );
         }
         #endregion
 
         #region Log Amount Publisher 4 Changes
         if ( ( bool ) ( cbAmountPublisher4.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher4.ToString ( ), _scoreList [ 0 ].AmountPublisher4.ToString ( ) );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogAmountPublisher, _oldScoreList [ 0 ].AmountPublisher4.ToString ( ), _scoreList [ 0 ].AmountPublisher4.ToString ( ) );
         }
         #endregion
 
         #region Log Publisher 1 Changes
         if ( ( bool ) ( cbPublisher1.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher1Name, _scoreList [ 0 ].Publisher1Name );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPublisher, _oldScoreList [ 0 ].Publisher1Name, _scoreList [ 0 ].Publisher1Name );
         }
 
         #endregion
@@ -2167,21 +2167,21 @@ public partial class Scores : Page
         #region Log Publisher 2 Changes
         if ( ( bool ) ( cbPublisher2.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher2Name, _scoreList [ 0 ].Publisher2Name );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPublisher, _oldScoreList [ 0 ].Publisher2Name, _scoreList [ 0 ].Publisher2Name );
         }
         #endregion
 
         #region Log Publisher 3 Changes
         if ( ( bool ) ( cbPublisher3.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher3Name, _scoreList [ 0 ].Publisher3Name );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPublisher, _oldScoreList [ 0 ].Publisher3Name, _scoreList [ 0 ].Publisher3Name );
         }
         #endregion
 
         #region Log Publisher 4 Changes
         if ( ( bool ) ( cbPublisher4.IsChecked ) )
         {
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogPublisher, _oldScoreList [ 0 ].Publisher4Name, _scoreList [ 0 ].Publisher4Name );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogPublisher, _oldScoreList [ 0 ].Publisher4Name, _scoreList [ 0 ].Publisher4Name );
         }
         #endregion
     }
@@ -2301,7 +2301,7 @@ public partial class Scores : Page
                     {
                         DBCommands.DeleteScore ( SelectedScore.ScoreNumber, SelectedScore.ScoreSubNumber );
                         // Write log info
-                        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreDeleted, $"Partituur: {tbScoreNumber.Text}" );
+                        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogScoreDeleted, $"Partituur: {tbScoreNumber.Text}" );
                         DBCommands.ReAddScore ( SelectedScore.ScoreNumber );
 
                         // If the selected (Sub) score has number "01" and there is only 1 Score Left and the subscorenumber should be removed from the datagrid
@@ -2751,7 +2751,7 @@ public partial class Scores : Page
         //Saves the Word document
         document.Save ( _docname );
 
-        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
     }
     #endregion
 }

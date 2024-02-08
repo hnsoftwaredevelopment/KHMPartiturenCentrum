@@ -1,6 +1,6 @@
 ﻿namespace KHM.Helpers;
 
-public class DBNames
+public class DbNames
 {
     #region Sql commands
     public static readonly string SqlSelect = "SELECT ";

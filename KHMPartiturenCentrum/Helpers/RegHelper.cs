@@ -3,34 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.Win32;
 
 namespace KHM.Helpers;
 public class RegHelper
 {
+    private static string keyPath = @"Software\KHM\Partiturencentrum";
+    private static string valueName = "Database";
+    private static string defaultValue = "localhost";
+
     public static string GetIP()
     {
-        string ip = "";
+        string databaseValue = "";
 
-        try
+        using (RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
         {
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\KHM\\Partiturencentrum"))
+            RegistryKey? currentUserKey = baseKey.OpenSubKey(keyPath, true);
+
+            if (currentUserKey == null)
             {
-                if (key != null)
+                // Registry key does not exist, create it with default setting
+                currentUserKey = baseKey.CreateSubKey(keyPath);
+                currentUserKey = Registry.CurrentUser.CreateSubKey(keyPath);
+                currentUserKey.SetValue(valueName, defaultValue);
+                databaseValue = defaultValue;
+            }
+            else
+            {
+                // Read the IP Address
+                object value = currentUserKey.GetValue ( valueName );
+
+                if ( value != null && value is string stringValue )
                 {
-                    ip = key.GetValue("Database").ToString();
+                    databaseValue = stringValue;
+                }
+                else
+                {
+                    // Database setting does not exist, create it with default setting
+                    currentUserKey.SetValue(valueName, defaultValue);
+                    databaseValue = defaultValue;
                 }
             }
-        }
-        catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
-        {
-            Console.WriteLine( ex );
-            //react appropriately
+
+            currentUserKey.Close();
         }
 
-        if (ip == "" || ip == null) { ip = "192.168.1.100"; }
-        return ip;
+        return databaseValue;
     }
-
 }

@@ -2586,6 +2586,82 @@
                     </Grid>
                 </TabItem>
                 <!--#endregion-->
+                
+                <!--#region TAB: Files-->
+                <TabItem x:Name="TabFiles">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Vertical">
+                                <Path
+                                Data="{StaticResource file}"
+                                Fill="{StaticResource TabItem.Icon.FillBrush}"
+                                Stretch="Uniform"
+                                Stroke="{StaticResource TabItem.Icon.BorderBrush}"
+                                StrokeThickness=".1"/>
+                                <Label Content="Bestanden" />
+                        </StackPanel>
+                    </TabItem.Header>
+
+
+                    <!--#region MuseScore/PDF section-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="3"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Path Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Center" Stroke="DarkBlue" StrokeThickness="1.2" Data="{StaticResource solidcolumnsplitter}" />
+                        <Path Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" HorizontalAlignment="Center" Stroke="DarkBlue" StrokeThickness="1.2" Data="{StaticResource dashedcolumnsplitter}" />
+                        <Path Grid.Row="0" Grid.Column="6" Grid.RowSpan="3" HorizontalAlignment="Center" Stroke="DarkBlue" StrokeThickness="1.2" Data="{StaticResource solidcolumnsplitter}" />
+                        <Path Grid.Row="1" Grid.Column="9" Grid.RowSpan="2" HorizontalAlignment="Center" Stroke="DarkBlue" StrokeThickness="1.2" Data="{StaticResource dashedcolumnsplitter}" />
+                        <Path Grid.Row="0" Grid.Column="12" Grid.RowSpan="3" HorizontalAlignment="Center" Stroke="DarkBlue" StrokeThickness="1.2" Data="{StaticResource solidcolumnsplitter}" />
+
+                        <!--#region MuseScore section-->
+                        <Label Grid.Row="0" Grid.Column="1" Content="MuseScore bestanden" Grid.ColumnSpan="4" FontWeight="Bold"/>
+
+                        <Button Grid.Row="1" Grid.Column="1" Margin="10,2,10,5" Grid.ColumnSpan="2" />
+                        <Button Grid.Row="1" Grid.Column="4" Margin="10,2,10,5" Grid.ColumnSpan="2" />
+
+                        <Button Grid.Row="2" Grid.Column="1" Margin="10,2,10,5" Width="80" Content="ORP" FontWeight="Bold"></Button>
+                        <Button Grid.Row="2" Grid.Column="2" Margin="10,2,10,5" Width="80" Content="ORK" FontWeight="Bold"></Button>
+                        <Button Grid.Row="2" Grid.Column="4" Margin="10,2,10,5" Width="80" Content="TOP" FontWeight="Bold"></Button>
+                        <Button Grid.Row="2" Grid.Column="5" Margin="10,2,10,5" Width="80" Content="TOK" FontWeight="Bold"></Button>
+                        <!--#endregion-->
+
+
+                        <!--#region PDF section-->
+                        <Label Grid.Row="0" Grid.Column="7" Content="Partituren (PDF bestanden)" Grid.ColumnSpan="4" FontWeight="Bold"/>
+
+                        <Button Grid.Row="1" Grid.Column="7" Margin="10,2,10,5" Grid.ColumnSpan="2" />
+                        <Button Grid.Row="1" Grid.Column="10" Margin="10,2,10,5" Grid.ColumnSpan="2" />
+
+                        <Button Grid.Row="2" Grid.Column="7" Margin="10,2,10,5" Width="80" Content="ORP" FontWeight="Bold"></Button>
+                        <Button Grid.Row="2" Grid.Column="8" Margin="10,2,10,5" Width="80" Content="ORK" FontWeight="Bold"></Button>
+                        <Button Grid.Row="2" Grid.Column="10" Margin="10,2,10,5" Width="80" Content="TOP" FontWeight="Bold"></Button>
+                        <Button Grid.Row="2" Grid.Column="11" Margin="10,2,10,5" Width="80" Content="TOK" FontWeight="Bold"></Button>
+                        <!--#endregion-->
+                    </Grid>
+                    <!--#endregion-->
+
+                </TabItem>
+
+
 
                 <!--#region TAB: Licenses-->
                 <TabItem x:Name="TabLicenses">

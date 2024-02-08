@@ -275,9 +275,9 @@ public partial class UserManagement : Page
             var _action = string.Empty;
 
             if ( tbUserName.IsEnabled )
-            { _action = DBNames.LogUserAdded; }
+            { _action = DbNames.LogUserAdded; }
             else
-            { _action = DBNames.LogUserChanged; }
+            { _action = DbNames.LogUserChanged; }
 
             DBCommands.UpdateUser ( modifiedUser );
 
@@ -288,15 +288,15 @@ public partial class UserManagement : Page
             int _historyId = DBCommands.GetAddedHistoryId();
 
             if ( cbEMailChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserEMail, SelectedUser.UserEmail, tbEMail.Text ); }
+            { DBCommands.WriteDetailLog ( _historyId, DbNames.LogUserEMail, SelectedUser.UserEmail, tbEMail.Text ); }
             if ( cbFullNameChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserFullName, SelectedUser.UserFullName, tbFullName.Text ); }
+            { DBCommands.WriteDetailLog ( _historyId, DbNames.LogUserFullName, SelectedUser.UserFullName, tbFullName.Text ); }
 
             if ( cbUserRoleChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserRole, SelectedUser.RoleDescription, ( ( UserRoleModel ) comUserRole.SelectedValue ).RoleDescription ); }
+            { DBCommands.WriteDetailLog ( _historyId, DbNames.LogUserRole, SelectedUser.RoleDescription, ( ( UserRoleModel ) comUserRole.SelectedValue ).RoleDescription ); }
 
             if ( cbPasswordChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserPassword, "...", "..." ); }
+            { DBCommands.WriteDetailLog ( _historyId, DbNames.LogUserPassword, "...", "..." ); }
 
             // When the saved user is a newly added user disable the UserName box again
             tbUserName.IsEnabled = false;
@@ -396,7 +396,7 @@ public partial class UserManagement : Page
                     DBCommands.DeleteUser(SelectedUser.UserId.ToString());
 
                     // Write action to History Log
-                    DBCommands.WriteLog(ScoreUsers.SelectedUserId, DBNames.LogUserDeleted, SelectedUserName);
+                    DBCommands.WriteLog(ScoreUsers.SelectedUserId, DbNames.LogUserDeleted, SelectedUserName);
 
                     // Refresh DataGrid
                     users = new UserViewModel();

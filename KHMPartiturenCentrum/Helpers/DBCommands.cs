@@ -18,31 +18,38 @@ namespace KHM.Helpers;
 public class DBCommands
 {
     #region GetData
-    #region GetData unsorted
+    #region GetData 
     public static DataTable GetData ( string _table )
     {
-        string selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table;
-        MySqlConnection connection = new(DBConnect.ConnectionString);
-        connection.Open ( );
-        DataTable table = new();
-        MySqlDataAdapter adapter = new(selectQuery, connection);
-        adapter.Fill ( table );
-        connection.Close ( );
-        return table;
-    }
-    #endregion
-
-    #region GetData Sorted
-    public static DataTable GetData ( string _table, string OrderByFieldName )
-    {
-        string selectQuery = "";
-        if ( OrderByFieldName.ToLower ( ) == "nosort" )
+        if ( _table != null  && _table != "" )
         {
-            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table;
+            var selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table;
+            MySqlConnection connection = new(DBConnect.ConnectionString);
+            connection.Open();
+            DataTable table = new();
+            MySqlDataAdapter adapter = new(selectQuery, connection);
+            adapter.Fill(table);
+            connection.Close();
+            return table;
         }
         else
         {
-            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlOrder + OrderByFieldName;
+            return null;
+        }
+    }
+    #endregion
+
+    #region GetData with Sorting option
+    public static DataTable GetData ( string _table, string orderByFieldName )
+    {
+        string selectQuery = "";
+        if ( orderByFieldName.ToLower ( ) == "nosort" )
+        {
+            selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table;
+        }
+        else
+        {
+            selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlOrder + orderByFieldName;
         }
 
         MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -56,16 +63,16 @@ public class DBCommands
     #endregion
 
     #region GetData Sorted and filtered
-    public static DataTable GetData ( string _table, string OrderByFieldName, string WhereFieldName, string WhereFieldValue )
+    public static DataTable GetData ( string _table, string orderByFieldName, string WhereFieldName, string WhereFieldValue )
     {
         string selectQuery = "";
-        if ( OrderByFieldName.ToLower ( ) == "nosort" )
+        if ( orderByFieldName.ToLower ( ) == "nosort" )
         {
-            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "';";
+            selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "';";
         }
         else
         {
-            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DBNames.SqlOrder + OrderByFieldName + ";";
+            selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DbNames.SqlOrder + orderByFieldName + ";";
         }
 
         MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -78,26 +85,16 @@ public class DBCommands
     }
 
 
-    /// <summary>
-    /// Get Score info for a score with subnumber
-    /// </summary>
-    /// <param name="_table"></param>
-    /// <param name="OrderByFieldName"></param>
-    /// <param name="WhereFieldName"></param>
-    /// <param name="WhereFieldValue"></param>
-    /// <param name="AndWhereFieldName"></param>
-    /// <param name="AndWhereFieldValue"></param>
-    /// <returns></returns>
-    public static DataTable GetData ( string _table, string OrderByFieldName, string WhereFieldName, string WhereFieldValue, string AndWhereFieldName, string AndWhereFieldValue )
+    public static DataTable GetData ( string _table, string orderByFieldName, string WhereFieldName, string WhereFieldValue, string AndWhereFieldName, string AndWhereFieldValue )
     {
         string selectQuery = "";
-        if ( OrderByFieldName.ToLower ( ) == "nosort" )
+        if ( orderByFieldName.ToLower ( ) == "nosort" )
         {
-            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DBNames.SqlAnd + AndWhereFieldName + " = '" + AndWhereFieldValue + "';";
+            selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DbNames.SqlAnd + AndWhereFieldName + " = '" + AndWhereFieldValue + "';";
         }
         else
         {
-            selectQuery = DBNames.SqlSelectAll + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DBNames.SqlAnd + AndWhereFieldName + " = '" + AndWhereFieldValue + "'" + DBNames.SqlOrder + OrderByFieldName + ";";
+            selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlWhere + WhereFieldName + " = '" + WhereFieldValue + "'" + DbNames.SqlAnd + AndWhereFieldName + " = '" + AndWhereFieldValue + "'" + DbNames.SqlOrder + orderByFieldName + ";";
         }
 
         MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -116,7 +113,7 @@ public class DBCommands
     {
         ObservableCollection<ScoreModel> Scores = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.AvailableScoresView, DBNames.AvailableScoresFieldNameNumber);
+        DataTable dataTable = DBCommands.GetData(DbNames.AvailableScoresView, DbNames.AvailableScoresFieldNameNumber);
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -394,7 +391,7 @@ public class DBCommands
     public static void DeleteScore ( string ScoreNumber, string ScoreSubNumber )
     {
         // Check if the selected Score is used in a set of Scores
-        var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + ScoreNumber + "';";
+        var sqlQuery = DbNames.SqlSelect + DbNames.SqlCountAll + DbNames.SqlFrom + DbNames.Database + "." + DbNames.ScoresTable + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + ScoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -405,11 +402,11 @@ public class DBCommands
         var NumberOfScores = int.Parse(cmd.ExecuteScalar().ToString());
 
 
-        //var NumberOfScores = CheckForSubScores(DBNames.ScoresTable, ScoreNumber);
+        //var NumberOfScores = CheckForSubScores(DbNames.ScoresTable, ScoreNumber);
 
         if ( NumberOfScores == 1 || ScoreSubNumber == "" )
         {
-            ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber );
+            ExecuteDeleteScore ( DbNames.ScoresTable, ScoreNumber );
         }
         else
         {
@@ -417,30 +414,30 @@ public class DBCommands
             // If Selected Score is 01 then delete it, no need to add the ScoreNumber again, because it already exists
             if ( ScoreSubNumber == "01" )
             {
-                ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                ExecuteDeleteScore ( DbNames.ScoresTable, ScoreNumber, ScoreSubNumber );
             }
             else
             {
                 // If there are two Scores and the second one is deleted SubNumber should be removed from First Score
                 if ( NumberOfScores == 2 )
                 {
-                    ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                    ExecuteDeleteScore ( DbNames.ScoresTable, ScoreNumber, ScoreSubNumber );
                     RemoveSubScore ( ScoreNumber );
 
                     // Write Renumber Action to the database
                     var test = ScoreUsers.SelectedUserId;
-                    DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreRenumbered, $"Partituur: {ScoreNumber}" );
+                    DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogScoreRenumbered, $"Partituur: {ScoreNumber}" );
 
                     // Get Added History Id
                     int _historyId = DBCommands.GetAddedHistoryId();
 
                     // Write detail info to the log
-                    DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreNumber, $"{ScoreNumber}-{ScoreSubNumber}", ScoreNumber );
+                    DBCommands.WriteDetailLog ( _historyId, DbNames.LogScoreNumber, $"{ScoreNumber}-{ScoreSubNumber}", ScoreNumber );
                 }
                 else
                 {
                     // Subscore can be deleted without effecting the other scores in the set
-                    ExecuteDeleteScore ( DBNames.ScoresTable, ScoreNumber, ScoreSubNumber );
+                    ExecuteDeleteScore ( DbNames.ScoresTable, ScoreNumber, ScoreSubNumber );
                 }
             }
         }
@@ -450,7 +447,7 @@ public class DBCommands
     #region Delete User
     public static void DeleteUser ( string _userId )
     {
-        var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable + DBNames.SqlWhere + DBNames.UsersFieldNameId + " = " + _userId + ";";
+        var sqlQuery = DbNames.SqlDelete + DbNames.SqlFrom + DbNames.Database + "." + DbNames.UsersTable + DbNames.SqlWhere + DbNames.UsersFieldNameId + " = " + _userId + ";";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -465,7 +462,7 @@ public class DBCommands
     public static long CheckForSubScores ( string _scoreNumber )
     {
         // Check how many Scores there are in the table with the given scorenumber, If there are more then 1 there is a set with SubNumbers
-        var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        var sqlQuery = DbNames.SqlSelect + DbNames.SqlCountAll + DbNames.SqlFrom + DbNames.Database + "." + DbNames.ScoresTable + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -482,7 +479,7 @@ public class DBCommands
     public static int getHighestSubNumber ( string _scoreNumber )
     {
         //Select MAX ( SubNummer) FROM Bibliotheek Where Partituur = '000'
-        var sqlQuery = DBNames.SqlSelect + DBNames.SqlMax + DBNames.ScoresFieldNameScoreSubNumber + ") " + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        var sqlQuery = DbNames.SqlSelect + DbNames.SqlMax + DbNames.ScoresFieldNameScoreSubNumber + ") " + DbNames.SqlFrom + DbNames.Database + "." + DbNames.ScoresTable + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -500,7 +497,7 @@ public class DBCommands
     static void ExecuteDeleteScore ( string _table, string _scoreNumber )
     {
         // Delete Score without SubScores
-        var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        var sqlQuery = DbNames.SqlDelete + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -513,8 +510,8 @@ public class DBCommands
     static void ExecuteDeleteScore ( string _table, string _scoreNumber, string _scoreSubNumber )
     {
         // Delete Score with SubScoreNumber
-        var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere +
-            DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "'";
+        var sqlQuery = DbNames.SqlDelete + DbNames.SqlFrom + DbNames.Database + "." + _table + DbNames.SqlWhere +
+            DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "'";
 
         if ( _scoreSubNumber == "" )
         {
@@ -522,7 +519,7 @@ public class DBCommands
         }
         else
         {
-            sqlQuery += DBNames.SqlAnd + DBNames.ScoresFieldNameScoreSubNumber + " = '" + _scoreSubNumber + "';";
+            sqlQuery += DbNames.SqlAnd + DbNames.ScoresFieldNameScoreSubNumber + " = '" + _scoreSubNumber + "';";
         }
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -537,7 +534,7 @@ public class DBCommands
     #region Remove SubVersion from Score
     public static void RemoveSubScore ( string _scoreNumber )
     {
-        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = ''" + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        string sqlQuery = DbNames.SqlUpdate + DbNames.ScoresTable + DbNames.SqlSet + DbNames.ScoresFieldNameScoreSubNumber + " = ''" + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -551,7 +548,7 @@ public class DBCommands
     #region Add SubScore to Score
     public static void AddSubScore ( string _scoreNumber, string _subScoreNumber )
     {
-        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + DBNames.ScoresFieldNameScoreSubNumber + " = '" + _subScoreNumber + "'" + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        string sqlQuery = DbNames.SqlUpdate + DbNames.ScoresTable + DbNames.SqlSet + DbNames.ScoresFieldNameScoreSubNumber + " = '" + _subScoreNumber + "'" + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -565,7 +562,7 @@ public class DBCommands
     #region Re Add Score
     public static void ReAddScore ( string _scoreNumber )
     {
-        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " + DBNames.ScoresFieldNameScoreNumber + " ) " + DBNames.SqlValues + " ( '" + _scoreNumber + "' );";
+        var sqlQuery = DbNames.SqlInsert + DbNames.Database + "." + DbNames.ScoresTable + " ( " + DbNames.ScoresFieldNameScoreNumber + " ) " + DbNames.SqlValues + " ( '" + _scoreNumber + "' );";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -597,18 +594,18 @@ public class DBCommands
             repertoire = 2;
         }
 
-        var sqlQuery = DBNames.SqlUpdate + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlSet +
-                DBNames.ScoresFieldNameTitle + " = + '" + DBNames.LogNew + "', " +
-                DBNames.ScoresFieldNameAccompanimentId + " = 1, " +
-                DBNames.ScoresFieldNameArchiveId + " = 3, " +
-                DBNames.ScoresFieldNameGenreId + " = 1, " +
-                DBNames.ScoresFieldNameLanguageId + " = 1, " +
-                DBNames.ScoresFieldNamePublisher1Id + " = 1, " +
-                DBNames.ScoresFieldNamePublisher2Id + " = 1, " +
-                DBNames.ScoresFieldNamePublisher3Id + " = 1, " +
-                DBNames.ScoresFieldNamePublisher4Id + " = 1, " +
-                DBNames.ScoresFieldNameRepertoireId + " = " + repertoire +
-                DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        var sqlQuery = DbNames.SqlUpdate + DbNames.Database + "." + DbNames.ScoresTable + DbNames.SqlSet +
+                DbNames.ScoresFieldNameTitle + " = + '" + DbNames.LogNew + "', " +
+                DbNames.ScoresFieldNameAccompanimentId + " = 1, " +
+                DbNames.ScoresFieldNameArchiveId + " = 3, " +
+                DbNames.ScoresFieldNameGenreId + " = 1, " +
+                DbNames.ScoresFieldNameLanguageId + " = 1, " +
+                DbNames.ScoresFieldNamePublisher1Id + " = 1, " +
+                DbNames.ScoresFieldNamePublisher2Id + " = 1, " +
+                DbNames.ScoresFieldNamePublisher3Id + " = 1, " +
+                DbNames.ScoresFieldNamePublisher4Id + " = 1, " +
+                DbNames.ScoresFieldNameRepertoireId + " = " + repertoire +
+                DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -622,25 +619,25 @@ public class DBCommands
     #region Add New Score as Subscore
     public static void AddNewScoreAsSubscore ( ObservableCollection<ScoreModel> _score )
     {
-        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + " ( " +
-                DBNames.ScoresFieldNameTitle + ", " +
-                DBNames.ScoresFieldNameAccompanimentId + ", " +
-                DBNames.ScoresFieldNameArchiveId + ", " +
-                DBNames.ScoresFieldNameGenreId + ", " +
-                DBNames.ScoresFieldNameLanguageId + ", " +
-                DBNames.ScoresFieldNamePublisher1Id + ", " +
-                DBNames.ScoresFieldNamePublisher2Id + ", " +
-                DBNames.ScoresFieldNamePublisher3Id + ", " +
-                DBNames.ScoresFieldNamePublisher4Id + ", " +
-                DBNames.ScoresFieldNameRepertoireId + ", " +
-                DBNames.ScoresFieldNameScoreNumber + ", " +
-                DBNames.ScoresFieldNameScoreSubNumber + ", " +
-                DBNames.ScoresFieldNameMusicPiece + ", " +
-                DBNames.ScoresFieldNameAmountPublisher1 + ", " +
-                DBNames.ScoresFieldNameAmountPublisher2 + ", " +
-                DBNames.ScoresFieldNameAmountPublisher3 + ", " +
-                DBNames.ScoresFieldNameAmountPublisher4 + " )" +
-                DBNames.SqlValues + "( '" + DBNames.LogNew + "', " +
+        var sqlQuery = DbNames.SqlInsert + DbNames.Database + "." + DbNames.ScoresTable + " ( " +
+                DbNames.ScoresFieldNameTitle + ", " +
+                DbNames.ScoresFieldNameAccompanimentId + ", " +
+                DbNames.ScoresFieldNameArchiveId + ", " +
+                DbNames.ScoresFieldNameGenreId + ", " +
+                DbNames.ScoresFieldNameLanguageId + ", " +
+                DbNames.ScoresFieldNamePublisher1Id + ", " +
+                DbNames.ScoresFieldNamePublisher2Id + ", " +
+                DbNames.ScoresFieldNamePublisher3Id + ", " +
+                DbNames.ScoresFieldNamePublisher4Id + ", " +
+                DbNames.ScoresFieldNameRepertoireId + ", " +
+                DbNames.ScoresFieldNameScoreNumber + ", " +
+                DbNames.ScoresFieldNameScoreSubNumber + ", " +
+                DbNames.ScoresFieldNameMusicPiece + ", " +
+                DbNames.ScoresFieldNameAmountPublisher1 + ", " +
+                DbNames.ScoresFieldNameAmountPublisher2 + ", " +
+                DbNames.ScoresFieldNameAmountPublisher3 + ", " +
+                DbNames.ScoresFieldNameAmountPublisher4 + " )" +
+                DbNames.SqlValues + "( '" + DbNames.LogNew + "', " +
                 _score[0].AccompanimentId + ", " +
                 _score[0].ArchiveId +", " +
                 _score[0].GenreId +", " +
@@ -671,8 +668,8 @@ public class DBCommands
     public static void AddNewUser ( )
     {
         // Add a new user as Super User (UserRole 5)
-        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.UsersTable +
-            " ( " + DBNames.UsersFieldNameRoleId + " ) " + DBNames.SqlValues +
+        var sqlQuery = DbNames.SqlInsert + DbNames.Database + "." + DbNames.UsersTable +
+            " ( " + DbNames.UsersFieldNameRoleId + " ) " + DbNames.SqlValues +
             " ( 5 ) ";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -689,9 +686,9 @@ public class DBCommands
     {
         int userId = 0;
         //SELECT * FROM users ORDER BY id DESC LIMIT 1
-        var sqlQuery = DBNames.SqlSelectAll +
-            DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable +
-            DBNames.SqlOrder + DBNames.UserRolesFieldNameId + DBNames.SqlDesc + DBNames.SqlLimit + "1";
+        var sqlQuery = DbNames.SqlSelectAll +
+            DbNames.SqlFrom + DbNames.Database + "." + DbNames.UsersTable +
+            DbNames.SqlOrder + DbNames.UserRolesFieldNameId + DbNames.SqlDesc + DbNames.SqlLimit + "1";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -732,7 +729,7 @@ public class DBCommands
     {
         ObservableCollection<AccompanimentModel> Accompaniments = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.AccompanimentsTable, "NoSort");
+        DataTable dataTable = DBCommands.GetData(DbNames.AccompanimentsTable, "NoSort");
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -753,7 +750,7 @@ public class DBCommands
     {
         ObservableCollection<ArchiveModel> Archives = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.ArchivesTable, "NoSort");
+        DataTable dataTable = DBCommands.GetData(DbNames.ArchivesTable, "NoSort");
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -774,7 +771,7 @@ public class DBCommands
     {
         ObservableCollection<GenreModel> Genres = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.GenresTable, "NoSort");
+        DataTable dataTable = DBCommands.GetData(DbNames.GenresTable, "NoSort");
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -795,7 +792,7 @@ public class DBCommands
     {
         ObservableCollection<LanguageModel> Languages = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.LanguagesTable, "NoSort");
+        DataTable dataTable = DBCommands.GetData(DbNames.LanguagesTable, "NoSort");
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -816,7 +813,7 @@ public class DBCommands
     {
         ObservableCollection<PublisherModel> Publishers = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.PublishersTable, DBNames.PublishersFieldNameId);
+        DataTable dataTable = DBCommands.GetData(DbNames.PublishersTable, DbNames.PublishersFieldNameId);
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -837,7 +834,7 @@ public class DBCommands
     {
         ObservableCollection<RepertoireModel> Repertoires = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.RepertoiresTable, "NoSort");
+        DataTable dataTable = DBCommands.GetData(DbNames.RepertoiresTable, "NoSort");
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -859,7 +856,7 @@ public class DBCommands
     {
         ObservableCollection<UserRoleModel> UserRoles = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.UserRolesTable, DBNames.UserRolesFieldNameOrder);
+        DataTable dataTable = DBCommands.GetData(DbNames.UserRolesTable, DbNames.UserRolesFieldNameOrder);
         if ( dataTable.Rows.Count > 0 )
         {
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
@@ -881,114 +878,114 @@ public class DBCommands
     public static void SaveScore ( ObservableCollection<SaveScoreModel> scoreList )
     {
 
-        string sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet;
+        string sqlQuery = DbNames.SqlUpdate + DbNames.ScoresTable + DbNames.SqlSet;
 
         if ( scoreList [ 0 ].RepertoireId != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameRepertoireId + " = @" + DBNames.ScoresFieldNameRepertoireId; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameRepertoireId + " = @" + DbNames.ScoresFieldNameRepertoireId; }
         if ( scoreList [ 0 ].ArchiveId != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameArchiveId + " = @" + DBNames.ScoresFieldNameArchiveId; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameArchiveId + " = @" + DbNames.ScoresFieldNameArchiveId; }
         if ( scoreList [ 0 ].ByHeart != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameByHeart + " = @" + DBNames.ScoresFieldNameByHeart; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameByHeart + " = @" + DbNames.ScoresFieldNameByHeart; }
 
         if ( scoreList [ 0 ].TitleChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameTitle + " = @" + DBNames.ScoresFieldNameTitle; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameTitle + " = @" + DbNames.ScoresFieldNameTitle; }
         if ( scoreList [ 0 ].SubTitleChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameSubTitle + " = @" + DBNames.ScoresFieldNameSubTitle; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameSubTitle + " = @" + DbNames.ScoresFieldNameSubTitle; }
 
         if ( scoreList [ 0 ].ComposerChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameComposer + " = @" + DBNames.ScoresFieldNameComposer; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameComposer + " = @" + DbNames.ScoresFieldNameComposer; }
         if ( scoreList [ 0 ].TextwriterChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameTextwriter + " = @" + DBNames.ScoresFieldNameTextwriter; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameTextwriter + " = @" + DbNames.ScoresFieldNameTextwriter; }
         if ( scoreList [ 0 ].ArrangerChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameArranger + " = @" + DBNames.ScoresFieldNameArranger; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameArranger + " = @" + DbNames.ScoresFieldNameArranger; }
 
         if ( scoreList [ 0 ].GenreId != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameGenreId + " = @" + DBNames.ScoresFieldNameGenreId; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameGenreId + " = @" + DbNames.ScoresFieldNameGenreId; }
         if ( scoreList [ 0 ].AccompanimentId != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameAccompanimentId + " = @" + DBNames.ScoresFieldNameAccompanimentId; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameAccompanimentId + " = @" + DbNames.ScoresFieldNameAccompanimentId; }
         if ( scoreList [ 0 ].LanguageId != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameLanguageId + " = @" + DBNames.ScoresFieldNameLanguageId; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameLanguageId + " = @" + DbNames.ScoresFieldNameLanguageId; }
 
         if ( scoreList [ 0 ].MusicPieceChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMusicPiece + " = @" + DBNames.ScoresFieldNameMusicPiece; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMusicPiece + " = @" + DbNames.ScoresFieldNameMusicPiece; }
 
         if ( scoreList [ 0 ].DateDigitizedChanged != -1 && scoreList [ 0 ].DateDigitized != "" )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameDigitized + " = @" + DBNames.ScoresFieldNameDigitized; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameDigitized + " = @" + DbNames.ScoresFieldNameDigitized; }
         if ( scoreList [ 0 ].DateModifiedChanged != -1 && scoreList [ 0 ].DateModified != "" )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameModified + " = @" + DBNames.ScoresFieldNameModified; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameModified + " = @" + DbNames.ScoresFieldNameModified; }
         if ( scoreList [ 0 ].Checked != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameChecked + " = @" + DBNames.ScoresFieldNameChecked; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameChecked + " = @" + DbNames.ScoresFieldNameChecked; }
 
         if ( scoreList [ 0 ].MuseScoreORP != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORP + " = @" + DBNames.ScoresFieldNameMuseScoreORP; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMuseScoreORP + " = @" + DbNames.ScoresFieldNameMuseScoreORP; }
         if ( scoreList [ 0 ].MuseScoreORK != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreORK + " = @" + DBNames.ScoresFieldNameMuseScoreORK; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMuseScoreORK + " = @" + DbNames.ScoresFieldNameMuseScoreORK; }
         if ( scoreList [ 0 ].MuseScoreTOP != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreTOP + " = @" + DBNames.ScoresFieldNameMuseScoreTOP; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMuseScoreTOP + " = @" + DbNames.ScoresFieldNameMuseScoreTOP; }
         if ( scoreList [ 0 ].MuseScoreTOK != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMuseScoreTOK + " = @" + DBNames.ScoresFieldNameMuseScoreTOK; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMuseScoreTOK + " = @" + DbNames.ScoresFieldNameMuseScoreTOK; }
 
         if ( scoreList [ 0 ].PDFORP != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePDFORP + " = @" + DBNames.ScoresFieldNamePDFORP; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePDFORP + " = @" + DbNames.ScoresFieldNamePDFORP; }
         if ( scoreList [ 0 ].PDFORK != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePDFORK + " = @" + DBNames.ScoresFieldNamePDFORK; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePDFORK + " = @" + DbNames.ScoresFieldNamePDFORK; }
         if ( scoreList [ 0 ].PDFTOP != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOP + " = @" + DBNames.ScoresFieldNamePDFTOP; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePDFTOP + " = @" + DbNames.ScoresFieldNamePDFTOP; }
         if ( scoreList [ 0 ].PDFTOK != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePDFTOK + " = @" + DBNames.ScoresFieldNamePDFTOK; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePDFTOK + " = @" + DbNames.ScoresFieldNamePDFTOK; }
         if ( scoreList [ 0 ].PDFPIA != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePDFPIA + " = @" + DBNames.ScoresFieldNamePDFPIA; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePDFPIA + " = @" + DbNames.ScoresFieldNamePDFPIA; }
 
         if ( scoreList [ 0 ].MP3B1 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B1 + " = @" + DBNames.ScoresFieldNameMP3B1; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3B1 + " = @" + DbNames.ScoresFieldNameMP3B1; }
         if ( scoreList [ 0 ].MP3B2 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3B2 + " = @" + DBNames.ScoresFieldNameMP3B2; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3B2 + " = @" + DbNames.ScoresFieldNameMP3B2; }
         if ( scoreList [ 0 ].MP3T1 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3T1 + " = @" + DBNames.ScoresFieldNameMP3T1; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3T1 + " = @" + DbNames.ScoresFieldNameMP3T1; }
         if ( scoreList [ 0 ].MP3T2 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3T2 + " = @" + DBNames.ScoresFieldNameMP3T2; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3T2 + " = @" + DbNames.ScoresFieldNameMP3T2; }
 
         if ( scoreList [ 0 ].MP3SOL != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3SOL + " = @" + DBNames.ScoresFieldNameMP3SOL; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3SOL + " = @" + DbNames.ScoresFieldNameMP3SOL; }
         if ( scoreList [ 0 ].MP3TOT != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3TOT + " = @" + DBNames.ScoresFieldNameMP3TOT; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3TOT + " = @" + DbNames.ScoresFieldNameMP3TOT; }
         if ( scoreList [ 0 ].MP3PIA != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3PIA + " = @" + DBNames.ScoresFieldNameMP3PIA; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3PIA + " = @" + DbNames.ScoresFieldNameMP3PIA; }
         if ( scoreList [ 0 ].MP3UITV != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameMP3UITV + " = @" + DBNames.ScoresFieldNameMP3UITV; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameMP3UITV + " = @" + DbNames.ScoresFieldNameMP3UITV; }
 
         if ( scoreList [ 0 ].MuseScoreOnline != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameOnline + " = @" + DBNames.ScoresFieldNameOnline; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameOnline + " = @" + DbNames.ScoresFieldNameOnline; }
 
         if ( scoreList [ 0 ].LyricsChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameLyrics + " = @" + DBNames.ScoresFieldNameLyrics; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameLyrics + " = @" + DbNames.ScoresFieldNameLyrics; }
         if ( scoreList [ 0 ].NotesChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameNotes + " = @" + DBNames.ScoresFieldNameNotes; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameNotes + " = @" + DbNames.ScoresFieldNameNotes; }
 
         if ( scoreList [ 0 ].AmountPublisher1 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameAmountPublisher1 + " = @" + DBNames.ScoresFieldNameAmountPublisher1; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameAmountPublisher1 + " = @" + DbNames.ScoresFieldNameAmountPublisher1; }
         if ( scoreList [ 0 ].AmountPublisher2 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameAmountPublisher2 + " = @" + DBNames.ScoresFieldNameAmountPublisher2; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameAmountPublisher2 + " = @" + DbNames.ScoresFieldNameAmountPublisher2; }
         if ( scoreList [ 0 ].AmountPublisher3 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameAmountPublisher3 + " = @" + DBNames.ScoresFieldNameAmountPublisher3; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameAmountPublisher3 + " = @" + DbNames.ScoresFieldNameAmountPublisher3; }
         if ( scoreList [ 0 ].AmountPublisher4 != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameAmountPublisher4 + " = @" + DBNames.ScoresFieldNameAmountPublisher4; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameAmountPublisher4 + " = @" + DbNames.ScoresFieldNameAmountPublisher4; }
 
         if ( scoreList [ 0 ].Publisher1Id != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher1Id + " = @" + DBNames.ScoresFieldNamePublisher1Id; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePublisher1Id + " = @" + DbNames.ScoresFieldNamePublisher1Id; }
         if ( scoreList [ 0 ].Publisher2Id != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher2Id + " = @" + DBNames.ScoresFieldNamePublisher2Id; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePublisher2Id + " = @" + DbNames.ScoresFieldNamePublisher2Id; }
         if ( scoreList [ 0 ].Publisher3Id != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher3Id + " = @" + DBNames.ScoresFieldNamePublisher3Id; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePublisher3Id + " = @" + DbNames.ScoresFieldNamePublisher3Id; }
         if ( scoreList [ 0 ].Publisher4Id != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNamePublisher4Id + " = @" + DBNames.ScoresFieldNamePublisher4Id; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNamePublisher4Id + " = @" + DbNames.ScoresFieldNamePublisher4Id; }
 
         if ( scoreList [ 0 ].DurationChanged != -1 )
-        { sqlQuery += ", " + DBNames.ScoresFieldNameDuration + " = @" + DBNames.ScoresFieldNameDuration; }
+        { sqlQuery += ", " + DbNames.ScoresFieldNameDuration + " = @" + DbNames.ScoresFieldNameDuration; }
 
         // Add the filter to the sqlQuery
-        sqlQuery += DBNames.SqlWhere + DBNames.ScoresFieldNameId + " = @" + DBNames.ScoresFieldNameId + ";";
-        //sqlQuery += DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = @" + DBNames.ScoresFieldNameScoreNumber + ";";
+        sqlQuery += DbNames.SqlWhere + DbNames.ScoresFieldNameId + " = @" + DbNames.ScoresFieldNameId + ";";
+        //sqlQuery += DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = @" + DbNames.ScoresFieldNameScoreNumber + ";";
 
         try
         {
@@ -1011,31 +1008,31 @@ public class DBCommands
     public static void UpdateUser ( ObservableCollection<UserModel> modifiedUser )
     {
 
-        string sqlQuery = DBNames.SqlUpdate + DBNames.UsersTable + DBNames.SqlSet;
+        string sqlQuery = DbNames.SqlUpdate + DbNames.UsersTable + DbNames.SqlSet;
 
         if ( modifiedUser != null )
         {
             if ( modifiedUser [ 0 ].UserName != "" )
-            { sqlQuery += DBNames.UsersFieldNameUserName + " = @" + DBNames.UsersFieldNameUserName; }
+            { sqlQuery += DbNames.UsersFieldNameUserName + " = @" + DbNames.UsersFieldNameUserName; }
 
             if ( modifiedUser [ 0 ].UserFullName != "" )
-            { sqlQuery += ", " + DBNames.UsersFieldNameFullName + " = @" + DBNames.UsersFieldNameFullName; }
+            { sqlQuery += ", " + DbNames.UsersFieldNameFullName + " = @" + DbNames.UsersFieldNameFullName; }
 
             if ( modifiedUser [ 0 ].UserEmail != "" )
-            { sqlQuery += ", " + DBNames.UsersFieldNameLogin + " = @" + DBNames.UsersFieldNameLogin; }
+            { sqlQuery += ", " + DbNames.UsersFieldNameLogin + " = @" + DbNames.UsersFieldNameLogin; }
 
             if ( modifiedUser [ 0 ].UserRoleId != 0 )
-            { sqlQuery += ", " + DBNames.UsersFieldNameRoleId + " = @" + DBNames.UsersFieldNameRoleId; }
+            { sqlQuery += ", " + DbNames.UsersFieldNameRoleId + " = @" + DbNames.UsersFieldNameRoleId; }
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
-            { sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
+            { sqlQuery += ", `" + DbNames.UsersFieldNamePW + "` = @" + DbNames.UsersFieldNamePW; }
 
             if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
-            { sqlQuery += ", `" + DBNames.UsersFieldNameCoverSheetFolder + "` = @" + DBNames.UsersFieldNameCoverSheetFolder; }
+            { sqlQuery += ", `" + DbNames.UsersFieldNameCoverSheetFolder + "` = @" + DbNames.UsersFieldNameCoverSheetFolder; }
         }
 
         // Add the filter to the sqlQuery
-        sqlQuery += DBNames.SqlWhere + DBNames.UsersFieldNameId + " = @" + DBNames.UsersFieldNameId + ";";
+        sqlQuery += DbNames.SqlWhere + DbNames.UsersFieldNameId + " = @" + DbNames.UsersFieldNameId + ";";
 
         try
         {
@@ -1064,7 +1061,7 @@ public class DBCommands
     {
         var _targetId = 0;
 
-        var sqlQuery = DBNames.SqlSelect + DBNames.ScoresFieldNameId + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+        var sqlQuery = DbNames.SqlSelect + DbNames.ScoresFieldNameId + DbNames.SqlFrom + DbNames.Database + "." + DbNames.ScoresTable + DbNames.SqlWhere + DbNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -1109,7 +1106,7 @@ public class DBCommands
             #region ArchiveId
             if ( scoreList.Rows [ i ].ItemArray [ 1 ] != "" )
             {
-                sqlQueryFields += DBNames.ScoresFieldNameArchiveId;
+                sqlQueryFields += DbNames.ScoresFieldNameArchiveId;
                 sqlQueryValues += scoreList.Rows [ i ].ItemArray [ 1 ];
             }
             #endregion
@@ -1117,20 +1114,20 @@ public class DBCommands
             #region RepertoireId
             if ( scoreList.Rows [ i ].ItemArray [ 2 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameRepertoireId;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameRepertoireId;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 2 ];
             }
             #endregion
 
             #region Score number
-            sqlQueryFields += ", " + DBNames.ScoresFieldNameScoreNumber;
+            sqlQueryFields += ", " + DbNames.ScoresFieldNameScoreNumber;
             sqlQueryValues += ", '" + newScoreNumber + "'";
             #endregion
 
             #region Score Sub Number
             if ( scoreList.Rows [ i ].ItemArray [ 4 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameScoreSubNumber;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameScoreSubNumber;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 4 ] + "'";
             }
             #endregion
@@ -1138,7 +1135,7 @@ public class DBCommands
             #region Title
             if ( scoreList.Rows [ i ].ItemArray [ 5 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameTitle;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameTitle;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 5 ] + "'";
             }
             #endregion
@@ -1146,7 +1143,7 @@ public class DBCommands
             #region Sub Title
             if ( scoreList.Rows [ i ].ItemArray [ 6 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameSubTitle;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameSubTitle;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 6 ] + "'";
             }
             #endregion
@@ -1154,7 +1151,7 @@ public class DBCommands
             #region Composer
             if ( scoreList.Rows [ i ].ItemArray [ 7 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameComposer;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameComposer;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 7 ] + "'";
             }
             #endregion
@@ -1162,7 +1159,7 @@ public class DBCommands
             #region Text writer
             if ( scoreList.Rows [ i ].ItemArray [ 8 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameTextwriter;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameTextwriter;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 8 ] + "'";
             }
             #endregion
@@ -1170,7 +1167,7 @@ public class DBCommands
             #region Arranger
             if ( scoreList.Rows [ i ].ItemArray [ 9 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameArranger;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameArranger;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 9 ] + "'";
             }
             #endregion
@@ -1178,7 +1175,7 @@ public class DBCommands
             #region Language
             if ( scoreList.Rows [ i ].ItemArray [ 10 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameLanguageId;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameLanguageId;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 10 ];
             }
             #endregion
@@ -1186,7 +1183,7 @@ public class DBCommands
             #region Genre
             if ( scoreList.Rows [ i ].ItemArray [ 11 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameGenreId;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameGenreId;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 11 ];
             }
             #endregion
@@ -1194,7 +1191,7 @@ public class DBCommands
             #region Lyrics
             if ( scoreList.Rows [ i ].ItemArray [ 12 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameLyrics;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameLyrics;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 12 ] + "'";
             }
             #endregion
@@ -1202,7 +1199,7 @@ public class DBCommands
             #region Checked
             if ( scoreList.Rows [ i ].ItemArray [ 13 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameChecked;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameChecked;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 13 ];
             }
             #endregion
@@ -1210,7 +1207,7 @@ public class DBCommands
             #region Date Digitized
             if ( digitizedDate != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameDigitized;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameDigitized;
                 sqlQueryValues += ", '" + digitizedDate + "'";
             }
             #endregion
@@ -1218,7 +1215,7 @@ public class DBCommands
             #region Date Modified
             if ( modifiedDate != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameModified;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameModified;
                 sqlQueryValues += ", '" + modifiedDate + "'";
             }
             #endregion
@@ -1226,7 +1223,7 @@ public class DBCommands
             #region Accompaniment
             if ( scoreList.Rows [ i ].ItemArray [ 16 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameAccompanimentId;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameAccompanimentId;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 16 ];
             }
             #endregion
@@ -1234,7 +1231,7 @@ public class DBCommands
             #region PDF ORP
             if ( scoreList.Rows [ i ].ItemArray [ 17 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePDFORP;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePDFORP;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 17 ];
             }
             #endregion
@@ -1242,7 +1239,7 @@ public class DBCommands
             #region PDF ORK
             if ( scoreList.Rows [ i ].ItemArray [ 18 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePDFORK;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePDFORK;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 18 ];
             }
             #endregion
@@ -1250,7 +1247,7 @@ public class DBCommands
             #region PDF TOP
             if ( scoreList.Rows [ i ].ItemArray [ 19 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePDFTOP;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePDFTOP;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 19 ];
             }
             #endregion
@@ -1258,7 +1255,7 @@ public class DBCommands
             #region PDF TOK
             if ( scoreList.Rows [ i ].ItemArray [ 20 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePDFTOK;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePDFTOK;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 20 ];
             }
             #endregion
@@ -1266,7 +1263,7 @@ public class DBCommands
             #region MuseScore ORP
             if ( scoreList.Rows [ i ].ItemArray [ 21 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMuseScoreORP;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMuseScoreORP;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 21 ];
             }
             #endregion
@@ -1274,7 +1271,7 @@ public class DBCommands
             #region MuseScore ORK
             if ( scoreList.Rows [ i ].ItemArray [ 22 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMuseScoreORK;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMuseScoreORK;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 22 ];
             }
             #endregion
@@ -1282,7 +1279,7 @@ public class DBCommands
             #region MuseScore TOP
             if ( scoreList.Rows [ i ].ItemArray [ 23 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMuseScoreTOP;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMuseScoreTOP;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 23 ];
             }
             #endregion
@@ -1290,7 +1287,7 @@ public class DBCommands
             #region MuseScore TOK
             if ( scoreList.Rows [ i ].ItemArray [ 24 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMuseScoreTOK;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMuseScoreTOK;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 24 ];
             }
             #endregion
@@ -1298,7 +1295,7 @@ public class DBCommands
             #region MP3 TOT
             if ( scoreList.Rows [ i ].ItemArray [ 25 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3TOT;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3TOT;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 25 ];
             }
             #endregion
@@ -1306,7 +1303,7 @@ public class DBCommands
             #region MP3 T1
             if ( scoreList.Rows [ i ].ItemArray [ 26 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3T1;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3T1;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 26 ];
             }
             #endregion
@@ -1314,7 +1311,7 @@ public class DBCommands
             #region MP3 T2
             if ( scoreList.Rows [ i ].ItemArray [ 27 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3T2;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3T2;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 27 ];
             }
             #endregion
@@ -1322,7 +1319,7 @@ public class DBCommands
             #region MP3 B1
             if ( scoreList.Rows [ i ].ItemArray [ 28 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3B1;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3B1;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 28 ];
             }
             #endregion
@@ -1330,7 +1327,7 @@ public class DBCommands
             #region MP3 B2
             if ( scoreList.Rows [ i ].ItemArray [ 29 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3B2;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3B2;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 29 ];
             }
             #endregion
@@ -1338,7 +1335,7 @@ public class DBCommands
             #region MP3 SOL
             if ( scoreList.Rows [ i ].ItemArray [ 30 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3SOL;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3SOL;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 30 ];
             }
             #endregion
@@ -1346,7 +1343,7 @@ public class DBCommands
             #region MP3 PIA
             if ( scoreList.Rows [ i ].ItemArray [ 31 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMP3PIA;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMP3PIA;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 31 ];
             }
             #endregion
@@ -1354,7 +1351,7 @@ public class DBCommands
             #region MuseScore Online
             if ( scoreList.Rows [ i ].ItemArray [ 32 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameOnline;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameOnline;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 32 ];
             }
             #endregion
@@ -1362,7 +1359,7 @@ public class DBCommands
             #region Sing By Heart
             if ( scoreList.Rows [ i ].ItemArray [ 33 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameByHeart;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameByHeart;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 33 ];
             }
             #endregion
@@ -1370,7 +1367,7 @@ public class DBCommands
             #region Music Piece
             if ( scoreList.Rows [ i ].ItemArray [ 34 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameMusicPiece;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameMusicPiece;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 34 ] + "'";
             }
             #endregion
@@ -1378,7 +1375,7 @@ public class DBCommands
             #region Notes
             if ( scoreList.Rows [ i ].ItemArray [ 35 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameNotes;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameNotes;
                 sqlQueryValues += ", '" + scoreList.Rows [ i ].ItemArray [ 35 ] + "'";
             }
             #endregion
@@ -1386,7 +1383,7 @@ public class DBCommands
             #region Amount Scores @ publisher 1
             if ( scoreList.Rows [ i ].ItemArray [ 36 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameAmountPublisher1;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameAmountPublisher1;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 36 ];
             }
             #endregion
@@ -1394,7 +1391,7 @@ public class DBCommands
             #region Amount Scores @ publisher 2
             if ( scoreList.Rows [ i ].ItemArray [ 37 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameAmountPublisher2;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameAmountPublisher2;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 37 ];
             }
             #endregion
@@ -1402,7 +1399,7 @@ public class DBCommands
             #region Amount Scores @ publisher 3
             if ( scoreList.Rows [ i ].ItemArray [ 38 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameAmountPublisher3;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameAmountPublisher3;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 38 ];
             }
             #endregion
@@ -1410,7 +1407,7 @@ public class DBCommands
             #region Amount Scores @ publisher 4
             if ( scoreList.Rows [ i ].ItemArray [ 39 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNameAmountPublisher4;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNameAmountPublisher4;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 39 ];
             }
             #endregion
@@ -1418,7 +1415,7 @@ public class DBCommands
             #region Publisher 1
             if ( scoreList.Rows [ i ].ItemArray [ 40 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePublisher1Id;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePublisher1Id;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 40 ];
             }
             #endregion
@@ -1426,7 +1423,7 @@ public class DBCommands
             #region Publisher 2
             if ( scoreList.Rows [ i ].ItemArray [ 41 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePublisher2Id;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePublisher2Id;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 41 ];
             }
             #endregion
@@ -1434,7 +1431,7 @@ public class DBCommands
             #region Publisher 3
             if ( scoreList.Rows [ i ].ItemArray [ 42 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePublisher3Id;
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePublisher3Id;
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 42 ];
             }
             #endregion
@@ -1442,7 +1439,7 @@ public class DBCommands
             #region Publisher 4
             if ( scoreList.Rows [ i ].ItemArray [ 43 ] != "" )
             {
-                sqlQueryFields += ", " + DBNames.ScoresFieldNamePublisher4Id + " ";
+                sqlQueryFields += ", " + DbNames.ScoresFieldNamePublisher4Id + " ";
                 sqlQueryValues += ", " + scoreList.Rows [ i ].ItemArray [ 43 ];
             }
             #endregion
@@ -1453,7 +1450,7 @@ public class DBCommands
             #endregion
 
             #region Create Query String
-            sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.ScoresTable + sqlQueryFields + DBNames.SqlValues + sqlQueryValues + ";";
+            sqlQuery = DbNames.SqlInsert + DbNames.Database + "." + DbNames.ScoresTable + sqlQueryFields + DbNames.SqlValues + sqlQueryValues + ";";
             #endregion
 
             #region Connect to database and execute sqlQuery
@@ -1472,13 +1469,13 @@ public class DBCommands
                 oldScoreLong = $"{scoreList.Rows [ i ].ItemArray [ 3 ]}-{scoreList.Rows [ i ].ItemArray [ 4 ].ToString ( )}";
                 newScoreLong = $"{newScoreNumber}-{scoreList.Rows [ i ].ItemArray [ 4 ].ToString ( )}";
             }
-            DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreRenumbered, $"Partituur omgenummerd van {scoreList.Rows [ i ].ItemArray [ 3 ]}-{scoreList.Rows [ i ].ItemArray [ 4 ].ToString ( )} naar {newScoreLong}." );
+            DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogScoreRenumbered, $"Partituur omgenummerd van {scoreList.Rows [ i ].ItemArray [ 3 ]}-{scoreList.Rows [ i ].ItemArray [ 4 ].ToString ( )} naar {newScoreLong}." );
 
             // GetHashCode History Id
             int _historyId = DBCommands.GetAddedHistoryId();
 
             // Write Detailed logging
-            DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreNumber, oldScoreLong, newScoreLong );
+            DBCommands.WriteDetailLog ( _historyId, DbNames.LogScoreNumber, oldScoreLong, newScoreLong );
             #endregion
         }
         #endregion
@@ -1494,109 +1491,109 @@ public class DBCommands
         using MySqlCommand cmd = new(sqlQuery, connection);
 
         if ( scoreList [ 0 ].RepertoireId != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameRepertoireId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].RepertoireId; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameRepertoireId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].RepertoireId; }
         if ( scoreList [ 0 ].ArchiveId != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameArchiveId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ArchiveId; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameArchiveId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ArchiveId; }
         if ( scoreList [ 0 ].ByHeart != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameByHeart, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ByHeart; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameByHeart, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ByHeart; }
 
         if ( scoreList [ 0 ].DurationChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameDuration, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Duration; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameDuration, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Duration; }
 
         if ( scoreList [ 0 ].TitleChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameTitle, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Title; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameTitle, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Title; }
         if ( scoreList [ 0 ].SubTitleChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameSubTitle, MySqlDbType.VarChar ).Value = scoreList [ 0 ].SubTitle; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameSubTitle, MySqlDbType.VarChar ).Value = scoreList [ 0 ].SubTitle; }
 
         if ( scoreList [ 0 ].ComposerChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameComposer, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Composer; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameComposer, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Composer; }
         if ( scoreList [ 0 ].TextwriterChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameTextwriter, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Textwriter; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameTextwriter, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Textwriter; }
         if ( scoreList [ 0 ].ArrangerChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameArranger, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Arranger; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameArranger, MySqlDbType.VarChar ).Value = scoreList [ 0 ].Arranger; }
 
         if ( scoreList [ 0 ].GenreId != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameGenreId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].GenreId; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameGenreId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].GenreId; }
         if ( scoreList [ 0 ].AccompanimentId != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameAccompanimentId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AccompanimentId; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameAccompanimentId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AccompanimentId; }
         if ( scoreList [ 0 ].LanguageId != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameLanguageId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].LanguageId; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameLanguageId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].LanguageId; }
 
         if ( scoreList [ 0 ].MusicPieceChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMusicPiece, MySqlDbType.VarChar ).Value = scoreList [ 0 ].MusicPiece; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMusicPiece, MySqlDbType.VarChar ).Value = scoreList [ 0 ].MusicPiece; }
 
         if ( scoreList [ 0 ].DateDigitizedChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameDigitized, MySqlDbType.String ).Value = scoreList [ 0 ].DateDigitized; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameDigitized, MySqlDbType.String ).Value = scoreList [ 0 ].DateDigitized; }
         if ( scoreList [ 0 ].DateModifiedChanged != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameModified, MySqlDbType.String ).Value = scoreList [ 0 ].DateModified; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameModified, MySqlDbType.String ).Value = scoreList [ 0 ].DateModified; }
         if ( scoreList [ 0 ].Checked != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameChecked, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Checked; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameChecked, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Checked; }
 
         if ( scoreList [ 0 ].MuseScoreORP != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMuseScoreORP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreORP; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMuseScoreORP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreORP; }
         if ( scoreList [ 0 ].MuseScoreORK != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMuseScoreORK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreORK; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMuseScoreORK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreORK; }
         if ( scoreList [ 0 ].MuseScoreTOP != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMuseScoreTOP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreTOP; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMuseScoreTOP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreTOP; }
         if ( scoreList [ 0 ].MuseScoreTOK != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMuseScoreTOK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreTOK; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMuseScoreTOK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreTOK; }
 
         if ( scoreList [ 0 ].PDFORP != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFORP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFORP; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePDFORP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFORP; }
         if ( scoreList [ 0 ].PDFORK != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFORK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFORK; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePDFORK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFORK; }
         if ( scoreList [ 0 ].PDFTOP != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFTOP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOP; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePDFTOP, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOP; }
         if ( scoreList [ 0 ].PDFTOK != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFTOK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOK; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePDFTOK, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFTOK; }
         if ( scoreList [ 0 ].PDFPIA != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePDFPIA, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFPIA; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePDFPIA, MySqlDbType.Int32 ).Value = scoreList [ 0 ].PDFPIA; }
 
         if ( scoreList [ 0 ].MP3B1 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3B1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B1; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3B1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B1; }
         if ( scoreList [ 0 ].MP3B2 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3B2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B2; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3B2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3B2; }
         if ( scoreList [ 0 ].MP3T1 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3T1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3T1; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3T1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3T1; }
         if ( scoreList [ 0 ].MP3T2 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3T2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3T2; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3T2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3T2; }
 
         if ( scoreList [ 0 ].MP3SOL != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3SOL, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3SOL; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3SOL, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3SOL; }
         if ( scoreList [ 0 ].MP3TOT != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3TOT, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3TOT; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3TOT, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3TOT; }
         if ( scoreList [ 0 ].MP3PIA != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3PIA, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3PIA; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3PIA, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3PIA; }
         if ( scoreList [ 0 ].MP3UITV != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameMP3UITV, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3UITV; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameMP3UITV, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MP3UITV; }
 
         if ( scoreList [ 0 ].MuseScoreOnline != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameOnline, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreOnline; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameOnline, MySqlDbType.Int32 ).Value = scoreList [ 0 ].MuseScoreOnline; }
 
         // Rich text fields
-        cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameLyrics, MySqlDbType.MediumText ).Value = scoreList [ 0 ].Lyrics;
-        cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameNotes, MySqlDbType.MediumText ).Value = scoreList [ 0 ].Notes;
+        cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameLyrics, MySqlDbType.MediumText ).Value = scoreList [ 0 ].Lyrics;
+        cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameNotes, MySqlDbType.MediumText ).Value = scoreList [ 0 ].Notes;
 
         if ( scoreList [ 0 ].AmountPublisher1 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameAmountPublisher1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher1; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameAmountPublisher1, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher1; }
         if ( scoreList [ 0 ].AmountPublisher2 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameAmountPublisher2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher2; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameAmountPublisher2, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher2; }
         if ( scoreList [ 0 ].AmountPublisher3 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameAmountPublisher3, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher3; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameAmountPublisher3, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher3; }
         if ( scoreList [ 0 ].AmountPublisher4 != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameAmountPublisher4, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher4; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameAmountPublisher4, MySqlDbType.Int32 ).Value = scoreList [ 0 ].AmountPublisher4; }
 
         if ( scoreList [ 0 ].Publisher1Id != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePublisher1Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher1Id; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePublisher1Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher1Id; }
         if ( scoreList [ 0 ].Publisher2Id != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePublisher2Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher2Id; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePublisher2Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher2Id; }
         if ( scoreList [ 0 ].Publisher3Id != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePublisher3Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher3Id; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePublisher3Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher3Id; }
         if ( scoreList [ 0 ].Publisher4Id != -1 )
-        { cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNamePublisher4Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher4Id; }
+        { cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNamePublisher4Id, MySqlDbType.Int32 ).Value = scoreList [ 0 ].Publisher4Id; }
 
         // Add the Id value for the Score that has to be modified
-        cmd.Parameters.Add ( "@" + DBNames.ScoresFieldNameId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ScoreId;
+        cmd.Parameters.Add ( "@" + DbNames.ScoresFieldNameId, MySqlDbType.Int32 ).Value = scoreList [ 0 ].ScoreId;
 
         //execute; returns the number of rows affected
         int rowsAffected = cmd.ExecuteNonQuery();
@@ -1614,26 +1611,26 @@ public class DBCommands
         if ( modifiedUser != null )
         {
             if ( modifiedUser [ 0 ].UserName != "" )
-            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameUserName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserName; }
+            { cmd.Parameters.Add ( "@" + DbNames.UsersFieldNameUserName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserName; }
 
             if ( modifiedUser [ 0 ].UserFullName != "" )
-            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameFullName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserFullName; }
+            { cmd.Parameters.Add ( "@" + DbNames.UsersFieldNameFullName, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserFullName; }
 
             if ( modifiedUser [ 0 ].UserFullName != "" )
-            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameLogin, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserEmail; }
+            { cmd.Parameters.Add ( "@" + DbNames.UsersFieldNameLogin, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserEmail; }
 
             if ( modifiedUser [ 0 ].UserRoleId != 0 )
-            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameRoleId, MySqlDbType.Int32 ).Value = modifiedUser [ 0 ].UserRoleId; }
+            { cmd.Parameters.Add ( "@" + DbNames.UsersFieldNameRoleId, MySqlDbType.Int32 ).Value = modifiedUser [ 0 ].UserRoleId; }
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
-            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }
+            { cmd.Parameters.Add ( "@" + DbNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }
 
             if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
-            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameCoverSheetFolder, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].CoverSheetFolder; }
+            { cmd.Parameters.Add ( "@" + DbNames.UsersFieldNameCoverSheetFolder, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].CoverSheetFolder; }
         }
 
         // Add the userId value for the user that has to be modified
-        cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameId, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserId;
+        cmd.Parameters.Add ( "@" + DbNames.UsersFieldNameId, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserId;
 
         //execute; returns the number of rows affected
         int rowsAffected = cmd.ExecuteNonQuery();
@@ -1769,7 +1766,7 @@ public class DBCommands
     {
         ObservableCollection<UserModel> users = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.UsersTable, "nosort", DBNames.UsersFieldNameId, _userId.ToString());
+        DataTable dataTable = DBCommands.GetData(DbNames.UsersTable, "nosort", DbNames.UsersFieldNameId, _userId.ToString());
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -1795,7 +1792,7 @@ public class DBCommands
     {
         ObservableCollection<UserModel> users = new();
 
-        DataTable dataTable = DBCommands.GetData(DBNames.UsersView, DBNames.UsersFieldNameFullName);
+        DataTable dataTable = DBCommands.GetData(DbNames.UsersView, DbNames.UsersFieldNameFullName);
 
         if ( dataTable.Rows.Count > 0 )
         {
@@ -1834,10 +1831,10 @@ public class DBCommands
     #region Write History Logging
     public static void WriteLog ( int loggedInUser, string action, string description )
     {
-        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogTable + " ( " +
-            DBNames.LogFieldNameUserId + ", " +
-            DBNames.LogFieldNameAction + ", " +
-            DBNames.LogFieldNameDescription + " ) " + DBNames.SqlValues + " ( " +
+        var sqlQuery = DbNames.SqlInsert + DbNames.Database + "." + DbNames.LogTable + " ( " +
+            DbNames.LogFieldNameUserId + ", " +
+            DbNames.LogFieldNameAction + ", " +
+            DbNames.LogFieldNameDescription + " ) " + DbNames.SqlValues + " ( " +
             loggedInUser + ", '" + action + "', '" + description + "' );";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -1852,11 +1849,11 @@ public class DBCommands
     #region Write History Detail Logging
     public static void WriteDetailLog ( int logId, string field, string oldValue, string newValue )
     {
-        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.LogDetailTable + " ( " +
-            DBNames.LogDetailFieldNameLogId + ", " +
-            DBNames.LogDetailFieldNameChanged + ", " +
-            DBNames.LogDetailFieldNameOldValue + ", " +
-            DBNames.LogDetailFieldNameNewValue + " ) " + DBNames.SqlValues + " ( " +
+        var sqlQuery = DbNames.SqlInsert + DbNames.Database + "." + DbNames.LogDetailTable + " ( " +
+            DbNames.LogDetailFieldNameLogId + ", " +
+            DbNames.LogDetailFieldNameChanged + ", " +
+            DbNames.LogDetailFieldNameOldValue + ", " +
+            DbNames.LogDetailFieldNameNewValue + " ) " + DbNames.SqlValues + " ( " +
             logId + ", '" + field + "', '" + oldValue + "', '" + newValue + "' );";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
@@ -1872,9 +1869,9 @@ public class DBCommands
     public static int GetAddedHistoryId ( )
     {
         int userId = 0;
-        var sqlQuery = DBNames.SqlSelectAll +
-            DBNames.SqlFrom + DBNames.Database + "." + DBNames.LogTable +
-            DBNames.SqlOrder + DBNames.LogFieldNameLogId + DBNames.SqlDesc + DBNames.SqlLimit + "1";
+        var sqlQuery = DbNames.SqlSelectAll +
+            DbNames.SqlFrom + DbNames.Database + "." + DbNames.LogTable +
+            DbNames.SqlOrder + DbNames.LogFieldNameLogId + DbNames.SqlDesc + DbNames.SqlLimit + "1";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -1893,7 +1890,7 @@ public class DBCommands
         ObservableCollection<HistoryModel> HistoryLog = new();
         DataTable dataTable = new();
 
-        dataTable = GetData ( DBNames.LogView, DBNames.LogViewFieldNameLogid );
+        dataTable = GetData ( DbNames.LogView, DbNames.LogViewFieldNameLogid );
 
         if ( dataTable.Rows.Count > 0 )
         {

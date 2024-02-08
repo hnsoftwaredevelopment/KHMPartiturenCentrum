@@ -34,7 +34,7 @@ public partial class MainWindow : Window
     #region Button Close
     private void btnClose_Click ( object sender, RoutedEventArgs e )
     {
-        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogUserLoggedOut, $"{tbLogedInFullName.Text} heeft de applicatie afgesloten" );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogUserLoggedOut, $"{tbLogedInFullName.Text} heeft de applicatie afgesloten" );
         Close ( );
     }
     #endregion

@@ -45,7 +45,7 @@ public partial class RenumberScore : Window
             cbSerie.Visibility = Visibility.Collapsed;
         }
 
-        var Scores = DBCommands.GetEmptyScores(DBNames.AvailableScoresView, DBNames.ScoresFieldNameScoreNumber);
+        var Scores = DBCommands.GetEmptyScores(DbNames.AvailableScoresView, DbNames.ScoresFieldNameScoreNumber);
 
         cbxNewScores.ItemsSource = Scores.Select ( x => x.ScoreNumber ).ToList ();
     }
@@ -112,7 +112,7 @@ public partial class RenumberScore : Window
         if ( !tbScoreNumber.Text.Contains ( "-" ) )
         {
             // Does not belong to a serie
-            ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
+            ScoreInfo = DBCommands.GetData(DbNames.ScoresTable, DbNames.ScoresFieldNameScoreNumber, DbNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
            
 
             SaveToNewScore ( ScoreInfo, TargetScoreId, "", "replace" );
@@ -130,7 +130,7 @@ public partial class RenumberScore : Window
             if (cbSerie.IsChecked != false )
             {
                 // Complete series should be copied
-                DataTable ScoreList = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreSubNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber[0]);
+                DataTable ScoreList = DBCommands.GetData(DbNames.ScoresTable, DbNames.ScoresFieldNameScoreSubNumber, DbNames.ScoresFieldNameScoreNumber, _oldScoreNumber[0]);
 
                 if ( cbxNewScores.SelectedValue != null )
                 {
@@ -151,7 +151,7 @@ public partial class RenumberScore : Window
                 // Only Current score should be copied to a new score (New score has no subNumber)
 
                 // Renumber Current Score and Delete the selected Record
-                ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber [0], DBNames.ScoresFieldNameScoreSubNumber, _oldScoreNumber [1] );
+                ScoreInfo = DBCommands.GetData(DbNames.ScoresTable, DbNames.ScoresFieldNameScoreNumber, DbNames.ScoresFieldNameScoreNumber, _oldScoreNumber [0], DbNames.ScoresFieldNameScoreSubNumber, _oldScoreNumber [1] );
                 SaveToNewScore(ScoreInfo, TargetScoreId, "", "replace");
                 DBCommands.DeleteScore(_oldScoreNumber[0], _oldScoreNumber[1]);
 
@@ -258,13 +258,13 @@ public partial class RenumberScore : Window
         }
 
         // Write log info
-        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
 
         // GetHashCode History Id
         int _historyId = DBCommands.GetAddedHistoryId();
 
         // Write Detailed logging
-        DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreRenumbered, tbScoreNumber.Text, _newScore );
+        DBCommands.WriteDetailLog ( _historyId, DbNames.LogScoreRenumbered, tbScoreNumber.Text, _newScore );
 
     }
     #endregion
