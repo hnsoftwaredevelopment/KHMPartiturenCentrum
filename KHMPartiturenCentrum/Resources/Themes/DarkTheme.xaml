@@ -175,6 +175,12 @@
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
 
+    <!-- Grid Colors -->
+    <SolidColorBrush x:Key="Grid.Splitter.BorderBrush" Color="DarkBlue" />
+    <SolidColorBrush x:Key="Grid.Header.Background" Color="#4C548E" />
+    <SolidColorBrush x:Key="Grid.Header.Foreground" Color="WhiteSmoke" />
+
+
     <!--  Header Colors  -->
     <SolidColorBrush x:Key="Header.BorderBrush" Color="DarkBlue" />
     <SolidColorBrush x:Key="Header.BackGround" Color="#FFFFFFF5" />
@@ -272,4 +278,15 @@
     <SolidColorBrush x:Key="Button.BrowseFolder.Static.Foreground" Color="#28349B" />
     <SolidColorBrush x:Key="Button.BrowseFolder.MouseOver.Background" Color="Beige" />
     <SolidColorBrush x:Key="Button.BrowseFolder.Presend.Background" Color="#1690E9" />
+
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Static.Background" Color="Blue" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Static.Border" Color="#28349B" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.MouseOver.Background" Color="#66B6F1" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.MouseOver.Border" Color="#66B6F1" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Pressed.Background" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Pressed.Border" Color="#1690E9" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Button.Grid.Score.Download.Disabled.Foreground" Color="#FF838383" />
+
 </ResourceDictionary>
