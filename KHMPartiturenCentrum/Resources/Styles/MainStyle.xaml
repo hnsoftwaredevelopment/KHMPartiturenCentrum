@@ -833,8 +833,8 @@
     <!--#region Score Grid download buttons-->
     <Style x:Key="ScoreGridDownloadButtonsStyle" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="{Button.Grid.Score.Download.Static.Backgroun}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Button.Grid.Score.Downloadr.Static.Border}" />
+        <Setter Property="Background" Value="{DynamicResource Button.Grid.Score.Download.Static.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Button.Grid.Score.Downloadr.Static.Border}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="11" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />

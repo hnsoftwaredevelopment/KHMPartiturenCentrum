@@ -18,27 +18,6 @@ namespace KHM.Helpers;
 public class DBCommands
 {
     #region GetData
-    #region GetData 
-    public static DataTable GetData ( string _table )
-    {
-        if ( _table != null  && _table != "" )
-        {
-            var selectQuery = DbNames.SqlSelectAll + DbNames.SqlFrom + DbNames.Database + "." + _table;
-            MySqlConnection connection = new(DBConnect.ConnectionString);
-            connection.Open();
-            DataTable table = new();
-            MySqlDataAdapter adapter = new(selectQuery, connection);
-            adapter.Fill(table);
-            connection.Close();
-            return table;
-        }
-        else
-        {
-            return null;
-        }
-    }
-    #endregion
-
     #region GetData with Sorting option
     public static DataTable GetData ( string _table, string orderByFieldName )
     {

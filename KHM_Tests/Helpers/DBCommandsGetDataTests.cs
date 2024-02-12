@@ -4,32 +4,6 @@
     public class DBCommandsGetDataTests
     {
         [Test]
-        [TestCase("view_Users")]
-        [TestCase(null)]
-        public void GetData_ExpectedBehaviorExistingDataBase(string table)
-        {
-            // Arrange
-            var result = false;
-
-
-            // Act
-            var dataTable = DBCommands.GetData(table);
-
-            if (dataTable != null)
-            {
-                result = true;
-                Assert.That(result, Is.True);
-
-            }
-            else
-            {
-                result = false;
-                Assert.That(result, Is.False);
-            }
-        }
-
-
-        [Test]
         [TestCase("view_Users", "Fullname")]
         [TestCase("view_Users", "nosort")]
         public void GetData_ExpectedBehaviorExistingDataBaseOrdering(string table, string orderByFieldName)
