@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media.Imaging;
+
 using KHM.Helpers;
 using KHM.Models;
 using KHM.ViewModels;
@@ -2592,8 +2594,41 @@ public partial class Scores : Page
         }
     }
 
-    #region Create Cover Sheet
-    private void CreateCoverSheet ( object sender, RoutedEventArgs e )
+	private void MuseScore_Drop ( object sender, DragEventArgs e )
+		{
+			HandleDroppedFiles ( e, ".msc?" );
+		/*
+		if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
+		{
+			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+			if ( files.Length > 0 )
+			{
+				// Laad de afbeelding van het bestand in de Image
+				Uri imageUri = new Uri(files[0]);
+				MuseScoreDropArea.Source = new BitmapImage ( imageUri );
+			}
+		}
+		*/
+		}
+
+	private void PDF_Drop ( object sender, DragEventArgs e )
+	{
+		HandleDroppedFiles ( e, ".pdf" );
+	}
+
+	private void MP3_Drop ( object sender, DragEventArgs e )
+	{
+		HandleDroppedFiles ( e, ".mp3" );
+	}
+
+	private void MP3Voice_Drop ( object sender, DragEventArgs e )
+	{
+		HandleDroppedFiles ( e, ".mp3" );
+	}
+	
+	#region Create Cover Sheet
+	private void CreateCoverSheet ( object sender, RoutedEventArgs e )
     {
         var _outputFolder = @ScoreUsers.SelectedUserCoverSheetFolder + "\\";
         var _templatename="Resources\\Template\\";
