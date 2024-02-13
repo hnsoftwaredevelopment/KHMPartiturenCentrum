@@ -161,28 +161,28 @@ public partial class UserProfile : Page
 
     private void WriteHistory(ObservableCollection<UserModel> modifiedUser )
     {
-        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogUserChanged, ScoreUsers.SelectedUserFullName );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogUserChanged, ScoreUsers.SelectedUserFullName );
 
         int historyId = DBCommands.GetAddedHistoryId ();
 
         if ( modifiedUser [ 0 ].UserFullName != "" )
         {
-            DBCommands.WriteDetailLog(historyId, DbNames.LogUserFullName, tbCheckFullName.Text, modifiedUser [ 0 ].UserFullName );
+            DBCommands.WriteDetailLog(historyId, DBNames.LogUserFullName, tbCheckFullName.Text, modifiedUser [ 0 ].UserFullName );
         }
 
         if ( modifiedUser [ 0 ].UserEmail != "" )
         {
-            DBCommands.WriteDetailLog ( historyId, DbNames.LogUserEMail, tbCheckEMail.Text, modifiedUser [ 0 ].UserEmail );
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserEMail, tbCheckEMail.Text, modifiedUser [ 0 ].UserEmail );
         }
 
         if ( modifiedUser [ 0 ].UserPassword != "" )
         {
-            DBCommands.WriteDetailLog ( historyId, DbNames.LogUserPassword, "", "" );
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserPassword, "", "" );
         }
 
         if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
         {
-            DBCommands.WriteDetailLog ( historyId, DbNames.LogUserCoverSheetFolder, @tbCheckCoverSheets.Text, @modifiedUser [ 0 ].CoverSheetFolder );
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserCoverSheetFolder, @tbCheckCoverSheets.Text, @modifiedUser [ 0 ].CoverSheetFolder );
         }
     }
 

@@ -45,7 +45,7 @@ public partial class RenumberScore : Window
             cbSerie.Visibility = Visibility.Collapsed;
         }
 
-        var Scores = DBCommands.GetEmptyScores(DbNames.AvailableScoresView, DbNames.ScoresFieldNameScoreNumber);
+        var Scores = DBCommands.GetEmptyScores(DBNames.AvailableScoresView, DBNames.ScoresFieldNameScoreNumber);
 
         cbxNewScores.ItemsSource = Scores.Select ( x => x.ScoreNumber ).ToList ();
     }
@@ -112,7 +112,7 @@ public partial class RenumberScore : Window
         if ( !tbScoreNumber.Text.Contains ( "-" ) )
         {
             // Does not belong to a serie
-            ScoreInfo = DBCommands.GetData(DbNames.ScoresTable, DbNames.ScoresFieldNameScoreNumber, DbNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
+            ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, tbScoreNumber.Text);
            
 
             SaveToNewScore ( ScoreInfo, TargetScoreId, "", "replace" );
@@ -130,7 +130,7 @@ public partial class RenumberScore : Window
             if (cbSerie.IsChecked != false )
             {
                 // Complete series should be copied
-                DataTable ScoreList = DBCommands.GetData(DbNames.ScoresTable, DbNames.ScoresFieldNameScoreSubNumber, DbNames.ScoresFieldNameScoreNumber, _oldScoreNumber[0]);
+                DataTable ScoreList = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreSubNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber[0]);
 
                 if ( cbxNewScores.SelectedValue != null )
                 {
@@ -151,7 +151,7 @@ public partial class RenumberScore : Window
                 // Only Current score should be copied to a new score (New score has no subNumber)
 
                 // Renumber Current Score and Delete the selected Record
-                ScoreInfo = DBCommands.GetData(DbNames.ScoresTable, DbNames.ScoresFieldNameScoreNumber, DbNames.ScoresFieldNameScoreNumber, _oldScoreNumber [0], DbNames.ScoresFieldNameScoreSubNumber, _oldScoreNumber [1] );
+                ScoreInfo = DBCommands.GetData(DBNames.ScoresTable, DBNames.ScoresFieldNameScoreNumber, DBNames.ScoresFieldNameScoreNumber, _oldScoreNumber [0], DBNames.ScoresFieldNameScoreSubNumber, _oldScoreNumber [1] );
                 SaveToNewScore(ScoreInfo, TargetScoreId, "", "replace");
                 DBCommands.DeleteScore(_oldScoreNumber[0], _oldScoreNumber[1]);
 
@@ -220,20 +220,29 @@ public partial class RenumberScore : Window
             MP3T2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 27 ].ToString () ),
             MP3B1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 28 ].ToString () ),
             MP3B2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 29 ].ToString () ),
-            MP3SOL = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 30 ].ToString () ),
-            MP3PIA = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 31 ].ToString () ),
-            MuseScoreOnline = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 32 ].ToString () ),
-            ByHeart = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 33 ].ToString () ),
-            MusicPiece = scoreInfo.Rows [ 0 ].ItemArray [ 34 ].ToString (),
-            Notes = scoreInfo.Rows [ 0 ].ItemArray [ 35 ].ToString (),
-            AmountPublisher1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 36 ].ToString () ),
-            AmountPublisher2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 37 ].ToString () ),
-            AmountPublisher3 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 38 ].ToString () ),
-            AmountPublisher4 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 39 ].ToString () ),
-            Publisher1Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 40 ].ToString () ),
-            Publisher2Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 41 ].ToString () ),
-            Publisher3Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 42 ].ToString () ),
-            Publisher4Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 43 ].ToString () ),
+            MP3SOL1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 30 ].ToString () ),
+            MP3SOL2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 31 ].ToString () ),
+			MP3PIA = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 32 ].ToString () ),
+			MP3TOTVoice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 33 ].ToString () ),
+			MP3T1Voice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 34 ].ToString () ),
+			MP3T2Voice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 35 ].ToString () ),
+			MP3B1Voice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 36 ].ToString () ),
+			MP3B2Voice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 37 ].ToString () ),
+			MP3SOL1Voice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 38 ].ToString () ),
+			MP3SOL2Voice = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 39 ].ToString () ),
+
+			MuseScoreOnline = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 40 ].ToString () ),
+            ByHeart = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 41 ].ToString () ),
+            MusicPiece = scoreInfo.Rows [ 0 ].ItemArray [ 42 ].ToString (),
+            Notes = scoreInfo.Rows [ 0 ].ItemArray [ 43 ].ToString (),
+            AmountPublisher1 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 44 ].ToString () ),
+            AmountPublisher2 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 45 ].ToString () ),
+            AmountPublisher3 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 46 ].ToString () ),
+            AmountPublisher4 = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 47 ].ToString () ),
+            Publisher1Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 48 ].ToString () ),
+            Publisher2Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 49 ].ToString () ),
+            Publisher3Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 50 ].ToString () ),
+            Publisher4Id = int.Parse ( scoreInfo.Rows [ 0 ].ItemArray [ 51 ].ToString () ),
         } );
 
         switch (AddReplace.ToLower())
@@ -258,13 +267,13 @@ public partial class RenumberScore : Window
         }
 
         // Write log info
-        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DbNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
+        DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogScoreRenumbered, $"Partituur omgenummerd van {tbScoreNumber.Text} naar {_newScore}." );
 
         // GetHashCode History Id
         int _historyId = DBCommands.GetAddedHistoryId();
 
         // Write Detailed logging
-        DBCommands.WriteDetailLog ( _historyId, DbNames.LogScoreRenumbered, tbScoreNumber.Text, _newScore );
+        DBCommands.WriteDetailLog ( _historyId, DBNames.LogScoreRenumbered, tbScoreNumber.Text, _newScore );
 
     }
     #endregion

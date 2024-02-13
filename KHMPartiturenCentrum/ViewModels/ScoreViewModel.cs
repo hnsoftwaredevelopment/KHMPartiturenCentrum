@@ -20,6 +20,6 @@ public partial class ScoreViewModel: BaseScoreViewModel
 {
     public ScoreViewModel ()
     {
-        Scores = DBCommands.GetScores (DbNames.ScoresView, "nosort", null, null);
+        Scores = DBCommands.GetScores (DBNames.ScoresView, "nosort", null, null);
     }
 }

@@ -27,7 +27,7 @@ namespace KHM.Views
 
             DataContext = selectedRow;
 
-            var Scores = DBCommands.GetEmptyScores(DbNames.AvailableScoresView, DbNames.ScoresFieldNameScoreNumber);
+            var Scores = DBCommands.GetEmptyScores(DBNames.AvailableScoresView, DBNames.ScoresFieldNameScoreNumber);
 
             cbxNewScores.ItemsSource = Scores.Select ( x => x.ScoreNumber ).ToList ();
         }

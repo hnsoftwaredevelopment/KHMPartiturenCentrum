@@ -165,8 +165,9 @@ namespace KHM.UserControls
             chkMP3T1.IsChecked = selectedRow.MP3T1;
             chkMP3T2.IsChecked = selectedRow.MP3T2;
 
-            chkMP3SOL.IsChecked = selectedRow.MP3SOL;
-            chkMP3TOT.IsChecked = selectedRow.MP3TOT;
+            chkMP3SOL1.IsChecked = selectedRow.MP3SOL1;
+            chkMP3SOL2.IsChecked = selectedRow.MP3SOL2;
+			chkMP3TOT.IsChecked = selectedRow.MP3TOT;
             chkMP3PIA.IsChecked = selectedRow.MP3PIA;
             #endregion
 

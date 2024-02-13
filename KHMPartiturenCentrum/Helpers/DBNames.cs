@@ -1,6 +1,6 @@
 ﻿namespace KHM.Helpers;
 
-public class DbNames
+public class DBNames
 {
     #region Sql commands
     public static readonly string SqlSelect = "SELECT ";
@@ -107,14 +107,22 @@ public class DbNames
     public static readonly string ScoresFieldNameMuseScoreORK = "MSCORK";
     public static readonly string ScoresFieldNameMuseScoreTOP = "MSCTOP";
     public static readonly string ScoresFieldNameMuseScoreTOK = "MSCTOK";
-    public static readonly string ScoresFieldNameMP3TOT = "MP3TOT";
     public static readonly string ScoresFieldNameMP3T1 = "MP3T1";
     public static readonly string ScoresFieldNameMP3T2 = "MP3T2";
     public static readonly string ScoresFieldNameMP3B1 = "MP3B1";
     public static readonly string ScoresFieldNameMP3B2 = "MP3B2";
-    public static readonly string ScoresFieldNameMP3SOL = "MP3SOL";
-    public static readonly string ScoresFieldNameMP3PIA = "MP3PIA";
-    public static readonly string ScoresFieldNameMP3UITV = "MP3UITV";
+    public static readonly string ScoresFieldNameMP3SOL1 = "MP3SOL1";
+	public static readonly string ScoresFieldNameMP3SOL2 = "MP3SOL2";
+    public static readonly string ScoresFieldNameMP3TOT = "MP3TOT";
+	public static readonly string ScoresFieldNameMP3PIA = "MP3PIA";
+	public static readonly string ScoresFieldNameMP3T1Voice = "MP3T1Voice";
+	public static readonly string ScoresFieldNameMP3T2Voice = "MP3T2Voice";
+	public static readonly string ScoresFieldNameMP3B1Voice = "MP3B1Voice";
+	public static readonly string ScoresFieldNameMP3B2Voice = "MP3B2Voice";
+	public static readonly string ScoresFieldNameMP3SOL1Voice = "MP3SOL1Voice";
+	public static readonly string ScoresFieldNameMP3SOL2Voice = "MP3SOL2Voice";
+	public static readonly string ScoresFieldNameMP3TOTVoice = "MP3TOTVoice";
+    public static readonly string ScoresFieldNameMP3UITVVoice = "MP3UITVVoice";
     public static readonly string ScoresFieldNameOnline = "Online";
     public static readonly string ScoresFieldNameByHeart = "UHH";
     public static readonly string ScoresFieldNameMusicPiece = "Muziekstuk";
@@ -146,10 +154,54 @@ public class DbNames
     public static readonly string AvailableScoresView = "AvailableScoresView";
     public static readonly string AvailableScoresFieldNameId = "Id";
     public static readonly string AvailableScoresFieldNameNumber = "Partituur";
-    #endregion
+	#endregion
 
-    #region Table/View Users
-    public static readonly string UsersTable = "Users";
+	#region Table/View Files
+	public static readonly string FilesMusescoreTable = "filesmusescore";
+	public static readonly string FilesPDFTable = "filespdf";
+	public static readonly string FilesMP3Table = "filesmp3";
+	public static readonly string FilesMP3VoiceTable = "filesmp3voice";
+	public static readonly string FilesFieldNameId = "Id";
+	public static readonly string FilesFieldNameScoreId = "ScoreId";
+	public static readonly string FilesFieldNameFileName = "FileName";
+	public static readonly string FilesFieldNameFileSize = "FileSize";
+	public static readonly string FilesFieldNameContentType = "ContentType";
+	public static readonly string FilesFieldNameFile = "File";
+	#endregion
+
+	#region Table/Views FilesIndex
+	public static readonly string FilesIndexTable = "filesindex";
+	public static readonly string FilesIndexFieldNameId = "Id";
+	public static readonly string FilesIndexFieldNameScoreId = "ScoreId";
+	public static readonly string FilesIndexFieldNameMSCORPId = "MuseScoreORPId";
+	public static readonly string FilesIndexFieldNameMSCORKId = "MuseScoreORKId";
+	public static readonly string FilesIndexFieldNameMSCTOPId = "MuseScoreTOPId";
+	public static readonly string FilesIndexFieldNameMSCTOKId = "MuseScoreTOKId";
+	public static readonly string FilesIndexFieldNamePDFORPId = "PDFORPId";
+	public static readonly string FilesIndexFieldNamePDFORKId = "PDFORKId";
+	public static readonly string FilesIndexFieldNamePDFTOPId = "PDFTOPId";
+	public static readonly string FilesIndexFieldNamePDFTOKId = "PDFTOKId";
+	public static readonly string FilesIndexFieldNamePDFPIAId = "PDFPIAId";
+	public static readonly string FilesIndexFieldNameMP3B1Id = "MP3B1Id";
+	public static readonly string FilesIndexFieldNameMP3B2Id = "MP3B2Id";
+	public static readonly string FilesIndexFieldNameMP3T1Id = "MP3T1Id";
+	public static readonly string FilesIndexFieldNameMP3T2Id = "MP3T2Id";
+	public static readonly string FilesIndexFieldNameMP3SOL1Id = "MP3SOL1Id";
+	public static readonly string FilesIndexFieldNameMP3SOL2Id = "MP3SOL2Id";
+	public static readonly string FilesIndexFieldNameMP3TOTId = "MP3TOTId";
+	public static readonly string FilesIndexFieldNameMP3PIAId = "MP3PIAId";
+	public static readonly string FilesIndexFieldNameMP3MP3B1VoiceId = "MP3B1VoiceId";
+	public static readonly string FilesIndexFieldNameMP3MP3B2VoiceId = "MP3B2VoiceId";
+	public static readonly string FilesIndexFieldNameMP3MP3T1VoiceId = "MP3T1VoiceId";
+	public static readonly string FilesIndexFieldNameMP3MP3T2VoiceId = "MP3T2VoiceId";
+	public static readonly string FilesIndexFieldNameMP3SOL1VoiceId = "MP3SOL1VoiceId";
+	public static readonly string FilesIndexFieldNameMP3SOL2VoiceId = "MP3SOL2VoiceId";
+	public static readonly string FilesIndexFieldNameMP3TOTVoiceId = "MP3TOTVoiceId";
+	public static readonly string FilesIndexFieldNameMP3UITVVoiceId = "MP3UITVVoiceId";
+	#endregion
+
+	#region Table/View Users
+	public static readonly string UsersTable = "Users";
     public static readonly string UsersFieldNameId = "Id";
     public static readonly string UsersFieldNameLogin = "EMail";
     public static readonly string UsersFieldNameUserName = "UserName";
