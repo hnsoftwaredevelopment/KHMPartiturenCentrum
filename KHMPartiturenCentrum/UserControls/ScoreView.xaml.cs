@@ -404,10 +404,19 @@ namespace KHM.UserControls
                 cbMP3B2.IsChecked == true ||
                 cbMP3T1.IsChecked == true ||
                 cbMP3T2.IsChecked == true ||
-                cbMP3SOL.IsChecked == true ||
-                cbMP3TOT.IsChecked == true ||
+                cbMP3SOL1.IsChecked == true ||
+				cbMP3SOL2.IsChecked == true ||
+				cbMP3TOT.IsChecked == true ||
                 cbMP3PIA.IsChecked == true ||
-                cbOnline.IsChecked == true ||
+				cbMP3B1Voice.IsChecked == true ||
+				cbMP3B2Voice.IsChecked == true ||
+				cbMP3T1Voice.IsChecked == true ||
+				cbMP3T2Voice.IsChecked == true ||
+				cbMP3SOL1Voice.IsChecked == true ||
+				cbMP3SOL2Voice.IsChecked == true ||
+				cbMP3TOTVoice.IsChecked == true ||
+				cbMP3UITVVoice.IsChecked == true ||
+				cbOnline.IsChecked == true ||
                 cbLyrics.IsChecked == true ||
                 cbNotes.IsChecked == true ||
                 cbAmountPublisher1.IsChecked == true ||
@@ -499,10 +508,13 @@ namespace KHM.UserControls
                     case "chkMP3T2":
                         if (chkMP3T2.IsChecked == SelectedScore.MP3T2) { cbMP3T2.IsChecked = false; } else { cbMP3T2.IsChecked = true; }
                         break;
-                    case "chkMP3SOL":
-                        if (chkMP3SOL.IsChecked == SelectedScore.MP3SOL) { cbMP3SOL.IsChecked = false; } else { cbMP3SOL.IsChecked = true; }
+                    case "chkMP3SOL1":
+                        if (chkMP3SOL2.IsChecked == SelectedScore.MP3SOL1) { cbMP3SOL1.IsChecked = false; } else { cbMP3SOL1.IsChecked = true; }
                         break;
-                    case "chkMP3TOT":
+					case "chkMP3SOL2":
+						if ( chkMP3SOL2.IsChecked == SelectedScore.MP3SOL2 ) { cbMP3SOL2.IsChecked = false; } else { cbMP3SOL2.IsChecked = true; }
+						break;
+					case "chkMP3TOT":
                         if (chkMP3TOT.IsChecked == SelectedScore.MP3TOT) { cbMP3TOT.IsChecked = false; } else { cbMP3TOT.IsChecked = true; }
                         break;
                     case "chkMP3PIA":

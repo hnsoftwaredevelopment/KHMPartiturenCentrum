@@ -94,6 +94,7 @@ public partial class Scores : Page
 		#region 1st Row (ScoreNumber, Repertoire, Archive, and sing by heart)
 
 		tbScoreNumber.Text = selectedRow.Score;
+		tbScoreId.Text = selectedRow.ScoreId.ToString();
 
 		#region Repertoire Combobox
 
@@ -269,9 +270,20 @@ public partial class Scores : Page
 		chkMP3T1.IsChecked = selectedRow.MP3T1;
 		chkMP3T2.IsChecked = selectedRow.MP3T2;
 
-		chkMP3SOL.IsChecked = selectedRow.MP3SOL;
-		chkMP3TOT.IsChecked = selectedRow.MP3TOT;
+		chkMP3SOL1.IsChecked = selectedRow.MP3SOL1;
+		chkMP3SOL1.IsChecked = selectedRow.MP3SOL2;
+		chkMP3TOT.IsChecked = selectedRow.MP3TOTVoice;
 		chkMP3PIA.IsChecked = selectedRow.MP3PIA;
+
+		chkMP3B1Voice.IsChecked = selectedRow.MP3B1Voice;
+		chkMP3B2Voice.IsChecked = selectedRow.MP3B2Voice;
+		chkMP3T1Voice.IsChecked = selectedRow.MP3T1Voice;
+		chkMP3T2Voice.IsChecked = selectedRow.MP3T2Voice;
+
+		chkMP3SOL1Voice.IsChecked = selectedRow.MP3SOL1Voice;
+		chkMP3SOL1Voice.IsChecked = selectedRow.MP3SOL2Voice;
+		chkMP3TOTVoice.IsChecked = selectedRow.MP3TOTVoice;
+		chkMP3UITVVoice.IsChecked = selectedRow.MP3UITVVoice;
 
 		#endregion MP3 checkboxes
 
@@ -798,9 +810,18 @@ public partial class Scores : Page
 			cbMP3B2.IsChecked == true ||
 			cbMP3T1.IsChecked == true ||
 			cbMP3T2.IsChecked == true ||
-			cbMP3SOL.IsChecked == true ||
+			cbMP3SOL1.IsChecked == true ||
+			cbMP3SOL2.IsChecked == true ||
 			cbMP3TOT.IsChecked == true ||
 			cbMP3PIA.IsChecked == true ||
+			cbMP3B1Voice.IsChecked == true ||
+			cbMP3B2Voice.IsChecked == true ||
+			cbMP3T1Voice.IsChecked == true ||
+			cbMP3T2Voice.IsChecked == true ||
+			cbMP3SOL1Voice.IsChecked == true ||
+			cbMP3SOL2Voice.IsChecked == true ||
+			cbMP3TOTVoice.IsChecked == true ||
+			cbMP3UITVVoice.IsChecked == true ||
 			cbOnline.IsChecked == true ||
 			cbLyrics.IsChecked == true ||
 			cbNotes.IsChecked == true ||
@@ -957,15 +978,22 @@ public partial class Scores : Page
 					{ cbMP3T2.IsChecked = true; }
 					break;
 
-				case "chkMP3SOL":
-					if ( chkMP3SOL.IsChecked == SelectedScore.MP3SOL )
-					{ cbMP3SOL.IsChecked = false; }
+				case "chkMP3SOL1":
+					if ( chkMP3SOL1.IsChecked == SelectedScore.MP3SOL1 )
+					{ cbMP3SOL1.IsChecked = false; }
 					else
-					{ cbMP3SOL.IsChecked = true; }
+					{ cbMP3SOL1.IsChecked = true; }
+					break;
+
+				case "chkMP3SOL2":
+					if ( chkMP3SOL2.IsChecked == SelectedScore.MP3SOL2 )
+						{ cbMP3SOL2.IsChecked = false; }
+					else
+						{ cbMP3SOL2.IsChecked = true; }
 					break;
 
 				case "chkMP3TOT":
-					if ( chkMP3TOT.IsChecked == SelectedScore.MP3TOT )
+					if ( chkMP3TOT.IsChecked == SelectedScore.MP3TOTVoice )
 					{ cbMP3TOT.IsChecked = false; }
 					else
 					{ cbMP3TOT.IsChecked = true; }
@@ -976,6 +1004,62 @@ public partial class Scores : Page
 					{ cbMP3PIA.IsChecked = false; }
 					else
 					{ cbMP3PIA.IsChecked = true; }
+					break;
+
+				case "chkMP3B1Voice":
+					if ( chkMP3B1Voice.IsChecked == SelectedScore.MP3B1Voice )
+						{ cbMP3B1Voice.IsChecked = false; }
+					else
+						{ cbMP3B1Voice.IsChecked = true; }
+					break;
+
+				case "chkMP3B2Voice":
+					if ( chkMP3B2Voice.IsChecked == SelectedScore.MP3B2Voice )
+						{ cbMP3B2Voice.IsChecked = false; }
+					else
+						{ cbMP3B2Voice.IsChecked = true; }
+					break;
+
+				case "chkMP3T1Voice":
+					if ( chkMP3T1Voice.IsChecked == SelectedScore.MP3T1Voice )
+						{ cbMP3T1Voice.IsChecked = false; }
+					else
+						{ cbMP3T1Voice.IsChecked = true; }
+					break;
+
+				case "chkMP3T2Voice":
+					if ( chkMP3T2Voice.IsChecked == SelectedScore.MP3T2Voice )
+						{ cbMP3T2Voice.IsChecked = false; }
+					else
+						{ cbMP3T2Voice.IsChecked = true; }
+					break;
+
+				case "chkMP3SOL1Voice":
+					if ( chkMP3SOL1Voice.IsChecked == SelectedScore.MP3SOL1Voice )
+						{ cbMP3SOL1Voice.IsChecked = false; }
+					else
+						{ cbMP3SOL1Voice.IsChecked = true; }
+					break;
+
+				case "chkMP3SOL2Voice":
+					if ( chkMP3SOL2Voice.IsChecked == SelectedScore.MP3SOL2Voice )
+						{ cbMP3SOL2Voice.IsChecked = false; }
+					else
+						{ cbMP3SOL2Voice.IsChecked = true; }
+					break;
+
+				case "chkMP3TOTVoice":
+					if ( chkMP3TOTVoice.IsChecked == SelectedScore.MP3TOTVoice )
+						{ cbMP3TOTVoice.IsChecked = false; }
+					else
+						{ cbMP3TOTVoice.IsChecked = true; }
+					break;
+
+				case "chkMP3UITVVoice":
+					if ( chkMP3UITVVoice.IsChecked == SelectedScore.MP3UITVVoice )
+						{ cbMP3UITVVoice.IsChecked = false; }
+					else
+						{ cbMP3UITVVoice.IsChecked = true; }
 					break;
 
 				case "chkMSCOnline":
@@ -1285,20 +1369,35 @@ public partial class Scores : Page
 				}
 			}
 
-			if ( ( bool ) cbMP3SOL.IsChecked )
+			if ( ( bool ) cbMP3SOL1.IsChecked )
 			{
-				OldScoreValues [ 0 ].MP3SOL = SelectedScore.MP3SOL;
-				if ( ( bool ) chkMP3SOL.IsChecked )
+				OldScoreValues [ 0 ].MP3SOL1 = SelectedScore.MP3SOL1;
+				if ( ( bool ) chkMP3SOL1.IsChecked )
 				{
 					MP3SOL1 = 1;
-					SelectedScore.MP3SOL = true;
+					SelectedScore.MP3SOL1 = true;
 				}
 				else
 				{
 					MP3SOL1 = 0;
-					SelectedScore.MP3SOL = false;
+					SelectedScore.MP3SOL1 = false;
 				}
 			}
+
+			if ( ( bool ) cbMP3SOL2.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3SOL2 = SelectedScore.MP3SOL2;
+				if ( ( bool ) chkMP3SOL2.IsChecked )
+					{
+					MP3SOL2 = 1;
+					SelectedScore.MP3SOL2 = true;
+					}
+				else
+					{
+					MP3SOL1 = 0;
+					SelectedScore.MP3SOL2 = false;
+					}
+				}
 
 			if ( ( bool ) cbMP3T1.IsChecked )
 			{
@@ -1332,18 +1431,140 @@ public partial class Scores : Page
 
 			if ( ( bool ) cbMP3TOT.IsChecked )
 			{
-				OldScoreValues [ 0 ].MP3TOT = SelectedScore.MP3TOT;
+				OldScoreValues [ 0 ].MP3TOTVoice = SelectedScore.MP3TOTVoice;
 				if ( ( bool ) chkMP3TOT.IsChecked )
 				{
-					MP3TOT = 1;
-					SelectedScore.MP3TOT = true;
+					MP3TOTVoice = 1;
+					SelectedScore.MP3TOTVoice = true;
 				}
 				else
 				{
-					MP3TOT = 0;
-					SelectedScore.MP3TOT = false;
+					MP3TOTVoice = 0;
+					SelectedScore.MP3TOTVoice = false;
 				}
 			}
+
+
+			if ( ( bool ) cbMP3B1.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3B1 = SelectedScore.MP3B1;
+				if ( ( bool ) chkMP3B1.IsChecked )
+					{
+					MP3B1 = 1;
+					SelectedScore.MP3B1 = true;
+					}
+				else
+					{
+					MP3B1 = 0;
+					SelectedScore.MP3B1 = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3B2.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3B2 = SelectedScore.MP3B2;
+				if ( ( bool ) chkMP3B2.IsChecked )
+					{
+					MP3B2 = 1;
+					SelectedScore.MP3B2 = true;
+					}
+				else
+					{
+					MP3B2 = 0;
+					SelectedScore.MP3B2 = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3PIA.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3PIA = SelectedScore.MP3PIA;
+				if ( ( bool ) chkMP3PIA.IsChecked )
+					{
+					MP3PIA = 1;
+					SelectedScore.MP3PIA = true;
+					}
+				else
+					{
+					MP3PIA = 0;
+					SelectedScore.MP3PIA = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3SOL1.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3SOL1 = SelectedScore.MP3SOL1;
+				if ( ( bool ) chkMP3SOL1.IsChecked )
+					{
+					MP3SOL1 = 1;
+					SelectedScore.MP3SOL1 = true;
+					}
+				else
+					{
+					MP3SOL1 = 0;
+					SelectedScore.MP3SOL1 = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3SOL2.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3SOL2 = SelectedScore.MP3SOL2;
+				if ( ( bool ) chkMP3SOL2.IsChecked )
+					{
+					MP3SOL2 = 1;
+					SelectedScore.MP3SOL2 = true;
+					}
+				else
+					{
+					MP3SOL1 = 0;
+					SelectedScore.MP3SOL2 = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3T1.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3T1 = SelectedScore.MP3T1;
+				if ( ( bool ) chkMP3T1.IsChecked )
+					{
+					MP3T1 = 1;
+					SelectedScore.MP3T1 = true;
+					}
+				else
+					{
+					MP3T1 = 0;
+					SelectedScore.MP3T1 = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3T2.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3T2 = SelectedScore.MP3T2;
+				if ( ( bool ) chkMP3T2.IsChecked )
+					{
+					MP3T2 = 1;
+					SelectedScore.MP3T2 = true;
+					}
+				else
+					{
+					MP3T2 = 0;
+					SelectedScore.MP3T2 = false;
+					}
+				}
+
+			if ( ( bool ) cbMP3TOT.IsChecked )
+				{
+				OldScoreValues [ 0 ].MP3TOTVoice = SelectedScore.MP3TOTVoice;
+				if ( ( bool ) chkMP3TOT.IsChecked )
+					{
+					MP3TOTVoice = 1;
+					SelectedScore.MP3TOTVoice = true;
+					}
+				else
+					{
+					MP3TOTVoice = 0;
+					SelectedScore.MP3TOTVoice = false;
+					}
+				}
+
 
 			if ( ( bool ) cbMSCORK.IsChecked )
 			{
@@ -1608,7 +1829,7 @@ public partial class Scores : Page
 				MP3SOL2 = MP3SOL2,
 				MP3T1 = MP3T1,
 				MP3T2 = MP3T2,
-				MP3TOT = MP3TOT,
+				MP3TOT = MP3TOTVoice,
 				MP3B1Voice = MP3B1Voice,
 				MP3B2Voice = MP3B2Voice,
 				MP3SOL1Voice = MP3SOL1Voice,
@@ -2056,12 +2277,12 @@ public partial class Scores : Page
 		}
 		#endregion
 
-		#region Log MP3 SOL Changes
-		if ( ( bool ) ( cbMP3SOL.IsChecked ) )
+		#region Log MP3 SOL1 Changes
+		if ( ( bool ) ( cbMP3SOL1.IsChecked ) )
 		{
 			string oldValue = "", newValue = "";
 
-			if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL == true ) )
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL1 == true ) )
 			{ oldValue = DBNames.LogYes; }
 			else
 			{ oldValue = DBNames.LogNo; }
@@ -2071,13 +2292,27 @@ public partial class Scores : Page
 			else
 			{ newValue = DBNames.LogNo; }
 
-			if ( _scoreList [ 0 ].MP3SOL2 == 1 )
-			{ newValue = DBNames.LogYes; }
-			else
-			{ newValue = DBNames.LogNo; }
-
-			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL, oldValue, newValue );
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL1, oldValue, newValue );
 		}
+		#endregion
+
+		#region Log MP3 SOL2 Changes
+		if ( ( bool ) ( cbMP3SOL2.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL2 == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3SOL2 == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL2, oldValue, newValue );
+			}
 		#endregion
 
 		#region Log MP3 TOT Changes
@@ -2116,6 +2351,158 @@ public partial class Scores : Page
 
 			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3PIA, oldValue, newValue );
 		}
+		#endregion
+
+		#region Log MP3 B1 Voice Changes
+		if ( ( bool ) ( cbMP3B1Voice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3B1Voice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3B1Voice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3B1Voice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 B2 Voice Changes
+		if ( ( bool ) ( cbMP3B2Voice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3B2Voice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3B2Voice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3B2Voice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 T1 Voice Changes
+		if ( ( bool ) ( cbMP3T1Voice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3T1Voice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3T1Voice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3T1Voice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 T2 Voice Changes
+		if ( ( bool ) ( cbMP3T2Voice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3T2Voice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3T2Voice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3T2Voice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 SOL1 Voice Changes
+		if ( ( bool ) ( cbMP3SOL1Voice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL1Voice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3SOL1Voice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL1Voice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 SOL2 Voice Changes
+		if ( ( bool ) ( cbMP3SOL2Voice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3SOL2Voice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3SOL2Voice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3SOL2Voice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 TOT Voice Changes
+		if ( ( bool ) ( cbMP3TOTVoice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3TOTVoice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3TOTVoice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3TOTVoice, oldValue, newValue );
+			}
+		#endregion
+
+		#region Log MP3 UITV Voice Changes
+		if ( ( bool ) ( cbMP3UITVVoice.IsChecked ) )
+			{
+			string oldValue = "", newValue = "";
+
+			if ( ( bool ) ( _oldScoreList [ 0 ].MP3UITVVoice == true ) )
+				{ oldValue = DBNames.LogYes; }
+			else
+				{ oldValue = DBNames.LogNo; }
+
+			if ( _scoreList [ 0 ].MP3UITVVoice == 1 )
+				{ newValue = DBNames.LogYes; }
+			else
+				{ newValue = DBNames.LogNo; }
+
+			DBCommands.WriteDetailLog ( _historyId, DBNames.LogMP3UITVVoice, oldValue, newValue );
+			}
 		#endregion
 
 		#region Log MuseScore Online Changes
@@ -2240,8 +2627,17 @@ public partial class Scores : Page
 		chkMP3T1.IsChecked = false;
 		chkMP3T2.IsChecked = false;
 		chkMP3TOT.IsChecked = false;
-		chkMP3SOL.IsChecked = false;
+		chkMP3SOL1.IsChecked = false;
+		chkMP3SOL2.IsChecked = false;
 		chkMP3PIA.IsChecked = false;
+		chkMP3B1Voice.IsChecked = false;
+		chkMP3B2Voice.IsChecked = false;
+		chkMP3T1Voice.IsChecked = false;
+		chkMP3T2Voice.IsChecked = false;
+		chkMP3TOTVoice.IsChecked = false;
+		chkMP3SOL1Voice.IsChecked = false;
+		chkMP3SOL2Voice.IsChecked = false;
+		chkMP3UITVVoice.IsChecked = false;
 		chkMSCOnline.IsChecked = false;
 		chkMSCORK.IsChecked = false;
 		chkMSCORP.IsChecked = false;
@@ -2287,9 +2683,18 @@ public partial class Scores : Page
 		cbMP3B2.IsChecked = false;
 		cbMP3T1.IsChecked = false;
 		cbMP3T2.IsChecked = false;
-		cbMP3SOL.IsChecked = false;
+		cbMP3SOL1.IsChecked = false;
+		cbMP3SOL2.IsChecked = false;
 		cbMP3TOT.IsChecked = false;
 		cbMP3PIA.IsChecked = false;
+		cbMP3B1Voice.IsChecked = false;
+		cbMP3B2Voice.IsChecked = false;
+		cbMP3T1Voice.IsChecked = false;
+		cbMP3T2Voice.IsChecked = false;
+		cbMP3SOL1Voice.IsChecked = false;
+		cbMP3SOL2Voice.IsChecked = false;
+		cbMP3TOTVoice.IsChecked = false;
+		cbMP3UITVVoice.IsChecked = false;
 		cbOnline.IsChecked = false;
 		cbLyrics.IsChecked = false;
 		cbNotes.IsChecked = false;
@@ -2629,7 +3034,7 @@ public partial class Scores : Page
 				{
 					var fileName = Path.GetFileName ( file ).ToLower();
 					var checkFileName = fileName.Substring(0, 7);
-					var fileExtension = Path.GetExtension ( file ).ToLower();
+					var fileExtension = Path.GetExtension ( file ).ToLower().Replace(".","");
 					var fileExtensionType = "";
 					var fileType = "";
 					var fileTypeCheck = false;
@@ -2817,9 +3222,47 @@ public partial class Scores : Page
 							#endregion
 
 							// Create new filename for storage
-							var storeFileName = $"{tbScoreNumber}{fileType} - {tbTitle}{fileVoice}.{fileExtension}";
+							var storeFileName = $"{tbScoreNumber.Text}{fileType} - {tbTitle.Text}{fileVoice}.{fileExtension}";
 
-							DBCommands.StoreFile(fileTable, fileType, fileExtensionType, SelectedScore.ScoreId, file, storeFileName);
+							// Check If file is already in DB
+							int FileId = GetFileInfo.Id ( fileTable, int.Parse ( tbScoreId.Text ), fileType );
+
+							if	( FileId == -1 )
+								{
+								// File does not exist in the database
+								Files.Store ( fileTable, fileType, fileExtensionType, int.Parse ( tbScoreId.Text ), file, storeFileName );
+
+								// Get the FileId after saving the file to the database
+								FileId = GetFileInfo.Id ( fileTable, int.Parse ( tbScoreId.Text ), fileType );
+								}
+							else
+								{
+								// File exists so update
+								Files.Update ( fileTable, FileId, file );
+								}
+
+							// Get FieldName for FileIndex Update
+							string FileIndexFieldName = GetFileInfo.FileIndexField(fileExtensionType, fileType);
+
+							// Check if ScoreId already exists in FileIndex
+							int FilesIndexId = GetFileInfo.Id(DBNames.FilesIndexTable, int.Parse(tbScoreId.Text));
+
+							if ( FilesIndexId == -1 )
+								{
+								// File does not exist in FilesIndex, create
+								FilesIndex.Store ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, FilesIndexId );
+								}
+							else
+								{
+								// File exists in FilesIndex, cupdate
+								FilesIndex.Update ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, FilesIndexId );
+								}
+
+							// Save Info to Library
+							Library.UpdateFiles ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, 1 );
+
+							// Set checkbox on digitized TAB
+							
 						}
 						else
 						{
@@ -2909,14 +3352,20 @@ public partial class Scores : Page
 			T2 = "þ";
 		}
 
-		if (SelectedScore.MP3SOL)
+		if (SelectedScore.MP3SOL1)
 		{
 			Solo = "þ";
 		}
 
+		if ( SelectedScore.MP3SOL2 )
+			{
+			Solo = "þ";
+			}
+
+
 		// Checkbox for Accompaniment should not be set when there is no accompaniment selected (Id:1) or Piano is missing (Id:4) otherwise is will be check marked
 		// for the same Ids the AccompaimentName will be set to Piano
-		if (SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4)
+		if ( SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4)
 		{
 			Accompaniment = "þ";
 			AccompanimentName = SelectedScore.AccompanimentName;

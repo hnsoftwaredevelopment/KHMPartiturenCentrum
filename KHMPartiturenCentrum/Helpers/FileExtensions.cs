@@ -12,7 +12,8 @@ namespace KHM.Helpers
 	    {
 			mscz,
 			pdf,
-			mp3
+			mp3,
+			voice
 	    }
     }
 }

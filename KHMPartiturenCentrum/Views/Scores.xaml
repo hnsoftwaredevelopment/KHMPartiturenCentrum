@@ -90,9 +90,18 @@
 				<CheckBox x:Name="cbMP3B2" />
 				<CheckBox x:Name="cbMP3T1" />
 				<CheckBox x:Name="cbMP3T2" />
-				<CheckBox x:Name="cbMP3SOL" />
+				<CheckBox x:Name="cbMP3SOL1" />
+				<CheckBox x:Name="cbMP3SOL2" />
 				<CheckBox x:Name="cbMP3TOT" />
 				<CheckBox x:Name="cbMP3PIA" />
+				<CheckBox x:Name="cbMP3B1Voice" />
+				<CheckBox x:Name="cbMP3B2Voice" />
+				<CheckBox x:Name="cbMP3T1Voice" />
+				<CheckBox x:Name="cbMP3T2Voice" />
+				<CheckBox x:Name="cbMP3SOL1Voice" />
+				<CheckBox x:Name="cbMP3SOL2Voice" />
+				<CheckBox x:Name="cbMP3TOTVoice" />
+				<CheckBox x:Name="cbMP3UITVVoice" />
 				<CheckBox x:Name="cbOnline" />
 				<CheckBox x:Name="cbLyrics" />
 				<CheckBox x:Name="cbNotes" />
@@ -114,6 +123,7 @@
 
 				<TextBlock x:Name="tbLogedInUserName" />
 				<TextBlock x:Name="tbLogedInFullName" />
+				<TextBlock x:Name="tbScoreId" />
 			</StackPanel>
 			<!--#endregion-->
 
@@ -549,58 +559,130 @@
 
 						<!--#region MP3B1 (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3B1"
-							Width="Auto"
-							Binding="{Binding MP3B1}"
-							Visibility="Collapsed" />
+						x:Name="MP3B1"
+						Width="Auto"
+						Binding="{Binding MP3B1}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3B2 (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3B2"
-							Width="Auto"
-							Binding="{Binding MP3B2}"
-							Visibility="Collapsed" />
+						x:Name="MP3B2"
+						Width="Auto"
+						Binding="{Binding MP3B2}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3T1 (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3T1"
-							Width="Auto"
-							Binding="{Binding MP3T1}"
-							Visibility="Collapsed" />
+						x:Name="MP3T1"
+						Width="Auto"
+						Binding="{Binding MP3T1}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3T2 (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3T2"
-							Width="Auto"
-							Binding="{Binding MP3T2}"
-							Visibility="Collapsed" />
+						x:Name="MP3T2"
+						Width="Auto"
+						Binding="{Binding MP3T2}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
-						<!--#region MP3SOL (Hidden)-->
+						<!--#region MP3SOL1 (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3SOL"
-							Width="Auto"
-							Binding="{Binding MP3SOL}"
-							Visibility="Collapsed" />
+						x:Name="MP3SOL1"
+						Width="Auto"
+						Binding="{Binding MP3SOL1}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3SOL2 (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3SOL2"
+						Width="Auto"
+						Binding="{Binding MP3SOL2}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3TOT (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3TOT"
-							Width="Auto"
-							Binding="{Binding MP3TOT}"
-							Visibility="Collapsed" />
+						x:Name="MP3TOT"
+						Width="Auto"
+						Binding="{Binding MP3TOT}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3PIA (Hidden)-->
 						<DataGridCheckBoxColumn
-							x:Name="MP3PIA"
-							Width="Auto"
-							Binding="{Binding MP3PIA}"
-							Visibility="Collapsed" />
+						x:Name="MP3PIA"
+						Width="Auto"
+						Binding="{Binding MP3PIA}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3B1 Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3B1Voice"
+						Width="Auto"
+						Binding="{Binding MP3B1Voice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3B2 Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3B2Voice"
+						Width="Auto"
+						Binding="{Binding MP3B2Voice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3T1 Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3T1Voice"
+						Width="Auto"
+						Binding="{Binding MP3T1Voice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3T2 Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3T2Voice"
+						Width="Auto"
+						Binding="{Binding MP3T2Voice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3SOL1 Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3SOL1Voice"
+						Width="Auto"
+						Binding="{Binding MP3SOL1Voice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3SOL2 Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3SOL2Voice"
+						Width="Auto"
+						Binding="{Binding MP3SOL2Voice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3TOT Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3TOTVoice"
+						Width="Auto"
+						Binding="{Binding MP3TOTVoice}"
+						Visibility="Collapsed" />
+						<!--#endregion-->
+
+						<!--#region MP3UITV Voice (Hidden)-->
+						<DataGridCheckBoxColumn
+						x:Name="MP3UITVVoice"
+						Width="Auto"
+						Binding="{Binding MP3UITVVoice}"
+						Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MuseScoreOnline (Hidden)-->
@@ -1659,6 +1741,11 @@
 								<!--#endregion-->
 
 								<!--#region MP3 files-->
+								<!--#region Instrumental and Voice Headers-->
+								<Label Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="Instrumentaal"/>
+								<Label Grid.Row="0" Grid.Column="15" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="Ingezongen"/>
+								<!--#endregion-->
+								
 								<!--#region Filetype Logo-->
 								<Image
 									Grid.Column="8" Grid.Row="1"
@@ -1666,45 +1753,15 @@
 									Style="{DynamicResource TabItem.Page.Image.Style}" />
 								<!--#endregion-->
 
-								<!--#region MP3 B1-->
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="9"
-									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="B1" />
-								<CheckBox
-									x:Name="chkMP3B1"
-									Grid.Row="1"
-									Grid.Column="10"
-									Checked="CheckBoxChanged"
-									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-									Unchecked="CheckBoxChanged" />
-								<!--#endregion-->
-
-								<!--#region MP3 B2-->
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="9"
-									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="B2" />
-								<CheckBox
-									x:Name="chkMP3B2"
-									Grid.Row="2"
-									Grid.Column="10"
-									Checked="CheckBoxChanged"
-									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-									Unchecked="CheckBoxChanged" />
-								<!--#endregion-->
-
 								<!--#region MP3 T1-->
 								<TextBlock
-									Grid.Row="3"
+									Grid.Row="1"
 									Grid.Column="9"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="T1" />
 								<CheckBox
 									x:Name="chkMP3T1"
-									Grid.Row="3"
+									Grid.Row="1"
 									Grid.Column="10"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
@@ -1713,12 +1770,42 @@
 
 								<!--#region MP3 T2-->
 								<TextBlock
-									Grid.Row="4"
+									Grid.Row="2"
 									Grid.Column="9"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="T2" />
 								<CheckBox
 									x:Name="chkMP3T2"
+									Grid.Row="2"
+									Grid.Column="10"
+									Checked="CheckBoxChanged"
+									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+									Unchecked="CheckBoxChanged" />
+								<!--#endregion-->
+
+								<!--#region MP3 B1-->
+								<TextBlock
+									Grid.Row="3"
+									Grid.Column="9"
+									Style="{DynamicResource TabItem.Page.Label.Style}"
+									Text="B1" />
+								<CheckBox
+									x:Name="chkMP3B1"
+									Grid.Row="3"
+									Grid.Column="10"
+									Checked="CheckBoxChanged"
+									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+									Unchecked="CheckBoxChanged" />
+								<!--#endregion-->
+
+								<!--#region MP3 B2-->
+								<TextBlock
+									Grid.Row="4"
+									Grid.Column="9"
+									Style="{DynamicResource TabItem.Page.Label.Style}"
+									Text="B2" />
+								<CheckBox
+									x:Name="chkMP3B2"
 									Grid.Row="4"
 									Grid.Column="10"
 									Checked="CheckBoxChanged"
@@ -1726,7 +1813,7 @@
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
 
-								<!--#region MP3 Solo-->
+								<!--#region MP3 Solo 1-->
 								<TextBlock
 									Grid.Row="1"
 									Grid.Column="12"
@@ -1741,15 +1828,30 @@
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
 
+								<!--#region MP3 Solo 2-->
+								<TextBlock
+									Grid.Row="2"
+									Grid.Column="12"
+									Style="{DynamicResource TabItem.Page.Label.Style}"
+									Text="SOL1" />
+								<CheckBox
+									x:Name="chkMP3SOL2"
+									Grid.Row="2"
+									Grid.Column="13"
+									Checked="CheckBoxChanged"
+									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+									Unchecked="CheckBoxChanged" />
+								<!--#endregion-->
+								
 								<!--#region MP3 TOT-->
 								<TextBlock
-									Grid.Row="1"
+									Grid.Row="3"
 									Grid.Column="12"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="TOT" />
 								<CheckBox
 									x:Name="chkMP3TOT"
-									Grid.Row="1"
+									Grid.Row="3"
 									Grid.Column="13"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
@@ -1758,59 +1860,14 @@
 
 								<!--#region MP3 PIA-->
 								<TextBlock
-									Grid.Row="2"
+									Grid.Row="4"
 									Grid.Column="12"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="PIA" />
 								<CheckBox
 									x:Name="chkMP3PIA"
-									Grid.Row="2"
+									Grid.Row="4"
 									Grid.Column="13"
-									Checked="CheckBoxChanged"
-									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-									Unchecked="CheckBoxChanged" />
-								<!--#endregion-->
-
-								<!--#region MP3 UITV-->
-								<TextBlock
-									Grid.Row="3"
-									Grid.Column="12"
-									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="UITV" />
-								<CheckBox
-									x:Name="chkMP3UITV"
-									Grid.Row="3"
-									Grid.Column="13"
-									Checked="CheckBoxChanged"
-									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-									Unchecked="CheckBoxChanged" />
-								<!--#endregion-->
-
-								<!--#region MP3 B1 Voice-->
-								<TextBlock
-									Grid.Row="1"
-									Grid.Column="14"
-									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="B1" />
-								<CheckBox
-									x:Name="chkMP3B1Voice"
-									Grid.Row="1"
-									Grid.Column="15"
-									Checked="CheckBoxChanged"
-									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-									Unchecked="CheckBoxChanged" />
-								<!--#endregion-->
-
-								<!--#region MP3 B2 Voice-->
-								<TextBlock
-									Grid.Row="2"
-									Grid.Column="14"
-									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="B2" />
-								<CheckBox
-									x:Name="chkMP3B2Voice"
-									Grid.Row="2"
-									Grid.Column="15"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
@@ -1818,14 +1875,14 @@
 
 								<!--#region MP3 T1 Voice-->
 								<TextBlock
-									Grid.Row="3"
-									Grid.Column="14"
+									Grid.Row="1"
+									Grid.Column="15"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="T1" />
 								<CheckBox
 									x:Name="chkMP3T1Voice"
-									Grid.Row="3"
-									Grid.Column="15"
+									Grid.Row="1"
+									Grid.Column="16"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
@@ -1833,60 +1890,90 @@
 
 								<!--#region MP3 T2 Voice-->
 								<TextBlock
-									Grid.Row="4"
-									Grid.Column="14"
+									Grid.Row="2"
+									Grid.Column="15"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="T2" />
+									Text="T2" Height="15" VerticalAlignment="Top" />
 								<CheckBox
 									x:Name="chkMP3T2Voice"
-									Grid.Row="4"
-									Grid.Column="15"
+									Grid.Row="2"
+									Grid.Column="16"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
 
-								<!--#region MP3 Solo-->
+								<!--#region MP3 B1 Voice-->
+								<TextBlock
+									Grid.Row="3"
+									Grid.Column="15"
+									Style="{DynamicResource TabItem.Page.Label.Style}"
+									Text="B1" />
+								<CheckBox
+									x:Name="chkMP3B1Voice"
+									Grid.Row="3"
+									Grid.Column="16"
+									Checked="CheckBoxChanged"
+									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+									Unchecked="CheckBoxChanged" />
+								<!--#endregion-->
+
+								<!--#region MP3 B2 Voice-->
+								<TextBlock
+									Grid.Row="4"
+									Grid.Column="15"
+									Style="{DynamicResource TabItem.Page.Label.Style}"
+									Text="B2" />
+								<CheckBox
+									x:Name="chkMP3B2Voice"
+									Grid.Row="4"
+									Grid.Column="16"
+									Checked="CheckBoxChanged"
+									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+									Unchecked="CheckBoxChanged" />
+								<!--#endregion-->
+
+								<!--#region MP3 Solo 1 Voice-->
 								<TextBlock
 									Grid.Row="1"
-									Grid.Column="12"
+									Grid.Column="18"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="SOL1" />
 								<CheckBox
 									x:Name="chkMP3SOL1Voice"
 									Grid.Row="1"
-									Grid.Column="13"
+									Grid.Column="19"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
 
-								<!--#region MP3 Solo2-->
+								<!--#region MP3 Solo 2 Voice-->
 								<TextBlock
 									Grid.Row="2"
-									Grid.Column="12"
+									Grid.Column="18"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="SOL2" />
 								<CheckBox
 									x:Name="chkMP3SOL2Voice"
 									Grid.Row="2"
-									Grid.Column="13"
+									Grid.Column="19"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
 
 
-								<!--#region MP3 TOT-->
+								<!--#region MP3 TOT Voice-->
 								<TextBlock
 									Grid.Row="3"
-									Grid.Column="12"
+									Grid.Column="18"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="TOT" />
 								<CheckBox
 									x:Name="chkMP3TOTVoice"
 									Grid.Row="3"
-									Grid.Column="13"
+									Grid.Column="19"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
@@ -1895,38 +1982,37 @@
 								<!--#region MP3 UITV Voice-->
 								<TextBlock
 									Grid.Row="4"
-									Grid.Column="12"
+									Grid.Column="18"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="UITV" />
 								<CheckBox
 									x:Name="chkMP3UITVVoice"
 									Grid.Row="4"
-									Grid.Column="13"
+									Grid.Column="19"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
-
 								<!--#endregion-->
 
 								<!--#region MuseScore Online-->
 								<!--#region Filetype Logo-->
 								<Image
-									Grid.Column="15"
+									Grid.Column="21" Grid.Row="1"
 									Source="..\Resources\Images\filetypemscxonline.png"
 									Style="{DynamicResource TabItem.Page.Image.Style}" />
 								<!--#endregion-->
 
 								<!--#region MuseScore Online-->
 								<TextBlock
-									Grid.Row="0"
-									Grid.Column="16"
+									Grid.Row="1"
+									Grid.Column="22"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
 									Text="Online" />
 								<CheckBox
 									x:Name="chkMSCOnline"
-									Grid.Row="0"
-									Grid.Column="17"
+									Grid.Row="1"
+									Grid.Column="23"
 									Checked="CheckBoxChanged"
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />

@@ -131,7 +131,7 @@ public class DBCommands
 		}
 
 
-		if ( dataTable.Rows.Count > 0 )
+		 if ( dataTable.Rows.Count > 0 )
 		{
 			for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
 			{
@@ -192,11 +192,6 @@ public class DBCommands
 				else
 				{ mscTOK = true; }
 
-				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ) == 0 )
-				{ mp3TOT = false; }
-				else
-				{ mp3TOT = true; }
-
 				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ) == 0 )
 				{ mp3T1 = false; }
 				else
@@ -227,15 +222,15 @@ public class DBCommands
 				else
 				{ mp3SOL2 = true; }
 
+				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString () ) == 0 )
+					{ mp3TOT = false; }
+				else
+					{ mp3TOT = true; }
+
 				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ) == 0 )
 				{ mp3PIA = false; }
 				else
 				{ mp3PIA = true; }
-
-				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString () ) == 0 )
-				{ mp3TOTVoice = false; }
-				else
-				{ mp3TOTVoice = true; }
 
 				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString () ) == 0 )
 				{ mp3T1Voice = false; }
@@ -266,6 +261,11 @@ public class DBCommands
 				{ mp3SOL2Voice = false; }
 				else
 				{ mp3SOL2Voice = true; }
+
+				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString () ) == 0 )
+					{ mp3TOTVoice = false; }
+				else
+					{ mp3TOTVoice = true; }
 
 				if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 47 ].ToString ( ) ) == 0 )
 				{ mp3UITVVoice = false; }
@@ -364,8 +364,6 @@ public class DBCommands
 						MuseScoreTOP = mscTOP,
 						MuseScoreTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ),
 						MuseScoreTOK = mscTOK,
-						MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ),
-						MP3TOT = mp3TOT,
 						MP3T1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ),
 						MP3T1 = mp3T1,
 						MP3T2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ),
@@ -378,8 +376,24 @@ public class DBCommands
 						MP3SOL1 = mp3SOL1,
 						MP3SOL2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ),
 						MP3SOL2 = mp3SOL2,
+						MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString () ),
+						MP3TOT = mp3TOT,
 						MP3PIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ),
 						MP3PIA = mp3PIA,
+						MP3T1VoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString () ),
+						MP3T1Voice = mp3T1Voice,
+						MP3T2VoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString () ),
+						MP3T2Voice = mp3T2Voice,
+						MP3B1VoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 42 ].ToString () ),
+						MP3B1Voice = mp3B1Voice,
+						MP3B2VoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 43 ].ToString () ),
+						MP3B2Voice = mp3B2Voice,
+						MP3SOL1VoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString () ),
+						MP3SOL1Voice = mp3SOL1Voice,
+						MP3SOL2VoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString () ),
+						MP3SOL2Voice = mp3SOL2Voice,
+						MP3TOTVoiceInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString () ),
+						MP3TOTVoice = mp3TOTVoice,
 						MP3UITVInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 47 ].ToString ( ) ),
 						MP3UITV = mp3UITV,
 						MuseScoreOnlineInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 48 ].ToString ( ) ),
@@ -1919,13 +1933,14 @@ public class DBCommands
 			using MySqlConnection connection = new(DBConnect.ConnectionString);
 			connection.Open ();
 
-			sqlQuery = $"{DBNames.SqlInsert} {_table} ( {DBNames.FilesFieldNameFileName}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile} ) {DBNames.SqlValues} ( @{DBNames.FilesFieldNameFileName}, @{DBNames.FilesFieldNameFileSize}, @{DBNames.FilesFieldNameFile} )";
+			sqlQuery = $"{DBNames.SqlInsert} {_table} ( {DBNames.FilesFieldNameFileName}, {DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile} ) {DBNames.SqlValues} ( @{DBNames.FilesFieldNameFileName}, @{DBNames.FilesFieldNameContentType}, @{DBNames.FilesFieldNameFileSize}, @{DBNames.FilesFieldNameFile} )";
 
 			using MySqlCommand cmd = new(sqlQuery, connection);
 
 			cmd.Connection = connection;
 			cmd.CommandText = sqlQuery;
 			cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameFileName}", _fileName );
+			cmd.Parameters.AddWithValue( $"@{DBNames.FilesFieldNameContentType}" , _fileType );
 			cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameFileSize}", fileSize );
 			cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameFile}", rawData );
 
@@ -2033,14 +2048,13 @@ public class DBCommands
 
 					break;
 				}
+			//int _fileId = GetLatestFileId(_table);
 
-			int _fileId = GetLatestFileId(_table);
-
-			if ( _fieldName != "" )
-				{
-				SetFileIdInLibrary ( _scoreId, _fileId, _fieldName );
-				}
-			connection.Close ();
+			//if ( _fieldName != "" )
+			//	{
+			//	SetFileIdInLibrary ( _scoreId, _fileId, _fieldName );
+			//	}
+			//connection.Close ();
 			}
 		catch ( MySql.Data.MySqlClient.MySqlException ex )
 			{
