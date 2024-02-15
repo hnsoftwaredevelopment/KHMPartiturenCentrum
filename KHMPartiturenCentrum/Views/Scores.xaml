@@ -559,130 +559,130 @@
 
 						<!--#region MP3B1 (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3B1"
-						Width="Auto"
-						Binding="{Binding MP3B1}"
-						Visibility="Collapsed" />
+							x:Name="MP3B1"
+							Width="Auto"
+							Binding="{Binding MP3B1}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3B2 (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3B2"
-						Width="Auto"
-						Binding="{Binding MP3B2}"
-						Visibility="Collapsed" />
+							x:Name="MP3B2"
+							Width="Auto"
+							Binding="{Binding MP3B2}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3T1 (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3T1"
-						Width="Auto"
-						Binding="{Binding MP3T1}"
-						Visibility="Collapsed" />
+							x:Name="MP3T1"
+							Width="Auto"
+							Binding="{Binding MP3T1}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3T2 (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3T2"
-						Width="Auto"
-						Binding="{Binding MP3T2}"
-						Visibility="Collapsed" />
+							x:Name="MP3T2"
+							Width="Auto"
+							Binding="{Binding MP3T2}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3SOL1 (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3SOL1"
-						Width="Auto"
-						Binding="{Binding MP3SOL1}"
-						Visibility="Collapsed" />
+							x:Name="MP3SOL1"
+							Width="Auto"
+							Binding="{Binding MP3SOL1}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3SOL2 (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3SOL2"
-						Width="Auto"
-						Binding="{Binding MP3SOL2}"
-						Visibility="Collapsed" />
+							x:Name="MP3SOL2"
+							Width="Auto"
+							Binding="{Binding MP3SOL2}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3TOT (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3TOT"
-						Width="Auto"
-						Binding="{Binding MP3TOT}"
-						Visibility="Collapsed" />
+							x:Name="MP3TOT"
+							Width="Auto"
+							Binding="{Binding MP3TOT}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3PIA (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3PIA"
-						Width="Auto"
-						Binding="{Binding MP3PIA}"
-						Visibility="Collapsed" />
+							x:Name="MP3PIA"
+							Width="Auto"
+							Binding="{Binding MP3PIA}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3B1 Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3B1Voice"
-						Width="Auto"
-						Binding="{Binding MP3B1Voice}"
-						Visibility="Collapsed" />
+							x:Name="MP3B1Voice"
+							Width="Auto"
+							Binding="{Binding MP3B1Voice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3B2 Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3B2Voice"
-						Width="Auto"
-						Binding="{Binding MP3B2Voice}"
-						Visibility="Collapsed" />
+							x:Name="MP3B2Voice"
+							Width="Auto"
+							Binding="{Binding MP3B2Voice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3T1 Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3T1Voice"
-						Width="Auto"
-						Binding="{Binding MP3T1Voice}"
-						Visibility="Collapsed" />
+							x:Name="MP3T1Voice"
+							Width="Auto"
+							Binding="{Binding MP3T1Voice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3T2 Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3T2Voice"
-						Width="Auto"
-						Binding="{Binding MP3T2Voice}"
-						Visibility="Collapsed" />
+							x:Name="MP3T2Voice"
+							Width="Auto"
+							Binding="{Binding MP3T2Voice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3SOL1 Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3SOL1Voice"
-						Width="Auto"
-						Binding="{Binding MP3SOL1Voice}"
-						Visibility="Collapsed" />
+							x:Name="MP3SOL1Voice"
+							Width="Auto"
+							Binding="{Binding MP3SOL1Voice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3SOL2 Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3SOL2Voice"
-						Width="Auto"
-						Binding="{Binding MP3SOL2Voice}"
-						Visibility="Collapsed" />
+							x:Name="MP3SOL2Voice"
+							Width="Auto"
+							Binding="{Binding MP3SOL2Voice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3TOT Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3TOTVoice"
-						Width="Auto"
-						Binding="{Binding MP3TOTVoice}"
-						Visibility="Collapsed" />
+							x:Name="MP3TOTVoice"
+							Width="Auto"
+							Binding="{Binding MP3TOTVoice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MP3UITV Voice (Hidden)-->
 						<DataGridCheckBoxColumn
-						x:Name="MP3UITVVoice"
-						Width="Auto"
-						Binding="{Binding MP3UITVVoice}"
-						Visibility="Collapsed" />
+							x:Name="MP3UITVVoice"
+							Width="Auto"
+							Binding="{Binding MP3UITVVoice}"
+							Visibility="Collapsed" />
 						<!--#endregion-->
 
 						<!--#region MuseScoreOnline (Hidden)-->
@@ -1590,7 +1590,8 @@
 								<!--#region MuseScore files-->
 								<!--#region Filetype Logo-->
 								<Image
-									Grid.Column="0" Grid.Row="1"
+									Grid.Row="1"
+									Grid.Column="0"
 									Source="..\Resources\Images\filetypemscx.png"
 									Style="{DynamicResource TabItem.Page.Image.Style}" />
 								<!--#endregion-->
@@ -1659,7 +1660,8 @@
 								<!--#region PDF files-->
 								<!--#region Filetype Logo-->
 								<Image
-									Grid.Column="4" Grid.Row="1"
+									Grid.Row="1"
+									Grid.Column="4"
 									Source="..\Resources\Images\filetypepdf.png"
 									Style="{DynamicResource TabItem.Page.Image.Style}" />
 								<!--#endregion-->
@@ -1742,13 +1744,28 @@
 
 								<!--#region MP3 files-->
 								<!--#region Instrumental and Voice Headers-->
-								<Label Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="Instrumentaal"/>
-								<Label Grid.Row="0" Grid.Column="15" Grid.ColumnSpan="5" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="Ingezongen"/>
+								<Label
+									Grid.Row="0"
+									Grid.Column="9"
+									Grid.ColumnSpan="5"
+									HorizontalAlignment="Center"
+									Content="Instrumentaal"
+									FontSize="14"
+									FontWeight="Bold" />
+								<Label
+									Grid.Row="0"
+									Grid.Column="15"
+									Grid.ColumnSpan="5"
+									HorizontalAlignment="Center"
+									Content="Ingezongen"
+									FontSize="14"
+									FontWeight="Bold" />
 								<!--#endregion-->
-								
+
 								<!--#region Filetype Logo-->
 								<Image
-									Grid.Column="8" Grid.Row="1"
+									Grid.Row="1"
+									Grid.Column="8"
 									Source="..\Resources\Images\filetypemp3.png"
 									Style="{DynamicResource TabItem.Page.Image.Style}" />
 								<!--#endregion-->
@@ -1842,7 +1859,7 @@
 									IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
 									Unchecked="CheckBoxChanged" />
 								<!--#endregion-->
-								
+
 								<!--#region MP3 TOT-->
 								<TextBlock
 									Grid.Row="3"
@@ -1892,8 +1909,10 @@
 								<TextBlock
 									Grid.Row="2"
 									Grid.Column="15"
+									Height="15"
+									VerticalAlignment="Top"
 									Style="{DynamicResource TabItem.Page.Label.Style}"
-									Text="T2" Height="15" VerticalAlignment="Top" />
+									Text="T2" />
 								<CheckBox
 									x:Name="chkMP3T2Voice"
 									Grid.Row="2"
@@ -1998,7 +2017,8 @@
 								<!--#region MuseScore Online-->
 								<!--#region Filetype Logo-->
 								<Image
-									Grid.Column="21" Grid.Row="1"
+									Grid.Row="1"
+									Grid.Column="21"
 									Source="..\Resources\Images\filetypemscxonline.png"
 									Style="{DynamicResource TabItem.Page.Image.Style}" />
 								<!--#endregion-->
@@ -2447,13 +2467,24 @@
 								ToolTip="Sleep 1 of weerder Musescore bestanden hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet ORP, ORK, TOP of TOK voorkomen." />
 						</Border>
 
-						<Button
-							Name="BtnMSCORP"
-							Grid.Row="1"
-							Grid.Column="1"
-							Content="ORP"
-							IsEnabled="False"
-							Style="{DynamicResource ScoreGridDownloadButtonsStyle}" />
+						<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+							<Border Style="{DynamicResource ScoreGridDownloadBorderStyle}" >
+								<TextBlock Style="{DynamicResource ScoreGridDownloadTextStyle}" Text="TOP" />
+							</Border>
+
+							<Button Template="{DynamicResource ScoreGridFilesButtonsStyle}" Name="BtnMSCORPDownload">
+								<Button.Content>
+									<ContentControl Style="{StaticResource ScoreGridFilesDownloadButtonsContentStyle}"/>
+								</Button.Content>
+							</Button>
+
+							<Button Template="{DynamicResource ScoreGridFilesButtonsStyle}" Name="BtnMSCORPDelete">
+								<Button.Content>
+									<ContentControl Style="{StaticResource ScoreGridFilesDeleteButtonsContentStyle}"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+						
 						<Button
 							Name="BtnMSCORK"
 							Grid.Row="2"
@@ -2493,10 +2524,8 @@
 							HorizontalAlignment="Left"
 							AllowDrop="True"
 							Drop="PDF_Drop">
-							<Image
-								                      Source="{DynamicResource FileTypePDF}"
-								                      ToolTip="Sleep 1 of weerder partituren (PDF bestanden) hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet ORP, ORK, PIA, TOP of TOK voorkomen." />
-							</Border>
+							<Image Source="{DynamicResource FileTypePDF}" ToolTip="Sleep 1 of weerder partituren (PDF bestanden) hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet ORP, ORK, PIA, TOP of TOK voorkomen." />
+						</Border>
 
 						<Button
 							Name="BtnPDFORP"
@@ -2544,10 +2573,8 @@
 							HorizontalAlignment="Left"
 							AllowDrop="True"
 							Drop="MP3_Drop">
-							<Image
-								                      Source="{DynamicResource FileTypeMP3Instrumental}"
-								                      ToolTip="Sleep 1 of weerder partituren (PDF bestanden) hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet T1, T2, B1, B2, SOL1, SOL2, PIA of TOT voorkomen." />
-							</Border>
+							<Image Source="{DynamicResource FileTypeMP3Instrumental}" ToolTip="Sleep 1 of weerder partituren (PDF bestanden) hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet T1, T2, B1, B2, SOL1, SOL2, PIA of TOT voorkomen." />
+						</Border>
 
 						<StackPanel
 							Grid.Row="7"
@@ -2638,9 +2665,7 @@
 							HorizontalAlignment="Left"
 							AllowDrop="True"
 							Drop="MP3Voice_Drop">
-						<Image
-							Source="{DynamicResource FileTypeMP3Voice}"
-							ToolTip="Sleep 1 of weerder partituren (PDF bestanden) hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet VOICE of INGEZONGEN en T1, T2, B1, B2, SOL1, SOL2, UITV of TOT voorkomen." />
+							<Image Source="{DynamicResource FileTypeMP3Voice}" ToolTip="Sleep 1 of weerder partituren (PDF bestanden) hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet VOICE of INGEZONGEN en T1, T2, B1, B2, SOL1, SOL2, UITV of TOT voorkomen." />
 						</Border>
 
 						<StackPanel

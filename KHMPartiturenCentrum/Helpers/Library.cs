@@ -10,10 +10,10 @@ using MySql.Data.MySqlClient;
 
 namespace KHM.Helpers
 {
-    public static class Library
-    {
-        public static void UpdateFiles ( int _scoreId, string _fieldName, int _fileExists )
-            {
+	public static class Library
+	{
+		public static void UpdateFiles ( int _scoreId, string _fieldName, int _fileExists )
+			{
 			// If file does not exist anymore value should be set to -1
 			var sqlQuery = $"" +
 				$"{DBNames.SqlUpdate}{DBNames.Database}.{DBNames.ScoresTable} " +
@@ -32,7 +32,7 @@ namespace KHM.Helpers
 				cmd.Connection = connection;
 				cmd.CommandText = sqlQuery;
 				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameScoreId}", _scoreId );
-				cmd.Parameters.AddWithValue ( $"@{_fieldName}", _fileId );
+				cmd.Parameters.AddWithValue ( $"@{_fieldName}", 1 );
 
 				cmd.ExecuteNonQuery ();
 				}
@@ -42,6 +42,5 @@ namespace KHM.Helpers
 					"Error", ( MessageBoxButtons ) MessageBoxButton.OK, ( MessageBoxIcon ) MessageBoxImage.Error );
 				}
 			}
-		}
-    }
+	}
 }

@@ -776,7 +776,7 @@
 						Background="{StaticResource Button.Editor.Static.Background}"
 						BorderBrush="{StaticResource Button.Editor.Static.Border}"
 						BorderThickness="{TemplateBinding BorderThickness}"
-						CornerRadius="5"
+						CornerRadius="10"
 						SnapsToDevicePixels="true">
 						<ContentPresenter
 							x:Name="contentPresenter"
@@ -830,95 +830,34 @@
 	</Style>
 	<!--#endregion-->
 
-	<!--#region Score Grid download buttons-->
-	<Style x:Key="ScoreGridDownloadButtonsStyle" TargetType="{x:Type Button}">
+	<!--#region Score Grid download area-->
+	<!--  Border  -->
+	<Style x:Key="ScoreGridDownloadBorderStyle" TargetType="{x:Type Border}">
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
 		<Setter Property="Background" Value="{DynamicResource Button.Grid.Score.Download.Static.Background}" />
-		<Setter Property="BorderBrush" Value="{DynamicResource Button.Grid.Score.Downloadr.Static.Border}" />
-		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource Button.Grid.Score.Download.Static.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="HorizontalContentAlignment" Value="Center" />
-		<Setter Property="VerticalContentAlignment" Value="Center" />
-		<Setter Property="Padding" Value="-1" />
 		<Setter Property="Margin" Value="2,0,2,0" />
-		<Setter Property="Width" Value="117" />
+		<Setter Property="Width" Value="60" />
 		<Setter Property="Height" Value="30" />
+		<Setter Property="CornerRadius" Value="5" />
+		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
-		<Setter Property="FontFamily" Value="Arial Rounded MT Bold" />
-		<Setter Property="Content" Value="Save changes" />
-		<Setter Property="FontSize" Value="16" />
-		<Setter Property="FontWeight" Value="Bold" />
-		<Setter Property="Foreground" Value="{DynamicResource Button.Grid.Score.Download.Text.Foreground}" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Button}">
-					<Border
-						x:Name="border"
-						Background="{StaticResource Button.Grid.Score.Download.Static.Background}"
-						BorderBrush="{StaticResource Button.Grid.Score.Download.Static.Border}"
-						BorderThickness="{TemplateBinding BorderThickness}"
-						CornerRadius="5"
-						SnapsToDevicePixels="true">
-						<StackPanel Orientation="Horizontal">
-							<Path
-								Margin="5"
-								VerticalAlignment="Center"
-								Data="{StaticResource download}"
-								Fill="Black"
-								Stretch="Uniform" />
-							<ContentPresenter
-								x:Name="contentPresenter"
-								Margin="{TemplateBinding Padding}"
-								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-								Content="{TemplateBinding Content}"
-								Focusable="False"
-								RecognizesAccessKey="True"
-								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-								<ContentPresenter.Resources>
-									<Style TargetType="TextBlock">
-										<Setter Property="Margin" Value="10,2,10,5" />
-										<Setter Property="FontWeight" Value="Bold" />
-										<Setter Property="FontSize" Value="15" />
-										<Setter Property="HorizontalAlignment" Value="Left" />
-									</Style>
-								</ContentPresenter.Resources>
-							</ContentPresenter>
-						</StackPanel>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsDefaulted" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-						</Trigger>
-						<Trigger Property="IsPressed" Value="true">
-							<Setter TargetName="border" Property="Background" Value="{StaticResource Button.Grid.Score.Download.Pressed.Background}" />
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Grid.Score.Download.Pressed.Border}" />
-						</Trigger>
-						<Trigger Property="IsEnabled" Value="false">
-							<Setter TargetName="border" Property="Background" Value="{StaticResource Button.Grid.Score.Download.Disabled.Background}" />
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Grid.Score.Download.Disabled.Border}" />
-							<Setter TargetName="border" Property="ToolTip" Value="Geen bestand beschikbaar om te downloaden" />
-							<Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
-							<Setter TargetName="contentPresenter" Property="TextElement.FontStyle" Value="Italic" />
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="border" Property="Background" Value="{StaticResource Button.Grid.Score.Download.MouseOver.Background}" />
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Grid.Score.Download.MouseOver.Border}" />
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-		<Style.Triggers>
-			<Trigger Property="IsEnabled" Value="True">
-				<Setter Property="ToolTip" Value="Klik om het bestand te downloaden" />
-			</Trigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="ToolTip" Value="Geen bestand beschikbaar om te downloaden" />
-			</Trigger>
-		</Style.Triggers>
 	</Style>
+	<!--#endregion-->
+
+	<!--#region Text in border-->
+	<Style x:Key="ScoreGridDownloadTextStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+		<Setter Property="Background" Value="{DynamicResource Button.Grid.Score.Download.Static.Background}" />
+		<Setter Property="Margin" Value="10,2,10,5" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="FontSize" Value="15" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+	</Style>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Hidden TextBlock-->
@@ -1549,6 +1488,58 @@
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--#endregion-->
+	
+	<!--#region Grid Files section Buttons-->
+	<!--#region Button-->
+	<ControlTemplate x:Key="ScoreGridFilesButtonsStyle" TargetType="{x:Type Button}">
+		<Border Background="{TemplateBinding Background}" CornerRadius="10" Width="30" Height="30" Margin="8,0,0,0">
+			<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Border>
+	</ControlTemplate>
+	<!--#endregion-->
+
+	<!--#region Button icons-->
+	<Style x:Key="ScoreGridFilesDownloadButtonsContentStyle" TargetType="ContentControl">
+		<Setter Property="Content">
+			<Setter.Value>
+				<Path Data="{StaticResource file.download}" Fill="Black" Margin="6" Stretch="Uniform"/>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="ScoreGridFilesDeleteButtonsContentStyle" TargetType="ContentControl">
+		<Setter Property="Content">
+			<Setter.Value>
+				<Path Data="{StaticResource file.delete}" Fill="red" Margin="6" Stretch="Uniform"/>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ScoreGridFilesPreviewButtonsContentStyle" TargetType="ContentControl">
+		<Setter Property="Content">
+			<Setter.Value>
+				<Path Data="{StaticResource file.show}" Fill="Black" Margin="6" Stretch="Uniform"/>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ScoreGridFilesPlayButtonsContentStyle" TargetType="ContentControl">
+		<Setter Property="Content">
+			<Setter.Value>
+				<Path Data="{StaticResource file.play}" Fill="Black" Margin="6" Stretch="Uniform"/>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ScoreGridFilesNoFileButtonsContentStyle" TargetType="ContentControl">
+		<Setter Property="Content">
+			<Setter.Value>
+				<Path Data="{StaticResource file.nofile}" Fill="Black" Margin="6" Stretch="Uniform"/>
 			</Setter.Value>
 		</Setter>
 	</Style>

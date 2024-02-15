@@ -14,10 +14,12 @@ namespace KHM.Helpers
 	{
 		public static int Id(string _table, int _scoreId, string _fileType = "")
 			{
+			var sqlQuery = "";
 			var fileId = -1;
+
 			if(_fileType=="")
 			{
-				var sqlQuery = $"" +
+				sqlQuery = $"" +
 				$"{DBNames.SqlSelect}{DBNames.FilesFieldNameId}" +
 				$"{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}" +
@@ -25,7 +27,7 @@ namespace KHM.Helpers
 			}
 			else
 				{
-				var sqlQuery = $"" +
+				sqlQuery = $"" +
 				$"{DBNames.SqlSelect}{DBNames.FilesFieldNameId}" +
 				$"{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}" +
@@ -38,7 +40,6 @@ namespace KHM.Helpers
 			connection.Open ();
 
 			using MySqlCommand cmd = new(sqlQuery, connection);
-			using MySqlCommand cmd2 = new(query2, connection);
 
 			try { fileId = (int)cmd.ExecuteScalar(); }
 			catch { return -1; }

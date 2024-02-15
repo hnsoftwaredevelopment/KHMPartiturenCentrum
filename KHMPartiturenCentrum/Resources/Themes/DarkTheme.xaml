@@ -175,7 +175,7 @@
 		</GradientBrush.GradientStops>
 	</LinearGradientBrush>
 
-	<!-- Grid Colors -->
+	<!--  Grid Colors  -->
 	<SolidColorBrush x:Key="Grid.Splitter.BorderBrush" Color="DarkBlue" />
 	<SolidColorBrush x:Key="Grid.Header.Background" Color="#4C548E" />
 	<SolidColorBrush x:Key="Grid.Header.Foreground" Color="WhiteSmoke" />
