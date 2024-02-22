@@ -2499,6 +2499,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnMSCORPNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2536,6 +2537,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnMSCORKNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2563,7 +2565,7 @@
 								Visibility="Visible" />
 
 							<Button
-								x:Name="BtnMSTOPDelete"
+								x:Name="BtnMSCTOPDelete"
 								Margin="20,0,0,0"
 								Click="DeleteFile"
 								Content="{DynamicResource file.delete}"
@@ -2573,6 +2575,8 @@
 								Visibility="Visible" />
 
 							<Button
+																x:Name="BtnMSCTOPNoFile"
+
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2600,7 +2604,7 @@
 								Visibility="Visible" />
 
 							<Button
-								x:Name="BtnMSTOKDelete"
+								x:Name="BtnMSCTOKDelete"
 								Margin="20,0,0,0"
 								Click="DeleteFile"
 								Content="{DynamicResource file.delete}"
@@ -2610,6 +2614,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnMSCTOKNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2678,6 +2683,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnPDFORPNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2705,7 +2711,7 @@
 								Visibility="Visible" />
 
 							<Button
-								x:Name="BtnPDFORPKreview"
+								x:Name="BtnPDFORKPreview"
 								Click="PreviewFile"
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
@@ -2723,6 +2729,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnPDFORKNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2750,15 +2757,16 @@
 								Visibility="Visible" />
 
 							<Button
-								x:Name="BtnPDFTOPreview"
+								x:Name="BtnPDFTOPPreview"
 								Click="PreviewFile"
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
 								ToolTip="Bekijk het geselecteerde bestand"
 								Visibility="Visible" />
+							
 							<Button
-								x:Name="BtnPDFOPDelete"
+								x:Name="BtnPDFTOPDelete"
 								Margin="20,0,0,0"
 								Click="DeleteFile"
 								Content="{DynamicResource file.delete}"
@@ -2768,6 +2776,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnPDFTOPNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2795,13 +2804,14 @@
 								Visibility="Visible" />
 
 							<Button
-								x:Name="BtnPDFTOKreview"
+								x:Name="BtnPDFTOKPreview"
 								Click="PreviewFile"
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
 								ToolTip="Bekijk het geselecteerde bestand"
 								Visibility="Visible" />
+							
 							<Button
 								x:Name="BtnPDFTOKDelete"
 								Margin="20,0,0,0"
@@ -2813,6 +2823,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnPDFTOKNoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2840,13 +2851,14 @@
 								Visibility="Visible" />
 
 							<Button
-								x:Name="BtnPDFPIAreview"
+								x:Name="BtnPDFPIAPreview"
 								Click="PreviewFile"
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
 								ToolTip="Bekijk het geselecteerde bestand"
 								Visibility="Visible" />
+							
 							<Button
 								x:Name="BtnPDFPIADelete"
 								Margin="20,0,0,0"
@@ -2858,6 +2870,7 @@
 								Visibility="Visible" />
 
 							<Button
+								x:Name="BtnPDFPIANoFile"
 								Content="{DynamicResource file.nofile}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2931,6 +2944,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3T1NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -2938,7 +2952,7 @@
 									Visibility="Visible" />
 							</StackPanel>
 							<!--#endregion-->
-							
+
 							<!--#region Solo 1 Section-->
 							<StackPanel Grid.Column="1" Orientation="Horizontal">
 								<Border Style="{DynamicResource ScoreGridDownloadBorderStyle}">
@@ -2976,6 +2990,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3SOL1NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3030,6 +3045,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3T2NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3075,6 +3091,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3SOL2NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3129,6 +3146,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3B1NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3174,6 +3192,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3TOTNoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3228,6 +3247,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3B2NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3273,6 +3293,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3PIANoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3347,6 +3368,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceT1NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3392,6 +3414,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceSOL1NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3446,6 +3469,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceT2NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3491,6 +3515,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceSOL2NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3545,6 +3570,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceB1NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3590,6 +3616,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceTOTNoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3644,6 +3671,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceB2NoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
@@ -3657,8 +3685,9 @@
 								<Border Style="{DynamicResource ScoreGridDownloadBorderStyle}">
 									<TextBlock
 										HorizontalAlignment="Center"
+										FontSize="10"
 										Style="{DynamicResource ScoreGridDownloadTextStyle}"
-										Text="Uitvoering" FontSize="10" />
+										Text="Uitvoering" />
 								</Border>
 
 								<Button
@@ -3689,6 +3718,7 @@
 									Visibility="Visible" />
 
 								<Button
+									x:Name="BtnMP3VoiceUITVNoFile"
 									Content="{DynamicResource file.nofile}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"

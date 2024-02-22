@@ -310,6 +310,25 @@ public partial class Scores : Page
 
 		#endregion TAB Notes
 
+		#region TAB Files
+		// First Disable all butoons
+		DisableFileButtons();
+
+		// Load available score IDs for the selected Score
+		FileIndexModel FileIds = FilesIndex.GetFileIds(int.Parse(tbScoreId.Text));
+
+		if(FileIds.Id != 0) 
+			{
+			if(FileIds.MuseScoreORKId > 0) {SetFileButtons("MuseScoreORKId", FileIds.MuseScoreORKId);} else {SetNoFileButton("MuseScoreORKId");}
+			SetFileButtons(FileIds.MuseScoreORKId > 0 ? "MuseScoreORKId" : null, FileIds.MuseScoreORKId);
+			Console.WriteLine (	FileIds);
+				}
+
+		
+		// Enable the buttons for the available files
+		// Users should nog have the Delete button
+		#endregion
+
 		#region TAB: Licenses
 
 		#region Publisher 1
@@ -403,6 +422,32 @@ public partial class Scores : Page
 
 		ResetChanged ();
 		}
+
+	private void SetFileButtons(string _button, int _value )
+		{
+		switch ( _button )
+			{
+			case "MuseScoreORKId":
+				BtnMSCORKDownload.Visibility= Visibility.Visible;
+				BtnMSCORKDelete.Visibility= Visibility.Visible;
+				break;
+			default:
+				break;
+			}
+		}
+
+		private void SetNoFileButton(string _button )
+		{
+		switch ( _button )
+			{
+			case "MuseScoreORKId":
+				BtnMSCORKNoFile.Visibility = Visibility.Visible; 
+				break;
+			default:
+				break;
+			}
+		}
+
 
 	private void BtnNextClick ( object sender, RoutedEventArgs e )
 		{
@@ -2653,6 +2698,8 @@ public partial class Scores : Page
 		dpDigitized.SelectedDate = null;
 		dpModified.SelectedDate = null;
 
+		DisableFileButtons();
+
 		ResetChanged ();
 		}
 
@@ -2716,6 +2763,7 @@ public partial class Scores : Page
 		tbEnableEdit.Text = "Collapsed";
 		btnSave.IsEnabled = false;
 		btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
+		DisableFileButtons();
 		}
 
 	private void DeleteScore ( object sender, RoutedEventArgs e )
@@ -3470,4 +3518,140 @@ public partial class Scores : Page
 		DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
 	}
 	#endregion
-}
+
+	#region Disable File-related buttons on Files Tab page
+	private void DisableFileButtons ()
+		{
+		#region Hide Musescore related file buttons
+		BtnMSCORKDelete.Visibility = Visibility.Collapsed;
+		BtnMSCORKDownload.Visibility = Visibility.Collapsed;
+		BtnMSCORKNoFile.Visibility = Visibility.Collapsed;
+
+		BtnMSCORPDelete.Visibility = Visibility.Collapsed;
+		BtnMSCORPDownload.Visibility = Visibility.Collapsed;
+		BtnMSCORPNoFile.Visibility = Visibility.Collapsed;
+
+		BtnMSCTOKDelete.Visibility = Visibility.Collapsed;
+		BtnMSCTOKDownload.Visibility = Visibility.Collapsed;
+		BtnMSCTOKNoFile.Visibility = Visibility.Collapsed;
+
+		BtnMSCTOPDelete.Visibility = Visibility.Collapsed;
+		BtnMSCTOPDownload.Visibility = Visibility.Collapsed;
+		BtnMSCTOPNoFile.Visibility = Visibility.Collapsed;
+		#endregion
+
+		#region Hide PDF Related file buttons
+		BtnPDFORKDelete.Visibility = Visibility.Collapsed;
+		BtnPDFORKDownload.Visibility = Visibility.Collapsed;
+		BtnPDFORKPreview.Visibility = Visibility.Collapsed;
+		BtnPDFORKNoFile.Visibility= Visibility.Collapsed;
+
+		BtnPDFORPDelete.Visibility = Visibility.Collapsed;
+		BtnPDFORPDownload.Visibility = Visibility.Collapsed;
+		BtnPDFORPPreview.Visibility = Visibility.Collapsed;
+		BtnPDFORPNoFile.Visibility= Visibility.Collapsed;
+
+		BtnPDFTOKDelete.Visibility = Visibility.Collapsed;
+		BtnPDFTOKDownload.Visibility = Visibility.Collapsed;
+		BtnPDFTOKPreview.Visibility = Visibility.Collapsed;
+		BtnPDFTOKNoFile.Visibility= Visibility.Collapsed;
+
+		BtnPDFTOPDelete.Visibility = Visibility.Collapsed;
+		BtnPDFTOPDownload.Visibility = Visibility.Collapsed;
+		BtnPDFTOPPreview.Visibility = Visibility.Collapsed;
+		BtnPDFTOPNoFile.Visibility= Visibility.Collapsed;
+
+		BtnPDFPIADelete.Visibility = Visibility.Collapsed;
+		BtnPDFPIADownload.Visibility = Visibility.Collapsed;
+		BtnPDFPIAPreview.Visibility = Visibility.Collapsed;
+		BtnPDFPIANoFile.Visibility= Visibility.Collapsed;
+		#endregion
+
+		#region Hide MP3 Related file buttons
+		#region Instrumental file buttons
+		BtnMP3B1Delete.Visibility = Visibility.Collapsed;
+		BtnMP3B1Download.Visibility = Visibility.Collapsed;
+		BtnMP3B1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3B1Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3B2Delete.Visibility = Visibility.Collapsed;
+		BtnMP3B2Download.Visibility = Visibility.Collapsed;
+		BtnMP3B2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3B2Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3T1Delete.Visibility = Visibility.Collapsed;
+		BtnMP3T1Download.Visibility = Visibility.Collapsed;
+		BtnMP3T1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3T1Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3T2Delete.Visibility = Visibility.Collapsed;
+		BtnMP3T2Download.Visibility = Visibility.Collapsed;
+		BtnMP3T2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3T2Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3SOL1Delete.Visibility = Visibility.Collapsed;
+		BtnMP3SOL1Download.Visibility = Visibility.Collapsed;
+		BtnMP3SOL1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3SOL1Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3SOL2Delete.Visibility = Visibility.Collapsed;
+		BtnMP3SOL2Download.Visibility = Visibility.Collapsed;
+		BtnMP3SOL2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3SOL2Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3TOTDelete.Visibility = Visibility.Collapsed;
+		BtnMP3TOTDownload.Visibility = Visibility.Collapsed;
+		BtnMP3TOTNoFile.Visibility= Visibility.Collapsed;
+		BtnMP3TOTPlay.Visibility = Visibility.Collapsed;
+		
+		BtnMP3PIADelete.Visibility = Visibility.Collapsed;
+		BtnMP3PIADownload.Visibility = Visibility.Collapsed;
+		BtnMP3PIANoFile.Visibility= Visibility.Collapsed;
+		BtnMP3PIAPlay.Visibility = Visibility.Collapsed;
+		#endregion
+
+		#region Voice file buttons
+		BtnMP3VoiceB1Delete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceB1Download.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceB1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceB1Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3VoiceB2Delete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceB2Download.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceB2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceB2Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3VoiceT1Delete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceT1Download.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceT1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceT1Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3VoiceT2Delete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceT2Download.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceT2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceT2Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3VoiceSOL1Delete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceSOL1Download.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceSOL1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceSOL1Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3VoiceSOL2Delete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceSOL2Download.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceSOL2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceSOL2Play.Visibility = Visibility.Collapsed;
+
+		BtnMP3VoiceTOTDelete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceTOTDownload.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceTOTNoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceTOTPlay.Visibility = Visibility.Collapsed;
+		
+		BtnMP3VoiceUITVDelete.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceUITVDownload.Visibility = Visibility.Collapsed;
+		BtnMP3VoiceUITVNoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceUITVPlay.Visibility = Visibility.Collapsed;
+		#endregion
+		#endregion
+		}
+	#endregion
+	}

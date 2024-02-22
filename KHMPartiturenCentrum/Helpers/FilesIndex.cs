@@ -9,6 +9,10 @@ using System.Windows;
 using MySql.Data.MySqlClient;
 
 using Org.BouncyCastle.Asn1.Pkcs;
+using KHM.Models;
+using System.Security.Cryptography;
+using System.Collections.ObjectModel;
+using System.Data;
 
 namespace KHM.Helpers
 	{
@@ -71,6 +75,61 @@ namespace KHM.Helpers
 				System.Windows.Forms.MessageBox.Show ( "Error " + ex.Number + " is opgetreden: " + ex.Message,
 					"Error", ( MessageBoxButtons ) MessageBoxButton.OK, ( MessageBoxIcon ) MessageBoxImage.Error );
 				}
+			}
+
+		public static FileIndexModel GetFileIds( int _scoreId )
+			{
+				FileIndexModel fileIndex = new();
+				
+			var sqlQuery = $"" +
+				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{DBNames.FilesIndexTable} " +
+				$"{DBNames.SqlWhere}" +
+				$"{DBNames.FilesFieldNameScoreId} = '{_scoreId}'";
+
+				using MySqlConnection connection = new(DBConnect.ConnectionString);
+				connection.Open();
+
+			using (MySqlCommand cmd = new(sqlQuery, connection ) )
+				{
+				using (MySqlDataReader reader = cmd.ExecuteReader())
+					{
+					if ( reader.Read () )
+						{
+						fileIndex = new ()
+							{
+								Id = Convert.ToInt32(reader["Id"]),
+								ScoreId = Convert.ToInt32(reader["ScoreId"]),
+								MuseScoreORPId = Convert.ToInt32(reader["MuseScoreORPId"]),
+								MuseScoreORKId = Convert.ToInt32(reader["MuseScoreORKId"]),
+								MuseScoreTOPId = Convert.ToInt32(reader["MuseScoreTOPId"]),
+								MuseScoreTOKId = Convert.ToInt32(reader["MuseScoreTOKId"]),
+								PDFORPId = Convert.ToInt32(reader["PDFORPId"]),
+								PDFORKId = Convert.ToInt32(reader["PDFORKId"]),
+								PDFTOPId = Convert.ToInt32(reader["PDFTOPId"]),
+								PDFTOKId = Convert.ToInt32(reader["PDFTOKId"]),
+								PDFPIAId = Convert.ToInt32(reader["PDFPIAId"]),
+								MP3B1Id = Convert.ToInt32(reader["MP3B1Id"]),
+								MP3B2Id = Convert.ToInt32(reader["MP3B2Id"]),
+								MP3T1Id = Convert.ToInt32(reader["MP3T1Id"]),
+								MP3T2Id = Convert.ToInt32(reader["MP3T2Id"]),
+								MP3SOL1Id = Convert.ToInt32(reader["MP3SOL1Id"]),
+								MP3SOL2Id = Convert.ToInt32(reader["MP3SOL2Id"]),
+								MP3TOTId = Convert.ToInt32(reader["MP3TOTId"]),
+								MP3PIAId = Convert.ToInt32(reader["MP3PIAId"]),
+								MP3B1VoiceId = Convert.ToInt32(reader["MP3B1VoiceId"]),
+								MP3B2VoiceId = Convert.ToInt32(reader["MP3B2VoiceId"]),
+								MP3T1VoiceId = Convert.ToInt32(reader["MP3T1VoiceId"]),
+								MP3T2VoiceId = Convert.ToInt32(reader["MP3T2VoiceId"]),
+								MP3SOL1VoiceId = Convert.ToInt32(reader["MP3SOL1VoiceId"]),
+								MP3SOL2VoiceId = Convert.ToInt32(reader["MP3SOL2VoiceId"]),
+								MP3TOTVoiceId = Convert.ToInt32(reader["MP3TOTVoiceId"]),
+								MP3UITVVoiceId = Convert.ToInt32(reader["MP3UITVVoiceId"])
+							};
+						}
+					}
+				}
+
+			return fileIndex;
 			}
 		}
 	}
