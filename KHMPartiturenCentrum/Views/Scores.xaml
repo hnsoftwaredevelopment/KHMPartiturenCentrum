@@ -125,6 +125,32 @@
 				<TextBlock x:Name="tbLogedInUserName" />
 				<TextBlock x:Name="tbLogedInFullName" />
 				<TextBlock x:Name="tbScoreId" />
+
+				<TextBlock x:Name="tbMSCORKId" />
+				<TextBlock x:Name="tbMSCORPId" />
+				<TextBlock x:Name="tbMSCTOKId" />
+				<TextBlock x:Name="tbMSCTOPId" />
+				<TextBlock x:Name="tbPDFORKId" />
+				<TextBlock x:Name="tbPDFORPId" />
+				<TextBlock x:Name="tbPDFTOKId" />
+				<TextBlock x:Name="tbPDFTOPId" />
+				<TextBlock x:Name="tbPDFPIAId" />
+				<TextBlock x:Name="tbMP3B1Id" />
+				<TextBlock x:Name="tbMP3B2Id" />
+				<TextBlock x:Name="tbMP3T1Id" />
+				<TextBlock x:Name="tbMP3T2Id" />
+				<TextBlock x:Name="tbMP3SOL1Id" />
+				<TextBlock x:Name="tbMP3SOL2Id" />
+				<TextBlock x:Name="tbMP3TOTId" />
+				<TextBlock x:Name="tbMP3PIAId" />
+				<TextBlock x:Name="tbMP3VoiceB1Id" />
+				<TextBlock x:Name="tbMP3VoiceB2Id" />
+				<TextBlock x:Name="tbMP3VoiceT1Id" />
+				<TextBlock x:Name="tbMP3VoiceT2Id" />
+				<TextBlock x:Name="tbMP3VoiceSOL1Id" />
+				<TextBlock x:Name="tbMP3VoiceSOL2Id" />
+				<TextBlock x:Name="tbMP3VoiceTOTId" />
+				<TextBlock x:Name="tbMP3VoiceUITVId" />
 			</StackPanel>
 			<!--#endregion-->
 
@@ -1467,9 +1493,6 @@
 							</Grid>
 						</GroupBox>
 						<!--#endregion-->
-
-
-						<!--#endregion-->
 					</Grid>
 				</TabItem>
 				<!--#endregion-->
@@ -2437,6 +2460,7 @@
 							<RowDefinition Height="40" />
 							<RowDefinition Height="40" />
 							<RowDefinition Height="10" />
+							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
 						<Grid.ColumnDefinitions>
@@ -2455,6 +2479,7 @@
 							Style="{DynamicResource Grid.Header.Style}" />
 
 						<Border
+							x:Name="MuseScoreDrop"
 							Grid.Row="1"
 							Grid.RowSpan="4"
 							Grid.Column="0"
@@ -2462,10 +2487,7 @@
 							HorizontalAlignment="Left"
 							AllowDrop="True"
 							Drop="DropFilesForUpload">
-							<Image
-								x:Name="MuseScoreDropArea"
-								Source="{DynamicResource FileTypeMSCX}"
-								ToolTip="Sleep 1 of weerder Musescore bestanden hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet ORP, ORK, TOP of TOK voorkomen." />
+							<Image Source="{DynamicResource FileTypeMSCX}" ToolTip="Sleep 1 of weerder Musescore bestanden hiernaartoe om ze te uploaden (Let op! in de bestandsnaam (namen) moet ORP, ORK, TOP of TOK voorkomen." />
 						</Border>
 
 						<!--#region ORP Buttons-->
@@ -2485,8 +2507,7 @@
 								Content="{StaticResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnMSCORPDelete"
@@ -2495,16 +2516,15 @@
 								Content="{StaticResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnMSCORPNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2523,8 +2543,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnMSCORKDelete"
@@ -2533,16 +2552,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnMSCORKNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2561,8 +2579,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnMSCTOPDelete"
@@ -2571,17 +2588,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
-																x:Name="BtnMSCTOPNoFile"
-
+								x:Name="BtnMSCTOPNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2600,8 +2615,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnMSCTOKDelete"
@@ -2610,16 +2624,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnMSCTOKNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 						<!--#endregion-->
@@ -2633,6 +2646,7 @@
 							Style="{DynamicResource Grid.Header.Style}" />
 
 						<Border
+							x:Name="PDFDrop"
 							Grid.Row="1"
 							Grid.RowSpan="4"
 							Grid.Column="2"
@@ -2660,8 +2674,7 @@
 								Content="{StaticResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnPDFORPPreview"
@@ -2669,8 +2682,7 @@
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Bekijk het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Bekijk het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnPDFORPDelete"
@@ -2679,16 +2691,15 @@
 								Content="{StaticResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnPDFORPNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2707,8 +2718,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnPDFORKPreview"
@@ -2716,8 +2726,7 @@
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Bekijk het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Bekijk het geselecteerde bestand" />
 							<Button
 								x:Name="BtnPDFORKDelete"
 								Margin="20,0,0,0"
@@ -2725,16 +2734,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnPDFORKNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2753,8 +2761,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnPDFTOPPreview"
@@ -2762,9 +2769,8 @@
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Bekijk het geselecteerde bestand"
-								Visibility="Visible" />
-							
+								ToolTip="Bekijk het geselecteerde bestand" />
+
 							<Button
 								x:Name="BtnPDFTOPDelete"
 								Margin="20,0,0,0"
@@ -2772,16 +2778,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnPDFTOPNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2800,8 +2805,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnPDFTOKPreview"
@@ -2809,9 +2813,8 @@
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Bekijk het geselecteerde bestand"
-								Visibility="Visible" />
-							
+								ToolTip="Bekijk het geselecteerde bestand" />
+
 							<Button
 								x:Name="BtnPDFTOKDelete"
 								Margin="20,0,0,0"
@@ -2819,16 +2822,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnPDFTOKNoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 
@@ -2847,8 +2849,7 @@
 								Content="{DynamicResource file.download}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Download het geselecteerde bestand"
-								Visibility="Visible" />
+								ToolTip="Download het geselecteerde bestand" />
 
 							<Button
 								x:Name="BtnPDFPIAPreview"
@@ -2856,9 +2857,8 @@
 								Content="{StaticResource file.show}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Preview}"
 								Style="{StaticResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Bekijk het geselecteerde bestand"
-								Visibility="Visible" />
-							
+								ToolTip="Bekijk het geselecteerde bestand" />
+
 							<Button
 								x:Name="BtnPDFPIADelete"
 								Margin="20,0,0,0"
@@ -2866,16 +2866,15 @@
 								Content="{DynamicResource file.delete}"
 								Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-								Visibility="Visible" />
+								ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 							<Button
 								x:Name="BtnPDFPIANoFile"
 								Content="{DynamicResource file.nofile}"
+								Cursor="No"
 								Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 								Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-								Visibility="Visible" />
+								ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 						</StackPanel>
 						<!--#endregion-->
 						<!--#endregion-->
@@ -2890,6 +2889,7 @@
 							Style="{DynamicResource Grid.Header.Style}" />
 
 						<Border
+							x:Name="MP3Drop"
 							Grid.Row="7"
 							Grid.RowSpan="4"
 							Grid.Column="0"
@@ -2922,8 +2922,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3T1Play"
@@ -2931,8 +2930,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3T1Delete"
 									Margin="20,0,0,0"
@@ -2940,16 +2938,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3T1NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -2968,8 +2965,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3SOL1Play"
@@ -2977,8 +2973,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3SOL1Delete"
 									Margin="20,0,0,0"
@@ -2986,16 +2981,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3SOL1NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3023,8 +3017,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3T2Play"
@@ -3032,8 +3025,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3T2Delete"
 									Margin="20,0,0,0"
@@ -3041,16 +3033,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3T2NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3069,8 +3060,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3SOL2Play"
@@ -3078,8 +3068,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3SOL2Delete"
 									Margin="20,0,0,0"
@@ -3087,16 +3076,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3SOL2NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3124,8 +3112,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3B1Play"
@@ -3133,8 +3120,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3B1Delete"
 									Margin="20,0,0,0"
@@ -3142,16 +3128,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3B1NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3170,8 +3155,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3TOTPlay"
@@ -3179,8 +3163,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3TOTDelete"
 									Margin="20,0,0,0"
@@ -3188,16 +3171,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3TOTNoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3225,8 +3207,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3B2Play"
@@ -3234,8 +3215,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3B2Delete"
 									Margin="20,0,0,0"
@@ -3243,16 +3223,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3B2NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3271,8 +3250,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3PIAPlay"
@@ -3280,8 +3258,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3PIADelete"
 									Margin="20,0,0,0"
@@ -3289,16 +3266,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3PIANoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3314,6 +3290,7 @@
 							Style="{DynamicResource Grid.Header.Style}" />
 
 						<Border
+							x:Name="MP3VoiceDrop"
 							Grid.Row="7"
 							Grid.RowSpan="4"
 							Grid.Column="2"
@@ -3346,8 +3323,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceT1Play"
@@ -3355,8 +3331,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceT1Delete"
 									Margin="20,0,0,0"
@@ -3364,16 +3339,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceT1NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3392,8 +3366,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceSOL1Play"
@@ -3401,8 +3374,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceSOL1Delete"
 									Margin="20,0,0,0"
@@ -3410,16 +3382,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceSOL1NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3447,8 +3418,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceT2Play"
@@ -3456,8 +3426,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceT2Delete"
 									Margin="20,0,0,0"
@@ -3465,16 +3434,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceT2NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3493,8 +3461,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceSOL2Play"
@@ -3502,8 +3469,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceSOL2Delete"
 									Margin="20,0,0,0"
@@ -3511,16 +3477,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceSOL2NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3548,8 +3513,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceB1Play"
@@ -3557,8 +3521,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceB1Delete"
 									Margin="20,0,0,0"
@@ -3566,16 +3529,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceB1NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3594,8 +3556,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceTOTPlay"
@@ -3603,8 +3564,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceTOTDelete"
 									Margin="20,0,0,0"
@@ -3612,16 +3572,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceTOTNoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
@@ -3649,8 +3608,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceB2Play"
@@ -3658,8 +3616,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceB2Delete"
 									Margin="20,0,0,0"
@@ -3667,16 +3624,15 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceB2NoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 
@@ -3696,8 +3652,7 @@
 									Content="{DynamicResource file.download}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Download}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Download het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Download het geselecteerde bestand" />
 
 								<Button
 									x:Name="BtnMP3VoiceUITVPlay"
@@ -3705,8 +3660,7 @@
 									Content="{StaticResource file.play}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Play}"
 									Style="{StaticResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Speel het geselecteerde bestand"
-									Visibility="Visible" />
+									ToolTip="Speel het geselecteerde bestand" />
 								<Button
 									x:Name="BtnMP3VoiceUITVDelete"
 									Margin="20,0,0,0"
@@ -3714,21 +3668,59 @@
 									Content="{DynamicResource file.delete}"
 									Foreground="{DynamicResource Button.Icon.Score.Files.Delete}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar"
-									Visibility="Visible" />
+									ToolTip="Verwijder het geselecteerde uit de database, het is dan voor niemand meer beschikbaar" />
 
 								<Button
 									x:Name="BtnMP3VoiceUITVNoFile"
 									Content="{DynamicResource file.nofile}"
+									Cursor="No"
 									Foreground="{DynamicResource Button.Icon.Score.Files.NoFile}"
 									Style="{DynamicResource ScoreGridFilesButtonsStyle}"
-									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom"
-									Visibility="Visible" />
+									ToolTip="Er is geen bestand beschikbaar, sleep het juiste bestand naar het grote Bestandsicoon in de linker kolom" />
 							</StackPanel>
 							<!--#endregion-->
 						</Grid>
 						<!--#endregion-->
 						<!--#endregion-->
+						<!--#endregion-->
+
+						<!--#region Warning-->
+						<Border
+							Grid.Row="12"
+							Grid.ColumnSpan="4"
+							Width="500"
+							Margin="5"
+							Background="Red"
+							CornerRadius="15"
+							Visibility="{Binding ElementName=tbAdminMode, Path=Text}">
+							<StackPanel Orientation="Vertical">
+								<TextBox
+									Margin="0,3,0,10"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
+									Background="Transparent"
+									FontSize="26"
+									FontWeight="ExtraBold"
+									Foreground="Yellow"
+									Text="Let op!" />
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Background="Transparent"
+									FontSize="20"
+									FontWeight="Bold"
+									Foreground="White"
+									TextWrapping="Wrap">
+									<Run Text="Alle bestanden die hier worden geupload&#x0a;krijgen het partituurnummer en de naam&#x0a;van de " />
+									<Underline>
+										<Run Text="geselecteerde" />
+									</Underline>
+									<Run Text=" partituur!" />
+								</TextBlock>
+							</StackPanel>
+						</Border>
 						<!--#endregion-->
 					</Grid>
 					<!--#endregion-->

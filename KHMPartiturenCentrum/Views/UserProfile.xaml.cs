@@ -37,15 +37,18 @@ public partial class UserProfile : Page
         tbCheckEMail.Text = ScoreUsers.SelectedUserEmail;
         tbCheckPassword.Text = ScoreUsers.SelectedUserPassword;
         tbCheckCoverSheets.Text = ScoreUsers.SelectedUserCoverSheetFolder;
+        tbCheckDownloadFolder.Text = ScoreUsers.SelectedUserDownloadFolder;
 
         // Fill The Form fields
         tbUserName.Text = ScoreUsers.SelectedUserName;
         tbFullName.Text = ScoreUsers.SelectedUserFullName;
         tbEMail.Text = ScoreUsers.SelectedUserEmail;
         tbCoverSheets.Text = ScoreUsers.SelectedUserCoverSheetFolder;
+        tbDownloadFolder.Text = ScoreUsers.SelectedUserDownloadFolder;
 
         ResetChanged ();
     }
+
     private void TextBoxChanged ( object sender, TextChangedEventArgs e )
     {
         var propertyName = ((System.Windows.Controls.TextBox)sender).Name;
@@ -70,6 +73,13 @@ public partial class UserProfile : Page
                 else
                 { cbCoverSheetsFolderChanged.IsChecked = true; }
                 break;
+
+            case "tbDownloadFolder":
+                if ( tbDownloadFolder.Text == tbCheckDownloadFolder.Text )
+                { cbDownloadFolderChanged.IsChecked = false; }
+                else
+                { cbDownloadFolderChanged.IsChecked = true; }
+                break;
         }
         CheckChanged ();
     }
@@ -86,7 +96,7 @@ public partial class UserProfile : Page
     {
         if ( cbFullNameChanged.IsChecked == true ||
             cbEMailChanged.IsChecked == true ||
-            cbPasswordChanged.IsChecked == true || cbCoverSheetsFolderChanged.IsChecked == true )
+            cbPasswordChanged.IsChecked == true || cbCoverSheetsFolderChanged.IsChecked == true  || cbDownloadFolderChanged.IsChecked == true)
         {
             btnSaveUserProfile.IsEnabled = true;
             btnSaveUserProfile.ToolTip = "Sla de gewijzigde gegevens op";
@@ -111,7 +121,7 @@ public partial class UserProfile : Page
     {
         ObservableCollection<UserModel> ModifiedUser = new();
 
-        string _FullName = "", _EMail = "", _Password = "", _CoverSheetsFolder = "";
+        string _FullName = "", _EMail = "", _Password = "", _CoverSheetsFolder = "", _DownloadFolder = "";
 
         if ( (bool) cbFullNameChanged.IsChecked )
         { 
@@ -138,6 +148,12 @@ public partial class UserProfile : Page
             ScoreUsers.SelectedUserCoverSheetFolder = _CoverSheetsFolder;
         }
 
+        if ( (bool) cbDownloadFolderChanged.IsChecked )
+        {
+            _DownloadFolder = tbDownloadFolder.Text;
+            ScoreUsers.SelectedUserDownloadFolder = _DownloadFolder;
+        }
+
         ModifiedUser.Add ( new UserModel
         {
             UserId=ScoreUsers.SelectedUserId,
@@ -145,7 +161,8 @@ public partial class UserProfile : Page
             UserFullName = _FullName,
             UserEmail = _EMail,
             UserPassword = _Password,
-            CoverSheetFolder = _CoverSheetsFolder
+            CoverSheetFolder = _CoverSheetsFolder,
+            DownloadFolder = _DownloadFolder
         } );
 
         DBCommands.UpdateUser ( ModifiedUser );
@@ -184,6 +201,11 @@ public partial class UserProfile : Page
         {
             DBCommands.WriteDetailLog ( historyId, DBNames.LogUserCoverSheetFolder, @tbCheckCoverSheets.Text, @modifiedUser [ 0 ].CoverSheetFolder );
         }
+
+        if ( modifiedUser [ 0 ].DownloadFolder != "" )
+        {
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserDownloadFolder, @tbCheckDownloadFolder.Text, @modifiedUser [ 0 ].DownloadFolder );
+        }
     }
 
     private void ModifyScoreUserData ( ObservableCollection<UserModel> modifiedUser )
@@ -207,7 +229,11 @@ public partial class UserProfile : Page
         {
             ScoreUsers.SelectedUserCoverSheetFolder = modifiedUser [ 0 ].CoverSheetFolder;
         }
-    }
+
+        if ( modifiedUser [ 0 ].DownloadFolder != "" )
+        {
+            ScoreUsers.SelectedUserDownloadFolder = modifiedUser [ 0 ].DownloadFolder;
+        }    }
 
     private void BrowseToFolder_Click ( object sender, RoutedEventArgs e )
     {
@@ -233,6 +259,30 @@ public partial class UserProfile : Page
         }
     }
 
+    private void BrowseToDownloadFolder_Click ( object sender, RoutedEventArgs e )
+    {
+        var senderButton = sender as System.Windows.Controls.Button;
+
+        var dialogDescription = "Selecteer de map om de bestanden op te slaan";
+        var dialogSelectedPath = '"' + ScoreUsers.SelectedUserDownloadFolder.Replace(@"\", @"\\") +'"';
+
+        using ( var dialog = new FolderBrowserDialog () )
+        {
+            dialog.SelectedPath = @dialogSelectedPath;
+            dialog.Description = dialogDescription;
+            dialog.ShowNewFolderButton = true;
+            dialog.UseDescriptionForTitle = true;
+
+            if ( dialog.ShowDialog () == DialogResult.OK )
+            {
+                if ( senderButton != null )
+                {
+                    tbDownloadFolder.Text = dialog.SelectedPath;
+               }
+            }
+        }
+    }
+
     private void FolderChanged ( object sender, TextChangedEventArgs e )
     {
         //var senderButton = sender as System.Windows.Controls.Button;
@@ -247,6 +297,15 @@ public partial class UserProfile : Page
             else
             { 
                 cbCoverSheetsFolderChanged.IsChecked = false; 
+            }
+
+            if ( tbDownloadFolder.Text != ScoreUsers.SelectedUserDownloadFolder )
+            { 
+                cbDownloadFolderChanged.IsChecked = true; 
+            }
+            else
+            { 
+                cbDownloadFolderChanged.IsChecked = false; 
             }
         }
     }

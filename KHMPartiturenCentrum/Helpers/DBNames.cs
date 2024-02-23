@@ -209,6 +209,7 @@ public class DBNames
 	public static readonly string UsersFieldNamePW = "Password";
 	public static readonly string UsersFieldNameRoleId = "RoleId";
 	public static readonly string UsersFieldNameCoverSheetFolder = "CoverSheetFolder";
+	public static readonly string UsersFieldNameDownloadFolder = "DownloadFolder";
 
 	public static readonly string UsersView = "view_Users";
 	public static readonly string UsersViewFieldNameRoleOrder = "RoleOrder";
@@ -226,6 +227,23 @@ public class DBNames
 
 	#region Table/View Settings
 	public static readonly string SettingsTable= "Settings";
+	#endregion
+
+	#region Folder suffixes for file storage
+	public static readonly string FilePathSuffixMuseScore = "MuseScore";
+	public static readonly string FilePathSuffixPDF = "Partituren";
+	public static readonly string FilePathSuffixMP3 = "Audio";
+	public static readonly string FilePathSuffixMP3Voice = "Audio\\Ingezongen";
+	#endregion
+
+	#region File extensions
+	public static readonly string FileExtensionMuseScore = ".mscx";
+	public static readonly string FileExtensionPDF = ".pdf";
+	public static readonly string FileExtensionMP3 = ".mp3";
+	#endregion
+
+	#region Filename suffix for Voice files
+	public static readonly string FileVoiceSuffix = " (ingezongen)";
 	#endregion
 
 	#region Log history
@@ -267,9 +285,10 @@ public class DBNames
 	public static readonly string LogUserFullName = "Naam gewijzigd";
 	public static readonly string LogUserRole = "Rol gewijzigd";
 	public static readonly string LogUserPassword = "Wachtwoord gewijzigd";
-	public static readonly string LogUserLoggedIn = "Gebruiker ingelogt";
-	public static readonly string LogUserLoggedOut = "Gebruiker uitgelogt";
+	public static readonly string LogUserLoggedIn = "Gebruiker ingelogd";
+	public static readonly string LogUserLoggedOut = "Gebruiker uitgelogd";
 	public static readonly string LogUserCoverSheetFolder = "Map voor de voorbladen aangepast";
+	public static readonly string LogUserDownloadFolder = "Map voor de gedownloade bestanden aangepast";
 	public static readonly string LogCoverSheetCreated = "Voorblad aangemaakt";
 	public static readonly string LogUserInvalidLogin = "Foutieve inlog poging";
 

@@ -1087,7 +1087,10 @@ public class DBCommands
 			{ sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
 
 			if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
-			{ sqlQuery += ", `" + DBNames.UsersFieldNameCoverSheetFolder + "` = @" + DBNames.UsersFieldNameCoverSheetFolder; }
+			{ sqlQuery += ", " + DBNames.UsersFieldNameCoverSheetFolder + " = @" + DBNames.UsersFieldNameCoverSheetFolder; }
+
+			if ( modifiedUser [ 0 ].DownloadFolder != "" )
+			{ sqlQuery += ", " + DBNames.UsersFieldNameDownloadFolder + " = @" + DBNames.UsersFieldNameDownloadFolder; }
 		}
 
 		// Add the filter to the sqlQuery
@@ -1712,6 +1715,9 @@ public class DBCommands
 
 			if ( modifiedUser [ 0 ].CoverSheetFolder != "" )
 			{ cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameCoverSheetFolder, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].CoverSheetFolder; }
+
+			if ( modifiedUser [ 0 ].DownloadFolder != "" )
+			{ cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameDownloadFolder, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].DownloadFolder; }
 		}
 
 		// Add the userId value for the user that has to be modified
@@ -1883,7 +1889,7 @@ public class DBCommands
 		{
 			for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
 			{
-				string CoverSheetPath = "";
+				string CoverSheetPath = "", DownloadPath = "";
 				if ( dataTable.Rows [ i ].ItemArray [ 9 ].ToString ( ) == "" )
 				{
 					CoverSheetPath = System.Environment.GetFolderPath ( Environment.SpecialFolder.MyDocuments );
@@ -1892,6 +1898,16 @@ public class DBCommands
 				{
 					CoverSheetPath = dataTable.Rows [ i ].ItemArray [ 9 ].ToString ( );
 				}
+
+				if ( dataTable.Rows [ i ].ItemArray [ 10 ].ToString ( ) == "" )
+				{
+					DownloadPath = System.Environment.GetFolderPath ( Environment.SpecialFolder.MyDocuments );
+				}
+				else
+				{
+					DownloadPath = dataTable.Rows [ i ].ItemArray [ 10 ].ToString ( );
+				}
+
 
 				users.Add ( new UserModel
 				{
@@ -1903,7 +1919,8 @@ public class DBCommands
 					UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( ) ),
 					RoleName = dataTable.Rows [ i ].ItemArray [ 7 ].ToString ( ),
 					RoleDescription = dataTable.Rows [ i ].ItemArray [ 8 ].ToString ( ),
-					CoverSheetFolder = CoverSheetPath
+					CoverSheetFolder = CoverSheetPath,
+					DownloadFolder = DownloadPath
 				} );
 			}
 		}

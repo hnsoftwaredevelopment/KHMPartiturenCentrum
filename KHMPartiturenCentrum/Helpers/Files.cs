@@ -8,13 +8,17 @@ using System.Windows.Forms;
 using System.Windows;
 
 using MySql.Data.MySqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Data;
+using static KHM.App;
 
 namespace KHM.Helpers
-{
-    public static class Files
-    {
-        public static void Store ( string _table, string _fileType, string _extensionType, int _scoreId, string _path, string _fileName )
-            {
+	{
+	public static class Files
+		{
+		#region Store a file in the database
+		public static void Store ( string _table, string _fileType, string _extensionType, int _scoreId, string _path, string _fileName )
+			{
 			int fileSize;
 			string sqlQuery, _fieldName = "";
 			byte[] rawData;
@@ -57,9 +61,11 @@ namespace KHM.Helpers
 					"Error", ( MessageBoxButtons ) MessageBoxButton.OK, ( MessageBoxIcon ) MessageBoxImage.Error );
 				}
 			}
+		#endregion
 
-        public static void Update ( string _table, int _fileId, string _path)
-            {
+		#region Replace an existing file in the database with a new file
+		public static void Update ( string _table, int _fileId, string _path )
+			{
 			int fileSize;
 			string sqlQuery;
 			byte[] rawData;
@@ -100,5 +106,72 @@ namespace KHM.Helpers
 					"Error", ( MessageBoxButtons ) MessageBoxButton.OK, ( MessageBoxIcon ) MessageBoxImage.Error );
 				}
 			}
+		#endregion
+
+		#region Check existence of DownloadPath, if not exists create it
+		public static void CheckFolder ( string _path )
+			{
+			if ( !Directory.Exists ( _path ) )
+				{
+				Directory.CreateDirectory ( _path );
+				}
+			}
+		#endregion
+
+		#region Download File
+		public static void DownloadFile ( int _fileId, string _fileTable, string _filePathSuffix, string _fileName )
+			{
+			// _fileTable should be PDF, Capella, MuseScore etc, it will be used to get the correct File
+			string? _downloadPath, selectQuery;
+			
+			_downloadPath = $"{ScoreUsers.SelectedUserDownloadFolder}\\{_filePathSuffix}";
+			CheckFolder ( _downloadPath );
+
+			selectQuery = $"{DBNames.SqlSelect}File{DBNames.SqlFrom}{DBNames.Database}.{_fileTable.ToLower ()}{DBNames.SqlWhere}Id = @Id;";
+
+			// Verbinding maken met de MySQL-database
+			using ( MySqlConnection connection = new MySqlConnection ( DBConnect.ConnectionString ) )
+				{
+				connection.Open ();
+
+				using ( MySqlCommand command = new MySqlCommand ( selectQuery, connection ) )
+					{
+					command.Parameters.AddWithValue ( $"@Id", _fileId );
+
+					using ( MySqlDataReader reader = command.ExecuteReader ( CommandBehavior.SingleRow ) )
+						{
+						if ( reader.Read () )
+							{
+							using ( FileStream fileStream = new ( @$"{_downloadPath}\{_fileName}", FileMode.Create, FileAccess.Write ) )
+								{
+								using ( BinaryWriter binaryWriter = new ( fileStream ) )
+									{
+									long startIndex = 0;
+									const int bufferSize = 1024;
+									byte[] buffer = new byte[bufferSize];
+
+									long bytesRead = reader.GetBytes(0, startIndex, buffer, 0, bufferSize);
+
+									while ( bytesRead == bufferSize )
+										{
+										binaryWriter.Write ( buffer );
+										binaryWriter.Flush ();
+
+										startIndex += bufferSize;
+										bytesRead = reader.GetBytes ( 0, startIndex, buffer, 0, bufferSize );
+										}
+
+									// Schrijf de resterende bytes naar het bestand
+									binaryWriter.Write ( buffer, 0, ( int ) bytesRead );
+									binaryWriter.Flush ();
+									}
+								}
+							}
+						}
+					}
+				connection.Close ();
+				}
+			}
+		#endregion
 		}
-}
+	}

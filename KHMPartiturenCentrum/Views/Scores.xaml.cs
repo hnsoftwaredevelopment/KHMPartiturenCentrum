@@ -18,8 +18,11 @@ using System.Windows.Media.Imaging;
 using KHM.Helpers;
 using KHM.Models;
 using KHM.ViewModels;
+
 using Microsoft.Win32;
+
 using Syncfusion.DocIO;
+
 using static KHM.App;
 
 namespace KHM.Views;
@@ -56,6 +59,10 @@ public partial class Scores : Page
 			tbEnableEdit.Text = "Collapsed";
 			tbAdminMode.Text = "Collapsed";
 			tbEnableEditFields.Text = "False";
+			MuseScoreDrop.IsEnabled = false;
+			PDFDrop.IsEnabled = false;
+			MP3Drop.IsEnabled = false;
+			MP3VoiceDrop.IsEnabled = false;
 			}
 		}
 
@@ -311,22 +318,80 @@ public partial class Scores : Page
 		#endregion TAB Notes
 
 		#region TAB Files
-		// First Disable all butoons
-		DisableFileButtons();
+		// First Disable all buttons (and Enable NoFile buttons)
+		DisableFileButtons ();
 
 		// Load available score IDs for the selected Score
 		FileIndexModel FileIds = FilesIndex.GetFileIds(int.Parse(tbScoreId.Text));
 
-		if(FileIds.Id != 0) 
+		if ( FileIds.Id != 0 )
 			{
-			if(FileIds.MuseScoreORKId > 0) {SetFileButtons("MuseScoreORKId", FileIds.MuseScoreORKId);} else {SetNoFileButton("MuseScoreORKId");}
-			SetFileButtons(FileIds.MuseScoreORKId > 0 ? "MuseScoreORKId" : null, FileIds.MuseScoreORKId);
-			Console.WriteLine (	FileIds);
-				}
+			//MuseScore Files
+			SetFileButtons ( FileIds.MuseScoreORKId > 0 ? "MuseScoreORKId" : null, FileIds.MuseScoreORKId );
+			SetFileButtons ( FileIds.MuseScoreORPId > 0 ? "MuseScoreORPId" : null, FileIds.MuseScoreORPId );
+			SetFileButtons ( FileIds.MuseScoreTOKId > 0 ? "MuseScoreTOKId" : null, FileIds.MuseScoreTOKId );
+			SetFileButtons ( FileIds.MuseScoreTOPId > 0 ? "MuseScoreTOPId" : null, FileIds.MuseScoreTOPId );
 
-		
-		// Enable the buttons for the available files
-		// Users should nog have the Delete button
+			// Save the MuseScore Ids
+			tbMSCORKId.Text = FileIds.MuseScoreORKId > 0 ? FileIds.MuseScoreORKId.ToString () : string.Empty;
+			tbMSCORPId.Text = FileIds.MuseScoreORPId > 0 ? FileIds.MuseScoreORPId.ToString () : string.Empty;
+			tbMSCTOKId.Text = FileIds.MuseScoreTOKId > 0 ? FileIds.MuseScoreTOKId.ToString () : string.Empty;
+			tbMSCTOPId.Text = FileIds.MuseScoreTOPId > 0 ? FileIds.MuseScoreTOPId.ToString () : string.Empty;
+
+			//PDF Files
+			SetFileButtons ( FileIds.PDFORKId > 0 ? "PDFORKId" : null, FileIds.PDFORKId );
+			SetFileButtons ( FileIds.PDFORPId > 0 ? "PDFORPId" : null, FileIds.PDFORPId );
+			SetFileButtons ( FileIds.PDFTOKId > 0 ? "PDFTOKId" : null, FileIds.PDFTOKId );
+			SetFileButtons ( FileIds.PDFTOPId > 0 ? "PDFTOPId" : null, FileIds.PDFTOPId );
+			SetFileButtons ( FileIds.PDFPIAId > 0 ? "PDFPIAId" : null, FileIds.PDFPIAId );
+
+			// Save the PDF Ids
+			tbPDFORKId.Text = FileIds.PDFORKId > 0 ? FileIds.PDFORKId.ToString () : string.Empty;
+			tbPDFORPId.Text = FileIds.PDFORPId > 0 ? FileIds.PDFORPId.ToString () : string.Empty;
+			tbPDFTOKId.Text = FileIds.PDFTOKId > 0 ? FileIds.PDFTOKId.ToString () : string.Empty;
+			tbPDFTOPId.Text = FileIds.PDFTOPId > 0 ? FileIds.PDFTOPId.ToString () : string.Empty;
+			tbPDFPIAId.Text = FileIds.PDFPIAId > 0 ? FileIds.PDFPIAId.ToString () : string.Empty;
+
+			// Instrumental Audio Files
+			SetFileButtons ( FileIds.MP3B1Id > 0 ? "MP3B1Id" : null, FileIds.MP3B1Id );
+			SetFileButtons ( FileIds.MP3B2Id > 0 ? "MP3B2Id" : null, FileIds.MP3B2Id );
+			SetFileButtons ( FileIds.MP3T1Id > 0 ? "MP3T1Id" : null, FileIds.MP3T1Id );
+			SetFileButtons ( FileIds.MP3T2Id > 0 ? "MP3T2Id" : null, FileIds.MP3T2Id );
+			SetFileButtons ( FileIds.MP3SOL1Id > 0 ? "MP3SOL1Id" : null, FileIds.MP3SOL1Id );
+			SetFileButtons ( FileIds.MP3SOL2Id > 0 ? "MP3SOL2Id" : null, FileIds.MP3SOL2Id );
+			SetFileButtons ( FileIds.MP3TOTId > 0 ? "MP3TOTId" : null, FileIds.MP3TOTId );
+			SetFileButtons ( FileIds.MP3PIAId > 0 ? "MP3PIAId" : null, FileIds.MP3PIAId );
+
+			// Save the MP3 Ids
+			tbMP3B1Id.Text = FileIds.MP3B1Id > 0 ? FileIds.MP3B1Id.ToString () : string.Empty;
+			tbMP3B2Id.Text = FileIds.MP3B2Id > 0 ? FileIds.MP3B2Id.ToString () : string.Empty;
+			tbMP3T1Id.Text = FileIds.MP3T1Id > 0 ? FileIds.MP3T1Id.ToString () : string.Empty;
+			tbMP3T2Id.Text = FileIds.MP3T2Id > 0 ? FileIds.MP3T2Id.ToString () : string.Empty;
+			tbMP3SOL1Id.Text = FileIds.MP3SOL1Id > 0 ? FileIds.MP3SOL1Id.ToString () : string.Empty;
+			tbMP3SOL2Id.Text = FileIds.MP3SOL2Id > 0 ? FileIds.MP3SOL2Id.ToString () : string.Empty;
+			tbMP3TOTId.Text = FileIds.MP3TOTId > 0 ? FileIds.MP3TOTId.ToString () : string.Empty;
+			tbMP3PIAId.Text = FileIds.MP3PIAId > 0 ? FileIds.MP3PIAId.ToString () : string.Empty;
+
+			// Voice Audio Files
+			SetFileButtons ( FileIds.MP3B1VoiceId > 0 ? "MP3B1VoiceId" : null, FileIds.MP3B1VoiceId );
+			SetFileButtons ( FileIds.MP3B2VoiceId > 0 ? "MP3B2VoiceId" : null, FileIds.MP3B2VoiceId );
+			SetFileButtons ( FileIds.MP3T1VoiceId > 0 ? "MP3T1VoiceId" : null, FileIds.MP3T1VoiceId );
+			SetFileButtons ( FileIds.MP3T2VoiceId > 0 ? "MP3T2VoiceId" : null, FileIds.MP3T2VoiceId );
+			SetFileButtons ( FileIds.MP3SOL1VoiceId > 0 ? "MP3SOL1VoiceId" : null, FileIds.MP3SOL1VoiceId );
+			SetFileButtons ( FileIds.MP3SOL2VoiceId > 0 ? "MP3SOL2VoiceId" : null, FileIds.MP3SOL2VoiceId );
+			SetFileButtons ( FileIds.MP3TOTVoiceId > 0 ? "MP3TOTVoiceId" : null, FileIds.MP3TOTVoiceId );
+			SetFileButtons ( FileIds.MP3UITVVoiceId > 0 ? "MP3UITVVoiceId" : null, FileIds.MP3UITVVoiceId );
+
+			// Save the MP3 Ids
+			tbMP3VoiceB1Id.Text = FileIds.MP3B1VoiceId > 0 ? FileIds.MP3B1VoiceId.ToString () : string.Empty;
+			tbMP3VoiceB2Id.Text = FileIds.MP3B2VoiceId > 0 ? FileIds.MP3B2VoiceId.ToString () : string.Empty;
+			tbMP3VoiceT1Id.Text = FileIds.MP3T1VoiceId > 0 ? FileIds.MP3T1VoiceId.ToString () : string.Empty;
+			tbMP3VoiceT2Id.Text = FileIds.MP3T2VoiceId > 0 ? FileIds.MP3T2VoiceId.ToString () : string.Empty;
+			tbMP3VoiceSOL1Id.Text = FileIds.MP3SOL1VoiceId > 0 ? FileIds.MP3SOL1VoiceId.ToString () : string.Empty;
+			tbMP3VoiceSOL2Id.Text = FileIds.MP3SOL2VoiceId > 0 ? FileIds.MP3SOL2VoiceId.ToString () : string.Empty;
+			tbMP3VoiceTOTId.Text = FileIds.MP3TOTVoiceId > 0 ? FileIds.MP3TOTVoiceId.ToString () : string.Empty;
+			tbMP3VoiceUITVId.Text = FileIds.MP3UITVVoiceId > 0 ? FileIds.MP3UITVVoiceId.ToString () : string.Empty;
+			}
 		#endregion
 
 		#region TAB: Licenses
@@ -423,31 +488,184 @@ public partial class Scores : Page
 		ResetChanged ();
 		}
 
-	private void SetFileButtons(string _button, int _value )
+	#region Enable the available File buttons
+	private void SetFileButtons ( string _button, int _value )
 		{
 		switch ( _button )
 			{
 			case "MuseScoreORKId":
-				BtnMSCORKDownload.Visibility= Visibility.Visible;
-				BtnMSCORKDelete.Visibility= Visibility.Visible;
+				BtnMSCORKDownload.Visibility = Visibility.Visible;
+				BtnMSCORKDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMSCORKNoFile.Visibility = Visibility.Collapsed;
 				break;
-			default:
+
+			case "MuseScoreORPId":
+				BtnMSCORPDownload.Visibility = Visibility.Visible;
+				BtnMSCORKDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMSCORPNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MuseScoreTOKId":
+				BtnMSCTOKDownload.Visibility = Visibility.Visible;
+				BtnMSCTOKDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMSCTOKNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MuseScoreTOPId":
+				BtnMSCTOPDownload.Visibility = Visibility.Visible;
+				BtnMSCTOPDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMSCTOPNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "PDFORKId":
+				BtnPDFORKDownload.Visibility = Visibility.Visible;
+				BtnPDFORKDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnPDFORKPreview.Visibility = Visibility.Visible;
+				BtnPDFORKNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "PDFORPId":
+				BtnPDFORPDownload.Visibility = Visibility.Visible;
+				BtnPDFORPDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnPDFORPPreview.Visibility = Visibility.Visible;
+				BtnPDFORPNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "PDFTOKId":
+				BtnPDFTOKDownload.Visibility = Visibility.Visible;
+				BtnPDFTOKDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnPDFTOKPreview.Visibility = Visibility.Visible;
+				BtnPDFTOKNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "PDFTOPId":
+				BtnPDFTOPDownload.Visibility = Visibility.Visible;
+				BtnPDFTOPDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnPDFTOPPreview.Visibility = Visibility.Visible;
+				BtnPDFTOPNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "PDFPIAId":
+				BtnPDFPIADownload.Visibility = Visibility.Visible;
+				BtnPDFPIADelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnPDFPIAPreview.Visibility = Visibility.Visible;
+				BtnPDFPIANoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3B1Id":
+				BtnMP3B1Download.Visibility = Visibility.Visible;
+				BtnMP3B1Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3B1Play.Visibility = Visibility.Visible;
+				BtnMP3B1NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3B2Id":
+				BtnMP3B2Download.Visibility = Visibility.Visible;
+				BtnMP3B2Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3B2Play.Visibility = Visibility.Visible;
+				BtnMP3B2NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3T1Id":
+				BtnMP3T1Download.Visibility = Visibility.Visible;
+				BtnMP3T1Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3T1Play.Visibility = Visibility.Visible;
+				BtnMP3T1NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3T2Id":
+				BtnMP3T2Download.Visibility = Visibility.Visible;
+				BtnMP3T2Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3T2Play.Visibility = Visibility.Visible;
+				BtnMP3T2NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3SOL1Id":
+				BtnMP3SOL1Download.Visibility = Visibility.Visible;
+				BtnMP3SOL1Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3SOL1Play.Visibility = Visibility.Visible;
+				BtnMP3SOL1NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3SOL2Id":
+				BtnMP3SOL2Download.Visibility = Visibility.Visible;
+				BtnMP3SOL2Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3SOL2Play.Visibility = Visibility.Visible;
+				BtnMP3SOL2NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3TOTId":
+				BtnMP3TOTDownload.Visibility = Visibility.Visible;
+				BtnMP3TOTDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3TOTPlay.Visibility = Visibility.Visible;
+				BtnMP3TOTNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3PIAId":
+				BtnMP3PIADownload.Visibility = Visibility.Visible;
+				BtnMP3PIADelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3PIAPlay.Visibility = Visibility.Visible;
+				BtnMP3PIANoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3B1VoiceId":
+				BtnMP3VoiceB1Download.Visibility = Visibility.Visible;
+				BtnMP3VoiceB1Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceB1Play.Visibility = Visibility.Visible;
+				BtnMP3VoiceB1NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3B2VoiceId":
+				BtnMP3VoiceB2Download.Visibility = Visibility.Visible;
+				BtnMP3VoiceB2Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceB2Play.Visibility = Visibility.Visible;
+				BtnMP3VoiceB2NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3T1VoiceId":
+				BtnMP3VoiceT1Download.Visibility = Visibility.Visible;
+				BtnMP3VoiceT1Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceT1Play.Visibility = Visibility.Visible;
+				BtnMP3VoiceT1NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3T2VoiceId":
+				BtnMP3VoiceT2Download.Visibility = Visibility.Visible;
+				BtnMP3VoiceT2Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceT2Play.Visibility = Visibility.Visible;
+				BtnMP3VoiceT2NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3SOL1VoiceId":
+				BtnMP3VoiceSOL1Download.Visibility = Visibility.Visible;
+				BtnMP3VoiceSOL1Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceSOL1Play.Visibility = Visibility.Visible;
+				BtnMP3VoiceSOL1NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3SOL2VoiceId":
+				BtnMP3VoiceSOL2Download.Visibility = Visibility.Visible;
+				BtnMP3VoiceSOL2Delete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceSOL2Play.Visibility = Visibility.Visible;
+				BtnMP3VoiceSOL2NoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3TOTVoiceId":
+				BtnMP3VoiceTOTDownload.Visibility = Visibility.Visible;
+				BtnMP3VoiceTOTDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceTOTPlay.Visibility = Visibility.Visible;
+				BtnMP3VoiceTOTNoFile.Visibility = Visibility.Collapsed;
+				break;
+
+			case "MP3UITVVoiceId":
+				BtnMP3VoiceUITVDownload.Visibility = Visibility.Visible;
+				BtnMP3VoiceUITVDelete.Visibility = tbAdminMode.Text == "Collapsed" ? Visibility.Collapsed : Visibility.Visible;
+				BtnMP3VoiceUITVPlay.Visibility = Visibility.Visible;
+				BtnMP3VoiceUITVNoFile.Visibility = Visibility.Collapsed;
 				break;
 			}
 		}
-
-		private void SetNoFileButton(string _button )
-		{
-		switch ( _button )
-			{
-			case "MuseScoreORKId":
-				BtnMSCORKNoFile.Visibility = Visibility.Visible; 
-				break;
-			default:
-				break;
-			}
-		}
-
+	#endregion
 
 	private void BtnNextClick ( object sender, RoutedEventArgs e )
 		{
@@ -2698,8 +2916,6 @@ public partial class Scores : Page
 		dpDigitized.SelectedDate = null;
 		dpModified.SelectedDate = null;
 
-		DisableFileButtons();
-
 		ResetChanged ();
 		}
 
@@ -2763,7 +2979,6 @@ public partial class Scores : Page
 		tbEnableEdit.Text = "Collapsed";
 		btnSave.IsEnabled = false;
 		btnSave.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
-		DisableFileButtons();
 		}
 
 	private void DeleteScore ( object sender, RoutedEventArgs e )
@@ -3330,10 +3545,234 @@ public partial class Scores : Page
 			}
 		}
 
+	#region Download selected file from selected score
 	private void DownloadFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to download the file corresponding to the pressed button
+		var buttonName = ((Button)sender).Name;
+		var _fileId = GetFileId(buttonName);
+		var _fileTable = GetFileTable(buttonName);
+		var _filePathSuffix = GetFilePathSuffix(buttonName);
+		var _fileExtension = GetFileExtension(buttonName);
+		var _fileVoiceSuffix = GetVoiceSuffix(buttonName);
+		var _fileType = GetFileType(buttonName);
+		var _fileName = $"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
+
+		Files.DownloadFile ( _fileId, _fileTable, _filePathSuffix, _fileName );
+
 		}
+
+	#region Get FileTable for download
+	private string GetFileTable(string _buttonName )
+		{
+		var _fileTable = "";
+
+		if ( ( _buttonName.Contains ( "MSC" ) ) )
+			{
+				_fileTable = DBNames.FilesMusescoreTable;
+			}
+
+		if ( ( _buttonName.Contains ( "PDF" ) ) )
+			{
+				_fileTable = DBNames.FilesPDFTable;
+			}
+
+		if ( ( _buttonName.Contains ( "MP3" ) ) )
+			{
+				_fileTable = DBNames.FilesMP3Table;
+			}
+
+		// Check for Voice has to be after check for MP3, because Voice files are also MP3
+		if ( ( _buttonName.Contains ( "Voice" ) ) )
+			{
+				_fileTable = DBNames.FilesMP3VoiceTable;
+			}
+
+		return _fileTable;
+		}
+	#endregion
+
+	#region Get FilePathSuffix for writing downloaded file to
+	private string GetFilePathSuffix(string _buttonName )
+		{
+		var _filePathSuffix = "";
+
+		if ( ( _buttonName.Contains ( "MSC" ) ) )
+			{
+				_filePathSuffix = DBNames.FilePathSuffixMuseScore;
+			}
+
+		if ( ( _buttonName.Contains ( "PDF" ) ) )
+			{
+				_filePathSuffix = DBNames.FilePathSuffixPDF;
+			}
+
+		if ( ( _buttonName.Contains ( "MP3" ) ) )
+			{
+				_filePathSuffix = DBNames.FilePathSuffixMP3;
+			}
+
+		// Check for Voice has to be after check for MP3, because Voice files are also MP3
+		if ( ( _buttonName.Contains ( "Voice" ) ) )
+			{
+				_filePathSuffix = DBNames.FilePathSuffixMP3Voice;
+			}
+
+		return _filePathSuffix;
+		}
+	#endregion
+
+	#region Get FileExtension
+	private string GetFileExtension(string _buttonName )
+		{
+		var _fileExtension = "";
+
+		if ( ( _buttonName.Contains ( "MSC" ) ) )
+			{
+				_fileExtension = DBNames.FileExtensionMuseScore;
+			}
+
+		if ( ( _buttonName.Contains ( "PDF" ) ) )
+			{
+				_fileExtension = DBNames.FileExtensionPDF;
+			}
+
+		if ( ( _buttonName.Contains ( "MP3" ) ) )
+			{
+				_fileExtension = DBNames.FileExtensionMP3;
+			}
+
+		return _fileExtension;
+		}
+	#endregion
+
+	#region Get Voice suffix
+	private string GetVoiceSuffix(string _buttonName )
+		{
+		var _voiceSuffix = "";
+
+		if ( ( _buttonName.Contains ( "Voice" ) ) )
+			{
+				_voiceSuffix = DBNames.FileVoiceSuffix;
+			}
+
+		return _voiceSuffix;
+		}
+	#endregion
+
+	#region Get the FileId from UI
+	private int GetFileId(string _buttonName )
+		{
+		var _fileId=-1;
+
+		switch ( _buttonName )
+			{
+			case "BtnMSCORPDownload":
+				_fileId = int.Parse ( tbMSCORPId.Text );
+				break;
+			case "BtnMSCORKDownload":
+				_fileId = int.Parse ( tbMSCORKId.Text );
+				break;
+			case "BtnMSCTOPDownload":
+				_fileId = int.Parse ( tbMSCTOPId.Text );
+				break;
+			case "BtnMSCTOKDownload":
+				_fileId = int.Parse ( tbMSCTOKId.Text );
+				break;
+			case "BtnPDFORPDownload":
+				_fileId = int.Parse ( tbPDFORPId.Text );
+				break;
+			case "BtnPDFORKDownload":
+				_fileId = int.Parse ( tbPDFORKId.Text );
+				break;
+			case "BtnPDFTOPDownload":
+				_fileId = int.Parse ( tbPDFORKId.Text );
+				break;
+			case "BtnPDFTOKDownload":
+				_fileId = int.Parse ( tbPDFTOPId.Text );
+				break;
+			case "BtnPDFPIADownload":
+				_fileId = int.Parse ( tbPDFTOKId.Text );
+				break;
+			case "BtnMP3B1Download":
+				_fileId = int.Parse ( tbMP3B1Id.Text );
+				break;
+			case "BtnMP3B2Download":
+				_fileId = int.Parse ( tbMP3B2Id.Text );
+				break;
+			case "BtnMP3T1Download":
+				_fileId = int.Parse ( tbMP3T1Id.Text );
+				break;
+			case "BtnMP3T2Download":
+				_fileId = int.Parse ( tbMP3T2Id.Text );
+				break;
+			case "BtnMP3SOL1Download":
+				_fileId = int.Parse ( tbMP3SOL1Id.Text );
+				break;
+			case "BtnMP3SOL2Download":
+				_fileId = int.Parse ( tbMP3SOL2Id.Text );
+				break;
+			case "BtnMP3TOTDownload":
+				_fileId = int.Parse ( tbMP3TOTId.Text );
+				break;
+			case "BtnMP3PIADownload":
+				_fileId = int.Parse ( tbMP3PIAId.Text );
+				break;
+			case "BtnMP3VoiceB1Download":
+				_fileId = int.Parse ( tbMP3VoiceB1Id.Text );
+				break;
+			case "BtnMP3VoiceB2Download":
+				_fileId = int.Parse ( tbMP3VoiceB2Id.Text );
+				break;
+			case "BtnMP3VoiceT1Download":
+				_fileId = int.Parse ( tbMP3VoiceT1Id.Text );
+				break;
+			case "BtnMP3VoiceT2Download":
+				_fileId = int.Parse ( tbMP3VoiceT2Id.Text );
+				break;
+			case "BtnMP3VoiceSOL1Download":
+				_fileId = int.Parse ( tbMP3VoiceSOL1Id.Text );
+				break;
+			case "BtnMP3VoiceSOL2Download":
+				_fileId = int.Parse ( tbMP3VoiceSOL2Id.Text );
+				break;
+			case "BtnMP3VoiceTOTDownload":
+				_fileId = int.Parse ( tbMP3VoiceTOTId.Text );
+				break;
+			case "BtnMP3VoiceUITVDownload":
+				_fileId = int.Parse ( tbMP3VoiceUITVId.Text );
+				break;
+			}
+
+		return _fileId;
+		}
+	#endregion
+
+	#region Get the FileId from UI
+	private string GetFileType(string _buttonName )
+		{
+		var _fileType= "";
+
+		// Check if buttonName contains certain fileType, if not _filetype is set to the current _fileType (in case another statement already set the filetype
+		_fileType = _buttonName.Contains("ORP") ? "ORP":_fileType;
+		_fileType = _buttonName.Contains("ORK") ? "ORK":_fileType;
+		_fileType = _buttonName.Contains("TOP") ? "TOP":_fileType;
+		_fileType = _buttonName.Contains("TOK") ? "TOK":_fileType;
+		_fileType = _buttonName.Contains("B1") ? "B1":_fileType;
+		_fileType = _buttonName.Contains("B2") ? "B2":_fileType;
+		_fileType = _buttonName.Contains("T1") ? "T1":_fileType;
+		_fileType = _buttonName.Contains("T2") ? "T2":_fileType;
+		_fileType = _buttonName.Contains("SOL1") ? "SOL1":_fileType;
+		_fileType = _buttonName.Contains("SOL2") ? "SOL2":_fileType;
+		_fileType = _buttonName.Contains("TOT") ? "TOT":_fileType;
+		_fileType = _buttonName.Contains("UITV") ? "UITV":_fileType;
+		_fileType = _buttonName.Contains("PIA") ? "PIA":_fileType;
+
+
+		return _fileType;
+		}
+	#endregion
+	#endregion
 
 	private void DeleteFile ( object sender, RoutedEventArgs e )
 		{
@@ -3352,66 +3791,66 @@ public partial class Scores : Page
 
 	#region Create Cover Sheet
 	private void CreateCoverSheet ( object sender, RoutedEventArgs e )
-	{
+		{
 		var _outputFolder = @ScoreUsers.SelectedUserCoverSheetFolder + "\\";
 		var _templatename="Resources\\Template\\";
 		int LyricsFontSize = 12, LineCount = 36;
 
 		var LyricsRows = int.Parse(SelectedScore.Lyrics.Split("\r\n").Length.ToString());
 
-		if (LyricsRows <= 0)
-		{ _templatename += "CoverSheet0.docx"; }
-		if (LyricsRows > 0 && LyricsRows <= LineCount)
-		{ _templatename += "CoverSheet1.docx"; }
-		if (LyricsRows > LineCount && LyricsRows <= LineCount * 2)
-		{ _templatename += "CoverSheet2.docx"; }
-		if (LyricsRows > LineCount * 2)
-		{ _templatename += "CoverSheet2.docx"; LyricsFontSize = 9; LineCount = 49; }
+		if ( LyricsRows <= 0 )
+			{ _templatename += "CoverSheet0.docx"; }
+		if ( LyricsRows > 0 && LyricsRows <= LineCount )
+			{ _templatename += "CoverSheet1.docx"; }
+		if ( LyricsRows > LineCount && LyricsRows <= LineCount * 2 )
+			{ _templatename += "CoverSheet2.docx"; }
+		if ( LyricsRows > LineCount * 2 )
+			{ _templatename += "CoverSheet2.docx"; LyricsFontSize = 9; LineCount = 49; }
 
 		var AccompanimentName = "Piano";
 		string ScoreNumber = "", B1 = "¨", B2 = "¨", T1 = "¨", T2 = "¨", Solo = "¨", Accompaniment = "¨";
 		var ScoreNumberFontSize = 80;
 
 		// Use ScoreNumber or ScoreNumber-SubScorenumber
-		if (SelectedScore.ScoreSubNumber == "")
-		{
+		if ( SelectedScore.ScoreSubNumber == "" )
+			{
 			ScoreNumber = $"{SelectedScore.ScoreNumber}";
-		}
+			}
 		else
-		{
+			{
 			ScoreNumber = $"{SelectedScore.ScoreNumber}-{SelectedScore.ScoreSubNumber}";
 			ScoreNumberFontSize = 52;
-		}
+			}
 
 		// Set the name of the CoverSheet document and image
 		var _docname = $"{_outputFolder}{ScoreNumber}.docx";
 
 
 		// Set the check boxes
-		if (SelectedScore.MP3B1)
-		{
+		if ( SelectedScore.MP3B1 )
+			{
 			B1 = "þ";
-		}
+			}
 
-		if (SelectedScore.MP3B2)
-		{
+		if ( SelectedScore.MP3B2 )
+			{
 			B2 = "þ";
-		}
+			}
 
-		if (SelectedScore.MP3T1)
-		{
+		if ( SelectedScore.MP3T1 )
+			{
 			T1 = "þ";
-		}
+			}
 
-		if (SelectedScore.MP3T2)
-		{
+		if ( SelectedScore.MP3T2 )
+			{
 			T2 = "þ";
-		}
+			}
 
-		if (SelectedScore.MP3SOL1)
-		{
+		if ( SelectedScore.MP3SOL1 )
+			{
 			Solo = "þ";
-		}
+			}
 
 		if ( SelectedScore.MP3SOL2 )
 			{
@@ -3421,11 +3860,11 @@ public partial class Scores : Page
 
 		// Checkbox for Accompaniment should not be set when there is no accompaniment selected (Id:1) or Piano is missing (Id:4) otherwise is will be check marked
 		// for the same Ids the AccompaimentName will be set to Piano
-		if ( SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4)
-		{
+		if ( SelectedScore.AccompanimentId != 1 && SelectedScore.AccompanimentId != 4 )
+			{
 			Accompaniment = "þ";
 			AccompanimentName = SelectedScore.AccompanimentName;
-		}
+			}
 
 		// Load the template document
 		WordDocument document = new WordDocument(_templatename, FormatType.Docx);
@@ -3433,90 +3872,90 @@ public partial class Scores : Page
 		// Set the font size of the ScoreNumber
 		Syncfusion.DocIO.DLS.TextSelection[] selectedScoreNumber = document.FindAll("<<Nr>>", true, true);
 
-		for (int i = 0; i < selectedScoreNumber.Length; i++)
-		{
-			selectedScoreNumber[i].GetAsOneRange().CharacterFormat.FontSize = ScoreNumberFontSize;
-		}
+		for ( int i = 0; i < selectedScoreNumber.Length; i++ )
+			{
+			selectedScoreNumber [ i ].GetAsOneRange ().CharacterFormat.FontSize = ScoreNumberFontSize;
+			}
 
 		// If the number of lines are bigger then 72, font size should be smaller to be sure all lines will fit
-		if (LyricsRows > LineCount * 2)
-		{
+		if ( LyricsRows > LineCount * 2 )
+			{
 			Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics1 = document.FindAll("<<Lyrics1>>", true, true);
 			Syncfusion.DocIO.DLS.TextSelection[] selectedLyrics2 = document.FindAll("<<Lyrics2>>", true, true);
 
-			for (int i = 0; i < selectedLyrics1.Length; i++)
-			{
-				selectedLyrics1[i].GetAsOneRange().CharacterFormat.FontSize = LyricsFontSize;
-				selectedLyrics2[i].GetAsOneRange().CharacterFormat.FontSize = LyricsFontSize;
+			for ( int i = 0; i < selectedLyrics1.Length; i++ )
+				{
+				selectedLyrics1 [ i ].GetAsOneRange ().CharacterFormat.FontSize = LyricsFontSize;
+				selectedLyrics2 [ i ].GetAsOneRange ().CharacterFormat.FontSize = LyricsFontSize;
+				}
 			}
-		}
 
 		// Replace the Bookmarks with the actual text
-		document.Replace("<<Nr>>", ScoreNumber, true, true);
-		document.Replace("<<Titel>>", SelectedScore.ScoreTitle, true, true);
-		document.Replace("<<Ondertitel>>", SelectedScore.ScoreSubTitle, true, true);
-		document.Replace("<<Componist>>", SelectedScore.Composer, true, true);
-		document.Replace("<<Tekstschrijver>>", SelectedScore.Textwriter, true, true);
-		document.Replace("<<Arrangement>>", SelectedScore.Arranger, true, true);
-		document.Replace("<<Genre>>", SelectedScore.GenreName, true, true);
-		document.Replace("<<Taal>>", SelectedScore.LanguageName, true, true);
-		document.Replace("<<Begeleiding>>", AccompanimentName, true, true);
-		document.Replace("<<B1>>", B1, true, true);
-		document.Replace("<<B2>>", B2, true, true);
-		document.Replace("<<T1>>", T1, true, true);
-		document.Replace("<<T2>>", T2, true, true);
-		document.Replace("<<SOL>>", Solo, true, true);
-		document.Replace("<<PIA>>", Accompaniment, true, true);
+		document.Replace ( "<<Nr>>", ScoreNumber, true, true );
+		document.Replace ( "<<Titel>>", SelectedScore.ScoreTitle, true, true );
+		document.Replace ( "<<Ondertitel>>", SelectedScore.ScoreSubTitle, true, true );
+		document.Replace ( "<<Componist>>", SelectedScore.Composer, true, true );
+		document.Replace ( "<<Tekstschrijver>>", SelectedScore.Textwriter, true, true );
+		document.Replace ( "<<Arrangement>>", SelectedScore.Arranger, true, true );
+		document.Replace ( "<<Genre>>", SelectedScore.GenreName, true, true );
+		document.Replace ( "<<Taal>>", SelectedScore.LanguageName, true, true );
+		document.Replace ( "<<Begeleiding>>", AccompanimentName, true, true );
+		document.Replace ( "<<B1>>", B1, true, true );
+		document.Replace ( "<<B2>>", B2, true, true );
+		document.Replace ( "<<T1>>", T1, true, true );
+		document.Replace ( "<<T2>>", T2, true, true );
+		document.Replace ( "<<SOL>>", Solo, true, true );
+		document.Replace ( "<<PIA>>", Accompaniment, true, true );
 
-		if (LyricsRows > 0 && LyricsRows <= LineCount)
-		{
-			document.Replace("<<Lyrics>>", tbLyrics.Text, true, true);
-		}
+		if ( LyricsRows > 0 && LyricsRows <= LineCount )
+			{
+			document.Replace ( "<<Lyrics>>", tbLyrics.Text, true, true );
+			}
 
-		if (LyricsRows > LineCount)
-		{
+		if ( LyricsRows > LineCount )
+			{
 			var _lyrics1 = "";
 			var _lyrics2 = "";
 
-			for (int i = 0; i < LineCount; i++)
-			{
-				if (i == 0 || i == LineCount)
+			for ( int i = 0; i < LineCount; i++ )
 				{
-					if (tbLyrics.GetLineText(i) != "\r\n")
+				if ( i == 0 || i == LineCount )
 					{
-						_lyrics1 += tbLyrics.GetLineText(i);
+					if ( tbLyrics.GetLineText ( i ) != "\r\n" )
+						{
+						_lyrics1 += tbLyrics.GetLineText ( i );
+						}
+					}
+				else
+					{
+					_lyrics1 += tbLyrics.GetLineText ( i );
 					}
 				}
-				else
-				{
-					_lyrics1 += tbLyrics.GetLineText(i);
-				}
-			}
 
-			for (int i = LineCount; i < LyricsRows; i++)
-			{
-				if (i == LineCount || i == LyricsRows)
+			for ( int i = LineCount; i < LyricsRows; i++ )
 				{
-					if (tbLyrics.GetLineText(i) != "\r\n")
+				if ( i == LineCount || i == LyricsRows )
 					{
-						_lyrics2 += tbLyrics.GetLineText(i);
+					if ( tbLyrics.GetLineText ( i ) != "\r\n" )
+						{
+						_lyrics2 += tbLyrics.GetLineText ( i );
+						}
+					}
+				else
+					{
+					_lyrics2 += tbLyrics.GetLineText ( i );
 					}
 				}
-				else
-				{
-					_lyrics2 += tbLyrics.GetLineText(i);
-				}
-			}
 
-			document.Replace("<<Lyrics1>>", _lyrics1, true, true);
-			document.Replace("<<Lyrics2>>", _lyrics2, true, true);
-		}
+			document.Replace ( "<<Lyrics1>>", _lyrics1, true, true );
+			document.Replace ( "<<Lyrics2>>", _lyrics2, true, true );
+			}
 
 		//Saves the Word document
 		document.Save ( _docname );
 
 		DBCommands.WriteLog ( ScoreUsers.SelectedUserId, DBNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
-	}
+		}
 	#endregion
 
 	#region Disable File-related buttons on Files Tab page
@@ -3525,130 +3964,130 @@ public partial class Scores : Page
 		#region Hide Musescore related file buttons
 		BtnMSCORKDelete.Visibility = Visibility.Collapsed;
 		BtnMSCORKDownload.Visibility = Visibility.Collapsed;
-		BtnMSCORKNoFile.Visibility = Visibility.Collapsed;
+		BtnMSCORKNoFile.Visibility = Visibility.Visible;
 
 		BtnMSCORPDelete.Visibility = Visibility.Collapsed;
 		BtnMSCORPDownload.Visibility = Visibility.Collapsed;
-		BtnMSCORPNoFile.Visibility = Visibility.Collapsed;
+		BtnMSCORPNoFile.Visibility = Visibility.Visible;
 
 		BtnMSCTOKDelete.Visibility = Visibility.Collapsed;
 		BtnMSCTOKDownload.Visibility = Visibility.Collapsed;
-		BtnMSCTOKNoFile.Visibility = Visibility.Collapsed;
+		BtnMSCTOKNoFile.Visibility = Visibility.Visible;
 
 		BtnMSCTOPDelete.Visibility = Visibility.Collapsed;
 		BtnMSCTOPDownload.Visibility = Visibility.Collapsed;
-		BtnMSCTOPNoFile.Visibility = Visibility.Collapsed;
+		BtnMSCTOPNoFile.Visibility = Visibility.Visible;
 		#endregion
 
 		#region Hide PDF Related file buttons
 		BtnPDFORKDelete.Visibility = Visibility.Collapsed;
 		BtnPDFORKDownload.Visibility = Visibility.Collapsed;
 		BtnPDFORKPreview.Visibility = Visibility.Collapsed;
-		BtnPDFORKNoFile.Visibility= Visibility.Collapsed;
+		BtnPDFORKNoFile.Visibility = Visibility.Visible;
 
 		BtnPDFORPDelete.Visibility = Visibility.Collapsed;
 		BtnPDFORPDownload.Visibility = Visibility.Collapsed;
 		BtnPDFORPPreview.Visibility = Visibility.Collapsed;
-		BtnPDFORPNoFile.Visibility= Visibility.Collapsed;
+		BtnPDFORPNoFile.Visibility = Visibility.Visible;
 
 		BtnPDFTOKDelete.Visibility = Visibility.Collapsed;
 		BtnPDFTOKDownload.Visibility = Visibility.Collapsed;
 		BtnPDFTOKPreview.Visibility = Visibility.Collapsed;
-		BtnPDFTOKNoFile.Visibility= Visibility.Collapsed;
+		BtnPDFTOKNoFile.Visibility = Visibility.Visible;
 
 		BtnPDFTOPDelete.Visibility = Visibility.Collapsed;
 		BtnPDFTOPDownload.Visibility = Visibility.Collapsed;
 		BtnPDFTOPPreview.Visibility = Visibility.Collapsed;
-		BtnPDFTOPNoFile.Visibility= Visibility.Collapsed;
+		BtnPDFTOPNoFile.Visibility = Visibility.Visible;
 
 		BtnPDFPIADelete.Visibility = Visibility.Collapsed;
 		BtnPDFPIADownload.Visibility = Visibility.Collapsed;
 		BtnPDFPIAPreview.Visibility = Visibility.Collapsed;
-		BtnPDFPIANoFile.Visibility= Visibility.Collapsed;
+		BtnPDFPIANoFile.Visibility = Visibility.Visible;
 		#endregion
 
 		#region Hide MP3 Related file buttons
 		#region Instrumental file buttons
 		BtnMP3B1Delete.Visibility = Visibility.Collapsed;
 		BtnMP3B1Download.Visibility = Visibility.Collapsed;
-		BtnMP3B1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3B1NoFile.Visibility = Visibility.Visible;
 		BtnMP3B1Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3B2Delete.Visibility = Visibility.Collapsed;
 		BtnMP3B2Download.Visibility = Visibility.Collapsed;
-		BtnMP3B2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3B2NoFile.Visibility = Visibility.Visible;
 		BtnMP3B2Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3T1Delete.Visibility = Visibility.Collapsed;
 		BtnMP3T1Download.Visibility = Visibility.Collapsed;
-		BtnMP3T1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3T1NoFile.Visibility = Visibility.Visible;
 		BtnMP3T1Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3T2Delete.Visibility = Visibility.Collapsed;
 		BtnMP3T2Download.Visibility = Visibility.Collapsed;
-		BtnMP3T2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3T2NoFile.Visibility = Visibility.Visible;
 		BtnMP3T2Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3SOL1Delete.Visibility = Visibility.Collapsed;
 		BtnMP3SOL1Download.Visibility = Visibility.Collapsed;
-		BtnMP3SOL1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3SOL1NoFile.Visibility = Visibility.Visible;
 		BtnMP3SOL1Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3SOL2Delete.Visibility = Visibility.Collapsed;
 		BtnMP3SOL2Download.Visibility = Visibility.Collapsed;
-		BtnMP3SOL2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3SOL2NoFile.Visibility = Visibility.Visible;
 		BtnMP3SOL2Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3TOTDelete.Visibility = Visibility.Collapsed;
 		BtnMP3TOTDownload.Visibility = Visibility.Collapsed;
-		BtnMP3TOTNoFile.Visibility= Visibility.Collapsed;
+		BtnMP3TOTNoFile.Visibility = Visibility.Visible;
 		BtnMP3TOTPlay.Visibility = Visibility.Collapsed;
-		
+
 		BtnMP3PIADelete.Visibility = Visibility.Collapsed;
 		BtnMP3PIADownload.Visibility = Visibility.Collapsed;
-		BtnMP3PIANoFile.Visibility= Visibility.Collapsed;
+		BtnMP3PIANoFile.Visibility = Visibility.Visible;
 		BtnMP3PIAPlay.Visibility = Visibility.Collapsed;
 		#endregion
 
 		#region Voice file buttons
 		BtnMP3VoiceB1Delete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceB1Download.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceB1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceB1NoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceB1Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3VoiceB2Delete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceB2Download.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceB2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceB2NoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceB2Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3VoiceT1Delete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceT1Download.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceT1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceT1NoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceT1Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3VoiceT2Delete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceT2Download.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceT2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceT2NoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceT2Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3VoiceSOL1Delete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceSOL1Download.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceSOL1NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceSOL1NoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceSOL1Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3VoiceSOL2Delete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceSOL2Download.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceSOL2NoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceSOL2NoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceSOL2Play.Visibility = Visibility.Collapsed;
 
 		BtnMP3VoiceTOTDelete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceTOTDownload.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceTOTNoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceTOTNoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceTOTPlay.Visibility = Visibility.Collapsed;
-		
+
 		BtnMP3VoiceUITVDelete.Visibility = Visibility.Collapsed;
 		BtnMP3VoiceUITVDownload.Visibility = Visibility.Collapsed;
-		BtnMP3VoiceUITVNoFile.Visibility= Visibility.Collapsed;
+		BtnMP3VoiceUITVNoFile.Visibility = Visibility.Visible;
 		BtnMP3VoiceUITVPlay.Visibility = Visibility.Collapsed;
 		#endregion
 		#endregion

@@ -16,4 +16,5 @@ public class UserModel
     public string RoleName { get; set; }
     public string RoleDescription { get; set; }
     public string CoverSheetFolder { get; set; }
+    public string DownloadFolder { get; set; }
 }

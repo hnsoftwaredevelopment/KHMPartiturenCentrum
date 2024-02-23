@@ -72,11 +72,12 @@ public partial class LoginPage : Window
                     ScoreUsers.SelectedUserEmail = user.UserEmail;
                     ScoreUsers.SelectedUserRoleId = user.UserRoleId;
                     ScoreUsers.SelectedUserCoverSheetFolder = user.CoverSheetFolder;
+                    ScoreUsers.SelectedUserDownloadFolder = user.DownloadFolder;
                 }
             }
 
             // Write Login to Logfile
-            DBCommands.WriteLog ( UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogt" );
+            DBCommands.WriteLog ( UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogd" );
 
             int ForcePasswordReset = 1;
             if ( ForcePasswordReset != 0 )

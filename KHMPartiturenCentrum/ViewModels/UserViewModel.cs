@@ -37,6 +37,9 @@ public partial class UserViewModel : ObservableObject
     public string coverSheetFolder;
 
     [ObservableProperty]
+    public string downloadFolder;
+
+    [ObservableProperty]
     public string roleName;
 
     [ObservableProperty]
