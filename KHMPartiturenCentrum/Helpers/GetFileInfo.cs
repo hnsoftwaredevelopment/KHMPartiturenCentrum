@@ -23,7 +23,7 @@ namespace KHM.Helpers
 				$"{DBNames.SqlSelect}{DBNames.FilesFieldNameId}" +
 				$"{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}" +
-				$"{DBNames.FilesFieldNameScoreId} = '{_scoreId}'";
+				$"{DBNames.FilesFieldNameScoreId} = {_scoreId}";
 			}
 			else
 				{
@@ -31,7 +31,7 @@ namespace KHM.Helpers
 				$"{DBNames.SqlSelect}{DBNames.FilesFieldNameId}" +
 				$"{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}" +
-				$"{DBNames.FilesFieldNameScoreId} = '{_scoreId}'" +
+				$"{DBNames.FilesFieldNameScoreId} = {_scoreId}" +
 				$"{DBNames.SqlAnd}" +
 				$"{DBNames.FilesFieldNameContentType} = '{_fileType}'";
 				}
@@ -58,16 +58,16 @@ namespace KHM.Helpers
 					switch ( _fileType.ToLower () )
 						{
 						case "orp":
-							FieldName = DBNames.ScoresFieldNameMuseScoreORP;
+							FieldName = DBNames.FilesIndexFieldNameMSCORPId;
 							break;
 						case "ork":
-							FieldName = DBNames.ScoresFieldNameMuseScoreORK;
+							FieldName = DBNames.FilesIndexFieldNameMSCORKId;
 							break;
 						case "top":
-							FieldName = DBNames.ScoresFieldNameMuseScoreTOP;
+							FieldName = DBNames.FilesIndexFieldNameMSCTOPId;
 							break;
 						case "tok":
-							FieldName = DBNames.ScoresFieldNameMuseScoreTOK;
+							FieldName = DBNames.FilesIndexFieldNameMSCTOKId;
 							break;
 						}
 					break;
@@ -77,19 +77,19 @@ namespace KHM.Helpers
 					switch ( _fileType.ToLower () )
 						{
 						case "orp":
-							FieldName = DBNames.ScoresFieldNamePDFORP;
+							FieldName = DBNames.FilesIndexFieldNamePDFORPId;
 							break;
 						case "ork":
-							FieldName = DBNames.ScoresFieldNamePDFORK;
+							FieldName = DBNames.FilesIndexFieldNamePDFORKId;
 							break;
 						case "top":
-							FieldName = DBNames.ScoresFieldNamePDFTOP;
+							FieldName = DBNames.FilesIndexFieldNamePDFTOPId;
 							break;
 						case "tok":
-							FieldName = DBNames.ScoresFieldNamePDFTOK;
+							FieldName = DBNames.FilesIndexFieldNamePDFTOKId;
 							break;
 						case "pia":
-							FieldName = DBNames.ScoresFieldNamePDFPIA;
+							FieldName = DBNames.FilesIndexFieldNamePDFPIAId;
 							break;
 						}
 					break;
@@ -99,28 +99,28 @@ namespace KHM.Helpers
 					switch ( _fileType.ToLower () )
 						{
 						case "b1":
-							FieldName = DBNames.ScoresFieldNameMP3B1;
+							FieldName = DBNames.FilesIndexFieldNameMP3B1Id;
 							break;
 						case "b2":
-							FieldName = DBNames.ScoresFieldNameMP3B2;
+							FieldName = DBNames.FilesIndexFieldNameMP3B2Id;
 							break;
 						case "t1":
-							FieldName = DBNames.ScoresFieldNameMP3T1;
+							FieldName = DBNames.FilesIndexFieldNameMP3T1Id;
 							break;
 						case "t2":
-							FieldName = DBNames.ScoresFieldNameMP3T2;
+							FieldName = DBNames.FilesIndexFieldNameMP3T2Id;
 							break;
 						case "sol1":
-							FieldName = DBNames.ScoresFieldNameMP3SOL1;
+							FieldName = DBNames.FilesIndexFieldNameMP3SOL1Id;
 							break;
 						case "sol2":
-							FieldName = DBNames.ScoresFieldNameMP3SOL2;
+							FieldName = DBNames.FilesIndexFieldNameMP3SOL2Id;
 							break;
 						case "tot":
-							FieldName = DBNames.ScoresFieldNameMP3TOT;
+							FieldName = DBNames.FilesIndexFieldNameMP3TOTId;
 							break;
 						case "pia":
-							FieldName = DBNames.ScoresFieldNameMP3PIA;
+							FieldName = DBNames.FilesIndexFieldNameMP3PIAId;
 							break;
 						}
 					break;
@@ -130,28 +130,28 @@ namespace KHM.Helpers
 					switch ( _fileType.ToLower () )
 						{
 						case "b1":
-							FieldName = DBNames.ScoresFieldNameMP3B1Voice;
+							FieldName = DBNames.FilesIndexFieldNameMP3B1VoiceId;
 							break;
 						case "b2":
-							FieldName = DBNames.ScoresFieldNameMP3B2Voice;
+							FieldName = DBNames.FilesIndexFieldNameMP3B2VoiceId;
 							break;
 						case "t1":
-							FieldName = DBNames.ScoresFieldNameMP3T1Voice;
+							FieldName = DBNames.FilesIndexFieldNameMP3T1VoiceId;
 							break;
 						case "t2":
-							FieldName = DBNames.ScoresFieldNameMP3T2Voice;
+							FieldName = DBNames.FilesIndexFieldNameMP3T2VoiceId;
 							break;
 						case "sol1":
-							FieldName = DBNames.ScoresFieldNameMP3SOL1Voice;
+							FieldName = DBNames.FilesIndexFieldNameMP3SOL1VoiceId;
 							break;
 						case "sol2":
-							FieldName = DBNames.ScoresFieldNameMP3SOL2Voice;
+							FieldName = DBNames.FilesIndexFieldNameMP3SOL2VoiceId;
 							break;
 						case "tot":
-							FieldName = DBNames.ScoresFieldNameMP3TOTVoice;
+							FieldName = DBNames.FilesIndexFieldNameMP3TOTVoiceId;
 							break;
 						case "uitv":
-							FieldName = DBNames.ScoresFieldNameMP3UITVVoice;
+							FieldName = DBNames.FilesIndexFieldNameMP3UITVVoiceId;
 							break;
 						}
 

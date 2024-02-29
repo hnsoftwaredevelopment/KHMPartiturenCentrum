@@ -18,9 +18,9 @@ namespace KHM.Helpers
 			var sqlQuery = $"" +
 				$"{DBNames.SqlUpdate}{DBNames.Database}.{DBNames.ScoresTable} " +
 				$"{DBNames.SqlSet}" +
-				$"( {_fieldName} = '@{_fieldName}' )" +
+				$"{_fieldName} = @{_fieldName}" +
 				$"{DBNames.SqlWhere}" +
-				$"{DBNames.FilesFieldNameScoreId} = '@{DBNames.FilesFieldNameScoreId}'";
+				$"{DBNames.FilesFieldNameId} = @{DBNames.FilesFieldNameId}";
 
 			try
 				{
@@ -31,8 +31,8 @@ namespace KHM.Helpers
 
 				cmd.Connection = connection;
 				cmd.CommandText = sqlQuery;
-				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameScoreId}", _scoreId );
-				cmd.Parameters.AddWithValue ( $"@{_fieldName}", 1 );
+				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameId}", _scoreId );
+				cmd.Parameters.AddWithValue ( $"@{_fieldName}", _fileExists );
 
 				cmd.ExecuteNonQuery ();
 				}

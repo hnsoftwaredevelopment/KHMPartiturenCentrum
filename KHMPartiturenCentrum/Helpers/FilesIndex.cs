@@ -22,9 +22,9 @@ namespace KHM.Helpers
 			{
 			var sqlQuery = $"" +
 				$"{DBNames.SqlInsert}{DBNames.Database}.{DBNames.FilesIndexTable} " +
-				$"( {DBNames.FilesFieldNameScoreId}, {_fieldName} )" +
+				$"( {DBNames.FilesIndexFieldNameScoreId}, {_fieldName} )" +
 				$"{DBNames.SqlValues}" +
-				$"( @{DBNames.FilesFieldNameScoreId}, @{_fieldName} )";
+				$"{_fieldName}  = @ {_fieldName}";
 
 			try
 				{
@@ -35,7 +35,7 @@ namespace KHM.Helpers
 
 				cmd.Connection = connection;
 				cmd.CommandText = sqlQuery;
-				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameScoreId}", _scoreId );
+				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesIndexFieldNameScoreId}", _scoreId );
 				cmd.Parameters.AddWithValue ( $"@{_fieldName}", _fileId );
 
 				cmd.ExecuteNonQuery ();
@@ -52,9 +52,9 @@ namespace KHM.Helpers
 			var sqlQuery = $"" +
 				$"{DBNames.SqlUpdate}{DBNames.Database}.{DBNames.FilesIndexTable} " +
 				$"{DBNames.SqlSet}" +
-				$"( {_fieldName} = '@{_fieldName}' )" +
+				$"{_fieldName} = @{_fieldName}" +
 				$"{DBNames.SqlWhere}" +
-				$"{DBNames.FilesFieldNameScoreId} = '@{DBNames.FilesFieldNameScoreId}'";
+				$"{DBNames.FilesIndexFieldNameScoreId} = @{DBNames.FilesIndexFieldNameScoreId}";
 
 			try
 				{
@@ -65,7 +65,7 @@ namespace KHM.Helpers
 
 				cmd.Connection = connection;
 				cmd.CommandText = sqlQuery;
-				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameScoreId}", _scoreId );
+				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesIndexFieldNameScoreId}", _scoreId );
 				cmd.Parameters.AddWithValue ( $"@{_fieldName}", _fileId );
 
 				cmd.ExecuteNonQuery ();

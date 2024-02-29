@@ -38,16 +38,17 @@ namespace KHM.Helpers
 
 				sqlQuery = $"" +
 					$"{DBNames.SqlInsert}{DBNames.Database}.{_table} " +
-					$"( {DBNames.FilesFieldNameFileName}, {DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, " +
+					$"( {DBNames.FilesFieldNameScoreId}, {DBNames.FilesFieldNameFileName}, {DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, " +
 					$"{DBNames.FilesFieldNameFile} ) " +
 					$"{DBNames.SqlValues}" +
-					$"( @{DBNames.FilesFieldNameFileName}, @{DBNames.FilesFieldNameContentType}, @{DBNames.FilesFieldNameFileSize}, " +
+					$"( @{DBNames.FilesFieldNameScoreId}, @{DBNames.FilesFieldNameFileName}, @{DBNames.FilesFieldNameContentType}, @{DBNames.FilesFieldNameFileSize}, " +
 					$"@{DBNames.FilesFieldNameFile} )";
 
 				using MySqlCommand cmd = new(sqlQuery, connection);
 
 				cmd.Connection = connection;
 				cmd.CommandText = sqlQuery;
+				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameScoreId}", _scoreId );
 				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameFileName}", _fileName );
 				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameContentType}", _fileType );
 				cmd.Parameters.AddWithValue ( $"@{DBNames.FilesFieldNameFileSize}", fileSize );

@@ -3515,16 +3515,16 @@ public partial class Scores : Page
 							if ( FilesIndexId == -1 )
 								{
 								// File does not exist in FilesIndex, create
-								FilesIndex.Store ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, FilesIndexId );
+								FilesIndex.Store ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, FileId );
 								}
 							else
 								{
-								// File exists in FilesIndex, cupdate
-								FilesIndex.Update ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, FilesIndexId );
+								// File exists in FilesIndex, update
+								FilesIndex.Update ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, FileId );
 								}
 
 							// Save Info to Library
-							Library.UpdateFiles ( int.Parse ( tbScoreId.Text ), FileIndexFieldName, 1 );
+							Library.UpdateFiles ( int.Parse ( tbScoreId.Text ), FileIndexFieldName.Replace("Id",""), 1 );
 
 							// Set checkbox on digitized TAB
 
@@ -3695,7 +3695,7 @@ public partial class Scores : Page
 		var _fileType = GetFileType(buttonName);
 		var _fileName = $"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
 
-		string executablePath = @"c:\Users\herbert.nijkamp\OneDrive - Voortman Steel Group\Documents\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\ScoreViewer\bin\Debug\net8.0-windows\ScoreViewer.exe";
+		string executablePath = @"c:\DevOps\KHMPartiturenCentrum\ScoreViewer\bin\Debug\net8.0-windows\ScoreViewer.exe";
 
 		string arguments = @"c:\Data\20240222 Huisarchief.pdf";
 		ProcessStartInfo startInfo = new()
