@@ -20,7 +20,7 @@ namespace KHM.Helpers
 		public static void Store ( string _table, string _fileType, string _extensionType, int _scoreId, string _path, string _fileName )
 			{
 			int fileSize;
-			string sqlQuery, _fieldName = "";
+			string sqlQuery;
 			byte[] rawData;
 			FileStream fs;
 
@@ -59,6 +59,54 @@ namespace KHM.Helpers
 				{
 				System.Windows.Forms.MessageBox.Show ( "Error " + ex.Number + " is opgetreden: " + ex.Message,
 					"Error", ( MessageBoxButtons ) MessageBoxButton.OK, ( MessageBoxIcon ) MessageBoxImage.Error );
+				}
+			}
+		#endregion
+
+		#region Delete a file from the database
+		public static void Delete (string _table, int _fileId )
+			{
+			var sqlQuery = $"" +
+				$"{DBNames.SqlDelete}{DBNames.Database}.{_table} " +
+				$"{ DBNames.SqlWhere }" +
+				$"{DBNames.FilesFieldNameId} = {_fileId} ;";
+
+			using MySqlConnection connection = new(DBConnect.ConnectionString);
+			connection.Open ( );
+
+			try
+				{
+				using MySqlCommand cmd = new(sqlQuery, connection);
+				cmd.ExecuteNonQuery();
+				}
+			catch
+				{
+				//Error deleting file
+				}
+			}
+		#endregion
+
+		#region Remove FileId from FilesIndex after delete
+		public static void DeleteFromIndex(string _fieldName, int _scoreId )
+			{
+			// Empty FilesIndex field for deleted file based on ScoreId
+			var sqlQuery = $"" +
+				$"{DBNames.SqlUpdate}{DBNames.Database}.{DBNames.FilesIndexTable}" +
+				$"{DBNames.SqlSet}" +
+				$"{_fieldName} = -1" +
+				$"{ DBNames.SqlWhere }{DBNames.FilesIndexFieldNameScoreId} = {_scoreId} ;";
+
+			using MySqlConnection connection = new(DBConnect.ConnectionString);
+			connection.Open ( );
+
+			try
+				{
+				using MySqlCommand cmd = new(sqlQuery, connection);
+				cmd.ExecuteNonQuery();
+				}
+			catch
+				{
+				//Error deleting file
 				}
 			}
 		#endregion

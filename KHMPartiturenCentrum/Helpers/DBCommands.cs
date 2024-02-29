@@ -488,7 +488,7 @@ public class DBCommands
 	#region Delete User
 	public static void DeleteUser ( string _userId )
 	{
-		var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + DBNames.UsersTable + DBNames.SqlWhere + DBNames.UsersFieldNameId + " = " + _userId + ";";
+		var sqlQuery = DBNames.SqlDelete + DBNames.Database + "." + DBNames.UsersTable + DBNames.SqlWhere + DBNames.UsersFieldNameId + " = " + _userId + ";";
 
 		using MySqlConnection connection = new(DBConnect.ConnectionString);
 		connection.Open ( );
@@ -538,7 +538,7 @@ public class DBCommands
 	static void ExecuteDeleteScore ( string _table, string _scoreNumber )
 	{
 		// Delete Score without SubScores
-		var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
+		var sqlQuery = DBNames.SqlDelete + DBNames.Database + "." + _table + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "';";
 
 		using MySqlConnection connection = new(DBConnect.ConnectionString);
 		connection.Open ( );
@@ -551,7 +551,7 @@ public class DBCommands
 	static void ExecuteDeleteScore ( string _table, string _scoreNumber, string _scoreSubNumber )
 	{
 		// Delete Score with SubScoreNumber
-		var sqlQuery = DBNames.SqlDelete + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere +
+		var sqlQuery = DBNames.SqlDelete + DBNames.Database + "." + _table + DBNames.SqlWhere +
 			DBNames.ScoresFieldNameScoreNumber + " = '" + _scoreNumber + "'";
 
 		if ( _scoreSubNumber == "" )

@@ -14,13 +14,12 @@ using System.Windows.Documents;
 using System.Windows.Forms.Design;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
+using System.IO.Pipes;
+using System.Runtime.Serialization.Formatters.Binary;
 using KHM.Helpers;
 using KHM.Models;
 using KHM.ViewModels;
-
 using Microsoft.Win32;
-
 using Syncfusion.DocIO;
 
 using static KHM.App;
@@ -3549,7 +3548,7 @@ public partial class Scores : Page
 	private void DownloadFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to download the file corresponding to the pressed button
-		var buttonName = ((Button)sender).Name;
+		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Download", "");
 		var _fileId = GetFileId(buttonName);
 		var _fileTable = GetFileTable(buttonName);
 		var _filePathSuffix = GetFilePathSuffix(buttonName);
@@ -3561,36 +3560,6 @@ public partial class Scores : Page
 		Files.DownloadFile ( _fileId, _fileTable, _filePathSuffix, _fileName );
 
 		}
-
-	#region Get FileTable for download
-	private string GetFileTable(string _buttonName )
-		{
-		var _fileTable = "";
-
-		if ( ( _buttonName.Contains ( "MSC" ) ) )
-			{
-				_fileTable = DBNames.FilesMusescoreTable;
-			}
-
-		if ( ( _buttonName.Contains ( "PDF" ) ) )
-			{
-				_fileTable = DBNames.FilesPDFTable;
-			}
-
-		if ( ( _buttonName.Contains ( "MP3" ) ) )
-			{
-				_fileTable = DBNames.FilesMP3Table;
-			}
-
-		// Check for Voice has to be after check for MP3, because Voice files are also MP3
-		if ( ( _buttonName.Contains ( "Voice" ) ) )
-			{
-				_fileTable = DBNames.FilesMP3VoiceTable;
-			}
-
-		return _fileTable;
-		}
-	#endregion
 
 	#region Get FilePathSuffix for writing downloaded file to
 	private string GetFilePathSuffix(string _buttonName )
@@ -3660,95 +3629,7 @@ public partial class Scores : Page
 		}
 	#endregion
 
-	#region Get the FileId from UI
-	private int GetFileId(string _buttonName )
-		{
-		var _fileId=-1;
-
-		switch ( _buttonName )
-			{
-			case "BtnMSCORPDownload":
-				_fileId = int.Parse ( tbMSCORPId.Text );
-				break;
-			case "BtnMSCORKDownload":
-				_fileId = int.Parse ( tbMSCORKId.Text );
-				break;
-			case "BtnMSCTOPDownload":
-				_fileId = int.Parse ( tbMSCTOPId.Text );
-				break;
-			case "BtnMSCTOKDownload":
-				_fileId = int.Parse ( tbMSCTOKId.Text );
-				break;
-			case "BtnPDFORPDownload":
-				_fileId = int.Parse ( tbPDFORPId.Text );
-				break;
-			case "BtnPDFORKDownload":
-				_fileId = int.Parse ( tbPDFORKId.Text );
-				break;
-			case "BtnPDFTOPDownload":
-				_fileId = int.Parse ( tbPDFORKId.Text );
-				break;
-			case "BtnPDFTOKDownload":
-				_fileId = int.Parse ( tbPDFTOPId.Text );
-				break;
-			case "BtnPDFPIADownload":
-				_fileId = int.Parse ( tbPDFTOKId.Text );
-				break;
-			case "BtnMP3B1Download":
-				_fileId = int.Parse ( tbMP3B1Id.Text );
-				break;
-			case "BtnMP3B2Download":
-				_fileId = int.Parse ( tbMP3B2Id.Text );
-				break;
-			case "BtnMP3T1Download":
-				_fileId = int.Parse ( tbMP3T1Id.Text );
-				break;
-			case "BtnMP3T2Download":
-				_fileId = int.Parse ( tbMP3T2Id.Text );
-				break;
-			case "BtnMP3SOL1Download":
-				_fileId = int.Parse ( tbMP3SOL1Id.Text );
-				break;
-			case "BtnMP3SOL2Download":
-				_fileId = int.Parse ( tbMP3SOL2Id.Text );
-				break;
-			case "BtnMP3TOTDownload":
-				_fileId = int.Parse ( tbMP3TOTId.Text );
-				break;
-			case "BtnMP3PIADownload":
-				_fileId = int.Parse ( tbMP3PIAId.Text );
-				break;
-			case "BtnMP3VoiceB1Download":
-				_fileId = int.Parse ( tbMP3VoiceB1Id.Text );
-				break;
-			case "BtnMP3VoiceB2Download":
-				_fileId = int.Parse ( tbMP3VoiceB2Id.Text );
-				break;
-			case "BtnMP3VoiceT1Download":
-				_fileId = int.Parse ( tbMP3VoiceT1Id.Text );
-				break;
-			case "BtnMP3VoiceT2Download":
-				_fileId = int.Parse ( tbMP3VoiceT2Id.Text );
-				break;
-			case "BtnMP3VoiceSOL1Download":
-				_fileId = int.Parse ( tbMP3VoiceSOL1Id.Text );
-				break;
-			case "BtnMP3VoiceSOL2Download":
-				_fileId = int.Parse ( tbMP3VoiceSOL2Id.Text );
-				break;
-			case "BtnMP3VoiceTOTDownload":
-				_fileId = int.Parse ( tbMP3VoiceTOTId.Text );
-				break;
-			case "BtnMP3VoiceUITVDownload":
-				_fileId = int.Parse ( tbMP3VoiceUITVId.Text );
-				break;
-			}
-
-		return _fileId;
-		}
-	#endregion
-
-	#region Get the FileId from UI
+	#region Get the FileType for download
 	private string GetFileType(string _buttonName )
 		{
 		var _fileType= "";
@@ -3774,10 +3655,28 @@ public partial class Scores : Page
 	#endregion
 	#endregion
 
+	#region Delete the File from the hosting FileTable and remove Id from FilesIndex and UI
 	private void DeleteFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to delete the file corresponding to the pressed button from the database
+		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Delete", "");
+		var _fileId = GetFileId(buttonName);
+		var _fileTable = GetFileTable(buttonName);
+		var _fieldNameFilesIndex = GetFilesIndexFieldName(buttonName);
+
+		// Delete file from filetable
+		Files.Delete(_fileTable, _fileId);
+
+		//Delete FileId from index
+		Files.DeleteFromIndex(_fieldNameFilesIndex,int.Parse(tbScoreId.Text));
+
+		//Make Id field empty in UI
+		EmptyFileId(buttonName);
+
+		//Reset file buttons in UI
+		ResetFileButtonAfterDelete(buttonName);
 		}
+	#endregion
 
 	private void PlayFile ( object sender, RoutedEventArgs e )
 		{
@@ -3787,7 +3686,479 @@ public partial class Scores : Page
 	private void PreviewFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to view the file corresponding to the pressed button in a popup window
+		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Download", "");
+		var _fileId = GetFileId(buttonName);
+		var _fileTable = GetFileTable(buttonName);
+		var _filePathSuffix = GetFilePathSuffix(buttonName);
+		var _fileExtension = GetFileExtension(buttonName);
+		var _fileVoiceSuffix = GetVoiceSuffix(buttonName);
+		var _fileType = GetFileType(buttonName);
+		var _fileName = $"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
+
+		string executablePath = @"c:\Users\herbert.nijkamp\OneDrive - Voortman Steel Group\Documents\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\ScoreViewer\bin\Debug\net8.0-windows\ScoreViewer.exe";
+
+		string arguments = @"c:\Data\20240222 Huisarchief.pdf";
+		ProcessStartInfo startInfo = new()
+			{
+				FileName = executablePath,
+				Arguments = arguments,
+				UseShellExecute = false,
+				RedirectStandardOutput = true,
+				CreateNoWindow = true
+			};
+
+		using(Process process = new Process{StartInfo = startInfo } )
+			{
+			process.Start();
+
+				process.WaitForExit();
+			}
 		}
+
+	#region Get FileTable that hosts file
+	private string GetFileTable(string _buttonName )
+		{
+		var _fileTable = "";
+
+		if ( ( _buttonName.Contains ( "MSC" ) ) )
+			{
+				_fileTable = DBNames.FilesMusescoreTable;
+			}
+
+		if ( ( _buttonName.Contains ( "PDF" ) ) )
+			{
+				_fileTable = DBNames.FilesPDFTable;
+			}
+
+		if ( ( _buttonName.Contains ( "MP3" ) ) )
+			{
+				_fileTable = DBNames.FilesMP3Table;
+			}
+
+		// Check for Voice has to be after check for MP3, because Voice files are also MP3
+		if ( ( _buttonName.Contains ( "Voice" ) ) )
+			{
+				_fileTable = DBNames.FilesMP3VoiceTable;
+			}
+
+		return _fileTable;
+		}
+	#endregion
+	
+	#region Get the FileId from UI
+	private int GetFileId(string _buttonName )
+		{
+		var _fileId=-1;
+
+		switch ( _buttonName )
+			{
+			case "MSCORP":
+				_fileId = int.Parse ( tbMSCORPId.Text );
+				break;
+			case "MSCORK":
+				_fileId = int.Parse ( tbMSCORKId.Text );
+				break;
+			case "MSCTOP":
+				_fileId = int.Parse ( tbMSCTOPId.Text );
+				break;
+			case "MSCTOK":
+				_fileId = int.Parse ( tbMSCTOKId.Text );
+				break;
+			case "PDFORP":
+				_fileId = int.Parse ( tbPDFORPId.Text );
+				break;
+			case "PDFORK":
+				_fileId = int.Parse ( tbPDFORKId.Text );
+				break;
+			case "PDFTOP":
+				_fileId = int.Parse ( tbPDFTOPId.Text );
+				break;
+			case "PDFTOK":
+				_fileId = int.Parse ( tbPDFTOKId.Text );
+				break;
+			case "PDFPIA":
+				_fileId = int.Parse ( tbPDFPIAId.Text );
+				break;
+			case "MP3B1":
+				_fileId = int.Parse ( tbMP3B1Id.Text );
+				break;
+			case "MP3B2":
+				_fileId = int.Parse ( tbMP3B2Id.Text );
+				break;
+			case "MP3T1":
+				_fileId = int.Parse ( tbMP3T1Id.Text );
+				break;
+			case "MP3T2":
+				_fileId = int.Parse ( tbMP3T2Id.Text );
+				break;
+			case "MP3SOL1":
+				_fileId = int.Parse ( tbMP3SOL1Id.Text );
+				break;
+			case "MP3SOL2":
+				_fileId = int.Parse ( tbMP3SOL2Id.Text );
+				break;
+			case "MP3TOT":
+				_fileId = int.Parse ( tbMP3TOTId.Text );
+				break;
+			case "MP3PIA":
+				_fileId = int.Parse ( tbMP3PIAId.Text );
+				break;
+			case "MP3VoiceB1":
+				_fileId = int.Parse ( tbMP3VoiceB1Id.Text );
+				break;
+			case "MP3VoiceB2":
+				_fileId = int.Parse ( tbMP3VoiceB2Id.Text );
+				break;
+			case "MP3VoiceT1":
+				_fileId = int.Parse ( tbMP3VoiceT1Id.Text );
+				break;
+			case "MP3VoiceT2":
+				_fileId = int.Parse ( tbMP3VoiceT2Id.Text );
+				break;
+			case "MP3VoiceSOL1":
+				_fileId = int.Parse ( tbMP3VoiceSOL1Id.Text );
+				break;
+			case "MP3VoiceSOL2":
+				_fileId = int.Parse ( tbMP3VoiceSOL2Id.Text );
+				break;
+			case "MP3VoiceTOT":
+				_fileId = int.Parse ( tbMP3VoiceTOTId.Text );
+				break;
+			case "MP3VoiceUITV":
+				_fileId = int.Parse ( tbMP3VoiceUITVId.Text );
+				break;
+			}
+
+		return _fileId;
+		}
+	#endregion
+	
+	#region Get the FieldName for FilesIndex
+	private string GetFilesIndexFieldName(string _buttonName )
+		{
+		var _fieldName = "";
+
+		switch ( _buttonName )
+			{
+			case "MSCORP":
+				_fieldName=DBNames.FilesIndexFieldNameMSCORPId;
+				break;
+			case "MSCORK":
+				_fieldName=DBNames.FilesIndexFieldNameMSCORKId;
+				break;
+			case "MSCTOP":
+				_fieldName=DBNames.FilesIndexFieldNameMSCTOPId;
+				break;
+			case "MSCTOK":
+				_fieldName=DBNames.FilesIndexFieldNameMSCTOKId;
+				break;
+			case "PDFORP":
+				_fieldName=DBNames.FilesIndexFieldNamePDFORPId;
+				break;
+			case "PDFORK":
+				_fieldName=DBNames.FilesIndexFieldNamePDFORKId;
+				break;
+			case "PDFTOP":
+				_fieldName=DBNames.FilesIndexFieldNamePDFTOPId;
+				break;
+			case "PDFTOK":
+				_fieldName=DBNames.FilesIndexFieldNamePDFTOKId;
+				break;
+			case "PDFPIA":
+				_fieldName=DBNames.FilesIndexFieldNamePDFPIAId;
+				break;
+			case "MP3B1":
+				_fieldName=DBNames.FilesIndexFieldNameMP3B1Id;
+				break;
+			case "MP3B2":
+				_fieldName=DBNames.FilesIndexFieldNameMP3B2Id;
+				break;
+			case "MP3T1":
+				_fieldName=DBNames.FilesIndexFieldNameMP3T1Id;
+				break;
+			case "MP3T2":
+				_fieldName=DBNames.FilesIndexFieldNameMP3T2Id;
+				break;
+			case "MP3SOL1":
+				_fieldName=DBNames.FilesIndexFieldNameMP3SOL1Id;
+				break;
+			case "MP3SOL2":
+				_fieldName=DBNames.FilesIndexFieldNameMP3SOL2Id;
+				break;
+			case "MP3TOT":
+				_fieldName=DBNames.FilesIndexFieldNameMP3TOTId;
+				break;
+			case "MP3PIA":
+				_fieldName=DBNames.FilesIndexFieldNameMP3PIAId;
+				break;
+			case "MP3VoiceB1":
+				_fieldName=DBNames.FilesIndexFieldNameMP3B1VoiceId;
+				break;
+			case "MP3VoiceB2":
+				_fieldName=DBNames.FilesIndexFieldNameMP3B2VoiceId;
+				break;
+			case "MP3VoiceT1":
+				_fieldName=DBNames.FilesIndexFieldNameMP3T1VoiceId;
+				break;
+			case "MP3VoiceT2":
+				_fieldName=DBNames.FilesIndexFieldNameMP3T2VoiceId;
+				break;
+			case "MP3VoiceSOL1":
+				_fieldName=DBNames.FilesIndexFieldNameMP3SOL1VoiceId;
+				break;
+			case "MP3VoiceSOL2":
+				_fieldName=DBNames.FilesIndexFieldNameMP3SOL2VoiceId;
+				break;
+			case "MP3VoiceTOT":
+				_fieldName=DBNames.FilesIndexFieldNameMP3TOTVoiceId;
+				break;
+			case "MP3VoiceUITV":
+				_fieldName=DBNames.FilesIndexFieldNameMP3UITVVoiceId;
+				break;
+			}
+
+		return _fieldName;
+		}
+	#endregion
+	
+	#region Empty FileId in UI
+	private void EmptyFileId(string _buttonName )
+		{ 
+		switch ( _buttonName )
+			{
+			case "MSCORP":
+				tbMSCORPId.Text = string.Empty;
+				break;
+			case "MSCORK":
+				tbMSCORKId.Text = string.Empty;
+				break;
+			case "MSCTOP":
+				tbMSCTOPId.Text = string.Empty;
+				break;
+			case "MSCTOK":
+				tbMSCTOKId.Text = string.Empty;
+				break;
+			case "PDFORP":
+				tbPDFORPId.Text = string.Empty;
+				break;
+			case "PDFORK":
+				tbPDFORKId.Text = string.Empty;
+				break;
+			case "PDFTOP":
+				tbPDFTOPId.Text = string.Empty;
+				break;
+			case "PDFTOK":
+				tbPDFTOKId.Text = string.Empty;
+				break;
+			case "PDFPIA":
+				tbPDFPIAId.Text = string.Empty;
+				break;
+			case "MP3B1":
+				tbMP3B1Id.Text = string.Empty;
+				break;
+			case "MP3B2":
+				tbMP3B2Id.Text = string.Empty;
+				break;
+			case "MP3T1":
+				tbMP3T1Id.Text = string.Empty;
+				break;
+			case "MP3T2":
+				tbMP3T2Id.Text = string.Empty;
+				break;
+			case "MP3SOL1":
+				tbMP3SOL1Id.Text = string.Empty;
+				break;
+			case "MP3SOL2":
+				tbMP3SOL2Id.Text = string.Empty;
+				break;
+			case "MP3TOT":
+				tbMP3TOTId.Text = string.Empty;
+				break;
+			case "MP3PIA":
+				tbMP3PIAId.Text = string.Empty;
+				break;
+			case "MP3VoiceB1":
+				tbMP3VoiceB1Id.Text = string.Empty;
+				break;
+			case "MP3VoiceB2":
+				tbMP3VoiceB2Id.Text = string.Empty;
+				break;
+			case "MP3VoiceT1":
+				tbMP3VoiceT1Id.Text = string.Empty;
+				break;
+			case "MP3VoiceT2":
+				tbMP3VoiceT2Id.Text = string.Empty;
+				break;
+			case "MP3VoiceSOL1":
+				tbMP3VoiceSOL1Id.Text = string.Empty;
+				break;
+			case "MP3VoiceSOL2":
+				tbMP3VoiceSOL2Id.Text = string.Empty;
+				break;
+			case "MP3VoiceTOT":
+				tbMP3VoiceTOTId.Text = string.Empty;
+				break;
+			case "MP3VoiceUITV":
+				tbMP3VoiceUITVId.Text = string.Empty;
+				break;
+			}
+		}
+	#endregion
+
+	#region Reset FileButtons for deleted file
+	private void ResetFileButtonAfterDelete(string _buttonName )
+		{
+		switch ( _buttonName )
+			{
+			case "MSCORP":
+				BtnMSCORPDelete.Visibility = Visibility.Collapsed;
+				BtnMSCORPDownload.Visibility = Visibility.Collapsed;
+				BtnMSCORPNoFile.Visibility = Visibility.Visible;
+				break;
+			case "MSCORK":
+				BtnMSCORKDelete.Visibility = Visibility.Collapsed;
+				BtnMSCORKDownload.Visibility = Visibility.Collapsed;
+				BtnMSCORKNoFile.Visibility = Visibility.Visible;
+				break;
+			case "MSCTOP":
+				BtnMSCTOPDelete.Visibility = Visibility.Collapsed;
+				BtnMSCTOPDownload.Visibility = Visibility.Collapsed;
+				BtnMSCTOPNoFile.Visibility = Visibility.Visible;
+				break;
+			case "MSCTOK":
+				BtnMSCTOKDelete.Visibility = Visibility.Collapsed;
+				BtnMSCTOKDownload.Visibility = Visibility.Collapsed;
+				BtnMSCTOKNoFile.Visibility = Visibility.Visible;
+				break;
+			case "PDFORP":
+				BtnPDFORPDelete.Visibility = Visibility.Collapsed;
+				BtnPDFORPDownload.Visibility = Visibility.Collapsed;
+				BtnPDFORPPreview.Visibility = Visibility.Collapsed;
+				BtnPDFORPNoFile.Visibility = Visibility.Visible;
+				break;
+			case "PDFORK":
+				BtnPDFORKDelete.Visibility = Visibility.Collapsed;
+				BtnPDFORKDownload.Visibility = Visibility.Collapsed;
+				BtnPDFORKPreview.Visibility = Visibility.Collapsed;
+				BtnPDFORKNoFile.Visibility = Visibility.Visible;
+				break;
+			case "PDFTOP":
+				BtnPDFTOPDelete.Visibility = Visibility.Collapsed;
+				BtnPDFTOPDownload.Visibility = Visibility.Collapsed;
+				BtnPDFTOPPreview.Visibility = Visibility.Collapsed;
+				BtnPDFTOPNoFile.Visibility = Visibility.Visible;
+				break;
+			case "PDFTOK":
+				BtnPDFTOKDelete.Visibility = Visibility.Collapsed;
+				BtnPDFTOKDownload.Visibility = Visibility.Collapsed;
+				BtnPDFTOKPreview.Visibility = Visibility.Collapsed;
+				BtnPDFTOKNoFile.Visibility = Visibility.Visible;
+				break;
+			case "PDFPIA":
+				BtnPDFPIADelete.Visibility = Visibility.Collapsed;
+				BtnPDFPIADownload.Visibility = Visibility.Collapsed;
+				BtnPDFPIAPreview.Visibility = Visibility.Collapsed;
+				BtnPDFPIANoFile.Visibility = Visibility.Visible;
+				break;
+			case "MP3B1":
+				BtnMP3B1Delete.Visibility = Visibility.Collapsed;
+				BtnMP3B1Download.Visibility = Visibility.Collapsed;
+				BtnMP3B1NoFile.Visibility = Visibility.Visible;
+				BtnMP3B1Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3B2":
+				BtnMP3B2Delete.Visibility = Visibility.Collapsed;
+				BtnMP3B2Download.Visibility = Visibility.Collapsed;
+				BtnMP3B2NoFile.Visibility = Visibility.Visible;
+				BtnMP3B2Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3T1":
+				BtnMP3T1Delete.Visibility = Visibility.Collapsed;
+				BtnMP3T1Download.Visibility = Visibility.Collapsed;
+				BtnMP3T1NoFile.Visibility = Visibility.Visible;
+				BtnMP3T1Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3T2":
+				BtnMP3T2Delete.Visibility = Visibility.Collapsed;
+				BtnMP3T2Download.Visibility = Visibility.Collapsed;
+				BtnMP3T2NoFile.Visibility = Visibility.Visible;
+				BtnMP3T2Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3SOL1":
+				BtnMP3SOL1Delete.Visibility = Visibility.Collapsed;
+				BtnMP3SOL1Download.Visibility = Visibility.Collapsed;
+				BtnMP3SOL1NoFile.Visibility = Visibility.Visible;
+				BtnMP3SOL1Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3SOL2":
+				BtnMP3SOL2Delete.Visibility = Visibility.Collapsed;
+				BtnMP3SOL2Download.Visibility = Visibility.Collapsed;
+				BtnMP3SOL2NoFile.Visibility = Visibility.Visible;
+				BtnMP3SOL2Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3TOT":
+				BtnMP3TOTDelete.Visibility = Visibility.Collapsed;
+				BtnMP3TOTDownload.Visibility = Visibility.Collapsed;
+				BtnMP3TOTNoFile.Visibility = Visibility.Visible;
+				BtnMP3TOTPlay.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3PIA":
+				BtnMP3PIADelete.Visibility = Visibility.Collapsed;
+				BtnMP3PIADownload.Visibility = Visibility.Collapsed;
+				BtnMP3PIANoFile.Visibility = Visibility.Visible;
+				BtnMP3PIAPlay.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceB1":
+				BtnMP3VoiceB1Delete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceB1Download.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceB1NoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceB1Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceB2":
+				BtnMP3VoiceB2Delete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceB2Download.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceB2NoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceB2Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceT1":
+				BtnMP3VoiceT1Delete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceT1Download.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceT1NoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceT1Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceT2":
+				BtnMP3VoiceT2Delete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceT2Download.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceT2NoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceT2Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceSOL1":
+				BtnMP3VoiceSOL1Delete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceSOL1Download.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceSOL1NoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceSOL1Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceSOL2":
+				BtnMP3VoiceSOL2Delete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceSOL2Download.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceSOL2NoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceSOL2Play.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceTOT":
+				BtnMP3VoiceTOTDelete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceTOTDownload.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceTOTNoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceTOTPlay.Visibility = Visibility.Collapsed;
+				break;
+			case "MP3VoiceUITV":
+				BtnMP3VoiceUITVDelete.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceUITVDownload.Visibility = Visibility.Collapsed;
+				BtnMP3VoiceUITVNoFile.Visibility = Visibility.Visible;
+				BtnMP3VoiceUITVPlay.Visibility = Visibility.Collapsed;
+				break;
+			}
+		}
+	#endregion
 
 	#region Create Cover Sheet
 	private void CreateCoverSheet ( object sender, RoutedEventArgs e )

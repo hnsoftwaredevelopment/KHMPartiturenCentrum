@@ -414,10 +414,13 @@
 	<PathGeometry x:Key="file.nofile" Figures="M7.1999998,0L16,8.7999997 24.799999,0 32,7.1999998 23.2,16 32,24.799999 24.799999,32 16,23.2 7.1999998,32 0,24.799999 8.7999997,16 0,7.1999998z" />
 
 	<Geometry x:Key="FileDeleteGeometry">M15,8L17,8 17,27 15,27z M11,8L13,8 13,27 11,27z M7,8L9,8 9,27 7,27z M3.0799961,5L4.9969973,29.923 19.001005,30 20.920006,5 16,5 14,5 10,5 8,5z M13.773,1.9949999L10.2,2C10.16,2.025,10,2.241,10,2.5999999L10,3 14,3 14,2.5999999C14,2.241,13.84,2.025,13.773,1.9949999z M10.2,0L13.8,0C15.034,0,16,1.142,16,2.5999999L16,3 23.080008,3 24,3 24,5 22.926149,5 20.997005,30.077C21.000006,31.103001,20.103004,32,19.000004,32L4.9999971,32C3.8969965,32,2.9999961,31.103001,2.9999961,30L1.074069,5 0,5 0,3 0.91999485,3 8,3 8,2.5999999C8,1.142,8.9659996,0,10.2,0z</Geometry>
-	<DrawingGroup x:Key="FileDeleteGroup" ClipGeometry="M0,0 V32.51461 H30.498518 V0 H0 Z" Transform="1,0,0,1,-89.961072,-103.93091">
-		<GeometryDrawing Brush="red" Geometry="{StaticResource FileDeleteGeometry}"/>
+	<DrawingGroup
+		x:Key="FileDeleteGroup"
+		ClipGeometry="M0,0 V32.51461 H30.498518 V0 H0 Z"
+		Transform="1,0,0,1,-89.961072,-103.93091">
+		<GeometryDrawing Brush="red" Geometry="{StaticResource FileDeleteGeometry}" />
 	</DrawingGroup>
-	<DrawingImage x:Key="FileDelete" Drawing="{StaticResource FileDeleteGroup}"/>
+	<DrawingImage x:Key="FileDelete" Drawing="{StaticResource FileDeleteGroup}" />
 	<!--#endregion-->
 
 	<!--#region Fyletype Images-->

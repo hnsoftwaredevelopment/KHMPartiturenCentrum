@@ -289,8 +289,8 @@
 	<SolidColorBrush x:Key="Button.Grid.Score.Download.Disabled.Background" Color="#FFF4F4F4" />
 	<SolidColorBrush x:Key="Button.Grid.Score.Download.Disabled.Border" Color="#FFADB2B5" />
 	<SolidColorBrush x:Key="Button.Grid.Score.Download.Disabled.Foreground" Color="#FF838383" />
-	
-	
+
+
 	<!--#region Button Icon colors o Score grid Files section-->
 	<SolidColorBrush x:Key="Button.Icon.Score.Files.Download" Color="#FF050579" />
 	<SolidColorBrush x:Key="Button.Icon.Score.Files.Delete" Color="#FFE00606" />

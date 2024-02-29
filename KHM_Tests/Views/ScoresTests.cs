@@ -1,7 +1,5 @@
 ﻿using KHM.Views;
 
-using Moq;
-
 using NUnit.Framework;
 
 using System;

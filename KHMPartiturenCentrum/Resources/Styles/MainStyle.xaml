@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:helpers="clr-namespace:KHM.Helpers">
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:helpers="clr-namespace:KHM.Helpers">
 
 	<!--#region Pop-up Button Style-->
 	<Style x:Key="FocusVisual">
@@ -1516,8 +1519,7 @@
 							VerticalAlignment="Center"
 							Data="{TemplateBinding Content}"
 							Fill="{TemplateBinding Foreground}"
-							Stretch="Uniform">
-						</Path>
+							Stretch="Uniform" />
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="True">

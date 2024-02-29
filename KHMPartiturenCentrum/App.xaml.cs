@@ -6,12 +6,13 @@ namespace KHM;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     public App ( )
     {
         //Register Syncfusion license
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense ("Ngo9BigBOggjHTQxAR8/V1NHaF5cWWNCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWH9fdXVURWJeUkBzW0Y=");
+        // 23.1.30: Ngo9BigBOggjHTQxAR8/V1NHaF5cWWNCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWH9fdXVURWJeUkBzW0Y=
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense ("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWX1cd3RcQ2dfWUJxWUs=");
     }
     public class ScoreUsers
     {

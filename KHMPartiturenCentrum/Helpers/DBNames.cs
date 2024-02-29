@@ -5,7 +5,7 @@ public class DBNames
 	#region Sql commands
 	public static readonly string SqlSelect = "SELECT ";
 	public static readonly string SqlSelectAll = "SELECT *";
-	public static readonly string SqlDelete = "DELETE ";
+	public static readonly string SqlDelete = "DELETE FROM ";
 	public static readonly string SqlSelectDistinct = "SELECT DISTINCT ";
 	public static readonly string SqlCast = "CAST( ";
 	public static readonly string SqlMax = "MAX( ";
@@ -190,10 +190,10 @@ public class DBNames
 	public static readonly string FilesIndexFieldNameMP3SOL2Id = "MP3SOL2Id";
 	public static readonly string FilesIndexFieldNameMP3TOTId = "MP3TOTId";
 	public static readonly string FilesIndexFieldNameMP3PIAId = "MP3PIAId";
-	public static readonly string FilesIndexFieldNameMP3MP3B1VoiceId = "MP3B1VoiceId";
-	public static readonly string FilesIndexFieldNameMP3MP3B2VoiceId = "MP3B2VoiceId";
-	public static readonly string FilesIndexFieldNameMP3MP3T1VoiceId = "MP3T1VoiceId";
-	public static readonly string FilesIndexFieldNameMP3MP3T2VoiceId = "MP3T2VoiceId";
+	public static readonly string FilesIndexFieldNameMP3B1VoiceId = "MP3B1VoiceId";
+	public static readonly string FilesIndexFieldNameMP3B2VoiceId = "MP3B2VoiceId";
+	public static readonly string FilesIndexFieldNameMP3T1VoiceId = "MP3T1VoiceId";
+	public static readonly string FilesIndexFieldNameMP3T2VoiceId = "MP3T2VoiceId";
 	public static readonly string FilesIndexFieldNameMP3SOL1VoiceId = "MP3SOL1VoiceId";
 	public static readonly string FilesIndexFieldNameMP3SOL2VoiceId = "MP3SOL2VoiceId";
 	public static readonly string FilesIndexFieldNameMP3TOTVoiceId = "MP3TOTVoiceId";
