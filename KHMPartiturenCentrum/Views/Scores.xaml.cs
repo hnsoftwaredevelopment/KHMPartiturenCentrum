@@ -3695,23 +3695,37 @@ public partial class Scores : Page
 		var _fileType = GetFileType(buttonName);
 		var _fileName = $"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
 
-		string executablePath = @"c:\DevOps\KHMPartiturenCentrum\ScoreViewer\bin\Debug\net8.0-windows\ScoreViewer.exe";
+		//string executablePath = @"c:\DevOps\KHMPartiturenCentrum\ScoreViewer\bin\Debug\net8.0-windows\ScoreViewer.exe";
+		//string arguments = "c:\Data\20240222 Huisarchief.pdf";
 
-		string arguments = @"c:\Data\20240222 Huisarchief.pdf";
+		string executablePath = "c:\\DevOps\\KHMPartiturenCentrum\\ScoreViewer\\bin\\Debug\\net8.0-windows\\ScoreViewer.exe";
+		string workingDirectory = "c:\\DevOps\\KHMPartiturenCentrum\\ScoreViewer\\bin\\Debug\\net8.0-windows";
+		string arguments = "\"c:\\Data\\20240222 Huisarchief.pdf\"";
+
 		ProcessStartInfo startInfo = new()
 			{
 				FileName = executablePath,
 				Arguments = arguments,
+				WorkingDirectory = workingDirectory,
 				UseShellExecute = false,
 				RedirectStandardOutput = true,
-				CreateNoWindow = true
+				CreateNoWindow = false
 			};
 
 		using(Process process = new Process{StartInfo = startInfo } )
 			{
-			process.Start();
+			try
+				{
+					process.Start();
+					string output = process.StandardOutput.ReadToEnd();
+					Console.WriteLine(output);
+					process.WaitForExit();
 
-				process.WaitForExit();
+				}
+			catch(Exception ex)
+				{
+				Console.WriteLine (ex.Message);
+				}			
 			}
 		}
 
