@@ -84,6 +84,17 @@
 	<SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070" />
 	<!--#endregion-->
 
+	<!--#region TimeSpan colors-->
+	<SolidColorBrush x:Key="Button.TimeSpan.Static.Background" Color="#FFDDDDDD" />
+	<SolidColorBrush x:Key="Button.TimeSpan.Static.Border" Color="#FF707070" />
+	<SolidColorBrush x:Key="Button.TimeSpan.MouseOver.Background" Color="#FFBEE6FD" />
+	<SolidColorBrush x:Key="Button.TimeSpan.MouseOver.Border" Color="#FF3C7FB1" />
+	<SolidColorBrush x:Key="Button.TimeSpan.Pressed.Background" Color="#FFC4E5F6" />
+	<SolidColorBrush x:Key="Button.TimeSpan.Pressed.Border" Color="#FF2C628B" />
+	<SolidColorBrush x:Key="Button.TimeSpan.Disabled.Background" Color="#FFF4F4F4" />
+	<SolidColorBrush x:Key="Button.TimeSpan.Disabled.Border" Color="#FFADB2B5" />
+	<SolidColorBrush x:Key="Button.TimeSpan.Disabled.Foreground" Color="#FF838383" />
+	<!--#endregion-->
 
 	<!--  Settings Colors  -->
 	<Color x:Key="Settings.Textbox.BackgroundColor.Base">#FFEBEBEB</Color>

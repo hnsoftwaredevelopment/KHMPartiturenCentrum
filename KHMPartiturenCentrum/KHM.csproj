@@ -66,6 +66,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="MySql.Data" Version="8.3.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Syncfusion.DocIO.Wpf" Version="24.2.8" />
 	<PackageReference Include="Syncfusion.Licensing" Version="24.2.8" />
 	<PackageReference Include="Syncfusion.Pdf.Wpf" Version="24.2.8" />

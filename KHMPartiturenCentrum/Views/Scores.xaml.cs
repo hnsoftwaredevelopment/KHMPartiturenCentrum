@@ -3525,7 +3525,7 @@ public partial class Scores : Page
 								}
 
 							// Save Info to Library
-							Library.UpdateFiles ( int.Parse ( tbScoreId.Text ), FileIndexFieldName.Replace("Id",""), 1 );
+							Library.UpdateFiles ( int.Parse ( tbScoreId.Text ), FileIndexFieldName.Replace ( "Id", "" ), 1 );
 
 							// Set checkbox on digitized TAB
 
@@ -3563,29 +3563,29 @@ public partial class Scores : Page
 		}
 
 	#region Get FilePathSuffix for writing downloaded file to
-	private string GetFilePathSuffix(string _buttonName )
+	private string GetFilePathSuffix ( string _buttonName )
 		{
 		var _filePathSuffix = "";
 
 		if ( ( _buttonName.Contains ( "MSC" ) ) )
 			{
-				_filePathSuffix = DBNames.FilePathSuffixMuseScore;
+			_filePathSuffix = DBNames.FilePathSuffixMuseScore;
 			}
 
 		if ( ( _buttonName.Contains ( "PDF" ) ) )
 			{
-				_filePathSuffix = DBNames.FilePathSuffixPDF;
+			_filePathSuffix = DBNames.FilePathSuffixPDF;
 			}
 
 		if ( ( _buttonName.Contains ( "MP3" ) ) )
 			{
-				_filePathSuffix = DBNames.FilePathSuffixMP3;
+			_filePathSuffix = DBNames.FilePathSuffixMP3;
 			}
 
 		// Check for Voice has to be after check for MP3, because Voice files are also MP3
 		if ( ( _buttonName.Contains ( "Voice" ) ) )
 			{
-				_filePathSuffix = DBNames.FilePathSuffixMP3Voice;
+			_filePathSuffix = DBNames.FilePathSuffixMP3Voice;
 			}
 
 		return _filePathSuffix;
@@ -3593,23 +3593,23 @@ public partial class Scores : Page
 	#endregion
 
 	#region Get FileExtension
-	private string GetFileExtension(string _buttonName )
+	private string GetFileExtension ( string _buttonName )
 		{
 		var _fileExtension = "";
 
 		if ( ( _buttonName.Contains ( "MSC" ) ) )
 			{
-				_fileExtension = DBNames.FileExtensionMuseScore;
+			_fileExtension = DBNames.FileExtensionMuseScore;
 			}
 
 		if ( ( _buttonName.Contains ( "PDF" ) ) )
 			{
-				_fileExtension = DBNames.FileExtensionPDF;
+			_fileExtension = DBNames.FileExtensionPDF;
 			}
 
 		if ( ( _buttonName.Contains ( "MP3" ) ) )
 			{
-				_fileExtension = DBNames.FileExtensionMP3;
+			_fileExtension = DBNames.FileExtensionMP3;
 			}
 
 		return _fileExtension;
@@ -3617,13 +3617,13 @@ public partial class Scores : Page
 	#endregion
 
 	#region Get Voice suffix
-	private string GetVoiceSuffix(string _buttonName )
+	private string GetVoiceSuffix ( string _buttonName )
 		{
 		var _voiceSuffix = "";
 
 		if ( ( _buttonName.Contains ( "Voice" ) ) )
 			{
-				_voiceSuffix = DBNames.FileVoiceSuffix;
+			_voiceSuffix = DBNames.FileVoiceSuffix;
 			}
 
 		return _voiceSuffix;
@@ -3631,24 +3631,24 @@ public partial class Scores : Page
 	#endregion
 
 	#region Get the FileType for download
-	private string GetFileType(string _buttonName )
+	private string GetFileType ( string _buttonName )
 		{
 		var _fileType= "";
 
 		// Check if buttonName contains certain fileType, if not _filetype is set to the current _fileType (in case another statement already set the filetype
-		_fileType = _buttonName.Contains("ORP") ? "ORP":_fileType;
-		_fileType = _buttonName.Contains("ORK") ? "ORK":_fileType;
-		_fileType = _buttonName.Contains("TOP") ? "TOP":_fileType;
-		_fileType = _buttonName.Contains("TOK") ? "TOK":_fileType;
-		_fileType = _buttonName.Contains("B1") ? "B1":_fileType;
-		_fileType = _buttonName.Contains("B2") ? "B2":_fileType;
-		_fileType = _buttonName.Contains("T1") ? "T1":_fileType;
-		_fileType = _buttonName.Contains("T2") ? "T2":_fileType;
-		_fileType = _buttonName.Contains("SOL1") ? "SOL1":_fileType;
-		_fileType = _buttonName.Contains("SOL2") ? "SOL2":_fileType;
-		_fileType = _buttonName.Contains("TOT") ? "TOT":_fileType;
-		_fileType = _buttonName.Contains("UITV") ? "UITV":_fileType;
-		_fileType = _buttonName.Contains("PIA") ? "PIA":_fileType;
+		_fileType = _buttonName.Contains ( "ORP" ) ? "ORP" : _fileType;
+		_fileType = _buttonName.Contains ( "ORK" ) ? "ORK" : _fileType;
+		_fileType = _buttonName.Contains ( "TOP" ) ? "TOP" : _fileType;
+		_fileType = _buttonName.Contains ( "TOK" ) ? "TOK" : _fileType;
+		_fileType = _buttonName.Contains ( "B1" ) ? "B1" : _fileType;
+		_fileType = _buttonName.Contains ( "B2" ) ? "B2" : _fileType;
+		_fileType = _buttonName.Contains ( "T1" ) ? "T1" : _fileType;
+		_fileType = _buttonName.Contains ( "T2" ) ? "T2" : _fileType;
+		_fileType = _buttonName.Contains ( "SOL1" ) ? "SOL1" : _fileType;
+		_fileType = _buttonName.Contains ( "SOL2" ) ? "SOL2" : _fileType;
+		_fileType = _buttonName.Contains ( "TOT" ) ? "TOT" : _fileType;
+		_fileType = _buttonName.Contains ( "UITV" ) ? "UITV" : _fileType;
+		_fileType = _buttonName.Contains ( "PIA" ) ? "PIA" : _fileType;
 
 
 		return _fileType;
@@ -3666,24 +3666,69 @@ public partial class Scores : Page
 		var _fieldNameFilesIndex = GetFilesIndexFieldName(buttonName);
 
 		// Delete file from filetable
-		Files.Delete(_fileTable, _fileId);
+		Files.Delete ( _fileTable, _fileId );
 
 		//Delete FileId from index
-		Files.DeleteFromIndex(_fieldNameFilesIndex,int.Parse(tbScoreId.Text));
+		Files.DeleteFromIndex ( _fieldNameFilesIndex, int.Parse ( tbScoreId.Text ) );
 
 		//Make Id field empty in UI
-		EmptyFileId(buttonName);
+		EmptyFileId ( buttonName );
 
 		//Reset file buttons in UI
-		ResetFileButtonAfterDelete(buttonName);
+		ResetFileButtonAfterDelete ( buttonName );
 		}
 	#endregion
 
+	#region Play the selected MP3 file in Mediaplayer window
 	private void PlayFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to play the file corresponding to the pressed button in a popup window
-		}
 
+		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Play", "");
+		var _fileId = GetFileId(buttonName);
+		var _fileTable = GetFileTable(buttonName);
+
+		UInt32 FileSize;
+		byte[] rawData;
+
+		var sqlQuery = $"" +
+			$"{DBNames.SqlSelect}{DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile}" +
+			$"{DBNames.SqlFrom}{DBNames.Database}.{_fileTable}" +
+			$"{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @Id";
+
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open ();
+
+		using MySqlCommand cmd = new(sqlQuery, connection);
+
+		cmd.Connection = connection;
+		cmd.CommandText = sqlQuery;
+
+		cmd.Parameters.AddWithValue ( $"@Id", _fileId );
+
+		var myData = cmd.ExecuteReader();
+
+		myData.Read ();
+
+		FileSize = myData.GetUInt32 ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFileSize}" ) );
+		rawData = new byte [ FileSize ];
+
+		myData.GetBytes ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFile}" ), 0, rawData, 0, ( int ) FileSize );
+
+		MemoryStream stream = new ();
+		stream.Write ( rawData, 0, rawData.Length );
+		stream.Seek ( 0, SeekOrigin.Begin );
+
+		MediaPlayerView player = new(rawData, buttonName);
+		//MediaPlayerView player = new("c:\\Data\\459PIA-FieldsofGold.mp3", buttonName);
+		player.Show ();
+
+				myData.Close ();
+		connection.Close ();
+		}
+	#endregion
+
+	#region Show the PDF Score file in a view window
 	private void PreviewFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to view the file corresponding to the pressed button in a popup window
@@ -3692,79 +3737,80 @@ public partial class Scores : Page
 		var _fileTable = GetFileTable(buttonName);
 
 		UInt32 FileSize;
-        byte[] rawData;
+		byte[] rawData;
 
-        var sqlQuery = $"" +
-            $"{DBNames.SqlSelect}{DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile}" +
-            $"{DBNames.SqlFrom}{DBNames.Database}.{_fileTable}" +
-            $"{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @Id";
+		var sqlQuery = $"" +
+			$"{DBNames.SqlSelect}{DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile}" +
+			$"{DBNames.SqlFrom}{DBNames.Database}.{_fileTable}" +
+			$"{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @Id";
 
 		using MySqlConnection connection = new(DBConnect.ConnectionString);
-            connection.Open ( );
+		connection.Open ();
 
-            using MySqlCommand cmd = new(sqlQuery, connection);
+		using MySqlCommand cmd = new(sqlQuery, connection);
 
-            cmd.Connection = connection;
-            cmd.CommandText = sqlQuery;
+		cmd.Connection = connection;
+		cmd.CommandText = sqlQuery;
 
-            cmd.Parameters.AddWithValue ( $"@Id", _fileId );
+		cmd.Parameters.AddWithValue ( $"@Id", _fileId );
 
-            var myData = cmd.ExecuteReader();
+		var myData = cmd.ExecuteReader();
 
-            myData.Read ( );
+		myData.Read ();
 
-            FileSize = myData.GetUInt32 ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFileSize}" ) );
-            rawData = new byte [ FileSize ];
+		FileSize = myData.GetUInt32 ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFileSize}" ) );
+		rawData = new byte [ FileSize ];
 
-            myData.GetBytes ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFile}" ), 0, rawData, 0, ( int ) FileSize );
+		myData.GetBytes ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFile}" ), 0, rawData, 0, ( int ) FileSize );
 
-            MemoryStream stream = new ();
-            stream.Write ( rawData, 0, rawData.Length );
-            stream.Seek ( 0, SeekOrigin.Begin );
+		MemoryStream stream = new ();
+		stream.Write ( rawData, 0, rawData.Length );
+		stream.Seek ( 0, SeekOrigin.Begin );
 
 		PDFView viewer = new(stream);
-		viewer.Show();
+		viewer.Show ();
 
-		myData.Close();
-		connection.Close();
-		
+		myData.Close ();
+		connection.Close ();
+
 
 		//PDFPreview.Show(_fileId, _fileTable);
 
 		}
+	#endregion
 
 	#region Get FileTable that hosts file
-	private string GetFileTable(string _buttonName )
+	private string GetFileTable ( string _buttonName )
 		{
 		var _fileTable = "";
 
 		if ( ( _buttonName.Contains ( "MSC" ) ) )
 			{
-				_fileTable = DBNames.FilesMusescoreTable;
+			_fileTable = DBNames.FilesMusescoreTable;
 			}
 
 		if ( ( _buttonName.Contains ( "PDF" ) ) )
 			{
-				_fileTable = DBNames.FilesPDFTable;
+			_fileTable = DBNames.FilesPDFTable;
 			}
 
 		if ( ( _buttonName.Contains ( "MP3" ) ) )
 			{
-				_fileTable = DBNames.FilesMP3Table;
+			_fileTable = DBNames.FilesMP3Table;
 			}
 
 		// Check for Voice has to be after check for MP3, because Voice files are also MP3
 		if ( ( _buttonName.Contains ( "Voice" ) ) )
 			{
-				_fileTable = DBNames.FilesMP3VoiceTable;
+			_fileTable = DBNames.FilesMP3VoiceTable;
 			}
 
 		return _fileTable;
 		}
 	#endregion
-	
+
 	#region Get the FileId from UI
-	private int GetFileId(string _buttonName )
+	private int GetFileId ( string _buttonName )
 		{
 		var _fileId=-1;
 
@@ -3850,98 +3896,98 @@ public partial class Scores : Page
 		return _fileId;
 		}
 	#endregion
-	
+
 	#region Get the FieldName for FilesIndex
-	private string GetFilesIndexFieldName(string _buttonName )
+	private string GetFilesIndexFieldName ( string _buttonName )
 		{
 		var _fieldName = "";
 
 		switch ( _buttonName )
 			{
 			case "MSCORP":
-				_fieldName=DBNames.FilesIndexFieldNameMSCORPId;
+				_fieldName = DBNames.FilesIndexFieldNameMSCORPId;
 				break;
 			case "MSCORK":
-				_fieldName=DBNames.FilesIndexFieldNameMSCORKId;
+				_fieldName = DBNames.FilesIndexFieldNameMSCORKId;
 				break;
 			case "MSCTOP":
-				_fieldName=DBNames.FilesIndexFieldNameMSCTOPId;
+				_fieldName = DBNames.FilesIndexFieldNameMSCTOPId;
 				break;
 			case "MSCTOK":
-				_fieldName=DBNames.FilesIndexFieldNameMSCTOKId;
+				_fieldName = DBNames.FilesIndexFieldNameMSCTOKId;
 				break;
 			case "PDFORP":
-				_fieldName=DBNames.FilesIndexFieldNamePDFORPId;
+				_fieldName = DBNames.FilesIndexFieldNamePDFORPId;
 				break;
 			case "PDFORK":
-				_fieldName=DBNames.FilesIndexFieldNamePDFORKId;
+				_fieldName = DBNames.FilesIndexFieldNamePDFORKId;
 				break;
 			case "PDFTOP":
-				_fieldName=DBNames.FilesIndexFieldNamePDFTOPId;
+				_fieldName = DBNames.FilesIndexFieldNamePDFTOPId;
 				break;
 			case "PDFTOK":
-				_fieldName=DBNames.FilesIndexFieldNamePDFTOKId;
+				_fieldName = DBNames.FilesIndexFieldNamePDFTOKId;
 				break;
 			case "PDFPIA":
-				_fieldName=DBNames.FilesIndexFieldNamePDFPIAId;
+				_fieldName = DBNames.FilesIndexFieldNamePDFPIAId;
 				break;
 			case "MP3B1":
-				_fieldName=DBNames.FilesIndexFieldNameMP3B1Id;
+				_fieldName = DBNames.FilesIndexFieldNameMP3B1Id;
 				break;
 			case "MP3B2":
-				_fieldName=DBNames.FilesIndexFieldNameMP3B2Id;
+				_fieldName = DBNames.FilesIndexFieldNameMP3B2Id;
 				break;
 			case "MP3T1":
-				_fieldName=DBNames.FilesIndexFieldNameMP3T1Id;
+				_fieldName = DBNames.FilesIndexFieldNameMP3T1Id;
 				break;
 			case "MP3T2":
-				_fieldName=DBNames.FilesIndexFieldNameMP3T2Id;
+				_fieldName = DBNames.FilesIndexFieldNameMP3T2Id;
 				break;
 			case "MP3SOL1":
-				_fieldName=DBNames.FilesIndexFieldNameMP3SOL1Id;
+				_fieldName = DBNames.FilesIndexFieldNameMP3SOL1Id;
 				break;
 			case "MP3SOL2":
-				_fieldName=DBNames.FilesIndexFieldNameMP3SOL2Id;
+				_fieldName = DBNames.FilesIndexFieldNameMP3SOL2Id;
 				break;
 			case "MP3TOT":
-				_fieldName=DBNames.FilesIndexFieldNameMP3TOTId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3TOTId;
 				break;
 			case "MP3PIA":
-				_fieldName=DBNames.FilesIndexFieldNameMP3PIAId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3PIAId;
 				break;
 			case "MP3VoiceB1":
-				_fieldName=DBNames.FilesIndexFieldNameMP3B1VoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3B1VoiceId;
 				break;
 			case "MP3VoiceB2":
-				_fieldName=DBNames.FilesIndexFieldNameMP3B2VoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3B2VoiceId;
 				break;
 			case "MP3VoiceT1":
-				_fieldName=DBNames.FilesIndexFieldNameMP3T1VoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3T1VoiceId;
 				break;
 			case "MP3VoiceT2":
-				_fieldName=DBNames.FilesIndexFieldNameMP3T2VoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3T2VoiceId;
 				break;
 			case "MP3VoiceSOL1":
-				_fieldName=DBNames.FilesIndexFieldNameMP3SOL1VoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3SOL1VoiceId;
 				break;
 			case "MP3VoiceSOL2":
-				_fieldName=DBNames.FilesIndexFieldNameMP3SOL2VoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3SOL2VoiceId;
 				break;
 			case "MP3VoiceTOT":
-				_fieldName=DBNames.FilesIndexFieldNameMP3TOTVoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3TOTVoiceId;
 				break;
 			case "MP3VoiceUITV":
-				_fieldName=DBNames.FilesIndexFieldNameMP3UITVVoiceId;
+				_fieldName = DBNames.FilesIndexFieldNameMP3UITVVoiceId;
 				break;
 			}
 
 		return _fieldName;
 		}
 	#endregion
-	
+
 	#region Empty FileId in UI
-	private void EmptyFileId(string _buttonName )
-		{ 
+	private void EmptyFileId ( string _buttonName )
+		{
 		switch ( _buttonName )
 			{
 			case "MSCORP":
@@ -4024,7 +4070,7 @@ public partial class Scores : Page
 	#endregion
 
 	#region Reset FileButtons for deleted file
-	private void ResetFileButtonAfterDelete(string _buttonName )
+	private void ResetFileButtonAfterDelete ( string _buttonName )
 		{
 		switch ( _buttonName )
 			{
