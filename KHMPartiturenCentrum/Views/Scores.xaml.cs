@@ -23,6 +23,7 @@ using Microsoft.Win32;
 using Syncfusion.DocIO;
 
 using static KHM.App;
+using MySql.Data.MySqlClient;
 
 namespace KHM.Views;
 
@@ -3686,47 +3687,50 @@ public partial class Scores : Page
 	private void PreviewFile ( object sender, RoutedEventArgs e )
 		{
 		// Button pressed to view the file corresponding to the pressed button in a popup window
-		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Download", "");
+		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Preview", "");
 		var _fileId = GetFileId(buttonName);
 		var _fileTable = GetFileTable(buttonName);
-		var _filePathSuffix = GetFilePathSuffix(buttonName);
-		var _fileExtension = GetFileExtension(buttonName);
-		var _fileVoiceSuffix = GetVoiceSuffix(buttonName);
-		var _fileType = GetFileType(buttonName);
-		var _fileName = $"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
 
-		//string executablePath = @"c:\DevOps\KHMPartiturenCentrum\ScoreViewer\bin\Debug\net8.0-windows\ScoreViewer.exe";
-		//string arguments = "c:\Data\20240222 Huisarchief.pdf";
+		UInt32 FileSize;
+        byte[] rawData;
 
-		string executablePath = "c:\\DevOps\\KHMPartiturenCentrum\\ScoreViewer\\bin\\Debug\\net8.0-windows\\ScoreViewer.exe";
-		string workingDirectory = "c:\\DevOps\\KHMPartiturenCentrum\\ScoreViewer\\bin\\Debug\\net8.0-windows";
-		string arguments = "\"c:\\Data\\20240222 Huisarchief.pdf\"";
+        var sqlQuery = $"" +
+            $"{DBNames.SqlSelect}{DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile}" +
+            $"{DBNames.SqlFrom}{DBNames.Database}.{_fileTable}" +
+            $"{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @Id";
 
-		ProcessStartInfo startInfo = new()
-			{
-				FileName = executablePath,
-				Arguments = arguments,
-				WorkingDirectory = workingDirectory,
-				UseShellExecute = false,
-				RedirectStandardOutput = true,
-				CreateNoWindow = false
-			};
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+            connection.Open ( );
 
-		using(Process process = new Process{StartInfo = startInfo } )
-			{
-			try
-				{
-					process.Start();
-					string output = process.StandardOutput.ReadToEnd();
-					Console.WriteLine(output);
-					process.WaitForExit();
+            using MySqlCommand cmd = new(sqlQuery, connection);
 
-				}
-			catch(Exception ex)
-				{
-				Console.WriteLine (ex.Message);
-				}			
-			}
+            cmd.Connection = connection;
+            cmd.CommandText = sqlQuery;
+
+            cmd.Parameters.AddWithValue ( $"@Id", _fileId );
+
+            var myData = cmd.ExecuteReader();
+
+            myData.Read ( );
+
+            FileSize = myData.GetUInt32 ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFileSize}" ) );
+            rawData = new byte [ FileSize ];
+
+            myData.GetBytes ( myData.GetOrdinal ( $"{DBNames.FilesFieldNameFile}" ), 0, rawData, 0, ( int ) FileSize );
+
+            MemoryStream stream = new ();
+            stream.Write ( rawData, 0, rawData.Length );
+            stream.Seek ( 0, SeekOrigin.Begin );
+
+		PDFView viewer = new(stream);
+		viewer.Show();
+
+		myData.Close();
+		connection.Close();
+		
+
+		//PDFPreview.Show(_fileId, _fileTable);
+
 		}
 
 	#region Get FileTable that hosts file

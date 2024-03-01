@@ -15,23 +15,44 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Add-New.svg" />
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\AddChristmas.svg" />
+    <None Remove="Resources\Images\applogo.svg" />
+    <None Remove="Resources\Images\Christmas tree-WF.svg" />
     <None Remove="Resources\Images\close.png" />
+    <None Remove="Resources\Images\cloud.svg" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\filelogo-base.svg" />
+    <None Remove="Resources\Images\filelogo-mp3-ingezongen.svg" />
+    <None Remove="Resources\Images\filelogo-mp3-instrumentaal.svg" />
+    <None Remove="Resources\Images\filelogo-mp3.svg" />
+    <None Remove="Resources\Images\filelogo-msc-koor.svg" />
+    <None Remove="Resources\Images\filelogo-msc-org.svg" />
+    <None Remove="Resources\Images\filelogo-mscx.svg" />
+    <None Remove="Resources\Images\filelogo-pdf.svg" />
     <None Remove="Resources\Images\filetypemp3.png" />
     <None Remove="Resources\Images\filetypemscx.png" />
     <None Remove="Resources\Images\filetypemscxonline.png" />
     <None Remove="Resources\Images\filetypepdf.png" />
+    <None Remove="Resources\Images\First.svg" />
+    <None Remove="Resources\Images\freenumbers.png" />
     <None Remove="Resources\Images\khmlogo.svg" />
+    <None Remove="Resources\Images\Last.svg" />
+    <None Remove="Resources\Images\licenses.png" />
     <None Remove="Resources\Images\lock.png" />
     <None Remove="Resources\Images\logo-white.png" />
-    <None Remove="Resources\Images\logo.png" />
+    <None Remove="Resources\Images\Media Control-07-WF.svg" />
+    <None Remove="Resources\Images\musicfiles.svg" />
     <None Remove="Resources\Images\next.png" />
+    <None Remove="Resources\Images\Next.svg" />
     <None Remove="Resources\Images\openfolder.png" />
     <None Remove="Resources\Images\pdfdownload.png" />
     <None Remove="Resources\Images\previous.png" />
+    <None Remove="Resources\Images\Renumber.svg" />
     <None Remove="Resources\Images\save.png" />
+    <None Remove="Resources\Images\scores.png" />
     <None Remove="Resources\Images\sheet_music.jpg" />
     <None Remove="Resources\Images\start.png" />
     <None Remove="Resources\Images\stopeditting.png" />
@@ -47,20 +68,60 @@
     <PackageReference Include="MySql.Data" Version="8.3.0" />
     <PackageReference Include="Syncfusion.DocIO.Wpf" Version="24.2.8" />
 	<PackageReference Include="Syncfusion.Licensing" Version="24.2.8" />
-	<PackageReference Include="Syncfusion.Pdf.NET" Version="24.2.8" />
+	<PackageReference Include="Syncfusion.Pdf.Wpf" Version="24.2.8" />
+	<PackageReference Include="Syncfusion.PdfViewer.WPF" Version="24.2.8" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Add-New.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\AddChristmas.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\applogo.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Christmas tree-WF.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\cloud.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-base.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-mp3-ingezongen.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-mp3-instrumentaal.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-mp3.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-msc-koor.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-msc-org.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-mscx.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filelogo-pdf.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\filetypemp3.png">
@@ -75,7 +136,19 @@
     <Resource Include="Resources\Images\filetypepdf.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\First.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\freenumbers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\khmlogo.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Last.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\licenses.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\lock.png">
@@ -84,10 +157,16 @@
     <Resource Include="Resources\Images\logo-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\logo.png">
+    <Resource Include="Resources\Images\Media Control-07-WF.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\musicfiles.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\next.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Next.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\openfolder.png">
@@ -99,7 +178,13 @@
     <Resource Include="Resources\Images\previous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\Renumber.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\scores.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\sheet_music.jpg">
@@ -121,6 +206,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\Images\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Template\CoverSheet.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

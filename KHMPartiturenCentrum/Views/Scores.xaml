@@ -7,7 +7,6 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:viewmodel="clr-namespace:KHM.ViewModels"
 	Title="Scores"
-	d:DataContext="{d:DesignInstance Type=viewmodel:ScoreViewModel}"
 	d:DesignHeight="750"
 	d:DesignWidth="1600"
 	DataContext="viewmodel:ScoreViewModel"

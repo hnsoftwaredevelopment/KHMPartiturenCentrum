@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Syncfusion.Licensing" Version="24.2.8" />
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="24.2.8" />
     <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="24.2.8" />
   </ItemGroup>
 

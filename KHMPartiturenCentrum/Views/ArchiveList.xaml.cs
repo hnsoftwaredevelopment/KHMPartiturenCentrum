@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
+
 //using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -8,9 +10,9 @@ using KHM.ViewModels;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Grid;
-using Color = Syncfusion.Drawing.Color;
-using PointF = Syncfusion.Drawing.PointF;
-using RectangleF = Syncfusion.Drawing.RectangleF;
+//using Color = Syncfusion.Drawing.Color;
+//using PointF = Syncfusion.Drawing.PointF;
+//using RectangleF = Syncfusion.Drawing.RectangleF;
 
 namespace KHM.Views;
 /// <summary>
@@ -58,7 +60,7 @@ public partial class ArchiveList : Page
                 case "rbchoirarchive":
                     ScoresDataGrid.ItemsSource = scores.Scores;
                     lblListTitle.Content = "Overzicht van alle partituren";
-                    tbFileName.Text = "KHMarchief";
+                    tbFileName.Text = "KHM-Archief";
                     break;
                 case "rbchoirchristmasarchive":
                     var filteredList5 = scores.Scores.Where(x=> x.GenreName.Contains("Kerst"));
@@ -73,7 +75,7 @@ public partial class ArchiveList : Page
     private void GeneratePDFButton_Click ( object sender, System.Windows.RoutedEventArgs e )
     {
         // Variables for logo and output filename
-        var LogoPath = "../../../Resources/Images/logo.png";
+        var LogoPath = "./Resources/Images/logo.png";
         int MarginLeft = 8, MarginRight=8, MarginTop=6, MarginBottom=6;
 
         var OutputPath = @"C:/Data/";
@@ -86,7 +88,7 @@ public partial class ArchiveList : Page
         var OutputFilename = $"{OutputPath}{_date[2]}{_date[1]}{_date[0]} {tbFileName.Text}.pdf";
 
         //Create a new PDF document.
-        PdfDocument document = new PdfDocument();
+        PdfDocument document = new ();
 
         #region Page Settings
         // Add Page settings
@@ -247,7 +249,7 @@ public partial class ArchiveList : Page
 
 
         //Draw grid to the page of PDF document.
-        pdfGrid.Draw ( page, new Syncfusion.Drawing.PointF ( 5, 50 ) );
+        pdfGrid.Draw ( page, new PointF ( 5, 50 ) );
 
         //Create file stream.
         using ( FileStream outputFileStream = new FileStream ( Path.GetFullPath ( OutputFilename ), FileMode.Create, FileAccess.ReadWrite ) )

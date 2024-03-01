@@ -40,7 +40,7 @@ namespace ScoreViewer
 			}
 
 
-		#region Helper Methods
+	#region Helper Methods
 	#region FileMenuOption Tool
 	private void HideFileMenuOptionTool ( string _part )
 	{
