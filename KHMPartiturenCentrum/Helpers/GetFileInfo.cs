@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using MySql.Data.MySqlClient;
-
-using Org.BouncyCastle.Asn1.Pkcs;
+﻿using MySql.Data.MySqlClient;
 
 namespace KHM.Helpers
 {
 	public static class GetFileInfo
 	{
-		public static int Id(string _table, int _scoreId, string _fileType = "")
-			{
+		public static int Id( string _table, int _scoreId, string _fileType = "" )
+		{
 			var sqlQuery = "";
 			var fileId = -1;
 
-			if(_fileType=="")
+			if ( _fileType == "" )
 			{
 				sqlQuery = $"" +
 				$"{DBNames.SqlSelect}{DBNames.FilesFieldNameId}" +
@@ -26,7 +18,7 @@ namespace KHM.Helpers
 				$"{DBNames.FilesFieldNameScoreId} = {_scoreId}";
 			}
 			else
-				{
+			{
 				sqlQuery = $"" +
 				$"{DBNames.SqlSelect}{DBNames.FilesFieldNameId}" +
 				$"{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
@@ -34,29 +26,29 @@ namespace KHM.Helpers
 				$"{DBNames.FilesFieldNameScoreId} = {_scoreId}" +
 				$"{DBNames.SqlAnd}" +
 				$"{DBNames.FilesFieldNameContentType} = '{_fileType}'";
-				}
+			}
 
 			using MySqlConnection connection = new(DBConnect.ConnectionString);
-			connection.Open ();
+			connection.Open();
 
 			using MySqlCommand cmd = new(sqlQuery, connection);
 
-			try { fileId = (int)cmd.ExecuteScalar(); }
+			try { fileId = ( int ) cmd.ExecuteScalar(); }
 			catch { return -1; }
-			
-			return fileId;
-			}
 
-		public static string FileIndexField (string _extensionType, string _fileType)
-			{
+			return fileId;
+		}
+
+		public static string FileIndexField( string _extensionType, string _fileType )
+		{
 			var FieldName = "";
 
-			switch ( _extensionType.ToLower () )
-				{
+			switch ( _extensionType.ToLower() )
+			{
 				// MuseScore file
 				case "mscz":
-					switch ( _fileType.ToLower () )
-						{
+					switch ( _fileType.ToLower() )
+					{
 						case "orp":
 							FieldName = DBNames.FilesIndexFieldNameMSCORPId;
 							break;
@@ -69,13 +61,13 @@ namespace KHM.Helpers
 						case "tok":
 							FieldName = DBNames.FilesIndexFieldNameMSCTOKId;
 							break;
-						}
+					}
 					break;
-				
+
 				// PDF File
 				case "pdf":
-					switch ( _fileType.ToLower () )
-						{
+					switch ( _fileType.ToLower() )
+					{
 						case "orp":
 							FieldName = DBNames.FilesIndexFieldNamePDFORPId;
 							break;
@@ -91,13 +83,13 @@ namespace KHM.Helpers
 						case "pia":
 							FieldName = DBNames.FilesIndexFieldNamePDFPIAId;
 							break;
-						}
+					}
 					break;
 
 				//MP3 Instrumental file
 				case "mp3":
-					switch ( _fileType.ToLower () )
-						{
+					switch ( _fileType.ToLower() )
+					{
 						case "b1":
 							FieldName = DBNames.FilesIndexFieldNameMP3B1Id;
 							break;
@@ -122,13 +114,13 @@ namespace KHM.Helpers
 						case "pia":
 							FieldName = DBNames.FilesIndexFieldNameMP3PIAId;
 							break;
-						}
+					}
 					break;
 
 				//MP3 Voice file
 				case "voice":
-					switch ( _fileType.ToLower () )
-						{
+					switch ( _fileType.ToLower() )
+					{
 						case "b1":
 							FieldName = DBNames.FilesIndexFieldNameMP3B1VoiceId;
 							break;
@@ -153,13 +145,13 @@ namespace KHM.Helpers
 						case "uitv":
 							FieldName = DBNames.FilesIndexFieldNameMP3UITVVoiceId;
 							break;
-						}
+					}
 
 					break;
-				}
+			}
 
 			return FieldName;
-			}
+		}
 	}
 
 }
