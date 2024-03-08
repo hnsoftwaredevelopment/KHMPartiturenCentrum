@@ -151,7 +151,6 @@
 							HorizontalAlignment="Center"
 							Orientation="Vertical"
 							PreviewMouseLeftButtonDown="timelineSlider_PreviewMouseLeftButtonDown"
-							PreviewMouseLeftButtonUp="timelineSlider_PreviewMouseLeftButtonUp"
 							ValueChanged="timelineSlider_ValueChanged" />
 						<TextBlock
 							Name="tbDuration"

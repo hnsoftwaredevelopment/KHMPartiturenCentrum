@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 using NAudio.Wave;
@@ -17,7 +18,8 @@ namespace KHM.Views
 
 		//private Timer timer;
 		private bool isSeekingManually = false;
-		private bool isUserChangingSlider = false;
+        private bool isSeekingManuallyCompleted = false;
+        private bool isUserChangingSlider = false;
 		private readonly MemoryStream stream;
 		private readonly Mp3FileReader mp3Reader;
 		private WaveOutEvent waveOut;
@@ -77,7 +79,7 @@ namespace KHM.Views
 		#region Start/Resume playing
 		private void btnPlayClick( object sender, RoutedEventArgs e )
 		{
-			timelineSlider.Maximum = mp3Reader.TotalTime.TotalSeconds;
+			//timelineSlider.Maximum = mp3Reader.TotalTime.TotalSeconds;
 			waveOut.Play();
 			timer.Start();
 			waveOut.Volume = ( float ) volumeSlider.Value;
@@ -132,15 +134,35 @@ namespace KHM.Views
 		#region TimeSlider lets user Jump to different parts of the media (seek to).
 		private void SeekToMediaPosition( object sender, RoutedPropertyChangedEventArgs<double> e )
 		{
-			if ( waveOut != null && mp3Reader != null )
-			{
-				// Bereken de nieuwe positie op basis van de waarde van de tijdschuifregelaar
-				long newPosition = (long)(e.NewValue * mp3Reader.Length);
+            if (sender is Slider slider)
+            {
+                // Pauzeer de positie-update tijdens het handmatig instellen van de schuifregelaar
+                positionTimer.Stop();
 
-				// Stel de nieuwe positie in op de Mp3FileReader
-				mp3Reader.Position = newPosition;
-			}
-		}
+                // Bereken de nieuwe positie op basis van de waarde van de tijdschuifregelaar
+                double newPosition = slider.Value * mp3Reader.TotalTime.TotalSeconds;
+
+                // Stel de nieuwe positie in op de Mp3FileReader
+                mp3Reader.Position = (long)newPosition;
+
+                // Als muziek al speelt, hervat het afspelen zonder opnieuw te initialiseren
+                if (waveOut.PlaybackState == PlaybackState.Playing)
+                {
+                    waveOut.Play();
+                }
+                else
+                {
+                    // Als muziek niet speelt, start het afspelen
+                    waveOut.Init(mp3Reader);
+                    waveOut.Play();
+                }
+
+                // Start de positie-update opnieuw
+                positionTimer.Start();
+
+                isUserChangingSlider = true;
+            }
+        }
 		#endregion
 
 		#region Actual position for the TimeSlider
@@ -156,16 +178,17 @@ namespace KHM.Views
 
 		private void timelineSlider_ValueChanged( object sender, RoutedPropertyChangedEventArgs<double> e )
 		{
-			if ( isUserChangingSlider )
-			{           // Markeer dat de schuifregelaar handmatig wordt bijgewerkt
-				isSeekingManually = true;
-
-				// Hier kun je verdere logica uitvoeren als dat nodig is bij het handmatig bijwerken van de schuifregelaar
-
-				// Reset de vlag na het handmatig bijwerken van de schuifregelaar
-				isSeekingManually = false;
-			}
-		}
+			if (isSeekingManually)
+			{
+                positionTimer.Stop();
+                waveOut.Stop();
+                mp3Reader.Position = (long)(timelineSlider.Value * mp3Reader.TotalTime.TotalSeconds);
+                positionTimer.Start();
+                waveOut.Play();
+            }
+            isSeekingManually = false;
+            isSeekingManuallyCompleted = false;
+        }
 
 		private void Window_Closing( object sender, System.ComponentModel.CancelEventArgs e )
 		{
@@ -179,16 +202,73 @@ namespace KHM.Views
 
 		private void timelineSlider_PreviewMouseLeftButtonDown( object sender, MouseButtonEventArgs e )
 		{
-			isUserChangingSlider = true;
-			//timelineSlider.Value = mp3Reader.CurrentTime.TotalSeconds;
-			//tbDuration.Text = $"({mp3Reader.CurrentTime.ToString( "mm\\:ss" )})";
-			//mp3Reader.Position = ( long ) timelineSlider.Value;
-		}
+            isSeekingManually = true;
 
-		private void timelineSlider_PreviewMouseLeftButtonUp( object sender, MouseButtonEventArgs e )
+            //if (sender is Slider slider)
+            //{
+            //    // Pauzeer de positie-update tijdens het handmatig instellen van de schuifregelaar
+            //    positionTimer.Stop();
+
+            //    // Bereken de nieuwe positie op basis van de waarde van de tijdschuifregelaar
+            //    double newPosition = slider.Value * mp3Reader.TotalTime.TotalSeconds;
+
+            //    // Stel de nieuwe positie in op de Mp3FileReader
+            //    mp3Reader.Position = (long)newPosition;
+
+            //    // Als muziek al speelt, hervat het afspelen zonder opnieuw te initialiseren
+            //    if (waveOut.PlaybackState == PlaybackState.Playing)
+            //    {
+            //        waveOut.Play();
+            //    }
+            //    else
+            //    {
+            //        // Als muziek niet speelt, start het afspelen
+            //        waveOut.Init(mp3Reader);
+            //        waveOut.Play();
+            //    }
+
+            //    // Start de positie-update opnieuw
+            //    positionTimer.Start();
+
+            //    isUserChangingSlider = true;
+            //}
+        }
+
+        private void timelineSlider_PreviewMouseLeftButtonUp( object sender, MouseButtonEventArgs e )
 		{
-			isUserChangingSlider = false;
-		}
+			if (isSeekingManually)
+			{
+				isSeekingManuallyCompleted = true;
+            }
+            //if (sender is Slider slider)
+            //{
+            //    // Pauzeer de positie-update tijdens het handmatig instellen van de schuifregelaar
+            //    positionTimer.Stop();
+
+            //    // Bereken de nieuwe positie op basis van de waarde van de tijdschuifregelaar
+            //    double newPosition = slider.Value * mp3Reader.TotalTime.TotalSeconds;
+
+            //    // Stel de nieuwe positie in op de Mp3FileReader
+            //    mp3Reader.Position = (long)newPosition;
+
+            //    // Als muziek al speelt, hervat het afspelen zonder opnieuw te initialiseren
+            //    if (waveOut.PlaybackState == PlaybackState.Playing)
+            //    {
+            //        waveOut.Play();
+            //    }
+            //    else
+            //    {
+            //        // Als muziek niet speelt, start het afspelen
+            //        waveOut.Init(mp3Reader);
+            //        waveOut.Play();
+            //    }
+
+            //    // Start de positie-update opnieuw
+            //    positionTimer.Start();
+
+            //    isUserChangingSlider = true;
+            //}
+        }
 
 		private void Timer_Tick( object sender, EventArgs e )
 		{
@@ -197,5 +277,18 @@ namespace KHM.Views
 			//tbDuration.Text = string.Format( "({0:mm\\:ss})", mp3Reader.CurrentTime.TotalSeconds );
 			//tbDuration.Text = $"({mp3Reader.CurrentTime.ToString("mm\\:ss")})";
 		}
-	}
+
+        private void timelineSlider_PreviewMouseLeftButtonDown(object sender, DragEventArgs e)
+        {
+            isSeekingManually = true;
+        }
+
+        private void timelineSlider_ValueChanged(object sender, DragEventArgs e)
+        {
+            if (isSeekingManually)
+            {
+                isSeekingManuallyCompleted = true;
+            }
+        }
+    }
 }

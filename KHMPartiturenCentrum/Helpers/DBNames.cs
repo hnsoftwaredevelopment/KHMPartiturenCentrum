@@ -36,37 +36,37 @@ public class DBNames
 	#endregion
 
 	#region Table/View Accompaniment
-	public static readonly string AccompanimentsTable = "Begeleiding";
+	public static readonly string AccompanimentsTable = "begeleiding";
 	public static readonly string AccompanimentsFieldNameId = "ArchiveId";
 	public static readonly string AccompanimentsFieldNameName = "Begeleiding";
 	#endregion
 
 	#region Table/View Archive
-	public static readonly string ArchivesTable = "Archief";
+	public static readonly string ArchivesTable = "archief";
 	public static readonly string ArchivesFieldNameId = "ArchiveId";
 	public static readonly string ArchivesFieldNameName = "Genre";
 	#endregion
 
 	#region Table/View Genre
-	public static readonly string GenresTable = "Genre";
+	public static readonly string GenresTable = "genre";
 	public static readonly string GenresFieldNameId = "ArchiveId";
 	public static readonly string GenresFieldNameName = "Genre";
 	#endregion
 
 	#region Table/View Repertoire
-	public static readonly string RepertoiresTable = "Repertoire";
+	public static readonly string RepertoiresTable = "repertoire";
 	public static readonly string RepertoiresFieldNameId = "ArchiveId";
 	public static readonly string RepertoiresFieldNameName = "Repertoire";
 	#endregion
 
 	#region Table/View Languages
-	public static readonly string LanguagesTable = "Taal";
+	public static readonly string LanguagesTable = "taal";
 	public static readonly string LanguagesFieldNameId = "ArchiveId";
 	public static readonly string LanguagesFieldNameName = "Taal";
 	#endregion
 
 	#region Table/View Publisher
-	public static readonly string PublishersTable = "Uitgever";
+	public static readonly string PublishersTable = "uitgever";
 	public static readonly string PublishersFieldNameId = "Id";
 	public static readonly string PublishersFieldNameName = "Naam";
 	public static readonly string PublishersFieldNameAddress1 = "Adres1";
@@ -80,7 +80,7 @@ public class DBNames
 	#endregion
 
 	#region Table/View Scores
-	public static readonly string ScoresTable = "Bibliotheek";
+	public static readonly string ScoresTable = "bibliotheek";
 	public static readonly string ScoresFieldNameId = "Id";
 	public static readonly string ScoresFieldNameArchiveId = "ArchiefId";
 	public static readonly string ScoresFieldNameRepertoireId = "RepertoireId";
@@ -137,7 +137,7 @@ public class DBNames
 	public static readonly string ScoresFieldNamePublisher4Id = "Uitgever4Id";
 	public static readonly string ScoresFieldNameDuration = "Duur";
 
-	public static readonly string ScoresView = "Bibliotheek_View";
+	public static readonly string ScoresView = "bibliotheek_view";
 	public static readonly string ScoresViewFieldNameScore = "PartituurNummer";
 	public static readonly string ScoresViewFieldNameArchiveName = "ArchiefNaam";
 	public static readonly string ScoresViewFieldNameRepertoireName = "RepertoireNaam";
@@ -151,7 +151,7 @@ public class DBNames
 	#endregion
 
 	#region Table/View Available Score Numbers
-	public static readonly string AvailableScoresView = "AvailableScoresView";
+	public static readonly string AvailableScoresView = "availablescoresview";
 	public static readonly string AvailableScoresFieldNameId = "Id";
 	public static readonly string AvailableScoresFieldNameNumber = "Partituur";
 	#endregion
@@ -201,7 +201,7 @@ public class DBNames
 	#endregion
 
 	#region Table/View Users
-	public static readonly string UsersTable = "Users";
+	public static readonly string UsersTable = "users";
 	public static readonly string UsersFieldNameId = "Id";
 	public static readonly string UsersFieldNameLogin = "EMail";
 	public static readonly string UsersFieldNameUserName = "UserName";
@@ -211,14 +211,14 @@ public class DBNames
 	public static readonly string UsersFieldNameCoverSheetFolder = "CoverSheetFolder";
 	public static readonly string UsersFieldNameDownloadFolder = "DownloadFolder";
 
-	public static readonly string UsersView = "view_Users";
+	public static readonly string UsersView = "view_users";
 	public static readonly string UsersViewFieldNameRoleOrder = "RoleOrder";
 	public static readonly string UsersViewFieldNameRoleName = "RoleName";
 	public static readonly string UsersViewFieldNameRoleDescription = "RoleDescription";
 	#endregion
 
 	#region Table/View UserRoles
-	public static readonly string UserRolesTable = "UserRoles";
+	public static readonly string UserRolesTable = "userroles";
 	public static readonly string UserRolesFieldNameId = "Id";
 	public static readonly string UserRolesFieldNameOrder = "RoleOrder";
 	public static readonly string UserRolesFieldNameName = "RoleName";
@@ -226,7 +226,7 @@ public class DBNames
 	#endregion
 
 	#region Table/View Settings
-	public static readonly string SettingsTable= "Settings";
+	public static readonly string SettingsTable= "settings";
 	#endregion
 
 	#region Folder suffixes for file storage
@@ -248,7 +248,7 @@ public class DBNames
 
 	#region Log history
 	#region Table History
-	public static readonly string LogTable = "History";
+	public static readonly string LogTable = "history";
 	public static readonly string LogFieldNameLogId = "Id";
 	public static readonly string LogFieldNameTimeStamp = "LogDate";
 	public static readonly string LogFieldNameUserId = "UserId";
@@ -257,7 +257,7 @@ public class DBNames
 	#endregion
 
 	#region View History
-	public static readonly string LogView = "view_History";
+	public static readonly string LogView = "view_history";
 	public static readonly string LogViewFieldNameLogid = "LogId";
 	public static readonly string LogViewFieldNameLogDate = "LogDate";
 	public static readonly string LogViewFieldNameUserName = "User";
@@ -269,7 +269,7 @@ public class DBNames
 	#endregion
 
 	#region Table HistoryDetails
-	public static readonly string LogDetailTable = "HistoryDetails";
+	public static readonly string LogDetailTable = "historydetails";
 	public static readonly string LogDetailFieldNameDetailId = "Id";
 	public static readonly string LogDetailFieldNameLogId = "LogId";
 	public static readonly string LogDetailFieldNameChanged = "ModifiedField";
