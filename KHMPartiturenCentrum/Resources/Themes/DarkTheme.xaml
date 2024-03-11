@@ -308,5 +308,31 @@
 	<SolidColorBrush x:Key="Button.Icon.Score.Files.NoFile" Color="#FF940505" />
 	<SolidColorBrush x:Key="Button.Icon.Score.Files.Preview" Color="#FF026F02" />
 	<SolidColorBrush x:Key="Button.Icon.Score.Files.Play" Color="#FF026F02" />
+	<!--#endregion-->
+	
+	<!--#region  Syncfusion Media Slider colors -->
+	<SolidColorBrush x:Key="MediaSlider.TickBarItem.Foreground" Color="Black" />
+	<SolidColorBrush x:Key="MediaSlider.TickBarItem.Background" Color="Transparent" />
+	<SolidColorBrush x:Key="MediaSlider.Thumb.Foreground" Color="#28349B" />
+	<SolidColorBrush x:Key="MediaSlider.Thumb.Background" Color="#66B6F1" />
+	<SolidColorBrush x:Key="MediaSlider.Thumb.Borderbrush" Color="#1690E9" />
+	<SolidColorBrush x:Key="MediaSlider.ToolTip.Foreground" Color="#ffffff" />
+	<SolidColorBrush x:Key="MediaSlider.ToolTip.Background" Color="#1B7AE0" />
+	<SolidColorBrush x:Key="MediaSlider.ToolTip.Borderbrush" Color="#1B7AE0" />
+	<SolidColorBrush x:Key="MediaSlider.ActiveTrack.Fill" Color="#1B7AE0" />
+	<Color x:Key="MediaSlider.ActiveTrack.GradientStop1">#FF050579</Color>
+	<Color x:Key="MediaSlider.ActiveTrack.GradientStop2">#28349B</Color>
+	<Color x:Key="MediaSlider.ActiveTrack.GradientStop3">#1B7AE0</Color>
+	<Color x:Key="MediaSlider.ActiveTrack.GradientStop4">#66B6F1</Color>
+	<Color x:Key="MediaSlider.ActiveTrack.GradientStop5">White</Color>
+	<SolidColorBrush x:Key="MediaSlider.InactiveTrack.Fill" Color="Gray" />
+	<Color x:Key="MediaSlider.InactiveTrack.GradientStop1">White</Color>
+	<Color x:Key="MediaSlider.InactiveTrack.GradientStop2">LightGray</Color>
+	<Color x:Key="MediaSlider.InactiveTrack.GradientStop3">#c2c2c2</Color>
+	<Color x:Key="MediaSlider.InactiveTrack.GradientStop4">DarkGray</Color>
+	<Color x:Key="MediaSlider.InactiveTrack.GradientStop5">Gray</Color>
+	<SolidColorBrush x:Key="MediaSlider.ElapsedDuration.Foreground" Color="#28349B"/>
+	<SolidColorBrush x:Key="MediaSlider.Duration.Foreground" Color="#28349B"/>
+	<!--#endregion-->
 
 </ResourceDictionary>

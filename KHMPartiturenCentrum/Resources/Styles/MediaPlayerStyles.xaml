@@ -1,0 +1,283 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf">
+
+	<!--#region Tick Bar Item style-->
+	<Style TargetType="syncfusion:TickBarItem">
+		<Setter Property="Foreground" Value="{DynamicResource MediaSlider.TickBarItem.Foreground}" />
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.TickBarItem.Background}" />
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Inactive Track style-->
+	<Style x:Key="SmallRectangleInactiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="2" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.InactiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="RoundRectangleInactiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="2" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.InactiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="CustomInactiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="4" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.InactiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="GradientColorInactiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="6" />
+		<Setter Property="RadiusX" Value="3" />
+		<Setter Property="RadiusY" Value="3" />
+		<Setter Property="Fill">
+			<Setter.Value>
+				<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+					<GradientStop Offset="0.0" Color="{DynamicResource MediaSlider.InactiveTrack.GradientStop1}" />
+					<GradientStop Offset="0.33" Color="{DynamicResource MediaSlider.InactiveTrack.GradientStop2}" />
+					<GradientStop Offset="0.67" Color="{DynamicResource MediaSlider.InactiveTrack.GradientStop3}" />
+					<GradientStop Offset="0.85" Color="{DynamicResource MediaSlider.InactiveTrack.GradientStop4}" />
+					<GradientStop Offset="1.0" Color="{DynamicResource MediaSlider.InactiveTrack.GradientStop5}" />
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Active Track style-->
+	<Style x:Key="ActiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="9" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.ActiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="SmallRectangleActiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="5" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.ActiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="RoundRectangleActiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="6" />
+		<Setter Property="RadiusX" Value="3" />
+		<Setter Property="RadiusY" Value="10" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.ActiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="CustomActiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="4" />
+		<Setter Property="Fill" Value="{DynamicResource MediaSlider.ActiveTrack.Fill}" />
+	</Style>
+
+	<Style x:Key="GradientColorActiveTrackStyle" TargetType="Rectangle">
+		<Setter Property="Height" Value="6" />
+		<Setter Property="RadiusX" Value="3" />
+		<Setter Property="RadiusY" Value="10" />
+		<Setter Property="Fill">
+			<Setter.Value>
+				<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+					<GradientStop Offset="0.0" Color="{DynamicResource MediaSlider.ActiveTrack.GradientStop1}" />
+					<GradientStop Offset="0.33" Color="{DynamicResource MediaSlider.ActiveTrack.GradientStop2}" />
+					<GradientStop Offset="0.67" Color="{DynamicResource MediaSlider.ActiveTrack.GradientStop3}" />
+					<GradientStop Offset="0.85" Color="{DynamicResource MediaSlider.ActiveTrack.GradientStop4}" />
+					<GradientStop Offset="1.0" Color="{DynamicResource MediaSlider.ActiveTrack.GradientStop5}" />
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Thumb styles-->
+	<Style x:Key="StickThumbStyle" TargetType="Thumb">
+		<Setter Property="Width" Value="16" />
+		<Setter Property="Height" Value="16" />
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.Thumb.Background}" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Thumb">
+					<Border
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="12" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="CustomThumbStyle" TargetType="Thumb">
+		<Setter Property="Width" Value="16" />
+		<Setter Property="Height" Value="16" />
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.Thumb.Background}" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Thumb">
+					<Border
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="8" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="RoundedThumbStyle" TargetType="Thumb">
+		<Setter Property="Width" Value="12" />
+		<Setter Property="Height" Value="12" />
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.Thumb.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MediaSlider.Thumb.Borderbrush}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Thumb">
+					<Grid>
+						<Border
+							Width="{TemplateBinding Width}"
+							Height="{TemplateBinding Height}"
+							Background="{TemplateBinding Background}"
+							CornerRadius="12" />
+						<Rectangle Height="20" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="GradientRoundedCornerThumbStyle" TargetType="Thumb">
+		<Setter Property="Width" Value="18" />
+		<Setter Property="Height" Value="18" />
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.Thumb.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MediaSlider.Thumb.Borderbrush}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Thumb">
+					<Border
+						x:Name="ThumbBorder"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="2"
+						CornerRadius="12" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Tooltip Style-->
+	<Style x:Key="SmallRectangleTooltipStyle" TargetType="ToolTip">
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.ToolTip.Background}" />
+		<Setter Property="Foreground" Value="{DynamicResource MediaSlider.ToolTip.Foreground}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ContentControl">
+					<Grid>
+						<Path
+							Width="40"
+							Height="30"
+							Margin="0,1,0,0"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Data="M1,0 L15,0 C15.553,0 16,0.44800001 16,1 L16,10.511001 C16,11.063001 15.553,11.511001 15,11.511001 L10.173,11.511001 8,14 5.8150001,11.511001 1,11.511001 C0.44800001,11.511001 0,11.063001 0,10.511001 L0,1 C0,0.44800001 0.44800001,0 1,0 z"
+							Fill="{TemplateBinding Background}"
+							Stretch="Fill" />
+						<TextBlock
+							Margin="0,0,0,5"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontSize="12"
+							Foreground="{TemplateBinding Foreground}"
+							Text="{TemplateBinding Content}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ToolTipStyle" TargetType="ToolTip">
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.ToolTip.Background}" />
+		<Setter Property="Foreground" Value="{DynamicResource MediaSlider.ToolTip.Foreground}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ContentControl">
+					<Grid x:Name="grid">
+						<Path
+							Width="40"
+							Height="30"
+							Margin="0,1,0,0"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Data="M1,0 L15,0 C15.553,0 16,0.44800001 16,1 L16,10.511001 C16,11.063001 15.553,11.511001 15,11.511001 L10.173,11.511001 8,14 5.8150001,11.511001 1,11.511001 C0.44800001,11.511001 0,11.063001 0,10.511001 L0,1 C0,0.44800001 0.44800001,0 1,0 z"
+							Fill="{TemplateBinding Background}"
+							Stretch="Fill" />
+						<TextBlock
+							Margin="0,0,0,5"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontSize="12"
+							Foreground="{TemplateBinding Foreground}"
+							Text="{TemplateBinding Content}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="CustomTooltipStyle" TargetType="ToolTip">
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.ToolTip.Background}" />
+		<Setter Property="Foreground" Value="{DynamicResource MediaSlider.ToolTip.Foreground}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ContentControl">
+					<Grid x:Name="grid">
+						<Path
+							Width="40"
+							Height="30"
+							Margin="0,1,0,0"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Data="M1,0 L15,0 C15.553,0 16,0.44800001 16,1 L16,10.511001 C16,11.063001 15.553,11.511001 15,11.511001 L10.173,11.511001 8,14 5.8150001,11.511001 1,11.511001 C0.44800001,11.511001 0,11.063001 0,10.511001 L0,1 C0,0.44800001 0.44800001,0 1,0 z"
+							Fill="{TemplateBinding Background}"
+							Stretch="Fill" />
+						<TextBlock
+							Margin="0,0,0,5"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontSize="12"
+							Foreground="{TemplateBinding Foreground}"
+							Text="{TemplateBinding Content}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="RoundRectangleTooltipStyle" TargetType="ToolTip">
+		<Setter Property="Background" Value="{DynamicResource MediaSlider.ToolTip.Background}" />
+		<Setter Property="Foreground" Value="{DynamicResource MediaSlider.ToolTip.Foreground}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ContentControl">
+					<Grid x:Name="grid">
+						<Path
+							Width="40"
+							Height="30"
+							Margin="0,1,0,0"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Data="M1,0 L15,0 C15.553,0 16,0.44800001 16,1 L16,10.511001 C16,11.063001 15.553,11.511001 15,11.511001 L10.173,11.511001 8,14 5.8150001,11.511001 1,11.511001 C0.44800001,11.511001 0,11.063001 0,10.511001 L0,1 C0,0.44800001 0.44800001,0 1,0 z"
+							Fill="{TemplateBinding Background}"
+							Stretch="Fill" />
+						<TextBlock
+							Margin="0,0,0,5"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontSize="12"
+							Foreground="{TemplateBinding Foreground}"
+							Text="{TemplateBinding Content}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--#endregion-->
+</ResourceDictionary>
