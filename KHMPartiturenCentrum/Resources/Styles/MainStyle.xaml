@@ -595,7 +595,6 @@
 	<!--#endregion-->
 	<!--#endregion-->
 
-
 	<!--#region Settings Save Button Style-->
 	<Style x:Key="Settings.Save.ButtonStyle" TargetType="{x:Type Button}">
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
@@ -860,7 +859,6 @@
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Center" />
 	</Style>
-	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Hidden TextBlock-->
@@ -1312,7 +1310,6 @@
 		<Style.Triggers />
 	</Style>
 	<!--#endregion-->
-
 	<!--#endregion-->
 
 	<!--#region Styles for Settings properties-->
@@ -1495,7 +1492,8 @@
 		</Setter>
 	</Style>
 	<!--#endregion-->
-
+	<!--#endregion-->
+	
 	<!--#region Grid Files section Buttons-->
 	<!--#region Button-->
 	<Style x:Key="ScoreGridFilesButtonsStyle" TargetType="{x:Type Button}">
@@ -1597,7 +1595,20 @@
 		</Setter>
 	</Style>
 	<!--#endregion-->
-
 	<!--#endregion-->
 
+	<!--#region Media Player TextBoxes-->
+	<Style x:Key="MediaPlayerTextBox" TargetType="TextBox">
+		<Setter Property="Foreground" Value="{DynamicResource MediaPlayer.Foreground}" />
+		<Setter Property="Background" Value="{DynamicResource MediaPlayer.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MediaPlayer.Borderbrush}" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="VerticalContentAlignment" Value="Bottom" />
+		<Setter Property="FontFamily" Value="Comic Sans"/>
+	</Style>
+	<!--#endregion-->
 </ResourceDictionary>

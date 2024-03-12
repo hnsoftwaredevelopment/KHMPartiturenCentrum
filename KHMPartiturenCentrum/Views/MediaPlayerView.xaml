@@ -10,7 +10,7 @@
 	xmlns:volume="clr-namespace:KHM.ViewModels"
 	Title="KHM's MP3 Speler"
 	Width="550"
-	Height="400"
+	Height="405"
 	Closing="Window_Closing"
 	mc:Ignorable="d">
 	<Window.Resources>
@@ -30,15 +30,29 @@
 			<!--#endregion-->
 
 			<!--#endregion-->
+
 			<!--#region File information-->
-			<TextBox
-				x:Name="tbFileName"
-				Margin="0,15,0,15"
+			<StackPanel
+				Margin="0,15,0,10"
 				HorizontalAlignment="Center"
-				FontFamily="Comic Sans"
-				FontSize="14"
-				Text="[filename]"
-				TextAlignment="Center" />
+				Orientation="Horizontal">
+				<Image x:Name="instrumentalicon" Source="{StaticResource instrumentalicon}" Width="20" Height="20" Margin="0,0,5,0" HorizontalAlignment="Left" Visibility="Collapsed"/>
+				<Image x:Name="voiceicon" Source="{StaticResource voiceicon}" Width="20" Height="20" Margin="0,0,5,0"  Visibility="Collapsed" HorizontalAlignment="Left"/>
+				<TextBox
+					x:Name="tbScore" Style="{DynamicResource MediaPlayerTextBox}"
+					FontWeight="ExtraBold"
+					Text="[nr]" />
+
+				<TextBox
+					x:Name="tbTitle" Style="{DynamicResource MediaPlayerTextBox}" Margin="4,0,4,0"
+					Text="[tite]" />
+
+				<TextBox
+					x:Name="tbPart" Style="{DynamicResource MediaPlayerTextBox}"
+					FontStyle="Italic"
+					Text="[partij]" />
+			</StackPanel>
+
 			<TextBox
 				x:Name="tbTotalTime"
 				HorizontalAlignment="Center"
@@ -48,97 +62,95 @@
 				Text=""
 				TextAlignment="Center"
 				Visibility="Visible" />
+			<!--#endregion-->
 
 			<!--#region Media buttons-->
-				<Border
-					Width="250"
-					Height="45"
-					Margin="0,30,0,20"
-					HorizontalAlignment="Center"
-					BorderBrush="DarkBlue"
-					BorderThickness=".5"
-					CornerRadius="5">
-					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-						<Button
-							x:Name="btnPlay"
-							Click="btnPlayClick"
-							Style="{DynamicResource MusicFiles.Buttons.Style}"
-							ToolTip="Afspelen">
-							<Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
-						</Button>
+			<Border
+				Width="250"
+				Height="45"
+				Margin="0,18,0,18"
+				HorizontalAlignment="Center"
+				BorderBrush="DarkBlue"
+				BorderThickness=".5"
+				CornerRadius="5">
+				<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+					<Button
+						x:Name="btnPlay"
+						Click="btnPlayClick"
+						Style="{DynamicResource MusicFiles.Buttons.Style}"
+						ToolTip="Afspelen">
+						<Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+					</Button>
 
-						<Button
-							x:Name="btnPause"
-							Margin="45,0,45,0"
-							Click="btnPauseClick"
-							Style="{DynamicResource MusicFiles.Buttons.Style}"
-							ToolTip="Pauze">
-							<Path Data="{DynamicResource MusicFiles.Pause}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
-						</Button>
+					<Button
+						x:Name="btnPause"
+						Margin="45,0,45,0"
+						Click="btnPauseClick"
+						Style="{DynamicResource MusicFiles.Buttons.Style}"
+						ToolTip="Pauze">
+						<Path Data="{DynamicResource MusicFiles.Pause}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+					</Button>
 
-						<Button
-							x:Name="btnStop"
-							Click="btnStopClick"
-							Style="{DynamicResource MusicFiles.Buttons.Style}"
-							ToolTip="Stop">
-							<Path Data="{DynamicResource MusicFiles.Stop}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
-						</Button>
-					</StackPanel>
-				</Border>
-				<!--#endregion-->
+					<Button
+						x:Name="btnStop"
+						Click="btnStopClick"
+						Style="{DynamicResource MusicFiles.Buttons.Style}"
+						ToolTip="Stop">
+						<Path Data="{DynamicResource MusicFiles.Stop}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+					</Button>
+				</StackPanel>
+			</Border>
+			<!--#endregion-->
 
 			<!--#region Play slider (GradientRoundedCornerThumbStyle, CustomThumbStyle)-->
-			<StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0,3,0,3">
-				<syncfusion:SfRangeSlider
-						Width="300"
-						ActiveTrackStyle="{DynamicResource RoundRectangleActiveTrackStyle}"
-						InactiveTrackStyle="{DynamicResource GradientColorInactiveTrackStyle}"
-						Maximum="100"
-						Minimum="0"
-						ShowRange="False"
-						ThumbStyle="{DynamicResource RoundedThumbStyle}"
-						ValueChanged="timelineSlider_ValueChanged"
-						Value="0" />
+			<StackPanel
+				Height="35"
+				Margin="0,3,0,5"
+				VerticalAlignment="Center"
+				Orientation="Vertical">
+				<syncfusion:SfRangeSlider x:Name="timelineSlider"
+					Width="300"
+					ActiveTrackStyle="{DynamicResource RoundRectangleActiveTrackStyle}"
+					InactiveTrackStyle="{DynamicResource RoundRectangleInactiveTrackStyle}"
+					Maximum="100"
+					Minimum="0"
+					ShowRange="False"
+					ThumbStyle="{DynamicResource RoundedThumbStyle}"
+					ValueChanged="SeekToMediaPosition"
+					Value="0" />
 				<TextBlock
-						x:Name="tbDuration"
-						Height="12"
-						Margin="0,3,0,0"
-						HorizontalAlignment="Center"
-						FontSize="12"
-						Foreground="{DynamicResource MediaSlider.ElapsedDuration.Foreground}"
-						Text="0:00" />
+					x:Name="tbDuration"
+					Height="16"
+					Margin="0,3,0,0"
+					HorizontalAlignment="Center"
+					FontSize="12"
+					Foreground="{DynamicResource MediaSlider.ElapsedDuration.Foreground}"
+					Text="0:00" />
 			</StackPanel>
 			<!--#endregion-->
 
 			<!--  region Volume slider. This slider allows a Volume range between 0 and 1.  -->
 			<syncfusion:SfRadialSlider
 				x:Name="volumeSlider"
-				Width="200"
-				Height="200"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
 				DrawLabel="volumeSlider_DrawLabel"
-				EndAngle="40"
-				InnerRimRadiusFactor="0.5"
-				OuterRimStroke="#FF303FCC"
-				SmallChange="1"
-				StartAngle="140"
-				SweepDirection="Clockwise"
+				Style="{DynamicResource VolumeSlider}"
 				ValueChanged="ChangeMediaVolume"
-				Value="{Binding SelectedVolume}" InnerRimFill="#FF079CFB" Background="#FF08126D" InnerRimStroke="#FF2187C8" FontStyle="Italic" FontFamily="Georgia" FontSize="10">
+				Value="{Binding SelectedVolume}">
 				<StackPanel Orientation="Vertical">
 					<Path
-							Width="20"
-							Height="20"
-							Margin="0,0,0,5"
-							HorizontalAlignment="Center"
-							Data="{StaticResource MusicFiles.Volume}"
-							Fill="DarkSlateBlue"
-							Stretch="Uniform" />
+						Width="20"
+						Height="20"
+						Margin="0,0,0,5"
+						HorizontalAlignment="Center"
+						Data="{StaticResource MusicFiles.Volume}"
+						Fill="DarkSlateBlue"
+						Stretch="Uniform" />
 					<TextBlock
 						HorizontalAlignment="Center"
-						VerticalAlignment="Center" FontFamily="Georgia" Foreground="DarkSlateBlue"
+						VerticalAlignment="Center"
+						FontFamily="Georgia"
 						FontSize="18"
+						Foreground="DarkSlateBlue"
 						Text="{Binding ElementName=volumeSlider, Path=Value}" />
 				</StackPanel>
 				<syncfusion:SfRadialSlider.DataContext>

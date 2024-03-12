@@ -1,4 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	
+	<!--#region Default Colors-->
+	<Color x:Key="DefaultBlue">#FF28349B</Color>
+	<!--#endregion-->
 
 	<!--  Background Colors  -->
 	<SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#131725" />
@@ -313,7 +317,7 @@
 	<!--#region  Syncfusion Media Slider colors -->
 	<SolidColorBrush x:Key="MediaSlider.TickBarItem.Foreground" Color="Black" />
 	<SolidColorBrush x:Key="MediaSlider.TickBarItem.Background" Color="Transparent" />
-	<SolidColorBrush x:Key="MediaSlider.Thumb.Foreground" Color="#28349B" />
+	<SolidColorBrush x:Key="MediaSlider.Thumb.Foreground" Color="{DynamicResource DefaultBlue}" />
 	<SolidColorBrush x:Key="MediaSlider.Thumb.Background" Color="#66B6F1" />
 	<SolidColorBrush x:Key="MediaSlider.Thumb.Borderbrush" Color="#1690E9" />
 	<SolidColorBrush x:Key="MediaSlider.ToolTip.Foreground" Color="#ffffff" />
@@ -331,8 +335,18 @@
 	<Color x:Key="MediaSlider.InactiveTrack.GradientStop3">#c2c2c2</Color>
 	<Color x:Key="MediaSlider.InactiveTrack.GradientStop4">DarkGray</Color>
 	<Color x:Key="MediaSlider.InactiveTrack.GradientStop5">Gray</Color>
-	<SolidColorBrush x:Key="MediaSlider.ElapsedDuration.Foreground" Color="#28349B"/>
-	<SolidColorBrush x:Key="MediaSlider.Duration.Foreground" Color="#28349B"/>
+	<SolidColorBrush x:Key="MediaSlider.ElapsedDuration.Foreground" Color="{DynamicResource DefaultBlue}"/>
+	<SolidColorBrush x:Key="MediaSlider.Duration.Foreground" Color="{DynamicResource DefaultBlue}"/>
+	<SolidColorBrush x:Key="MediaSlider.VolumeControl.Pointer" Color="Gold"/>
+	<SolidColorBrush x:Key="MediaSlider.VolumeControl.Thick.Line" Color="{DynamicResource DefaultBlue}"/>
+	<SolidColorBrush x:Key="MediaSlider.VolumeControl.Background" Color="{DynamicResource DefaultBlue}"/>
+	<SolidColorBrush x:Key="MediaSlider.VolumeControl.Thick.Label" Color="{DynamicResource DefaultBlue}"/>
+	<!--#endregion-->
+	
+	<!--#region Mediaplayer colors-->
+	<SolidColorBrush x:Key="MediaPlayer.Foreground" Color="{DynamicResource DefaultBlue}" />
+	<SolidColorBrush x:Key="MediaPlayer.Background" Color="Transparent" />
+	<SolidColorBrush x:Key="MediaPlayer.Borderbrush" Color="Transparent" />
 	<!--#endregion-->
 
 </ResourceDictionary>
