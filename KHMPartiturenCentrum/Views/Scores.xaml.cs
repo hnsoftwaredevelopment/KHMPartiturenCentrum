@@ -3675,49 +3675,63 @@ public partial class Scores : Page
 	private void PlayFile( object sender, RoutedEventArgs e )
 	{
 		// Button pressed to play the file corresponding to the pressed button in a popup window
-
+		// Button pressed to download the file corresponding to the pressed button
 		var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Play", "");
 		var _fileId = GetFileId(buttonName);
 		var _fileTable = GetFileTable(buttonName);
+		var _filePathSuffix = GetFilePathSuffix(buttonName);
+		var _fileExtension = GetFileExtension(buttonName);
+		var _fileVoiceSuffix = GetVoiceSuffix(buttonName);
+		var _fileType = GetFileType(buttonName);
+		var _fileName = $"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
 
-		UInt32 FileSize;
-		byte[] rawData;
+		Files.DownloadFile( _fileId, _fileTable, _filePathSuffix, _fileName );
 
-		var sqlQuery = $"" +
-			$"{DBNames.SqlSelect}{DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile}" +
-			$"{DBNames.SqlFrom}{DBNames.Database}.{_fileTable}" +
-			$"{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @Id";
+		//var buttonName = ((Button)sender).Name.Replace("Btn", "").Replace("Play", "");
+		//var _fileId = GetFileId(buttonName);
+		//var _fileTable = GetFileTable(buttonName);
 
-		using MySqlConnection connection = new(DBConnect.ConnectionString);
-		connection.Open();
+		//UInt32 FileSize;
+		//byte[] rawData;
 
-		using MySqlCommand cmd = new(sqlQuery, connection);
+		//var sqlQuery = $"" +
+		//	$"{DBNames.SqlSelect}{DBNames.FilesFieldNameContentType}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile}" +
+		//	$"{DBNames.SqlFrom}{DBNames.Database}.{_fileTable}" +
+		//	$"{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @Id";
 
-		cmd.Connection = connection;
-		cmd.CommandText = sqlQuery;
+		//using MySqlConnection connection = new(DBConnect.ConnectionString);
+		//connection.Open();
 
-		cmd.Parameters.AddWithValue( $"@Id", _fileId );
+		//using MySqlCommand cmd = new(sqlQuery, connection);
 
-		var myData = cmd.ExecuteReader();
+		//cmd.Connection = connection;
+		//cmd.CommandText = sqlQuery;
 
-		myData.Read();
+		//cmd.Parameters.AddWithValue( $"@Id", _fileId );
 
-		FileSize = myData.GetUInt32( myData.GetOrdinal( $"{DBNames.FilesFieldNameFileSize}" ) );
-		rawData = new byte [ FileSize ];
+		//var myData = cmd.ExecuteReader();
 
-		myData.GetBytes( myData.GetOrdinal( $"{DBNames.FilesFieldNameFile}" ), 0, rawData, 0, ( int ) FileSize );
+		//myData.Read();
 
-		MemoryStream stream = new ();
-		stream.Write( rawData, 0, rawData.Length );
-		stream.Seek( 0, SeekOrigin.Begin );
+		//FileSize = myData.GetUInt32( myData.GetOrdinal( $"{DBNames.FilesFieldNameFileSize}" ) );
+		//rawData = new byte [ FileSize ];
 
-		MediaPlayerView player = new(rawData, buttonName);
+		//myData.GetBytes( myData.GetOrdinal( $"{DBNames.FilesFieldNameFile}" ), 0, rawData, 0, ( int ) FileSize );
+
+		//MemoryStream stream = new ();
+		//stream.Write( rawData, 0, rawData.Length );
+		//stream.Seek( 0, SeekOrigin.Begin );
+
+		//MediaPlayerView player = new(rawData, buttonName);
 		//Application.Current.MainWindow = player;
-		//MediaPlayerView player = new("c:\\Data\\459PIA-FieldsofGold.mp3", buttonName);
+
+		//$"{tbScoreNumber.Text}{_fileType} - {tbTitle.Text}{_fileVoiceSuffix}{_fileExtension}";
+		string _path = $"{ScoreUsers.SelectedUserDownloadFolder}\\{_filePathSuffix}\\{_fileName}";
+		MediaPlayerView player = new(_path,tbScoreNumber.Text, tbTitle.Text, _fileType, _fileVoiceSuffix);
 		player.Show();
 
-		myData.Close();
-		connection.Close();
+		//myData.Close();
+		//connection.Close();
 	}
 	#endregion
 

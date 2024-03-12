@@ -73,6 +73,7 @@
 	<PackageReference Include="Syncfusion.PdfViewer.WPF" Version="24.2.8" />
 	<PackageReference Include="Syncfusion.SfInput.WPF" Version="24.2.8" />
 	<PackageReference Include="Syncfusion.SfRadialMenu.WPF" Version="24.2.8" />
+	<PackageReference Include="Syncfusion.SfShared.WPF" Version="24.2.8" />
   </ItemGroup>
 
   <ItemGroup>
