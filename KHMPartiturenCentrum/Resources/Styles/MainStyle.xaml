@@ -742,7 +742,7 @@
 							<Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTextColor}" />
 						</MultiTrigger>
 						<Trigger Property="IsPressed" Value="True">
-							<Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTexColor}" />
+							<Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTextColor}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -1407,7 +1407,7 @@
 							<Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTextColor}" />
 						</MultiTrigger>
 						<Trigger Property="IsPressed" Value="True">
-							<Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTexColor}" />
+							<Setter TargetName="ico" Property="Fill" Value="{DynamicResource PrimaryTextColor}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -1493,7 +1493,7 @@
 	</Style>
 	<!--#endregion-->
 	<!--#endregion-->
-	
+
 	<!--#region Grid Files section Buttons-->
 	<!--#region Button-->
 	<Style x:Key="ScoreGridFilesButtonsStyle" TargetType="{x:Type Button}">
@@ -1608,7 +1608,7 @@
 		<Setter Property="HorizontalContentAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Bottom" />
 		<Setter Property="VerticalContentAlignment" Value="Bottom" />
-		<Setter Property="FontFamily" Value="Comic Sans"/>
+		<Setter Property="FontFamily" Value="Comic Sans" />
 	</Style>
 	<!--#endregion-->
 </ResourceDictionary>

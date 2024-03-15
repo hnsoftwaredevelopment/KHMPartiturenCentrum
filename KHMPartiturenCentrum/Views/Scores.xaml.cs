@@ -1,22 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-
-using KHM.Helpers;
-using KHM.Models;
-using KHM.ViewModels;
-
-using MySql.Data.MySqlClient;
-
-using Syncfusion.DocIO;
+﻿using Syncfusion.DocIO;
 
 using static KHM.App;
+
+using Button = System.Windows.Controls.Button;
+using ComboBox = System.Windows.Controls.ComboBox;
+using RichTextBox = System.Windows.Controls.RichTextBox;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace KHM.Views;
 /// <summary>
