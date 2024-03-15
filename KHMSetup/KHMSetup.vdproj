@@ -99,7 +99,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:..\\KHMPartiturenCentrum\\bin\\Installer\\KHMPCSetup.msi"
+        "OutputFilename" = "8:..\\KHMPartiturenCentrum\\bin\\Installer\\KHMPC-Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -120,8 +120,13 @@
                 {
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.7.0.x64"
                     {
-                    "Name" = "8:.NET Desktop Runtime 7.0.4 (x64)"
+                    "Name" = "8:.NET Desktop Runtime 7.0.16 (x64)"
                     "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.7.0.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.8.0.x64"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 8.0.2 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.8.0.x64"
                     }
                 }
             }
@@ -238,7 +243,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2AD516B4ACC46F2A5D7E34E3366C9EE"
             {
-            "SourcePath" = "8:C:\\Data\\Stack\\KHMMuseScore\\Afbeeldingen\\khm-logo.jpg"
+            "SourcePath" = "8:..\\KHMPartiturenCentrum\\Resources\\Images\\khm-logo.jpg"
             "TargetName" = "8:khm-logo.jpg"
             "Tag" = "8:"
             "Folder" = "8:_59607C06F13B4810B0BC0141D932EBD9"
@@ -274,7 +279,7 @@
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_3C105DC80934443ABFD56E9809C99DF9"
                     {
                     "Name" = "8:KHM Partituren Centrum"
-                    "AlwaysCreate" = "11:FALSE"
+                    "AlwaysCreate" = "11:TRUE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_1E875607D1E64AC29642606C145C1793"
@@ -283,7 +288,7 @@
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_784A71A297504F91B9F379A4307EC377"
                             {
                             "Name" = "8:Templates"
-                            "AlwaysCreate" = "11:FALSE"
+                            "AlwaysCreate" = "11:TRUE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
                             "Property" = "8:_0FC1926577234D3EBDDC834C5EAA050F"
@@ -319,7 +324,7 @@
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_63B3129BC60F42239DC46BC524571EDE"
                     {
                     "Name" = "8:KHM"
-                    "AlwaysCreate" = "11:FALSE"
+                    "AlwaysCreate" = "11:TRUE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_0571AC23B9DD41379A50BAC860B78258"
@@ -466,6 +471,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_04B646FC91B04617A307AFAB1CBB7DCE"
+            {
+            "Name" = "8:Partituren Centrum"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_3C105DC80934443ABFD56E9809C99DF9"
+            "Folder" = "8:_63B3129BC60F42239DC46BC524571EDE"
+            "WorkingFolder" = "8:_2AA7CB203A5D41B0A281EEFF561A3B33"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_55D1854D322541438A711BACE750F186"
             {
             "Name" = "8:Partituren Centrum"
@@ -475,7 +494,7 @@
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_02D1B7DFABA94CC6A7DBAAEF0B072076"
-            "Folder" = "8:_63B3129BC60F42239DC46BC524571EDE"
+            "Folder" = "8:_3C105DC80934443ABFD56E9809C99DF9"
             "WorkingFolder" = "8:_59607C06F13B4810B0BC0141D932EBD9"
             "Icon" = "8:_EFCA554BD605469CB6EFE831EDD4EC2B"
             "Feature" = "8:"
@@ -799,7 +818,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_02D1B7DFABA94CC6A7DBAAEF0B072076"
             {
-            "SourcePath" = "8:..\\KHMPartiturenCentrum\\obj\\Release\\net7.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\KHMPartiturenCentrum\\obj\\x64\\Release\\net8.0-windows8.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_59607C06F13B4810B0BC0141D932EBD9"

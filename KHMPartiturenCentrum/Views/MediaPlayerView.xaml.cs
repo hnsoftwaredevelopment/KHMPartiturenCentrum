@@ -1,7 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Media;
-
-namespace KHM.Views
+﻿namespace KHM.Views
 {
 	/// <summary>
 	/// Interaction logic for MediaPlayer.xaml
