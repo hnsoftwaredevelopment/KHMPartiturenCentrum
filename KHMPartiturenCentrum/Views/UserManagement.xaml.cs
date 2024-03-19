@@ -111,11 +111,11 @@ public partial class UserManagement : Page
                     // Start checking when there is a @ and a . in the e-mail address
                     if ( tbEMail.Text.Contains ( "@" ) )
                     {
-                        bool validMailAddress = DBCommands.IsValidEmail ( tbEMail.Text );
+                        bool validMailAddress = Login.IsValidEmail ( tbEMail.Text );
                         if ( validMailAddress )
                         {
                             //Check if the e-mail address is unique
-                            bool EMailExists = DBCommands.CheckEMail ( tbEMail.Text, SelectedUser.UserId );
+                            bool EMailExists = Login.CheckEMail ( tbEMail.Text, SelectedUser.UserId );
                             if ( EMailExists )
                             {
                                 tbValidEMail.Text = "Visible";
@@ -152,7 +152,7 @@ public partial class UserManagement : Page
                         {
                             // By Default Warning disappears
                             tbValidUserName.Text = "Collapsed";
-                            bool UserExists = DBCommands.CheckUserName( tbUserName.Text, SelectedUser.UserId );
+                            bool UserExists = Login.CheckUserName( tbUserName.Text, SelectedUser.UserId );
                             if ( UserExists )
                             {
                                 tbValidUserName.Text = "Visible";

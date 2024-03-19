@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-using static KHM.App;
+﻿using static KHM.App;
 
 
 namespace KHM.Views;
@@ -53,33 +51,22 @@ public partial class LoginPage : Window
 	private void btnLogin_Click( object sender, RoutedEventArgs e )
 	{
 		tbInvalidLogin.Visibility = Visibility.Collapsed;
-		int UserId = DBCommands.CheckUserPassword(tbUserName.Text, tbPassword.Password);
+		// Check if e-mail address belongs to a user
+		ObservableCollection<UserModel> Users = DBCommands.GetUsers ( );
+
+		// When UserName seems to be an e-mail address, check if it is a valid e-mail for the user
+		tbUserName.Text = tbUserName.Text.Contains( "@" ) ? Login.CheckEmailLogin( tbUserName.Text ) : tbUserName.Text;
+
+		// Check if the password is correct
+		int UserId = Login.CheckUserPassword(tbUserName.Text, tbPassword.Password);
+
 		if ( UserId != 0 )
 		{
-			ScoreUsers.SelectedUserId = UserId;
-			ObservableCollection<UserModel> Users = DBCommands.GetUsers ( );
-
-			foreach ( UserModel user in Users )
-			{
-				if ( user.UserId == UserId )
-				{
-					ScoreUsers.SelectedUserName = user.UserName;
-					ScoreUsers.SelectedUserFullName = user.UserFullName;
-					ScoreUsers.SelectedUserPassword = user.UserPassword;
-					ScoreUsers.SelectedUserEmail = user.UserEmail;
-					ScoreUsers.SelectedUserRoleId = user.UserRoleId;
-					ScoreUsers.SelectedUserCoverSheetFolder = user.CoverSheetFolder;
-					ScoreUsers.SelectedUserDownloadFolder = user.DownloadFolder;
-				}
-			}
+			// Set the user properties
+			Login.FillUserProperties( UserId );
 
 			// Write Login to Logfile
 			DBCommands.WriteLog( UserId, DBNames.LogUserLoggedIn, $"{ScoreUsers.SelectedUserFullName} is ingelogd" );
-
-			int ForcePasswordReset = 1;
-			if ( ForcePasswordReset != 0 )
-			{ }
-
 
 			MainWindow mainWindow = new MainWindow();
 			mainWindow.Show();

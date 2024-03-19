@@ -5,8 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>24.3.15.18772</AssemblyVersion>
-    <FileVersion>24.3.15.18772</FileVersion>
+    <AssemblyVersion>24.3.18.26379</AssemblyVersion>
+    <FileVersion>24.3.18.26379</FileVersion>
   </PropertyGroup>
 
 </Project>

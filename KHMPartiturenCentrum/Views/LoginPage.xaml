@@ -134,7 +134,7 @@
                              FontSize="13" Style="{DynamicResource UserNameTextBox}"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
-                             Width="250" ToolTip="Gebruikersnaam (e-mail)"
+                             Width="250" ToolTip="Gebruikersnaam (of e-mail)"
                              Padding="3,0,0,0" Margin="3,0,0,0" TabIndex="0" Cursor="IBeam"/>
 
                     <Image Grid.Column="0" Source="../Resources/Images/user.png" Height="21"/>
