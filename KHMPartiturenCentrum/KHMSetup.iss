@@ -3,29 +3,26 @@
 #define Developer "Herbert Nijkamp"
 #define Publisher "HN Software Development"
 #define CurrentYear GetDateTimeString('yyyy', '', '')
-#define DevOpsPath "c:\DevOps\hnsoftwaredevelopment\"
-#define SetupIcons "c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Icons\"
-#define SetupImages "c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Images\"
-#define AppConfigPath "c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Config\"
-;#define AppVersion GetVersionNumbersString("c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\bin\Publish\KHM.exe")
-;#define AppVersion GetVersionNumbersString("c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\bin\Publish\KHM.exe")
-#define AppVersion GetVersionNumbersString("c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\x64\Publish\KHM.exe")
-
+#define DevOpsPath "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\"
+#define SetupIcons "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Icons\"
+#define SetupImages "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Images\"
+#define AppConfigPath "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Config\"
+#define AppVersion GetVersionNumbersString("c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\KHM.exe")
+;#define AppVersion "25.5.23"
 ; requires netcorecheck.exe and netcorecheck_x64.exe (see CodeDependencies.iss)
-#define public Dependency_Path_NetCoreCheck "c:\DevOps\hnsoftwaredevelopment\InnoSetup\dependencies\"
+#define public Dependency_Path_NetCoreCheck "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\InnoSetup\dependencies\.NET8\"
 
 ; requires dxwebsetup.exe (see CodeDependencies.iss)
 ;#define public Dependency_Path_DirectX "dependencies\"
 
-;#include "c:\Program Files (x86)\Inno Setup 6\Examples\CodeDependencies.iss"
-#include "c:\DevOps\hnsoftwaredevelopment\InnoSetup\CodeDependencies.iss"
+#include "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\InnoSetup\CodeDependencies.iss"
 
 [Setup]
 AppName={#ApplicationName}
 AppVersion={#AppVersion}
 AppContact={#Developer}
 AppPublisher={#Publisher}
-AppCopyright=Copyright © {#CurrentYear} - {#Publisher}
+AppCopyright=Copyright Â© {#CurrentYear} - {#Publisher}
 AllowRootDirectory=yes
 CloseApplications=yes
 DefaultDirName={commonpf}\{#Manufactured}\{#ApplicationName}
@@ -47,7 +44,7 @@ WizardStyle=modern
 ShowLanguageDialog=no
 UninstallDisplayName=KHM Partituren Centrum
 VersionInfoCompany={#Developer}
-VersionInfoCopyright=Copyright © {#CurrentYear} - {#Publisher}
+VersionInfoCopyright=Copyright Â© {#CurrentYear} - {#Publisher}
 VersionInfoProductName={#ApplicationName}
 VersionInfoVersion={#AppVersion}
 VersionInfoProductVersion={#AppVersion}
@@ -56,8 +53,8 @@ VersionInfoProductVersion={#AppVersion}
 Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
 
 [Files]
-;Source: "c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\bin\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
-Source: "c:\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\x64\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
+;Source: "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\bin\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
+Source: "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
 
 
 [Icons]

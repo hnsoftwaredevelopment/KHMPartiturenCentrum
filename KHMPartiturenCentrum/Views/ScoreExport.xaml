@@ -1,0 +1,267 @@
+﻿<Page x:Class="KHM.Views.ScoreExport"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KHM.Views" xmlns:viewmodels="clr-namespace:KHM.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ScoreExportViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ScoreExport">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="LoadingOverlay"
+          Background="#80000000"
+          Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+          Panel.ZIndex="99">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar Width="200" Height="20" IsIndeterminate="True"/>
+                <TextBlock Text="Bezig met laden..." Foreground="White" Margin="0,10,0,0" FontSize="16"/>
+            </StackPanel>
+        </Grid>
+
+        <Button
+            Grid.Row="0"
+			Click="GenerateExcelButton_Click"
+			Style="{StaticResource ScoreList.Button.SaveExcel}"
+			ToolTip="Genereer een Excel bestand van de geselecteerde lijst">
+						<Image Margin="0,10,0,15" Source="/Resources/Images/excel.png" />
+        </Button>
+
+        <DataGrid
+            x:Name="ScoresDataGrid"
+			Grid.Row="1"
+			EnableRowVirtualization="True"
+			EnableColumnVirtualization="True"
+			VirtualizingPanel.IsVirtualizing="True"
+			VirtualizingPanel.VirtualizationMode="Recycling"
+			VirtualizingPanel.ScrollUnit="Pixel"
+			AutoGenerateColumns="False"
+			IsReadOnly="True"
+			ItemsSource="{Binding Scores}"
+			HorizontalScrollBarVisibility="Auto"
+			VerticalScrollBarVisibility="Auto"
+			SelectionMode="Single"
+			SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <!--#region Column definitions-->
+                <DataGridTextColumn
+							x:Name="Score"
+							Width="Auto"
+							Binding="{Binding Score}"
+							Header="Partituur" />
+                <DataGridTextColumn
+							x:Name="ScoreName"
+							Width="Auto"
+							Binding="{Binding ScoreTitle}"
+							Header="Titel" />
+                <DataGridTextColumn
+							x:Name="ScoreSubTitle"
+							Width="Auto"
+							Binding="{Binding ScoreSubTitle}"
+							Header="Ondertitel"/>
+                <DataGridTextColumn
+							x:Name="MusinPiece"
+							Width="Auto"
+							Binding="{Binding MusicPiece}"
+							Header="Muziekstuk" />
+                <DataGridTextColumn
+							x:Name="Duration"
+							Width="Auto"
+							Binding="{Binding DurationString}"
+							Header="Tijdsduur"/>
+                <DataGridTextColumn
+							x:Name="Composer"
+							Width="Auto"
+							Binding="{Binding Composer}"
+							Header="Componist" />
+                <DataGridTextColumn
+							x:Name="TextWriter"
+							Width="Auto"
+							Binding="{Binding Textwriter}"
+							Header="Tekstschrijver" />
+                <DataGridTextColumn
+							x:Name="Arranger"
+							Width="Auto"
+							Binding="{Binding Arranger}"
+							Header="Arrangement" />
+                <DataGridTextColumn
+							x:Name="RepertoireName"
+							Width="Auto"
+							Binding="{Binding RepertoireName}"
+							Header="Repertoire" />
+                <DataGridTextColumn
+							x:Name="ArchiveName"
+							Width="Auto"
+							Binding="{Binding ArchiveName}"
+							Header="Archief" />
+                <DataGridTextColumn
+							x:Name="GenreName"
+							Width="Auto"
+							Binding="{Binding GenreName}"
+							Header="Genre" />
+                <DataGridTextColumn
+							x:Name="AccompanimentName"
+							Width="Auto"
+							Binding="{Binding AccompanimentName}"
+							Header="Begeleiding" />
+                <DataGridTextColumn
+							x:Name="LanguageName"
+							Width="Auto"
+							Binding="{Binding LanguageName}"
+							Header="Taal" />
+                <DataGridTextColumn
+							x:Name="DateCreated"
+							Width="Auto"
+							Binding="{Binding DateCreatedString}"
+							Header="Aangemaakt" />
+                <DataGridTextColumn
+							x:Name="DateModified"
+							Width="Auto"
+							Binding="{Binding DateModifiedString}"
+							Header="Laatste wijziging" />
+                <DataGridCheckBoxColumn
+							x:Name="Checked"
+							Width="Auto"
+							Binding="{Binding CheckInt}"
+							Header="=Gecontroleerd" />
+                <DataGridCheckBoxColumn
+							x:Name="BYHEART"
+							Width="Auto"
+							Binding="{Binding ByHeart}"
+							Header="UHH" />
+                <DataGridCheckBoxColumn
+							x:Name="MuseScoreORP"
+							Width="Auto"
+							Binding="{Binding MuseScoreORP}"
+							Header="ORP" />
+                <DataGridCheckBoxColumn
+							x:Name="MuseScoreORK"
+							Width="Auto"
+							Binding="{Binding MuseScoreORK}"
+							Header="ORK" />
+                <DataGridCheckBoxColumn
+							x:Name="MuseScoreTOP"
+							Width="Auto"
+							Binding="{Binding MuseScoreTOP}"
+							Header="TOP" />
+                <DataGridCheckBoxColumn
+							x:Name="MuseScoreTOK"
+							Width="Auto"
+							Binding="{Binding MuseScoreTOK}"
+							Header="TOK" />
+                <DataGridCheckBoxColumn
+							x:Name="PDFORP"
+							Width="Auto"
+							Binding="{Binding PDFORP}"
+							Header="PDF-ORP" />
+                <DataGridCheckBoxColumn
+							x:Name="PDFORK"
+							Width="Auto"
+							Binding="{Binding PDFORK}"
+							Header="PDF-ORK" />
+                <DataGridCheckBoxColumn
+							x:Name="PDFTOP"
+							Width="Auto"
+							Binding="{Binding PDFTOP}"
+							Header="PDF-TOP" />
+                <DataGridCheckBoxColumn
+							x:Name="PDFTOK"
+							Width="Auto"
+							Binding="{Binding PDFTOK}"
+							Header="PDF-TOK" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3B1"
+							Width="Auto"
+							Binding="{Binding MP3B1}"
+							Header="MP3-B1" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3B2"
+							Width="Auto"
+							Binding="{Binding MP3B2}"
+							Header="MP3-B2" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3T1"
+							Width="Auto"
+							Binding="{Binding MP3T1}"
+							Header="MP3-T1" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3T2"
+							Width="Auto"
+							Binding="{Binding MP3T2}"
+							Header="MP3-T2" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3SOL1"
+							Width="Auto"
+							Binding="{Binding MP3SOL1}"
+							Header="MP3-SOL1" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3SOL2"
+							Width="Auto"
+							Binding="{Binding MP3SOL2}"
+							Header="MP3-SOL2" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3TOT"
+							Width="Auto"
+							Binding="{Binding MP3TOT}"
+							Header="MP3-TOT" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3PIA"
+							Width="Auto"
+							Binding="{Binding MP3PIA}"
+							Header="MP3-PIA" />
+
+                <DataGridCheckBoxColumn
+							x:Name="MP3B1Voice"
+							Width="Auto"
+							Binding="{Binding MP3B1Voice}"
+							Header="MP3-B1 (Ingz)" />
+                <DataGridCheckBoxColumn
+							x:Name="MP3B2Voice"
+							Width="Auto"
+							Binding="{Binding MP3B2Voice}"
+							Header="MP3-B2 (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MP3T1Voice"
+							Width="Auto"
+							Binding="{Binding MP3T1Voice}"
+							Header="MP3-T1 (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MP3T2Voice"
+							Width="Auto"
+							Binding="{Binding MP3T2Voice}"
+							Header="MP3-T2 (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MP3SOL1Voice"
+							Width="Auto"
+							Binding="{Binding MP3SOL1Voice}"
+							Header="MP3-SOL1 (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MP3SOL2Voice"
+							Width="Auto"
+							Binding="{Binding MP3SOL2Voice}"
+							Header="MP3-SOL2 (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MP3TOTVoice"
+							Width="Auto"
+							Binding="{Binding MP3TOTVoice}"
+							Header="MP3-TOT (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MP3UITVVoice"
+							Width="Auto"
+							Binding="{Binding MP3UITVVoice}"
+							Header="MP3-UITV (Ingz)"  />
+                <DataGridCheckBoxColumn
+							x:Name="MuseScoreOnline"
+							Width="Auto"
+							Binding="{Binding MuseScoreOnline}"
+							Header="Online" />
+            </DataGrid.Columns>
+            <!--#endregion-->
+        </DataGrid>
+    </Grid>
+</Page>

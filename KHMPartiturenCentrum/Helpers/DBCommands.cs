@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using static KHM.App;
 
@@ -414,10 +415,110 @@ public class DBCommands
 		}
 		return Scores;
 	}
+
+    public static async Task<List<ScoreModel>> GetScoresAsync()
+    {
+        var scores = new List<ScoreModel>();
+
+        await using var connection = new MySqlConnection(DBConnect.ConnectionString);
+        await connection.OpenAsync();
+
+        await using var cmd = new MySqlCommand("KHMMuziekbibliotheek.sp_GetScores", connection)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
+
+        await using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
+
+        // Cache ordinals once (sneller dan telkens "reader["ColumnName"]" gebruiken)
+        int ordScore = reader.GetOrdinal("Score");
+        int ordScoreTitle = reader.GetOrdinal("ScoreTitle");
+        int ordScoreSubTitle = reader.GetOrdinal("ScoreSubTitle");
+        int ordComposer = reader.GetOrdinal("Composer");
+        int ordTextWriter = reader.GetOrdinal("TextWriter");
+        int ordMusicPiece = reader.GetOrdinal("MusicPiece");
+        int ordArranger = reader.GetOrdinal("Arranger");
+        int ordArchiveName = reader.GetOrdinal("ArchiveName");
+        int ordRepertoireName = reader.GetOrdinal("RepertoireName");
+        int ordLanguageName = reader.GetOrdinal("LanguageName");
+        int ordGenreName = reader.GetOrdinal("GenreName");
+        int ordCheckInt = reader.GetOrdinal("CheckInt");
+        int ordDateCreated = reader.GetOrdinal("DateCreatedString");
+        int ordDateModified = reader.GetOrdinal("DateModifiedString");
+        int ordAccompaniment = reader.GetOrdinal("AccompanimentName");
+        int ordDuration = reader.GetOrdinal("DurationSeconde");
+
+        while (await reader.ReadAsync())
+        {
+            var scoreTitle = reader["ScoreTitle"]?.ToString();
+
+            // Skip if ScoreTitle is null or empty
+            if (string.IsNullOrWhiteSpace(scoreTitle))
+                continue;
+
+            int durationSeconds = reader["DurationSeconde"] != DBNull.Value ? reader.GetInt32("DurationSeconde") : 0;
+
+            var score = new ScoreModel
+            {
+                Score = reader.IsDBNull(ordScore) ? null : reader.GetString(ordScore),
+                ScoreTitle = scoreTitle,
+                ScoreSubTitle = reader.IsDBNull(ordScoreSubTitle) ? null : reader.GetString(ordScoreSubTitle),
+                Composer = reader.IsDBNull(ordComposer) ? null : reader.GetString(ordComposer),
+                Textwriter = reader.IsDBNull(ordTextWriter) ? null : reader.GetString(ordTextWriter),
+                Arranger = reader.IsDBNull(ordArranger) ? null : reader.GetString(ordArranger),
+                ArchiveName = reader.IsDBNull(ordArchiveName) ? null : reader.GetString(ordArchiveName),
+                RepertoireName = reader.IsDBNull(ordRepertoireName) ? null : reader.GetString(ordRepertoireName),
+                LanguageName = reader.IsDBNull(ordLanguageName) ? null : reader.GetString(ordLanguageName),
+                GenreName = reader.IsDBNull(ordGenreName) ? null : reader.GetString(ordGenreName),
+                CheckInt = reader.IsDBNull(ordCheckInt) ? 0 : reader.GetInt32(ordCheckInt),
+                DateCreatedString = reader.IsDBNull(ordDateCreated) ? null : reader.GetDateTime(ordDateCreated).ToString("dd-MM-yyyy"),
+                DateModifiedString = reader.IsDBNull(ordDateModified) ? null : reader.GetDateTime(ordDateModified).ToString("dd-MM-yyyy"),
+                AccompanimentName = reader.IsDBNull(ordAccompaniment) ? null : reader.GetString(ordAccompaniment),
+                DurationSeconds = reader.IsDBNull(ordDuration) ? 0 : reader.GetInt32(ordDuration),
+                MusicPiece = reader.IsDBNull(ordMusicPiece) ? null : reader.GetString(ordMusicPiece),
+
+                PDFORP = reader.GetBoolean("PDFORP"),
+                PDFORK = reader.GetBoolean("PDFORK"),
+                PDFTOP = reader.GetBoolean("PDFTOP"),
+                PDFTOK = reader.GetBoolean("PDFTOK"),
+                PDFPIA = reader.GetBoolean("PDFPIA"),
+                MuseScoreORP = reader.GetBoolean("MuseScoreORP"),
+                MuseScoreORK = reader.GetBoolean("MuseScoreORK"),
+                MuseScoreTOP = reader.GetBoolean("MuseScoreTOP"),
+                MuseScoreTOK = reader.GetBoolean("MuseScoreTOK"),
+                MuseScoreOnline = reader.GetBoolean("MuseScoreOnline"),
+                MP3T1 = reader.GetBoolean("MP3T1"),
+                MP3T2 = reader.GetBoolean("MP3T2"),
+                MP3B1 = reader.GetBoolean("MP3B1"),
+                MP3B2 = reader.GetBoolean("MP3B2"),
+                MP3SOL1 = reader.GetBoolean("MP3SOL1"),
+                MP3SOL2 = reader.GetBoolean("MP3SOL2"),
+                MP3TOT = reader.GetBoolean("MP3TOT"),
+                MP3PIA = reader.GetBoolean("MP3PIA"),
+                MP3T1Voice = reader.GetBoolean("MP3T1Voice"),
+                MP3T2Voice = reader.GetBoolean("MP3T2Voice"),
+                MP3B1Voice = reader.GetBoolean("MP3B1Voice"),
+                MP3B2Voice = reader.GetBoolean("MP3B2Voice"),
+                MP3SOL1Voice = reader.GetBoolean("MP3SOL1Voice"),
+                MP3SOL2Voice = reader.GetBoolean("MP3SOL2Voice"),
+                MP3TOTVoice = reader.GetBoolean("MP3TOTVoice"),
+                MP3UITV = reader.GetBoolean("MP3UITV"),
+                ByHeart = reader.GetBoolean("ByHeart"),
+
+                DurationString = durationSeconds > 0
+                ? $"{durationSeconds / 60:D2}:{durationSeconds % 60:D2}"
+                : string.Empty
+            };
+
+            scores.Add(score);
+        }
+
+        return scores;
+    }    
 	#endregion
 
-	#region Delete Score
-	public static void DeleteScore( string ScoreNumber, string ScoreSubNumber )
+    #region Delete Score
+    public static void DeleteScore( string ScoreNumber, string ScoreSubNumber )
 	{
 		// Check if the selected Score is used in a set of Scores
 		var sqlQuery = DBNames.SqlSelect + DBNames.SqlCountAll + DBNames.SqlFrom + DBNames.Database + "." + DBNames.ScoresTable + DBNames.SqlWhere + DBNames.ScoresFieldNameScoreNumber + " = '" + ScoreNumber + "';";

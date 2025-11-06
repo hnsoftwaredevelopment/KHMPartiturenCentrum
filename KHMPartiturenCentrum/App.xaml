@@ -4,19 +4,22 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:KHM"
 	StartupUri="Views/LoginPage.xaml">
-	<Application.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Resources/Themes/DarkTheme.xaml" />
-				<ResourceDictionary Source="Resources/Icons/Icons.xaml" />
-				<ResourceDictionary Source="Resources/Styles/MainStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/DataGrid.xaml" />
-				<ResourceDictionary Source="Resources/Styles/TabControl.xaml" />
-				<ResourceDictionary Source="Resources/Styles/ButtonStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/MediaPlayerStyles.xaml" />
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Themes/DarkTheme.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Icons.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MainStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/DataGrid.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TabControl.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MediaPlayerStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBoxes.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBlocks.xaml" />
             </ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</Application.Resources>
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

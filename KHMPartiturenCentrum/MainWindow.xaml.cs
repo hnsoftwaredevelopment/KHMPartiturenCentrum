@@ -97,12 +97,42 @@ public partial class MainWindow : Window
 		Popup.Visibility = Visibility.Collapsed;
 		Popup.IsOpen = false;
 	}
-	#endregion
-	#endregion
+    #endregion
+    #endregion
 
-	#region Available scores Menu
-	#region On Click
-	private void btnAvailableScores_Click( object sender, RoutedEventArgs e )
+    #region ScoreExport Menu
+    #region On Click
+    private void btnScoreExport_Click(object sender, RoutedEventArgs e)
+    {
+        fContainer.Navigate(new System.Uri("Views/ScoreExport.xaml", UriKind.RelativeOrAbsolute));
+    }
+    #endregion
+
+    #region On Mouse Enter
+    private void btnScoreExport_MouseEnter(object sender, MouseEventArgs e)
+    {
+        if (Tg_Btn.IsChecked == false)
+        {
+            Popup.PlacementTarget = btnScoreExport;
+            Popup.Placement = PlacementMode.Right;
+            Popup.IsOpen = true;
+            Header.PopupText.Text = "Partiturenoverzicht Export";
+        }
+    }
+    #endregion
+
+    #region On Mouse Leave
+    private void btnScoreExport_MouseLeave(object sender, MouseEventArgs e)
+    {
+        Popup.Visibility = Visibility.Collapsed;
+        Popup.IsOpen = false;
+    }
+    #endregion
+    #endregion
+
+    #region Available scores Menu
+    #region On Click
+    private void btnAvailableScores_Click( object sender, RoutedEventArgs e )
 	{
 		fContainer.Navigate( new System.Uri( "Views/AvailableScores.xaml", UriKind.RelativeOrAbsolute ) );
 	}
@@ -259,8 +289,9 @@ public partial class MainWindow : Window
 		Popup.Visibility = Visibility.Collapsed;
 		Popup.IsOpen = false;
 	}
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
+
 }
 

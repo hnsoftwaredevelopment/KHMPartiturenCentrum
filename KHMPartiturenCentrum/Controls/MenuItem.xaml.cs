@@ -30,7 +30,17 @@ public partial class MenuItem : UserControl
 	public static readonly DependencyProperty IconWidthProperty =
 	DependencyProperty.Register("IconWidth", typeof(int), typeof(MenuItem));
 
-	public SolidColorBrush IndicatorBrush
+    public int IconMargin
+    {
+        get { return (int)GetValue(IconMarginProperty); }
+        set { SetValue(IconMarginProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for IconMargin.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IconMarginProperty =
+    DependencyProperty.Register("IconMargin", typeof(int), typeof(MenuItem));
+
+    public SolidColorBrush IndicatorBrush
 	{
 		get { return ( SolidColorBrush ) GetValue( IndicatorBrushProperty ); }
 		set { SetValue( IndicatorBrushProperty, value ); }

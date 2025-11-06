@@ -151,13 +151,20 @@
 						</StackPanel>
 					</StackPanel>
 				</Border>
-				<Button
+                <Button
+				Click="GenerateExcelButton_Click"
+				Style="{StaticResource ScoreList.Button.SaveExcel}"
+				ToolTip="Genereer een Excel bestand van de geselecteerde lijst">
+                    <Image Margin="0,3,3,0" Source="/Resources/Images/excel.png" />
+                </Button>
+
+                <Button
 					Click="GeneratePDFButton_Click"
 					Style="{StaticResource ScoreList.Button.SavePDF}"
 					ToolTip="Genereer een PDF bestand van de geselecteerde lijst">
-					<Image Margin="0,3,3,0" Source="..\Resources\Images\pdfdownload.png" />
+					<Image Margin="0,3,3,0" Source="..\Resources\Images\pdf.png" />
 				</Button>
-			</StackPanel>
+            </StackPanel>
 			<!--#endregion-->
 		</Grid>
 		<!--#endregion-->
@@ -251,23 +258,23 @@
 					Binding="{Binding ArchiveId}"
 					Visibility="Collapsed" />
 				<!--#endregion-->
+                
+                <!--#region GenreName (Visible)-->
+                <DataGridTextColumn
+					x:Name="GenreName"
+					Width=".06*"
+					Binding="{Binding GenreName}"
+					Header="Genre"
+					Visibility="Visible" />
+                <!--#endregion-->
 
-				<!--#region ArchiveName-->
+                <!--#region ArchiveName-->
 				<DataGridTextColumn
 					x:Name="ArchiveName"
 					Width="0.06*"
 					Binding="{Binding ArchiveName}"
 					Header="Archief"
 					Visibility="Visible" />
-				<!--#endregion-->
-
-				<!--#region GenreName (Hidden)-->
-				<DataGridTextColumn
-					x:Name="GenreName"
-					Width=".06*"
-					Binding="{Binding GenreName}"
-					Header="Genre"
-					Visibility="Collapsed" />
 				<!--#endregion-->
 
 				<!--#region AccompanimentName (Hidden)-->

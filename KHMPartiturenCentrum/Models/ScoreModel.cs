@@ -83,7 +83,8 @@ public class ScoreModel
 	public string? Composer { get; set; }
 	public string? DateCreatedString { get; set; }
 	public string? DateModifiedString { get; set; }
-	public string? GenreName { get; set; }
+	public string DurationString { get; set; } = string.Empty;
+    public string? GenreName { get; set; }
 	public string? LanguageName { get; set; }
 	public string? Lyrics { get; set; }
 	public string? MusicPiece { get; set; }
