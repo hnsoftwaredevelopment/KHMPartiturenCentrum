@@ -1,9 +1,41 @@
-﻿namespace KHM.ViewModels;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
-public partial class ScoreViewModel : BaseScoreViewModel
+namespace KHM.ViewModels
 {
-	public ScoreViewModel()
-	{
-		Scores = DBCommands.GetScores( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null );
-	}
+    public partial class ScoreViewModel : BaseScoreViewModel
+    {
+        public new ObservableCollection<ScoreModel> Scores { get; set; } = new();
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                if (_isLoading != value)
+                {
+                    _isLoading = value;
+                    OnPropertyChanged(); // from BaseScoreViewModel
+                }
+            }
+        }
+
+        public async Task LoadScoresAsync()
+        {
+            IsLoading = true;
+            try
+            {
+                var scores = await DBCommands.GetScoresFullAsync();
+
+                Scores.Clear();
+                foreach (var s in scores)
+                    Scores.Add(s);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+    }
 }

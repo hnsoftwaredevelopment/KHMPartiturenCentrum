@@ -13,21 +13,24 @@ namespace KHM.Views;
 /// </summary>
 public partial class Scores : Page
 {
-	public ScoreViewModel? scores;
-
-	public ScoreModel? SelectedScore;
-	public int LyricsMaxWidthRow, LyricsMaxWidth;
+    private ScoreViewModel _vm;
+    public ScoreModel? SelectedScore;
+    public int LyricsMaxWidthRow, LyricsMaxWidth;
 
 	public Scores()
 	{
 		InitializeComponent();
 
+        _vm = new ScoreViewModel();
+        DataContext = _vm;
 
-		tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
+        Loaded += Scores_Loaded;
+
+        tbLogedInUserName.Text = ScoreUsers.SelectedUserName;
 		tbLogedInFullName.Text = ScoreUsers.SelectedUserFullName;
 
-		scores = new ScoreViewModel();
-		ScoresDataGrid.ItemsSource = scores.Scores;
+		//scores = new ScoreViewModel();
+		//ScoresDataGrid.ItemsSource = scores.Scores;
 		//DataContext = scores;
 
 		if ( ScoreUsers.SelectedUserRoleId == 4 || ScoreUsers.SelectedUserRoleId == 6 || ScoreUsers.SelectedUserRoleId == 8 || ScoreUsers.SelectedUserRoleId == 10 || ScoreUsers.SelectedUserRoleId == 11 || ScoreUsers.SelectedUserRoleId == 13 || ScoreUsers.SelectedUserRoleId == 14 || ScoreUsers.SelectedUserRoleId == 15 )
@@ -47,6 +50,18 @@ public partial class Scores : Page
 		}
 	}
 
+    private async void Scores_Loaded(object sender, RoutedEventArgs e)
+    {
+        Mouse.OverrideCursor = Cursors.Wait;
+        try
+        {
+            await _vm.LoadScoresAsync();
+        }
+        finally
+        {
+            Mouse.OverrideCursor = null;
+        }
+    }
 
 	private void PageLoaded( object sender, RoutedEventArgs e )
 	{
@@ -2140,7 +2155,7 @@ public partial class Scores : Page
 			} );
 
 			DBCommands.SaveScore( ScoreList );
-			DBCommands.GetScores( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null );
+			//DBCommands.GetScores( DBNames.ScoresView, DBNames.ScoresFieldNameScoreNumber, null, null );
 
 			SaveHistory( ScoreList, OldScoreValues );
 
@@ -3001,9 +3016,9 @@ public partial class Scores : Page
 					break;
 			}
 		}
-		scores = new ScoreViewModel();
-		DataContext = scores;
-	}
+        _vm = new ScoreViewModel();
+        DataContext = _vm;
+    }
 
 	private void GetNotes()
 	{
@@ -3063,10 +3078,10 @@ public partial class Scores : Page
 
 			renumberScore.Closed += delegate
 			{
-				//  The user has closed the dialog.
-				scores = new ScoreViewModel();
-				DataContext = scores;
-			};
+                //  The user has closed the dialog.
+                _vm = new ScoreViewModel();
+                DataContext = _vm;
+            };
 		}
 	}
 
@@ -3079,12 +3094,12 @@ public partial class Scores : Page
 
 			newScore.Closed += delegate
 			{
-				//  The user has closed the dialog.
-				scores = new ScoreViewModel();
-				DataContext = scores;
+                //  The user has closed the dialog.
+                _vm = new ScoreViewModel();
+                DataContext = _vm;
 
-				// Select the Newly created Score
-				for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+                // Select the Newly created Score
+                for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
 				{
 					if ( ( ( ScoreModel ) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == NewScoreNo.NewScoreNumber )
 					{
@@ -3148,11 +3163,11 @@ public partial class Scores : Page
 
 			DBCommands.AddNewScoreAsSubscore( selectedScore );
 
-			scores = new ScoreViewModel();
-			DataContext = scores;
+            _vm = new ScoreViewModel();
+            DataContext = _vm;
 
-			// Select the Newly created Score
-			for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
+            // Select the Newly created Score
+            for ( int i = 0; i < ScoresDataGrid.Items.Count; i++ )
 			{
 				if ( ( ( ScoreModel ) ( ScoresDataGrid.Items [ i ] ) ).ScoreNumber == _selectedScore && ( ( ScoreModel ) ( ScoresDataGrid.Items [ i ] ) ).ScoreSubNumber == SubScore )
 				{
@@ -3170,28 +3185,28 @@ public partial class Scores : Page
 	private void btnClearSearch_Click( object sender, RoutedEventArgs e )
 	{
 		tbSearch.Text = "";
-		ScoresDataGrid.ItemsSource = scores.Scores;
+		ScoresDataGrid.ItemsSource = _vm.Scores;
 	}
 
-	private void tbSearch_TextChanged( object sender, TextChangedEventArgs e )
-	{
-		var search = sender as TextBox;
+    private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        var searchText = tbSearch.Text?.Trim().ToLower();
 
-		if ( search.Text.Length > 1 )
-		{
-			if ( !string.IsNullOrEmpty( search.Text ) )
-			{
-				var filteredList = scores.Scores.Where(x=> x.SearchField.ToLower().Contains(tbSearch.Text.ToLower()));
-				ScoresDataGrid.ItemsSource = filteredList;
-			}
-			else
-			{
-				ScoresDataGrid.ItemsSource = scores.Scores;
-			}
-		}
-	}
+        if (string.IsNullOrWhiteSpace(searchText) || searchText.Length < 2)
+        {
+            ScoresDataGrid.ItemsSource = _vm.Scores;
+            return;
+        }
 
-	private void ButtonDeIncreaseTimeClick( object sender, RoutedEventArgs e )
+        var filteredList = _vm.Scores
+            .Where(x => !string.IsNullOrEmpty(x.SearchField) &&
+                        x.SearchField.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        ScoresDataGrid.ItemsSource = filteredList;
+    }
+
+    private void ButtonDeIncreaseTimeClick( object sender, RoutedEventArgs e )
 	{
 		var propertyName = ((Button)sender).Name;
 		var _minutes = int.Parse(tbMinutes.Text);

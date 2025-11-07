@@ -311,9 +311,14 @@
 					AlternationCount="1"
 					AutoGenerateColumns="false"
 					IsReadOnly="true"
-					ItemsSource="{Binding Scores, Mode=TwoWay}"
+					ItemsSource="{Binding Scores}"
 					SelectedIndex="0"
-					SelectedItem="0"
+					SelectedItem="{Binding SelectedScore, Mode=TwoWay}"
+                    EnableRowVirtualization="True"
+					EnableColumnVirtualization="True"
+					VirtualizingPanel.IsVirtualizing="True"
+					VirtualizingPanel.VirtualizationMode="Recycling"
+					VirtualizingPanel.ScrollUnit="Pixel"
 					SelectionChanged="SelectedScoreChanged"
 					SelectionMode="Single"
 					Style="{DynamicResource CustomDataGrid}"
@@ -362,7 +367,7 @@
 						<!--#region  Score Number-->
 						<DataGridTextColumn
 							x:Name="Score"
-							Width="1*"
+							Width="Auto"
 							Binding="{Binding Score}"
 							Header="Partituur" />
 						<!--#endregion-->

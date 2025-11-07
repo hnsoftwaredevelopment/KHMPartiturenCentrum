@@ -8,7 +8,7 @@
 #define SetupImages "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Images\"
 #define AppConfigPath "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Config\"
 #define AppVersion GetVersionNumbersString("c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\KHM.exe")
-;#define AppVersion "25.5.23"
+;#define AppVersion "25.5.5"
 ; requires netcorecheck.exe and netcorecheck_x64.exe (see CodeDependencies.iss)
 #define public Dependency_Path_NetCoreCheck "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\InnoSetup\dependencies\.NET8\"
 
@@ -53,7 +53,6 @@ VersionInfoProductVersion={#AppVersion}
 Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
 
 [Files]
-;Source: "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\bin\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
 Source: "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
 
 

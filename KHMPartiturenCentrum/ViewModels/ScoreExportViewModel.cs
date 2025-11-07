@@ -5,7 +5,7 @@ namespace KHM.ViewModels
 {
     public partial class ScoreExportViewModel : BaseScoreViewModel
     {
-        public ObservableCollection<ScoreModel> Scores { get; set; } = new();
+        public new ObservableCollection<ScoreModel> Scores { get; set; } = new();
 
         private bool _isLoading;
         public bool IsLoading

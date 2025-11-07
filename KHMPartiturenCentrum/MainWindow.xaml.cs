@@ -1,4 +1,6 @@
 ﻿using static KHM.App;
+using System.Diagnostics;
+using System.Reflection;
 
 using Application = System.Windows.Application;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
@@ -26,15 +28,33 @@ public partial class MainWindow : Window
 			tbShowAdmin.Text = "Collapsed";
 		}
 
-		var assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
-		var fileVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(assemblyLocation).FileVersion;
-		var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-		txtVersion.Content = $"v{fileVersion}";
-	}
+        // Safe FileVersion retrieval for single-file or installer builds
+        string fileVersion;
 
-	#region Button Close | Restore | Minimize 
-	#region Button Close
-	private void btnClose_Click( object sender, RoutedEventArgs e )
+        try
+        {
+            // This works even for single-file published apps
+            var exePath = Process.GetCurrentProcess().MainModule?.FileName;
+            if (!string.IsNullOrEmpty(exePath))
+                fileVersion = FileVersionInfo.GetVersionInfo(exePath).FileVersion ?? "unknown";
+            else
+                fileVersion = "unknown";
+        }
+        catch
+        {
+            fileVersion = "unknown";
+        }
+
+        // Optional: also get Assembly version
+        var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "unknown";
+
+        txtVersion.Content = $"v{fileVersion}"; // or $"v{assemblyVersion}" if you prefer
+
+    }
+
+    #region Button Close | Restore | Minimize 
+    #region Button Close
+    private void btnClose_Click( object sender, RoutedEventArgs e )
 	{
 		DBCommands.WriteLog( ScoreUsers.SelectedUserId, DBNames.LogUserLoggedOut, $"{tbLogedInFullName.Text} heeft de applicatie afgesloten" );
 		Close();

@@ -99,7 +99,7 @@
                             <ctls:MenuItem
 								VerticalAlignment="Center"
 								GroupName="MenuItem"
-								Icon="{DynamicResource scores}"
+								Icon="{DynamicResource scoresexcel}"
 								IconWidth="16"
 								IndicatorBrush="{DynamicResource PrimaryBlueColor}"
 								Text="Partiturenoverzicht" />

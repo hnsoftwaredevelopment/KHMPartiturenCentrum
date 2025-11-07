@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using static KHM.App;
@@ -105,317 +106,6 @@ public class DBCommands
 	#endregion
 
 	#region Get Scores
-	public static ObservableCollection<ScoreModel> GetScores( string _table, string _orderByFieldName, string _whereFieldName, string _whereFieldValue )
-	{
-		ObservableCollection<ScoreModel> Scores = new();
-		DataTable dataTable = new();
-
-		if ( _whereFieldName != null )
-		{
-			dataTable = GetData( _table, _orderByFieldName, _whereFieldName, _whereFieldValue );
-		}
-		else
-		{
-			dataTable = GetData( _table, _orderByFieldName );
-		}
-
-
-		if ( dataTable.Rows.Count > 0 )
-		{
-			for ( int i = 0; i < dataTable.Rows.Count; i++ )
-			{
-				// Set the bools
-				bool check = false, byHeart = false;
-				bool pdfORP = false, pdfORK = false, pdfTOP = false, pdfTOK = false, pdfPIA = false;
-				bool mscORP = false, mscORK = false, mscTOP = false, mscTOK = false, mscOnline = false;
-				bool mp3B1 = false, mp3B2 = false, mp3T1 = false, mp3T2 = false, mp3SOL1 = false, mp3SOL2 = false, mp3TOT = false, mp3PIA = false, mp3UITV = false;
-				bool mp3B1Voice = false, mp3B2Voice = false, mp3T1Voice = false, mp3T2Voice = false, mp3SOL1Voice = false, mp3SOL2Voice = false, mp3TOTVoice = false, mp3UITVVoice = false;
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 18 ].ToString() ) == 0 )
-				{ check = false; }
-				else
-				{ check = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 23 ].ToString() ) == 0 )
-				{ pdfORP = false; }
-				else
-				{ pdfORP = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 24 ].ToString() ) == 0 )
-				{ pdfORK = false; }
-				else
-				{ pdfORK = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 25 ].ToString() ) == 0 )
-				{ pdfTOP = false; }
-				else
-				{ pdfTOP = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 26 ].ToString() ) == 0 )
-				{ pdfTOK = false; }
-				else
-				{ pdfTOK = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 27 ].ToString() ) == 0 )
-				{ pdfPIA = false; }
-				else
-				{ pdfPIA = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 28 ].ToString() ) == 0 )
-				{ mscORP = false; }
-				else
-				{ mscORP = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 29 ].ToString() ) == 0 )
-				{ mscORK = false; }
-				else
-				{ mscORK = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 30 ].ToString() ) == 0 )
-				{ mscTOP = false; }
-				else
-				{ mscTOP = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 31 ].ToString() ) == 0 )
-				{ mscTOK = false; }
-				else
-				{ mscTOK = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 32 ].ToString() ) == 0 )
-				{ mp3T1 = false; }
-				else
-				{ mp3T1 = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 33 ].ToString() ) == 0 )
-				{ mp3T2 = false; }
-				else
-				{ mp3T2 = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 34 ].ToString() ) == 0 )
-				{ mp3B1 = false; }
-				else
-				{ mp3B1 = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 35 ].ToString() ) == 0 )
-				{ mp3B2 = false; }
-				else
-				{ mp3B2 = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 36 ].ToString() ) == 0 )
-				{ mp3SOL1 = false; }
-				else
-				{ mp3SOL1 = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 37 ].ToString() ) == 0 )
-				{ mp3SOL2 = false; }
-				else
-				{ mp3SOL2 = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 38 ].ToString() ) == 0 )
-				{ mp3TOT = false; }
-				else
-				{ mp3TOT = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 39 ].ToString() ) == 0 )
-				{ mp3PIA = false; }
-				else
-				{ mp3PIA = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 40 ].ToString() ) == 0 )
-				{ mp3T1Voice = false; }
-				else
-				{ mp3T1Voice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 41 ].ToString() ) == 0 )
-				{ mp3T2Voice = false; }
-				else
-				{ mp3T2Voice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 42 ].ToString() ) == 0 )
-				{ mp3B1Voice = false; }
-				else
-				{ mp3B1Voice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 43 ].ToString() ) == 0 )
-				{ mp3B2Voice = false; }
-				else
-				{ mp3B2Voice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 44 ].ToString() ) == 0 )
-				{ mp3SOL1Voice = false; }
-				else
-				{ mp3SOL1Voice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 45 ].ToString() ) == 0 )
-				{ mp3SOL2Voice = false; }
-				else
-				{ mp3SOL2Voice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 46 ].ToString() ) == 0 )
-				{ mp3TOTVoice = false; }
-				else
-				{ mp3TOTVoice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 47 ].ToString() ) == 0 )
-				{ mp3UITVVoice = false; }
-				else
-				{ mp3UITVVoice = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 48 ].ToString() ) == 0 )
-				{ mscOnline = false; }
-				else
-				{ mscOnline = true; }
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 49 ].ToString() ) == 0 )
-				{ byHeart = false; }
-				else
-				{ byHeart = true; }
-
-				// Set total
-				var total = 0;
-
-				total = int.Parse( dataTable.Rows [ i ].ItemArray [ 52 ].ToString() ) +
-						int.Parse( dataTable.Rows [ i ].ItemArray [ 53 ].ToString() ) +
-						int.Parse( dataTable.Rows [ i ].ItemArray [ 54 ].ToString() ) +
-						int.Parse( dataTable.Rows [ i ].ItemArray [ 55 ].ToString() );
-
-				// Set the datestrings
-				string dateCreated = "";
-				if ( dataTable.Rows [ i ].ItemArray [ 19 ].ToString() != "" )
-				{
-					string[] _tempCreated = dataTable.Rows[i].ItemArray[19].ToString().Split(" ");
-					dateCreated = _tempCreated [ 0 ];
-				}
-
-				string dateModified = "";
-				if ( dataTable.Rows [ i ].ItemArray [ 20 ].ToString() != "" )
-				{
-					string[] _tempModified = dataTable.Rows[i].ItemArray[20].ToString().Split(" ");
-					dateModified = _tempModified [ 0 ];
-				}
-
-				//var _duration="";
-				int _minutes=0, _seconds = 0, _duration = 0;
-
-				if ( int.Parse( dataTable.Rows [ i ].ItemArray [ 56 ].ToString() ) != 0 )
-				{
-					_minutes = int.Parse( dataTable.Rows [ i ].ItemArray [ 64 ].ToString() ) / 60;
-					_seconds = int.Parse( dataTable.Rows [ i ].ItemArray [ 64 ].ToString() ) % 60;
-					//_duration = $"{_minutes}:{_seconds.ToString ( "00" )}";
-					_duration = int.Parse( dataTable.Rows [ i ].ItemArray [ 64 ].ToString() );
-				}
-
-				// When Title is empty don't add that row to the list
-				if ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString() != string.Empty )
-				{
-					Scores.Add( new ScoreModel
-					{
-						ScoreId = int.Parse( dataTable.Rows [ i ].ItemArray [ 0 ].ToString() ),
-						Score = dataTable.Rows [ i ].ItemArray [ 1 ].ToString(),
-						ScoreNumber = dataTable.Rows [ i ].ItemArray [ 2 ].ToString(),
-						ScoreSubNumber = dataTable.Rows [ i ].ItemArray [ 3 ].ToString(),
-						ScoreTitle = dataTable.Rows [ i ].ItemArray [ 4 ].ToString(),
-						ScoreSubTitle = dataTable.Rows [ i ].ItemArray [ 5 ].ToString(),
-						Composer = dataTable.Rows [ i ].ItemArray [ 6 ].ToString(),
-						Textwriter = dataTable.Rows [ i ].ItemArray [ 7 ].ToString(),
-						Arranger = dataTable.Rows [ i ].ItemArray [ 8 ].ToString(),
-						ArchiveId = int.Parse( dataTable.Rows [ i ].ItemArray [ 9 ].ToString() ),
-						ArchiveName = dataTable.Rows [ i ].ItemArray [ 10 ].ToString(),
-						RepertoireId = int.Parse( dataTable.Rows [ i ].ItemArray [ 11 ].ToString() ),
-						RepertoireName = dataTable.Rows [ i ].ItemArray [ 12 ].ToString(),
-						LanguageId = int.Parse( dataTable.Rows [ i ].ItemArray [ 13 ].ToString() ),
-						LanguageName = dataTable.Rows [ i ].ItemArray [ 14 ].ToString(),
-						GenreId = int.Parse( dataTable.Rows [ i ].ItemArray [ 15 ].ToString() ),
-						GenreName = dataTable.Rows [ i ].ItemArray [ 16 ].ToString(),
-						Lyrics = dataTable.Rows [ i ].ItemArray [ 17 ].ToString(),
-						CheckInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 18 ].ToString() ),
-						DateCreatedString = dateCreated,
-						DateModifiedString = dateModified,
-						Checked = check,
-						AccompanimentId = int.Parse( dataTable.Rows [ i ].ItemArray [ 21 ].ToString() ),
-						AccompanimentName = dataTable.Rows [ i ].ItemArray [ 22 ].ToString(),
-						PDFORPInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 23 ].ToString() ),
-						PDFORP = pdfORP,
-						PDFORKInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 24 ].ToString() ),
-						PDFORK = pdfORK,
-						PDFTOPInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 25 ].ToString() ),
-						PDFTOP = pdfTOP,
-						PDFTOKInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 26 ].ToString() ),
-						PDFTOK = pdfTOK,
-						PDFPIAInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 28 ].ToString() ),
-						PDFPIA = pdfPIA,
-
-						MuseScoreORPInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 28 ].ToString() ),
-						MuseScoreORP = mscORP,
-						MuseScoreORKInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 29 ].ToString() ),
-						MuseScoreORK = mscORK,
-						MuseScoreTOPInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 30 ].ToString() ),
-						MuseScoreTOP = mscTOP,
-						MuseScoreTOKInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 31 ].ToString() ),
-						MuseScoreTOK = mscTOK,
-						MP3T1Int = int.Parse( dataTable.Rows [ i ].ItemArray [ 32 ].ToString() ),
-						MP3T1 = mp3T1,
-						MP3T2Int = int.Parse( dataTable.Rows [ i ].ItemArray [ 33 ].ToString() ),
-						MP3T2 = mp3T2,
-						MP3B1Int = int.Parse( dataTable.Rows [ i ].ItemArray [ 34 ].ToString() ),
-						MP3B1 = mp3B1,
-						MP3B2Int = int.Parse( dataTable.Rows [ i ].ItemArray [ 35 ].ToString() ),
-						MP3B2 = mp3B2,
-						MP3SOL1Int = int.Parse( dataTable.Rows [ i ].ItemArray [ 36 ].ToString() ),
-						MP3SOL1 = mp3SOL1,
-						MP3SOL2Int = int.Parse( dataTable.Rows [ i ].ItemArray [ 37 ].ToString() ),
-						MP3SOL2 = mp3SOL2,
-						MP3TOTInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 38 ].ToString() ),
-						MP3TOT = mp3TOT,
-						MP3PIAInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 39 ].ToString() ),
-						MP3PIA = mp3PIA,
-						MP3T1VoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 40 ].ToString() ),
-						MP3T1Voice = mp3T1Voice,
-						MP3T2VoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 41 ].ToString() ),
-						MP3T2Voice = mp3T2Voice,
-						MP3B1VoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 42 ].ToString() ),
-						MP3B1Voice = mp3B1Voice,
-						MP3B2VoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 43 ].ToString() ),
-						MP3B2Voice = mp3B2Voice,
-						MP3SOL1VoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 44 ].ToString() ),
-						MP3SOL1Voice = mp3SOL1Voice,
-						MP3SOL2VoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 45 ].ToString() ),
-						MP3SOL2Voice = mp3SOL2Voice,
-						MP3TOTVoiceInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 46 ].ToString() ),
-						MP3TOTVoice = mp3TOTVoice,
-						MP3UITVInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 47 ].ToString() ),
-						MP3UITV = mp3UITV,
-						MuseScoreOnlineInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 48 ].ToString() ),
-						MuseScoreOnline = mscOnline,
-						ByHeartInt = int.Parse( dataTable.Rows [ i ].ItemArray [ 49 ].ToString() ),
-						ByHeart = byHeart,
-						MusicPiece = dataTable.Rows [ i ].ItemArray [ 50 ].ToString(),
-						Notes = dataTable.Rows [ i ].ItemArray [ 51 ].ToString(),
-						AmountPublisher1 = int.Parse( dataTable.Rows [ i ].ItemArray [ 52 ].ToString() ),
-						AmountPublisher2 = int.Parse( dataTable.Rows [ i ].ItemArray [ 53 ].ToString() ),
-						AmountPublisher3 = int.Parse( dataTable.Rows [ i ].ItemArray [ 54 ].ToString() ),
-						AmountPublisher4 = int.Parse( dataTable.Rows [ i ].ItemArray [ 55 ].ToString() ),
-						AmountTotal = total,
-						Publisher1Id = int.Parse( dataTable.Rows [ i ].ItemArray [ 56 ].ToString() ),
-						Publisher1Name = dataTable.Rows [ i ].ItemArray [ 57 ].ToString(),
-						Publisher2Id = int.Parse( dataTable.Rows [ i ].ItemArray [ 58 ].ToString() ),
-						Publisher2Name = dataTable.Rows [ i ].ItemArray [ 59 ].ToString(),
-						Publisher3Id = int.Parse( dataTable.Rows [ i ].ItemArray [ 60 ].ToString() ),
-						Publisher3Name = dataTable.Rows [ i ].ItemArray [ 61 ].ToString(),
-						Publisher4Id = int.Parse( dataTable.Rows [ i ].ItemArray [ 62 ].ToString() ),
-						Publisher4Name = dataTable.Rows [ i ].ItemArray [ 63 ].ToString(),
-						Duration = _duration,
-						DurationMinutes = _minutes,
-						DurationSeconds = _seconds,
-						SearchField = $"{dataTable.Rows [ i ].ItemArray [ 2 ].ToString()} {dataTable.Rows [ i ].ItemArray [ 4 ].ToString()} {dataTable.Rows [ i ].ItemArray [ 5 ].ToString()} {dataTable.Rows [ i ].ItemArray [ 6 ].ToString()} {dataTable.Rows [ i ].ItemArray [ 7 ].ToString()} {dataTable.Rows [ i ].ItemArray [ 8 ].ToString()} {dataTable.Rows [ i ].ItemArray [ 12 ].ToString()}"
-					} );
-					;
-				}
-			}
-		}
-		return Scores;
-	}
-
     public static async Task<List<ScoreModel>> GetScoresAsync()
     {
         var scores = new List<ScoreModel>();
@@ -430,7 +120,7 @@ public class DBCommands
 
         await using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
 
-        // Cache ordinals once (sneller dan telkens "reader["ColumnName"]" gebruiken)
+        // Cache ordinals once (faster then use "reader["ColumnName"]" everywhere)
         int ordScore = reader.GetOrdinal("Score");
         int ordScoreTitle = reader.GetOrdinal("ScoreTitle");
         int ordScoreSubTitle = reader.GetOrdinal("ScoreSubTitle");
@@ -514,8 +204,151 @@ public class DBCommands
         }
 
         return scores;
-    }    
-	#endregion
+    }
+
+    public static async Task<List<ScoreModel>> GetScoresFullAsync()
+    {
+        var scores = new List<ScoreModel>();
+
+        await using var connection = new MySqlConnection(DBConnect.ConnectionString);
+        await connection.OpenAsync();
+
+        await using var cmd = new MySqlCommand("KHMMuziekbibliotheek.sp_GetScores", connection)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
+
+        await using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
+
+        // Cache ordinals (sneller)
+        int ordScoreId = reader.GetOrdinal("ScoreId");
+        int ordScore = reader.GetOrdinal("Score");
+        int ordScoreNumber = reader.GetOrdinal("ScoreNumber");
+        int ordScoreSubNumber = reader.GetOrdinal("ScoreSubNumber");
+        int ordScoreTitle = reader.GetOrdinal("ScoreTitle");
+        int ordScoreSubTitle = reader.GetOrdinal("ScoreSubTitle");
+        int ordComposer = reader.GetOrdinal("Composer");
+        int ordTextWriter = reader.GetOrdinal("TextWriter");
+        int ordArranger = reader.GetOrdinal("Arranger");
+        int ordArchiveId = reader.GetOrdinal("ArchiveId");
+        int ordArchiveName = reader.GetOrdinal("ArchiveName");
+        int ordRepertoireId = reader.GetOrdinal("RepertoireId");
+        int ordRepertoireName = reader.GetOrdinal("RepertoireName");
+        int ordLanguageId = reader.GetOrdinal("LanguageId");
+        int ordLanguageName = reader.GetOrdinal("LanguageName");
+        int ordGenreId = reader.GetOrdinal("GenreId");
+        int ordGenreName = reader.GetOrdinal("GenreName");
+        int ordLyrics = reader.GetOrdinal("Lyrics");
+        int ordCheckInt = reader.GetOrdinal("CheckInt");
+        int ordDateCreated = reader.GetOrdinal("DateCreatedString");
+        int ordDateModified = reader.GetOrdinal("DateModifiedString");
+        int ordAccompanimentId = reader.GetOrdinal("AccompanimentId");
+        int ordAccompanimentName = reader.GetOrdinal("AccompanimentName");
+        int ordDuration = reader.GetOrdinal("DurationSeconde");
+        int ordNotes = reader.GetOrdinal("Notes");
+
+        while (await reader.ReadAsync())
+        {
+            // Skip lege titels
+            var title = reader.IsDBNull(ordScoreTitle) ? null : reader.GetString(ordScoreTitle);
+            if (string.IsNullOrWhiteSpace(title))
+                continue;
+
+            int totalSeconds = reader.IsDBNull(ordDuration) ? 0 : reader.GetInt32(ordDuration);
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+
+            var durationString = totalSeconds > 0
+                ? $"{minutes:D2}:{seconds:D2}"
+                : string.Empty;
+
+            var score = new ScoreModel
+            {
+                ScoreId = reader.IsDBNull(ordScoreId) ? 0 : reader.GetInt32(ordScoreId),
+                Score = reader.IsDBNull(ordScore) ? null : reader.GetString(ordScore),
+                ScoreNumber = reader.IsDBNull(ordScoreNumber) ? null : reader.GetString(ordScoreNumber),
+                ScoreSubNumber = reader.IsDBNull(ordScoreSubNumber) ? null : reader.GetString(ordScoreSubNumber),
+                ScoreTitle = title,
+                ScoreSubTitle = reader.IsDBNull(ordScoreSubTitle) ? null : reader.GetString(ordScoreSubTitle),
+                Composer = reader.IsDBNull(ordComposer) ? null : reader.GetString(ordComposer),
+                Textwriter = reader.IsDBNull(ordTextWriter) ? null : reader.GetString(ordTextWriter),
+                Arranger = reader.IsDBNull(ordArranger) ? null : reader.GetString(ordArranger),
+
+                ArchiveId = reader.IsDBNull(ordArchiveId) ? 0 : reader.GetInt32(ordArchiveId),
+                ArchiveName = reader.IsDBNull(ordArchiveName) ? null : reader.GetString(ordArchiveName),
+                RepertoireId = reader.IsDBNull(ordRepertoireId) ? 0 : reader.GetInt32(ordRepertoireId),
+                RepertoireName = reader.IsDBNull(ordRepertoireName) ? null : reader.GetString(ordRepertoireName),
+                LanguageId = reader.IsDBNull(ordLanguageId) ? 0 : reader.GetInt32(ordLanguageId),
+                LanguageName = reader.IsDBNull(ordLanguageName) ? null : reader.GetString(ordLanguageName),
+                GenreId = reader.IsDBNull(ordGenreId) ? 0 : reader.GetInt32(ordGenreId),
+                GenreName = reader.IsDBNull(ordGenreName) ? null : reader.GetString(ordGenreName),
+
+                Lyrics = reader.IsDBNull(ordLyrics) ? null : reader.GetString(ordLyrics),
+                CheckInt = reader.IsDBNull(ordCheckInt) ? 0 : reader.GetInt32(ordCheckInt),
+
+                // DateOnly-velden voor de Scores-pagina
+                DateDigitized = reader.IsDBNull(ordDateCreated)
+                    ? default
+                    : DateOnly.FromDateTime(reader.GetDateTime(ordDateCreated)),
+
+                DateModified = reader.IsDBNull(ordDateModified)
+                    ? default
+                    : DateOnly.FromDateTime(reader.GetDateTime(ordDateModified)),
+
+                // Extra string representatie (voor tabellen/exports)
+                DateCreatedString = reader.IsDBNull(ordDateCreated)
+                    ? string.Empty
+                    : reader.GetDateTime(ordDateCreated).ToString("dd-MM-yyyy"),
+
+                DateModifiedString = reader.IsDBNull(ordDateModified)
+                    ? string.Empty
+                    : reader.GetDateTime(ordDateModified).ToString("dd-MM-yyyy"),
+
+                AccompanimentId = reader.IsDBNull(ordAccompanimentId) ? 0 : reader.GetInt32(ordAccompanimentId),
+                AccompanimentName = reader.IsDBNull(ordAccompanimentName) ? null : reader.GetString(ordAccompanimentName),
+                Notes = reader.IsDBNull(ordNotes) ? null : reader.GetString(ordNotes),
+                DurationSeconds = seconds,
+                DurationMinutes = minutes,
+                DurationString = durationString,
+
+                // Booleanvelden
+                PDFORP = reader.GetBoolean("PDFORP"),
+                PDFORK = reader.GetBoolean("PDFORK"),
+                PDFTOP = reader.GetBoolean("PDFTOP"),
+                PDFTOK = reader.GetBoolean("PDFTOK"),
+                PDFPIA = reader.GetBoolean("PDFPIA"),
+                MuseScoreORP = reader.GetBoolean("MuseScoreORP"),
+                MuseScoreORK = reader.GetBoolean("MuseScoreORK"),
+                MuseScoreTOP = reader.GetBoolean("MuseScoreTOP"),
+                MuseScoreTOK = reader.GetBoolean("MuseScoreTOK"),
+                MuseScoreOnline = reader.GetBoolean("MuseScoreOnline"),
+                MP3T1 = reader.GetBoolean("MP3T1"),
+                MP3T2 = reader.GetBoolean("MP3T2"),
+                MP3B1 = reader.GetBoolean("MP3B1"),
+                MP3B2 = reader.GetBoolean("MP3B2"),
+                MP3SOL1 = reader.GetBoolean("MP3SOL1"),
+                MP3SOL2 = reader.GetBoolean("MP3SOL2"),
+                MP3TOT = reader.GetBoolean("MP3TOT"),
+                MP3PIA = reader.GetBoolean("MP3PIA"),
+                MP3T1Voice = reader.GetBoolean("MP3T1Voice"),
+                MP3T2Voice = reader.GetBoolean("MP3T2Voice"),
+                MP3B1Voice = reader.GetBoolean("MP3B1Voice"),
+                MP3B2Voice = reader.GetBoolean("MP3B2Voice"),
+                MP3SOL1Voice = reader.GetBoolean("MP3SOL1Voice"),
+                MP3SOL2Voice = reader.GetBoolean("MP3SOL2Voice"),
+                MP3TOTVoice = reader.GetBoolean("MP3TOTVoice"),
+                MP3UITV = reader.GetBoolean("MP3UITV"),
+                ByHeart = reader.GetBoolean("ByHeart"),
+
+            };
+            score.SearchField = $"{score.ScoreNumber} {score.ScoreTitle} {score.ScoreSubTitle} {score.Composer} {score.Textwriter} {score.Arranger} {score.RepertoireName} {score.GenreName} {score.ArchiveName}".Trim();
+
+            scores.Add(score);
+        }
+
+        return scores;
+    }
+    #endregion
 
     #region Delete Score
     public static void DeleteScore( string ScoreNumber, string ScoreSubNumber )
