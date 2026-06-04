@@ -3,19 +3,19 @@
 #define Developer "Herbert Nijkamp"
 #define Publisher "HN Software Development"
 #define CurrentYear GetDateTimeString('yyyy', '', '')
-#define DevOpsPath "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\"
-#define SetupIcons "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Icons\"
-#define SetupImages "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Images\"
-#define AppConfigPath "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Config\"
-#define AppVersion GetVersionNumbersString("c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\KHM.exe")
+#define DevOpsPath "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\"
+#define SetupIcons "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Icons\"
+#define SetupImages "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Images\"
+#define AppConfigPath "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\KHMPartiturenCentrum\Resources\Config\"
+#define AppVersion GetVersionNumbersString("c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\KHM.exe")
 ;#define AppVersion "25.5.5"
 ; requires netcorecheck.exe and netcorecheck_x64.exe (see CodeDependencies.iss)
-#define public Dependency_Path_NetCoreCheck "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\InnoSetup\dependencies\.NET8\"
+#define public Dependency_Path_NetCoreCheck "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\InnoSetup\dependencies\.NET8\"
 
 ; requires dxwebsetup.exe (see CodeDependencies.iss)
 ;#define public Dependency_Path_DirectX "dependencies\"
 
-#include "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\InnoSetup\CodeDependencies.iss"
+#include "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\InnoSetup\CodeDependencies.iss"
 
 [Setup]
 AppName={#ApplicationName}
@@ -53,7 +53,7 @@ VersionInfoProductVersion={#AppVersion}
 Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
 
 [Files]
-Source: "c:\Users\hnijk\OneDrive\Data\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
+Source: "c:\Users\hnijk\OneDrive\DevOps\hnsoftwaredevelopment\KHMPartiturenCentrum\Builds\Publish\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs; Excludes: "*.pdb"
 
 
 [Icons]

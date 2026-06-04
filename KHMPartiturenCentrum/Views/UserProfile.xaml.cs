@@ -125,14 +125,46 @@ public partial class UserProfile : Page
 
 		if ( ( bool ) cbCoverSheetsFolderChanged.IsChecked )
 		{
-			_CoverSheetsFolder = tbCoverSheets.Text;
-			ScoreUsers.SelectedUserCoverSheetFolder = _CoverSheetsFolder;
+			var folder = tbCoverSheets.Text?.Trim() ?? string.Empty;
+			if ( string.IsNullOrWhiteSpace(folder) )
+			{
+				folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			}
+
+			try
+			{
+				var full = System.IO.Path.GetFullPath(folder);
+				System.IO.Directory.CreateDirectory(full);
+				_CoverSheetsFolder = full;
+				ScoreUsers.SelectedUserCoverSheetFolder = _CoverSheetsFolder;
+			}
+			catch ( Exception ex )
+			{
+				System.Windows.MessageBox.Show($"Kan de map voor voorbladen niet gebruiken: {ex.Message}", "Ongeldige map", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+				return;
+			}
 		}
 
 		if ( ( bool ) cbDownloadFolderChanged.IsChecked )
 		{
-			_DownloadFolder = tbDownloadFolder.Text;
-			ScoreUsers.SelectedUserDownloadFolder = _DownloadFolder;
+			var folder = tbDownloadFolder.Text?.Trim() ?? string.Empty;
+			if ( string.IsNullOrWhiteSpace(folder) )
+			{
+				folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			}
+
+			try
+			{
+				var full = System.IO.Path.GetFullPath(folder);
+				System.IO.Directory.CreateDirectory(full);
+				_DownloadFolder = full;
+				ScoreUsers.SelectedUserDownloadFolder = _DownloadFolder;
+			}
+			catch ( Exception ex )
+			{
+				System.Windows.MessageBox.Show($"Kan de downloadmap niet gebruiken: {ex.Message}", "Ongeldige map", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+				return;
+			}
 		}
 
 		ModifiedUser.Add( new UserModel

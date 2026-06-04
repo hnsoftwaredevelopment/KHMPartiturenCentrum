@@ -4268,8 +4268,6 @@ public partial class Scores : Page
 			ScoreNumberFontSize = 52;
 		}
 
-		// Set the name of the CoverSheet document and image
-		var _docname = $"{_outputFolder}{ScoreNumber}.docx";
 
 
 		// Set the check boxes
@@ -4397,8 +4395,39 @@ public partial class Scores : Page
 			document.Replace( "<<Lyrics2>>", _lyrics2, true, true );
 		}
 
-		//Saves the Word document
-		document.Save( _docname );
+		// Set the name of the CoverSheet document and image using a safe path and filename
+		var userFolder = ScoreUsers.SelectedUserCoverSheetFolder?.Trim() ?? string.Empty;
+		if (string.IsNullOrWhiteSpace(userFolder))
+		{
+			userFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+		}
+
+		// Sanitize ScoreNumber for use as filename
+		var invalidChars = System.IO.Path.GetInvalidFileNameChars();
+		var sb = new System.Text.StringBuilder();
+		foreach (var ch in ScoreNumber)
+		{
+			sb.Append(Array.IndexOf(invalidChars, ch) >= 0 ? '_' : ch);
+		}
+		var safeScoreNumber = sb.ToString();
+
+		var _docname = System.IO.Path.Combine(userFolder, safeScoreNumber + ".docx");
+
+		try
+		{
+			if (!string.IsNullOrEmpty(userFolder))
+			{
+				System.IO.Directory.CreateDirectory(userFolder);
+			}
+
+			//Saves the Word document
+			document.Save(_docname);
+		}
+		catch (Exception ex)
+		{
+			System.Windows.MessageBox.Show($"Unable to save cover sheet: {ex.Message}", "Opslaan mislukt", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+			return;
+		}
 
 		DBCommands.WriteLog( ScoreUsers.SelectedUserId, DBNames.LogCoverSheetCreated, $"Partituur: {tbScoreNumber.Text}" );
 	}
